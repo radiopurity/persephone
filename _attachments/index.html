@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Persephone v0.2</title>
+		
+		<link type="text/css" href="css/smoothness/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
+
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
+      <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+      <script type="text/javascript" src="js/collapsing.js"></script>
+      <script type="text/javascript" src="/_utils/script/jquery.couch.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/jquery.placehold-0.3.min.js"></script>      
+      <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="js/additional-methods.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>	
+
+	</head>
+
+	<body>
+
+      <div id="header"><img src="images/lbf.gif"></img></div>
+      
+		<div id="tabs">
+		
+			<ul>
+				<li><a href="#tab-search">Search</a></li>
+				<li><a href="#tab-submit">Submit</a></li>
+            <li><a href="#tab-feedback">Feedback</a></li>
+			   <li><a href="#tab-instructions">Instructions</a></li>
+			   <li><a href="#tab-preferences">Preferences</a></li>
+			</ul>
+
+         <!-- Search -->
+
+			<div id="tab-search">
+
+			   <div>
+               <input id="box-search" placeholder="e.g. tin" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
+               <button id="button-search" onclick="javascript:click_search();">Search</button>
+			      <button id="button-expand" onclick="javascript:click_expand();">Expand</button> 
+			      <button id="button-detail" onclick="javascript:click_detail();">Detail</button>
+			   </div>
+					
+			   <div id="materials" class="content"></div>
+			
+			</div>		
+			
+			<!-- Data -->	
+			
+			<div id="tab-submit">
+			
+			   <div>
+			      <button id="button-submit" onclick="javascript:click_submit();">Submit for approval</button>     
+               <button id="button-check" onclick="javascript:click_check();">Check</button>
+               <button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
+               <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>
+			   </div>
+
+            <div id="input-form"  class="content"></div>
+			
+			</div>
+
+			<!-- Feedback -->
+			
+			<div id="tab-feedback">
+
+			   <div>
+			      <button id="button-feedback" onclick="javascript:click_feedback();">Send feedback</button>     
+			   </div>
+
+            <div id="feedback-form" class="content">
+			
+               <form id="feedback">
+            
+                  <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+               
+                  <legend>Feedback</legend>
+                  
+                     <div class="input-row">
+                        <label class="input-label">Name</label>
+                        <input id="fname" name="fname" placeholder="Full name" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+                        <span class="istatus"></span>
+                     </div>      
+                     <div class="input-row">
+                        <label class="input-label">Email</label>
+                        <input id="femail" name="femail" placeholder="Email address" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+                        <span class="istatus"></span>
+                     </div>
+                     <div class="input-row">
+                        <label class="input-label">Comment</label>
+                        <textarea id="fcomment" name="fcomment" placeholder="Feedback" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+                     </div>
+                  
+                  </fieldset>	            
+            
+               </form>
+               
+            </div>
+			
+			</div>
+
+			<!-- Instructions -->
+
+			<div id="tab-instructions">
+			
+            <div id="instructions" class="content-text">			
+			
+			      <p><b>Searching</b></p>
+			      
+			      <p>Search returns documents containing one or more of the search terms.</p>
+
+			      <p>You can alter this default behavior using wildcards and operators such as:</p>
+
+               <ul>
+                  <li> "stainless steel"</li>
+                  <li> stainless AND steel</li>
+                  <li> stainless OR steel</li>
+                  <li> stee?</li>
+                  <li> stainless s*</li>
+               </ul>
+
+               <p>By default results are presented in a concise form. Click 'Expand' to show the full detail.</p>
+
+               <p>Enter 'all' to show all documents.</p>
+
+			      <p><b>Submitting</b></p>
+			      
+			      <p>Data should be entered into the search form as indicated.</p>
+
+			      <p>Grayed out field names are optional.</p>
+
+			      <p>Submitted data is not immediately searchable. The moderator must sign off on each document.</p>
+			
+			   </div>
+			
+			</div>
+
+			<!-- Preferences -->
+
+			<div id="tab-preferences">
+
+            <div id="preferences" class="content-text">			
+			
+			      <p>No options yet!</p>
+			
+			   </div>
+
+         </div>
+
+		</div>
+
+      <div id="dialog-submit" title="Entry submitted">
+      	<p>Your entry has been submitted. It will appear in the database following the approval process.</p>
+      </div>
+
+      <div id="dialog-feedback" title="Feedback submitted">
+      	<p>Your feedback has been submitted. Thank you.</p>
+      </div>
+
+      <div id="tagline">Persephone v0.2 (demo for AARM)</div>
+
+   </body>
+
+</html>

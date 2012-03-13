@@ -1,0 +1,145 @@
+<form id="input">
+
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+   
+      <legend>Sample</legend>
+
+      <div class="input-row">
+         <label class="input-label">Name</label>
+         <input id="iname" name="iname" placeholder="Brief description" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>        
+      <div class="input-row">
+         <label class="input-label">Description</label>
+         <input id="idesc" name="idesc" placeholder="Detailed description" class="input-box ui-widget-content ui-corner-all" style="width:400px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Source</label>
+         <input id="isrc" name="isrc" class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Owner</label>
+         <input id="iown" name="iown" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Tags</label>
+         <input id="itags" name="itags" placeholder="Tags separated by spaces" class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
+         <span class="istatus"></span>
+      </div>                     
+      <div class="input-row">
+         <label class="input-label">Mass</label>
+         <input id="imass" name="imass" placeholder="" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Geometry</label>
+         <input id="igeom" name="igeom" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>
+   
+   </fieldset>
+
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+      
+      <legend>Measurement</legend>
+
+      <div class="input-row">
+         <label class="input-label">Technique</label>
+         <input id="itech" name="itech" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>   
+      <div class="input-row">
+         <label class="input-label">Institution</label>
+         <input id="iinst" name="iinst" placeholder="Where it was counted" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>   
+      <div class="input-row">
+         <label class="input-label">Date</label>
+         <input id="idate" name="idate" placeholder="mm/dd/yyyy" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
+         <span class="istatus"></span>
+      </div>   
+      <div class="input-row">
+         <label class="input-label">Requester</label>
+         <input id="ireq" name="ireq" placeholder="Name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <input id="ireqcon" name="ireqcon" placeholder="Email or institution" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>   
+      <div class="input-row">
+         <label class="input-label">Practitioner</label>
+         <input id="iprac" name="iprac" placeholder="Name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <input id="ipraccon" name="ipraccon" placeholder="Email or institution" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>   
+      <div class="input-row">
+         <label class="input-label">Description</label>
+         <textarea id="imdesc" name="idesc" placeholder="Detailed description" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+      </div>
+   
+      <div class="results-block">
+                     
+         <div class="input-row template" style="display:none" class="temp      <label class="input-label"></label>
+            <label class="input-label"></label>
+            <input placeholder="Isotope" class="iisotope input-box ui-widget-content ui-corner-all" style="width:100px"/>                   
+            <select onchange="javascript:limit_error(this)" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+               <option value="Meas">Meas.</option>
+               <option value="Limit">Limit</option>
+            </select>
+            <input placeholder="Value" class="ivalue input-box-select ui-widget-content ui-corner-all" style="width:100px"/>
+            <input placeholder="Error" class="ierror input-box ui-widget-content ui-corner-all" style="width:100px"/> 
+            <input placeholder="Unit" class="iunit input-box ui-widget-content ui-corner-all" style="width:100px"/>         
+            <button class="add-entry menu-button"    onclick="javascript:add_result_entry(this);" type="button">Add</button>
+            <button class="remove-entry menu-button" onclick="javascript:remove_result_entry(this);" type="button">Remove</button>
+            <span class="istatus"></span>
+         </div>
+         
+         <div class="input-row result-row">
+            <label class="input-label">Result</label>
+            <input placeholder="Isotope" class="iisotope input-box ui-widget-content ui-corner-all" style="width:100px"/>                   
+            <select onchange="javascript:limit_error(this)" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+               <option value="Meas">Meas.</option>
+               <option value="Limit">Limit</option>
+            </select>
+            <input placeholder="Value" class="ivalue input-box-select ui-widget-content ui-corner-all" style="width:100px"/>
+            <input placeholder="Error" class="ierror input-box ui-widget-content ui-corner-all" style="width:100px"/> 
+            <input placeholder="Unit" class="iunit input-box ui-widget-content ui-corner-all" style="width:100px"/>         
+            <button class="add-entry menu-button" onclick="javascript:add_result_entry(this);" type="button">Add</button>
+            <span class="istatus"></span>
+         </div>
+               
+      </div>
+
+      <div class="input-row">
+         <label class="input-label-opt">Count length</label>
+         <input id="ilen" name="ilen" placeholder="Include unit" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
+         <span class="istatus"></span>   
+      </div>      
+      <div class="input-row">
+         <label class="input-label-opt">Detector</label>
+         <input id="idet" name="idet" placeholder="Instrument name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>
+                  
+   </fieldset>
+   
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+      
+      <legend>Data entry</legend>
+   
+      <div class="input-row">
+         <label class="input-label">Reference</label>
+         <input id="iref" name="iref" placeholder="Original data source" class="input-box ui-widget-content ui-corner-all" style="width:200px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Entry by</label>
+         <input id="ientry" name="ientry" placeholder="Name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <input id="ientrycon" name="ientrycon" placeholder="Email" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>
+
+   </fieldset>
+
+</form> 

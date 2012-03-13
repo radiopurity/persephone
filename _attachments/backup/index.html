@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Persephone v0.2</title>
+		
+		<link type="text/css" href="css/smoothness/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
+
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
+
+      <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+
+      <script src="js/jquery.defaultvalue.js"></script>       	
+
+      <script type="text/javascript" src="js/collapsing.js"></script>
+
+      <script type="text/javascript" src="js/index.js"></script>  
+		
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>	
+
+	</head>
+
+	<body>
+
+      <div id="header"><img src="images/header.gif"></img></div>
+      
+		<div id="tabs">
+		
+			<ul>
+				<li><a href="#tab-search">Search</a></li>
+				<li><a href="#tab-submit">Submit</a></li>
+            <li><a href="#tab-feedback">Feedback</a></li>
+			   <li><a href="#tab-instructions">Instructions</a></li>
+			   <li><a href="#tab-preferences">Preferences</a></li>
+			</ul>
+
+         <!-- Search tab -->
+
+			<div id="tab-search" class="menu-bar">
+
+			   <div class="ui-widget top-bar">
+               <input id="box-search"    placeholder="e.g. tin" onkeydown="javascript:enter_box(event);" class="ui-widget-content ui-corner-all"/> 
+               <button id="button-search" class="menu-button" onclick="javascript:click_search();" value="Search"></button> 
+			      <input id="button-expand" class="menu-button" onclick="javascript:click_expand();" type="submit" value="Expand"/> 
+			      <input id="button-detail" class="menu-button" onclick="javascript:click_detail();" type="submit" value="More detail"/> 
+			   </div>
+					
+			   <div id="materials"></div>
+			
+			</div>		
+			
+			<!-- Data submission tab -->	
+			
+			<div id="tab-submit" class="menu-bar"> 	
+			
+			   <div id="submit-menu" class="ui-widget top-bar">
+			      <input id="button-check" class="menu-button" onclick="javascript:click_check();" type="submit" value="Check"/>
+			      <input id="button-submit" class="menu-button" onclick="javascript:click_submit();" type="submit" value="Submit for approval"/>       
+			   </div>
+			
+			</div>
+			
+			<div id="tab-feedback">Feedback stuff</div>
+
+			<div id="tab-instructions">Instructions stuff</div>
+
+			<div id="tab-preferences">Preferences stuff</div>
+
+		</div>
+
+      <div id="tagline">Persephone v0.2</div>
+
+   </body>
+
+</html>
+
+

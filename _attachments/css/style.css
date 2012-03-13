@@ -1,0 +1,171 @@
+
+body { 
+   font-family: "Verdana", "Arial", "sans-serif";
+   margin: 25px 50px 50px 50px;
+   font-size: 60%;  
+}
+
+table, tr, td, th{   margin: 0;   padding: 0;   border: 0;   outline: 0;   vertical-align: baseline;   background: transparent;   border-collapse: collapse;}
+
+td {
+   padding-top: 2px;
+   padding-bottom: 2px;    
+}
+
+ul {
+   list-style: none;  
+}
+
+#header {
+   padding-bottom:10px;  
+}
+
+div#materials {
+   padding: 0px 0px 0px 10px;   
+}
+
+div.content {
+   padding: 10px 0px 0px 10px;   
+}
+
+div.content-text {
+   padding: 0px 0px 0px 10px;   
+}
+
+#box-search {
+	padding-left: 5px;
+	margin-right: 3px;
+	width:  300px;
+   height: 21px;
+}
+
+
+fieldset.entry {
+   padding: 15px 10px 10px 10px;
+   margin: 0px 0px 15px 0px;  
+   width: 90%; 
+}
+
+div.input-row {
+   min-height:28px;
+}
+
+label.input-label {
+   margin-top: 2px;
+   margin-left: 20px;
+   height:16px;
+	width: 100px;
+	display: block;
+	float: left;   
+}
+
+label.input-label-opt {
+   margin-top: 2px;
+   margin-left: 20px;
+   min-height:16px;
+	width: 100px;
+	display: block;
+	float: left;   
+	color: #aaaaaa;
+}
+
+input.input-box {
+   height:16px;
+   padding-left:4px;
+   margin-right:1px;   
+}
+
+input.input-box-select {
+   height:16px;
+   padding-left:4px;
+   margin-left:1px;
+   margin-right:1px;   
+}
+
+button.add-entry {
+   width:20px;
+   height:20px;
+   vertical-align:top;  
+}
+
+button.remove-entry {
+   width:20px;
+   height:20px;
+   vertical-align:top;  
+}
+
+textarea.input-textarea {
+   padding:2px 0px 3px 5px;
+   margin:0px 1px 6px 0px;
+   resize:none;  
+}
+
+/* Display template formatting */
+
+li.sample-name {
+   margin-bottom: 4px;  
+}
+
+table.sample-details {
+   margin-top: 10px;  
+   margin-bottom: 10px; 
+}
+
+table.data-details {
+   margin-top: 10px;  
+   margin-bottom: 10px;  
+}
+
+td.category {   width: 100px;
+   color:#009933;    }
+
+td.item {   width: 100px;
+   color:#009933;    }
+
+td.result-isotope {
+   min-width: 35px;
+   padding-right: 10px;  
+}
+
+td.result-number {
+   min-width: 35px;
+   text-align:right;  
+}
+
+td.result-unit {
+   min-width: 35px;
+   padding-left:10px;  
+}
+
+#tagline {
+   margin-top: 10px;
+   text-align: right; 
+   color: #999999; 
+}
+
+
+form *.something-temporary {
+	color: #aaa;
+				font-style: italic;
+}
+
+::-webkit-input-placeholder {
+	color: #aaa;
+}
+
+:-moz-placeholder {
+	color: #aaa;
+}
+
+label.error { 
+   float: none; 
+   color: red; 
+   padding-left: 0.3em; 
+   padding-right: 1em; 
+   vertical-align: center;    
+   //font-size: 60%;   
+}
+
+
+
+

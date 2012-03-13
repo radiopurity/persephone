@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Persephone</title>
+		
+		<link type="text/css" href="css/custom-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet" />	
+
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
+
+      <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+      
+      <script src="development-bundle/ui/jquery.ui.core.js"></script> 
+      <script src="development-bundle/ui/jquery.ui.widget.js"></script> 
+      <script src="development-bundle/ui/jquery.ui.button.js"></script> 		
+
+      <script type="text/javascript" src="js/collapsing.js"></script>
+
+      <script type="text/javascript" src="js/index.js"></script>
+      
+	<script>
+	$(function() {
+		$( ".demo button:first" ).button({
+            icons: {
+                primary: "ui-icon-locked"
+            },
+            text: false
+        }).next().button({
+            icons: {
+                primary: "ui-icon-locked"
+            }
+        }).next().button({
+            icons: {
+                primary: "ui-icon-gear",
+                secondary: "ui-icon-triangle-1-s"
+            }
+        }).next().button({
+            icons: {
+                primary: "ui-icon-gear",
+                secondary: "ui-icon-triangle-1-s"
+            },
+            text: false
+        });
+	});
+	</script>      
+      
+		
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>	
+		<link rel="stylesheet" type="text/css" href="css/demos.css"/>
+
+	</head>
+
+	<body>
+
+      <div id="header"><h1>Majorana material assay database</h1></div>
+      
+		<div id="tabs">
+		
+			<ul>
+				<li><a href="#tab-search">Search</a></li>
+				<li><a href="#tab-submit">Submit</a></li>
+            <li><a href="#tab-feedback">Feedback</a></li>
+			   <li><a href="#tab-instructions">Instructions</a></li>
+			</ul>
+
+			<div id="tab-search" class="menu-bar">
+
+			   <div id="toolbar-search" class="ui-widget">  
+               <input  id="box-search"    onkeydown="javascript:enter_box(event);" value="e.g. tin"/> 
+               <button id="button-search" onclick="javascript:click_search();"></button> 
+			      <input  id="button-expand" onclick="javascript:click_expand();" type="submit" value="Expand"/>
+			      <input  id="button-detail" onclick="javascript:click_detail();" type="submit" value="More detail"/>			      
+			   </div>
+			
+			   <div id="materials"></div>
+			
+			</div>		
+			
+			<div id="tab-submit">			
+			
+			</div>
+			
+			<div id="tab-feedback">Feedback stuff</div>
+
+			<div id="tab-instructions">Instructions stuff</div>
+
+		</div>
+
+      <div id="testing"></div>
+
+   </body>
+
+</html>
+
+
