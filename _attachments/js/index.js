@@ -1,5 +1,6 @@
-
-var db = $.couch.db('mj_assays');
+var dbname = window.location.pathname.split("/")[1];
+var appName = window.location.pathname.split("/")[3];
+var db = $.couch.db(dbname);
 
 var detailed  = false;
 var collapsed = true;
@@ -431,10 +432,16 @@ function click_search() {
 // ____________________________________________________________________________________
 function searchResults(val) {
 
-   var search_url  = '/mj_assays/_fti/_design/test/search?q=' + val + '&include_docs=true';
+   var search_url; 
 
+   search_url  = $.couch.urlPrefix + '/_fti/local/' + dbname + '/_design/' + appName + '/fullsearch?q=' + val; 
+    
+    if (window.location.host.split(".")[1] == "cloudant"){
+      search_url  = window.location.protocol + '//' + window.location.host + '/' + dbname + '/_search?q=' + val; 
+    }
+    
    if ( val.toLowerCase() == "all" ) {
-      search_url = '/mj_assays/_all_docs?include_docs=true';
+      search_url = dbname + '/_all_docs?include_docs=true';
    };
 
    $("#materials").empty();
