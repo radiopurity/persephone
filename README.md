@@ -1,6 +1,3 @@
 
-A material assay database for the low-background physics community.
+Persephone is a database system for storing material radio-purity data.
 
-## License
-
-Apache 2.0
