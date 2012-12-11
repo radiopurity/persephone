@@ -429,11 +429,11 @@ function searchResults(val) {
   search_url  = $.couch.urlPrefix + '/_fti/local/' + dbname + '/_design/' + appName + '/fullsearch?q=' + val; 
     
   if (window.location.host.split(".")[1] == "cloudant"){
-    search_url  = window.location.protocol + '//' + window.location.host + '/' + dbname + '/_search?q=' + val; 
+    search_url = window.location.protocol + '//' + window.location.host + '/' + dbname + '/_search?q=' + val; 
   }
     
   if ( val.toLowerCase() == "all" ) {
-    search_url = dbname + '/_all_docs?include_docs=true';
+    search_url = '/' + dbname + '/_all_docs?include_docs=true';
   };
 
   $("#materials").empty();
