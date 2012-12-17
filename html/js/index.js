@@ -244,12 +244,14 @@ function click_submit() {
          
       // Loop through all the results for this measurement
          
-      var iisotope = $(this).find(".iisotope").val();
+      //var iisotope = $(this).find(".iisotope").val();
       var iselect  = $(this).find(".iselect").val();
       var ivalue   = $(this).find(".ivalue").val();
       var ierror   = $(this).find(".ierror").val();         
       var iunit    = $(this).find(".iunit").val();  
-         
+      
+      iisotpe = iselectelement + "-" + iatomicnumber;
+      
       if ( iselect == "Meas" ) {  
             
         // Measurement
@@ -290,7 +292,7 @@ function click_submit() {
         "m_owner": 
                 {     
                 "name" : $("#iown").val(),
-                "contact" : $("#icontact").val()           
+                "contact" : $("#iowncontact").val()           
                 }
            },
       "m_measurement": {

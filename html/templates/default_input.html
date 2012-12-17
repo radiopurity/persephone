@@ -3,27 +3,39 @@
   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
    
     <legend>Sample</legend>
-
+    
+    <div class="input-row">
+      <label class="input-label">Grouping</label>
+      <input id="igrouping" name="igrouping" placeholder="Experiment Name or Similar" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+      <span class="istatus"></span>
+    </div> 
     <div class="input-row">
       <label class="input-label">Name</label>
       <input id="iname" name="iname" placeholder="Brief description" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
       <span class="istatus"></span>
-    </div>        
+    </div> 
     <div class="input-row">
       <label class="input-label">Description</label>
-      <input id="idesc" name="idesc" placeholder="Detailed description" class="input-box ui-widget-content ui-corner-all" style="width:400px"/>
+      <input id="idesc" name="idesc" placeholder="Detailed description of the Sample" class="input-box ui-widget-content ui-corner-all" style="width:500px"/>
       <span class="istatus"></span>
-    </div>      
+    </div>
+    <div class="input-row">
+      <label class="input-label">ID</label>
+      <input id="iid" name="iid" placeholder="ID Number associated with the sample." class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+      <span class="istatus"></span>
+    </div>
     <div class="input-row">
       <label class="input-label">Source</label>
-      <input id="isrc" name="isrc" class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
+      <input id="isrc" name="isrc" placeholder="Where the sample came from." class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
       <span class="istatus"></span>
     </div>      
     <div class="input-row">
       <label class="input-label">Owner</label>
-      <input id="iown" name="iown" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+      <input id="iown" name="iown" placeholder="Person/Group that owns the Sample." class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
+      <input id="iowncontact" name="iowncontact" placeholder="Email Address or Institution Name." class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
       <span class="istatus"></span>
-    </div>      
+    </div>
+    <!-- Not necessary under Data Format v1.0
     <div class="input-row">
       <label class="input-label">Tags</label>
       <input id="itags" name="itags" placeholder="Tags separated by spaces" class="input-box ui-widget-content ui-corner-all" style="width:250px"/>
@@ -39,21 +51,21 @@
       <input id="igeom" name="igeom" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
       <span class="istatus"></span>
     </div>
-   
+   -->
   </fieldset>
 
   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
       
     <legend>Measurement</legend>
-
-    <div class="input-row">
-      <label class="input-label">Technique</label>
-      <input id="itech" name="itech" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
-      <span class="istatus"></span>
-    </div>   
+    
     <div class="input-row">
       <label class="input-label">Institution</label>
-      <input id="iinst" name="iinst" placeholder="Where it was counted" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+      <input id="iinst" name="iinst" placeholder="Where the count was done" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+      <span class="istatus"></span>
+    </div>  
+    <div class="input-row">
+      <label class="input-label">Technique</label>
+      <input id="itech" name="itech" placeholder="Technique Used" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
       <span class="istatus"></span>
     </div>   
     <div class="input-row">
@@ -75,42 +87,156 @@
     </div>   
     <div class="input-row">
       <label class="input-label">Description</label>
-      <textarea id="imdesc" name="idesc" placeholder="Detailed description" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+      <textarea id="imdesc" name="idesc" placeholder="Detailed description of the Measurement" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
     </div>
    
     <div class="results-block">
                      
-      <div class="input-row template" style="display:none"/>
-        <label class="input-label"></label>
-        <input placeholder="Isotope" class="iisotope input-box ui-widget-content ui-corner-all" style="width:100px"/>                   
-        <select onchange="javascript:limit_error(this)" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
-          <option value="Meas">Meas.</option>
-          <option value="Limit">Limit</option>
-        </select>
-        <input placeholder="Value" class="ivalue input-box-select ui-widget-content ui-corner-all" style="width:100px"/>
-        <input placeholder="Error" class="ierror input-box ui-widget-content ui-corner-all" style="width:100px"/> 
-        <input placeholder="Unit" class="iunit input-box ui-widget-content ui-corner-all" style="width:100px"/>         
-        <button class="add-entry menu-button"    onclick="javascript:add_result_entry(this);" type="button">Add</button>
-        <button class="remove-entry menu-button" onclick="javascript:remove_result_entry(this);" type="button">Remove</button>
-        <span class="istatus"></span>
-      </div>
-         
       <div class="input-row result-row">
         <label class="input-label">Result</label>
-        <input placeholder="Isotope" class="iisotope input-box ui-widget-content ui-corner-all" style="width:100px"/>                   
+        <select onchange="javascript:limit_error(this)" class="iselectelement input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+          <option value="H">Hydrogen</option>
+          <option value="He">Helium</option>
+          <option value="Li">Lithium</option>
+          <option value="Be">Beryllium</option>
+          <option value="B">Boron</option>
+          <option value="C">Carbon</option>
+          <option value="N">Nitrogen</option>
+          <option value="O">Oxygen</option>
+          <option value="F">Fluorine</option>
+          <option value="Ne">Neon</option>
+          <option value="Na">Sodium</option>
+          <option value="Mg">Magnesium</option>
+          <option value="Al">Aluminum</option>
+          <option value="Si">Silicon</option>
+          <option value="P">Phosphorus</option>
+          <option value="S">Sulfur</option>
+          <option value="Cl">Chlorine</option>
+          <option value="Ar">Argon</option>
+          <option value="K">Potassium</option>
+          <option value="Ca">Calcium</option>
+          <option value="Sc">Scandium</option>
+          <option value="Ti">Titanium</option>
+          <option value="V">Vanadium</option>
+          <option value="Cr">Chromium</option>
+          <option value="Mn">Manganese</option>
+          <option value="Fe">Iron</option>
+          <option value="Co">Cobalt</option>
+          <option value="Ni">Nickel</option>
+          <option value="Cu">Copper</option>
+          <option value="Zn">Zinc</option>
+          <option value="Ga">Gallium</option>
+          <option value="Ge">Germanium</option>
+          <option value="As">Arsenic</option>
+          <option value="Se">Selenium</option>
+          <option value="Br">Bromine</option>
+          <option value="Kr">Krypton</option>
+          <option value="Rb">Rubidium</option>
+          <option value="Sr">Strontium</option>
+          <option value="Y">Yttrium</option>
+          <option value="Zr">Zirconium</option>
+          <option value="Nb">Niobium</option>
+          <option value="Mo">Molybdenum</option>
+          <option value="Tc">Technetium</option>
+          <option value="Ru">Ruthenium</option>
+          <option value="Rh">Rhodium</option>
+          <option value="Pd">Palladium</option>
+          <option value="Ag">Silver</option>
+          <option value="Cd">Cadmium</option>
+          <option value="In">Indium</option>
+          <option value="Sn">Tin</option>
+          <option value="Sb">Antimony</option>
+          <option value="Te">Tellurium</option>
+          <option value="I">Iodine</option>
+          <option value="Xe">Xenon</option>
+          <option value="Cs">Cesium</option>
+          <option value="Ba">Barium</option>
+          <option value="La">Lanthanum</option>
+          <option value="Ce">Cerium</option>
+          <option value="Pr">Praseodymium</option>
+          <option value="Nd">Neodymium</option>
+          <option value="Pm">Promethium</option>
+          <option value="Sm">Samarium</option>
+          <option value="Eu">Europium</option>
+          <option value="Gd">Gadolinium</option>
+          <option value="Tb">Terbium</option>
+          <option value="Dy">Dysprosium</option>
+          <option value="Ho">Holmium</option>
+          <option value="Er">Erbium</option>
+          <option value="Tm">Thulium</option>
+          <option value="Yb">Ytterbium</option>
+          <option value="Lu">Lutetium</option>
+          <option value="Hf">Hafnium</option>
+          <option value="Ta">Tantalum</option>
+          <option value="W">Tungsten</option>
+          <option value="Re">Rhenium</option>
+          <option value="Os">Osmium</option>
+          <option value="Ir">Iridium</option>
+          <option value="Pt">Platinum</option>
+          <option value="Au">Gold</option>
+          <option value="Hg">Mercury</option>
+          <option value="Tl">Thallium</option>
+          <option value="Pb">Lead</option>
+          <option value="Bi">Bismuth</option>
+          <option value="Po">Polonium</option>
+          <option value="At">Astatine</option>
+          <option value="Rn">Radon</option>
+          <option value="Fr">Francium</option>
+          <option value="Ra">Radium</option>
+          <option value="Ac">Actinium</option>
+          <option value="Th">Thorium</option>
+          <option value="Pa">Protactinium</option>
+          <option value="U">Uranium</option>
+          <option value="Np">Neptunium</option>
+          <option value="Pu">Plutonium</option>
+          <option value="Am">Americium</option>
+          <option value="Cm">Curium</option>
+          <option value="Bk">Berkelium</option>
+          <option value="Cf">Californium</option>
+          <option value="Es">Einsteinium</option>
+          <option value="Fm">Fermium</option>
+          <option value="Md">Mendelevium</option>
+          <option value="No">Nobelium</option>
+          <option value="Lr">Lawrencium</option>
+          <option value="Rf">Rutherfordium</option>
+          <option value="Db">Dubnium</option>
+          <option value="Sg">Seaborgium</option>
+          <option value="Bh">Bohrium</option>
+          <option value="Hs">Hassium</option>
+          <option value="Mt">Meitnerium</option>
+          <option value="Ds">Darmstadtium</option>
+          <option value="Rg">Roentgenium</option>
+          <option value="Cn">Copernicium</option>
+          <option value="Uut">Ununtrium</option>
+          <option value="Fl">Flerovium</option>
+          <option value="Uup">Ununpentium</option>
+          <option value="Lv">Livermorium</option>
+          <option value="Uus">Ununseptium</option>
+          <option value="Uuo">Ununoctium</option>
+        </select>
+        <input placeholder="Atomic Number" class="iatomicnumber input-box-select ui-widget-content ui-corner-all" style="width:100px"/>
         <select onchange="javascript:limit_error(this)" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
-          <option value="Meas">Meas.</option>
+          <option value="Meas">Measurement</option>
           <option value="Limit">Limit</option>
         </select>
         <input placeholder="Value" class="ivalue input-box-select ui-widget-content ui-corner-all" style="width:100px"/>
         <input placeholder="Error" class="ierror input-box ui-widget-content ui-corner-all" style="width:100px"/> 
-        <input placeholder="Unit" class="iunit input-box ui-widget-content ui-corner-all" style="width:100px"/>         
-        <button class="add-entry menu-button" onclick="javascript:add_result_entry(this);" type="button">Add</button>
+        <select onchange="javascript:limit_error(this)" class="iunit input-select ui-widget-content ui-corner-all" style="width:75px;height:20px">
+          <option value="pct">pct</option>
+          <option value="ppm">ppm</option>
+          <option value="ppb">ppb</option>
+          <option value="ppt">ppt</option>
+          <option value="ppq">ppq</option>
+          <option value="mBq/kg">mBq/kg</option>
+          <option value="uBq/kg">uBq/kg</option>
+          <option value="nBq/kg">nBq/kg</option>
+        </select>         
+        <button class="add-entry menu-button" onclick="javascript:add_result_entry(this);" type="button" style="width:50px;height:20px">Add</button>
         <span class="istatus"></span>
       </div>
                
     </div>
-
+    <!-- Unnecessary under Data Format v1.0
     <div class="input-row">
       <label class="input-label-opt">Count length</label>
       <input id="ilen" name="ilen" placeholder="Include unit" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
@@ -121,7 +247,7 @@
       <input id="idet" name="idet" placeholder="Instrument name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
       <span class="istatus"></span>
     </div>
-                  
+     -->             
   </fieldset>
    
   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
@@ -130,7 +256,7 @@
    
     <div class="input-row">
       <label class="input-label">Reference</label> 
-      <input id="iref" name="iref" placeholder="Original data source" class="input-box ui-widget-content ui-corner-all" style="width:200px"/>
+      <input id="iref" name="iref" placeholder="Where data came from" class="input-box ui-widget-content ui-corner-all" style="width:200px"/>
       <span class="istatus"></span>
     </div>      
     <div class="input-row">
@@ -139,7 +265,16 @@
       <input id="ientrycon" name="ientrycon" placeholder="Email" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
       <span class="istatus"></span>
     </div>
-
+    <div class="input-row">
+      <label class="input-label">Entry Date</label>
+      <input id="ientrydate" name="ientrydate" placeholder="YYYY-MM-DD" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
+      <span class="istatus"></span>
+    </div> 
+    <div class="input-row">
+      <label class="input-label">Notes</label>
+      <input id="inotes" name="inotes" placeholder="Comments on/issues with data entry" class="input-box ui-widget-content ui-corner-all" style="width:500px"/>
+      <span class="istatus"></span>
+    </div>
   </fieldset>
 
 </form> 
