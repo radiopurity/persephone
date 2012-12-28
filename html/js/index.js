@@ -33,11 +33,11 @@ $(function(){
       }      
     });
     $( '#box-search' ).autocomplete({
-		source: availableTags
-	});           
-	*/
+    source: availableTags
+  });           
+  */
 
-	// Template - input      
+  // Template - input      
   $.get('templates/default_input.html', function(tmp) {               
 
     $.template("input_template", tmp);   
@@ -58,13 +58,13 @@ $(function(){
     })
 
     $(function() {
-		  $( "#idate" ).datepicker();
-		}); 
+      $( "#idate" ).datepicker();
+    }); 
 
-		// Form validation
-	    	
+    // Form validation
+        
     var validator = $("#input").validate({
-	     
+       
       rules: {
         iname:     "required", 
         idesc:     "required",
@@ -84,8 +84,8 @@ $(function(){
         ientry:    "required",  
         ientrycon: "required email"
       }, 
-         	   	     
-   	  messages: {
+                   
+      messages: {
         iname:     "Required", 
         idesc:     "Full description required (> 10 characters)",
         isrc:      "Required",
@@ -105,12 +105,12 @@ $(function(){
         ientrycon: "Valid email required"
       },
          
-		  errorPlacement: function(error, element) {
+      errorPlacement: function(error, element) {
         error.appendTo(element.next('.istatus'));
-		  }      
-	     
-    }); 	
-	    	
+      }      
+       
+    });   
+        
   });
    
   // Template - output
@@ -118,7 +118,7 @@ $(function(){
     $.template("output_template", tmp);   
   });
    
-  // Search button icon   	
+  // Search button icon     
   $( "#button-search" ).button({
     icons: {
       primary: "ui-icon-search"
@@ -147,17 +147,17 @@ $(function(){
       fname:     "required", 
       femail:    "required email",
     }, 
-      	   	     
- 	  messages: {
+                 
+    messages: {
       fname:     "Required", 
       femail:    "Valid email required", 
     },
       
-	  errorPlacement: function(error, element) {
+    errorPlacement: function(error, element) {
        error.appendTo(element.next('.istatus'));
-	  }      
+    }      
      
-  }); 	
+  });   
 
 });
 
