@@ -1,0 +1,109 @@
+
+\newcommand{\btab}[1]{
+  \begin{table}
+  \begin{center}
+  \begin{tabular}{#1} \hline
+}
+
+\newcommand{\btabn}[2]{
+  \begin{table}
+  \caption{#2}
+  \begin{center}
+  \begin{tabular}{#1} 
+  \hline\hline
+}
+
+\newcommand{\etabn}[1]{
+  \hline
+  \hline
+  \end{tabular}
+  \end{center}
+  \label{t:#1}
+  \end{table}
+}
+
+\newcommand{\btabns}[2]{
+  \begin{table}
+  \small
+  \caption{#2}
+  \begin{center}
+  \begin{tabular}{#1} 
+  \hline\hline
+}
+\newcommand{\btabnss}[2]{
+  \begin{table}
+  \footnotesize
+  \caption{#2}
+  \begin{center}
+  \begin{tabular}{#1} 
+  \hline\hline
+}
+
+\newcommand{\btabnsss}[2]{
+  \begin{table}
+  \scriptsize
+  \caption{#2}
+  \begin{center}
+  \begin{tabular}{#1} 
+  \hline\hline
+}
+
+\newcommand{\bstab}[1]{
+  \begin{table}
+  \small
+  \begin{center}
+  \begin{tabular}{#1} \hline
+}
+
+\newcommand{\mtab}{
+  \hline
+  \end{tabular}
+  \end{center}
+}
+
+\newcommand{\etab}[1]{
+  \label{t:#1}
+  \end{table}
+}
+
+\newcommand{\bfig}[2]{
+  \begin{figure}
+  \begin{center}
+  \includegraphics[width=#2cm]{#1} 
+}
+
+\newcommand{\blfig}[2]{
+  \begin{figure}
+  \begin{center}
+  \includegraphics[width=#2cm,angle=270]{#1} 
+}
+
+\newcommand{\efig}[1]{
+  \label{f:#1}
+  \end{center}
+  \end{figure}
+}
+
+\newcommand{\mcc}[2]{\multicolumn{#1}{c}{#2}}
+\newcommand{\mcl}[2]{\multicolumn{#1}{l}{#2}}
+\newcommand{\mcr}[2]{\multicolumn{#1}{r}{#2}}
+
+\newcommand{\bsb}{\bigstrut[b]}
+\newcommand{\bst}{\bigstrut[t]}
+\newcommand{\bsbt}{\bigstrut[t]\bigstrut[b]}
+\newcommand{\bstb}{\bigstrut[t]\bigstrut[b]}
+
+\newcommand{\sun}{\ensuremath{\odot}}
+
+\newcommand{\bCentre}{\begin{center}}
+\newcommand{\eCentre}{\end{center}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bd}{\begin{displaymath}}
+\newcommand{\ed}{\end{displaymath}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tref}[1]{Table~\ref{t:#1}}
+\newcommand{\tpref}[1]{Table~\ref{t:#1},~page~\pageref{t:#1}}
+\newcommand{\fref}[1]{Figure~\ref{f:#1}}
+\newcommand{\fpref}[1]{\fref{#1},~page~\pageref{f:#1}}
+
