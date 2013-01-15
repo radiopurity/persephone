@@ -112,7 +112,7 @@ textarea.input-textarea {
 
 /* Display template formatting */
 
-faded {
+.faded {
   color:#aaaaaa;
 }
 
@@ -132,16 +132,17 @@ table.data-details {
 
 td.category {
   width: 100px;
-  color:#009933;    
+  color:#f04545;    
 }
 
 td.item {
-  width: 100px;
-  color:#009933;    
+  width: 90px;
+  color:#e38484;    
 }
 
 td.m_description {
   min-width: 35px;  
+  max-width: 500px;
 }
 
 td.result-isotope {
