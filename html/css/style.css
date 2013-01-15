@@ -112,6 +112,10 @@ textarea.input-textarea {
 
 /* Display template formatting */
 
+faded {
+  color:#aaaaaa;
+}
+
 li.sample-name {
   margin-bottom: 4px;  
 }
@@ -164,7 +168,7 @@ td.result-unit {
 #tagline {
   margin-top: 10px;
   text-align: left; 
-  color: #999999; 
+  color: #aaaaaa; 
 }
 
 form *.something-temporary {

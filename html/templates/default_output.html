@@ -2,7 +2,7 @@
 <!-- Default display template -->
 <!-- Data format specifcation v 1.01 -->
 
-<li class="sample-name">${sample.m_name}
+<li class="sample-name">${sample.m_name} <span class="faded">${grouping}</span>
 
   <ul>
 
@@ -186,7 +186,7 @@
         <td></td>
         <td class="item">Data entry</td>
         <td>
-          ${data_source.m_input.name} (${data_source.m_input.contact}) on ${data_source.m_input.date}          
+          ${data_source.m_input.name} (${data_source.m_input.contact}) on ${data_source.m_input.date} (spec v${specification})         
         </td>
       </tr>
       
