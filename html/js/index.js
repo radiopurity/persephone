@@ -402,7 +402,7 @@ function click_search() {
   
   var entry = $("#box-search").val();
 
-  if ( entry == "" || entry == "e.g. tin") {
+  if ( entry == "" || entry == "e.g. all") {
     $("#box-search").focus();    
     $("div#materials").empty(); 
     return false;

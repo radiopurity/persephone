@@ -26,6 +26,8 @@
 
   <body>
 
+    <div id="container">
+
     <div id="header"><img src="images/lbf.gif"></img></div>
       
     <div id="tabs">
@@ -42,8 +44,8 @@
 
       <div id="tab-search">
 
-        <div>
-          <input id="box-search" placeholder="e.g. tin" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
+        <div id="div-search">
+          <input id="box-search" placeholder="e.g. all" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
           <button id="button-search" onclick="javascript:click_search();">Search</button>
           <button id="button-expand" onclick="javascript:click_expand();">Expand</button> 
           <button id="button-detail" onclick="javascript:click_detail();">Detail</button>
@@ -169,6 +171,8 @@
     </div>
 
     <div id="tagline">Persephone</div>
+
+    </div>
 
   </body>
 

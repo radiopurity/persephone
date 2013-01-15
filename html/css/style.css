@@ -1,7 +1,38 @@
+
+/* Force a vertical scroll bar to stop 'jumps' */
+
+html {
+	overflow-y: scroll; 
+}
+
 body { 
   font-family: "Verdana", "Arial", "sans-serif";
   margin: 25px 50px 50px 50px;
   font-size: 60%;  
+}
+
+/* Center the webpage */
+
+#container {
+   width:1000px;
+   margin-left:auto;
+   margin-right:auto;
+}
+
+/* Center the tabs */
+
+#tabs .ui-tabs-nav {
+    height: 2.58em;
+    text-align: center;
+}
+#tabs .ui-tabs-nav li {
+    display: inline-block;
+    float: none;
+    margin: 0em;
+}
+
+#tabs {
+  max-width: 1000px;
 }
 
 table, tr, td, th{
@@ -24,7 +55,8 @@ ul {
 }
 
 #header {
-  padding-bottom:10px;  
+  padding-bottom:10px; 
+  text-align: center;
 }
 
 div#materials {
@@ -39,6 +71,11 @@ div.content-text {
   padding: 0px 0px 0px 10px;   
 }
 
+#div-search {
+  width: 480px;
+  margin: 0px auto;
+}
+
 #box-search {
   padding-left: 5px;
   margin-right: 3px;
@@ -46,9 +83,7 @@ div.content-text {
   height: 21px;
 }
 
-#tabs {
-  max-width: 1000px;
-}
+
 
 fieldset.entry {
   padding: 15px 10px 10px 10px;
@@ -168,7 +203,7 @@ td.result-unit {
 
 #tagline {
   margin-top: 10px;
-  text-align: left; 
+  text-align: center; 
   color: #aaaaaa; 
 }
 
@@ -192,3 +227,9 @@ label.error {
   padding-right: 1em; 
   vertical-align: center;     
 }
+
+
+
+
+
+
