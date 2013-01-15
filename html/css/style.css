@@ -1,4 +1,5 @@
 
+
 /* Force a vertical scroll bar to stop 'jumps' */
 
 html {
@@ -8,7 +9,7 @@ html {
 body { 
   font-family: "Verdana", "Arial", "sans-serif";
   margin: 25px 50px 50px 50px;
-  font-size: 60%;  
+  font-size: 60%; 
 }
 
 /* Center the webpage */
@@ -22,17 +23,17 @@ body {
 /* Center the tabs */
 
 #tabs .ui-tabs-nav {
-    height: 2.58em;
-    text-align: center;
+  height: 2.4em;
+  text-align: center;
 }
 #tabs .ui-tabs-nav li {
-    display: inline-block;
-    float: none;
-    margin: 0em;
+  display: inline-block;
+  float: none;
+  margin: 0em;
 }
 
 #tabs {
-  max-width: 1000px;
+  max-width: 899px;
 }
 
 table, tr, td, th{
@@ -55,7 +56,8 @@ ul {
 }
 
 #header {
-  padding-bottom:10px; 
+  padding-top:5px; 
+  padding-bottom:20px; 
   text-align: center;
 }
 
@@ -75,18 +77,21 @@ div.content-text {
 
 
 #div-search {
-  width: 480px;
+  width: 530px;
   margin: 0px auto;
 }
 
 #box-search {
-  padding-left: 5px;
-  margin-right: 3px;
-  width:  300px;
-  height: 21px;
+  padding: 0px 0px 0px 8px;
+  margin: 0px 3px 0px 0px;
+  width:  350px;
+  height: 24px;
+  line-height: 22px; 
+  /* this line-height being an even number solves
+     a nasty problem that in Chrome (not FF, Safari)
+     the input box text does not align properly
+     with the text in the buttons... */   
 }
-
-
 
 fieldset.entry {
   padding: 15px 10px 10px 10px;
@@ -151,7 +156,7 @@ textarea.input-textarea {
 /* Display template formatting */
 
 .faded {
-  color:#aaaaaa;
+  color:#888888;
 }
 
 li.sample-name {
@@ -170,12 +175,12 @@ table.data-details {
 
 td.category {
   width: 100px;
-  color:#f04545;    
+  color:#e18e94;    
 }
 
 td.item {
   width: 90px;
-  color:#e38484;    
+  color:#ecb7b8;    
 }
 
 td.m_description {
@@ -204,23 +209,23 @@ td.result-unit {
   padding-left:10px;  
 }
 
-#tagline {
-  margin-top: 10px;
-  text-align: center; 
-  color: #aaaaaa; 
+#tagline{
+  margin-top: 20px;
+  text-align: center;  
+  font-size: 8pt
 }
 
 form *.something-temporary {
-  color: #aaa;
+  color: #888;
   font-style: italic;
 }
 
 ::-webkit-input-placeholder {
-  color: #aaa;
+  color: #888;
 }
 
 :-moz-placeholder {
-  color: #aaa;
+  color: #888;
 }
 
 label.error { 
