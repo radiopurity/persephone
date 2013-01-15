@@ -161,7 +161,6 @@ $(function(){
 
 });
 
-
 // ____________________________________________________________________________________
 function add_result_entry(elem) {
    
@@ -452,6 +451,7 @@ function searchResults(val) {
         for ( j = 0; j < data.total_rows; j++ ) { 
    
           var doc = data.rows[j].doc;
+
           if ( doc.type == "measurement" ) {
             $.tmpl("output_template", doc).appendTo("#output");
           }

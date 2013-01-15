@@ -3,12 +3,12 @@
 <html>
 
   <head>
-	
+  
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     
     <title>Persephone</title>
-		
-    <link type="text/css" href="css/smoothness/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
+    
+    <link type="text/css" href="css/smoothness/jquery-ui-1.8.11.custom.css" rel="stylesheet" /> 
 
     <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
@@ -19,8 +19,8 @@
     <script type="text/javascript" src="js/jquery.placehold-0.3.min.js"></script>      
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/additional-methods.min.js"></script>
-		
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>	
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css"/> 
 
   </head>
 
@@ -29,13 +29,13 @@
     <div id="header"><img src="images/lbf.gif"></img></div>
       
     <div id="tabs">
-		
+    
       <ul>
         <li><a href="#tab-search">Search</a></li>
-        <li><a href="#tab-submit">Submit</a></li>
-        <li><a href="#tab-feedback">Feedback</a></li>
-        <li><a href="#tab-instructions">Instructions</a></li>
-        <li><a href="#tab-preferences">Preferences</a></li>
+        <!-- <li><a href="#tab-submit">Submit</a></li> -->
+        <!-- <li><a href="#tab-feedback">Feedback</a></li> --> 
+        <!-- <li><a href="#tab-preferences">Preferences</a></li> --> 
+        <li><a href="#tab-about">About</a></li> 
       </ul>
 
       <!-- Search tab -->
@@ -48,112 +48,115 @@
           <button id="button-expand" onclick="javascript:click_expand();">Expand</button> 
           <button id="button-detail" onclick="javascript:click_detail();">Detail</button>
         </div>
-					
+          
         <div id="materials" class="content"></div>
-			
-			</div>		
-			
-			<!-- Data tab -->	
-			
-			<div id="tab-submit">
-			
-			   <div>
-  			   <button id="button-submit" onclick="javascript:click_submit();">Submit for approval</button>     
-  			   <button id="button-check" onclick="javascript:click_check();">Check</button>
-  			   <button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
-  			   <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>
-			   </div>
+      
+      </div>    
+      
+      <!-- Data tab --> 
+      <!--
+      <div id="tab-submit">
+      
+         <div>
+           <button id="button-submit" onclick="javascript:click_submit();">Submit for approval</button>     
+           <button id="button-check" onclick="javascript:click_check();">Check</button>
+           <button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
+           <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>
+         </div>
 
-			   <div id="input-form" class="content"></div>
-			
-			</div>
+         <div id="input-form" class="content"></div>
+      
+      </div>
+      -->
+      
+      <!-- Feedback tab -->
+      <!--      
+      <div id="tab-feedback">
 
-			<!-- Feedback tab -->
-			
-			<div id="tab-feedback">
+        <div>
+          <button id="button-feedback" onclick="javascript:click_feedback();">Send feedback</button>     
+        </div>
 
-  			<div>
-    			<button id="button-feedback" onclick="javascript:click_feedback();">Send feedback</button>     
-    		</div>
-
-    		<div id="feedback-form" class="content">
-			
-      		<form id="feedback">
+        <div id="feedback-form" class="content">
+      
+          <form id="feedback">
             
-        		<fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+            <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
                
-          		<legend>Feedback</legend>
+              <legend>Feedback</legend>
                   
-          		<div class="input-row">
-            	  <label class="input-label">Name</label>
-            	  <input id="fname" name="fname" placeholder="Full name" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
-            	  <span class="istatus"></span>
-            	</div>      
-            	<div class="input-row">
-              	<label class="input-label">Email</label>
-              	<input id="femail" name="femail" placeholder="Email address" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
-              	<span class="istatus"></span>
+              <div class="input-row">
+                <label class="input-label">Name</label>
+                <input id="fname" name="fname" placeholder="Full name" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+                <span class="istatus"></span>
+              </div>      
+              <div class="input-row">
+                <label class="input-label">Email</label>
+                <input id="femail" name="femail" placeholder="Email address" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+                <span class="istatus"></span>
                </div>
                <div class="input-row">
                  <label class="input-label">Comment</label>
                  <textarea id="fcomment" name="fcomment" placeholder="Feedback" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
                </div>
                   
-            </fieldset>	            
+            </fieldset>             
             
           </form>
                
         </div>
-			
-			</div>
+      
+      </div>
+      -->
+      
+      <!-- About tab -->
 
-			<!-- Instructions tab -->
+      <div id="tab-about">
+      
+        <div id="about" class="content-text">      
+      
+          <p><b>Searching</b></p>
+            
+          <p>Search returns documents containing one or more of the search terms.</p>
 
-			<div id="tab-instructions">
-			
-  			<div id="instructions" class="content-text">			
-			
-    			<p><b>Searching</b></p>
-			      
-    			<p>Search returns documents containing one or more of the search terms.</p>
+          <p>You can alter this default behavior using wildcards and operators such as:</p>
 
-    			<p>You can alter this default behavior using wildcards and operators such as:</p>
+          <ul>
+            <li> "stainless steel"</li>
+            <li> stainless AND steel</li>
+            <li> stainless OR steel</li>
+            <li> stee?</li>
+            <li> stainless s*</li>
+          </ul>
 
-    			<ul>
-      			<li> "stainless steel"</li>
-      			<li> stainless AND steel</li>
-      			<li> stainless OR steel</li>
-      			<li> stee?</li>
-      			<li> stainless s*</li>
-      		</ul>
+          <p>By default results are presented in a concise form. Click 'Expand' to show the full detail.</p>
 
-      		<p>By default results are presented in a concise form. Click 'Expand' to show the full detail.</p>
+          <p>Enter 'all' to show all documents.</p>
 
-      		<p>Enter 'all' to show all documents.</p>
+          <p><b>Submitting</b></p>
+            
+          <p>Data should be entered into the search form as indicated.</p>
 
-      		<p><b>Submitting</b></p>
-			      
-      		<p>Data should be entered into the search form as indicated.</p>
+          <p>Grayed out field names are optional.</p>
 
-      		<p>Grayed out field names are optional.</p>
-
-      		<p>Submitted data is not immediately searchable. The moderator must sign off on each document.</p>
-			
+          <p>Submitted data is not immediately searchable. The moderator must sign off on each document.</p>
+      
         </div>
-			
+      
       </div>
 
-			<!-- Preferences tab -->
+      <!-- Preferences tab -->
+      <!--
+      <div id="tab-preferences">
 
-			<div id="tab-preferences">
-
-  			<div id="preferences" class="content-text">			
-			
-    			<p>No options yet!</p>
-			
-    		</div>
+        <div id="preferences" class="content-text">     
+      
+          <p>No options yet!</p>
+      
+        </div>
 
       </div>
+      -->
 
     </div>
 

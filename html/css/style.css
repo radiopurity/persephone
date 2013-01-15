@@ -46,6 +46,9 @@ div.content-text {
   height: 21px;
 }
 
+#tabs {
+  max-width: 1000px;
+}
 
 fieldset.entry {
   padding: 15px 10px 10px 10px;
@@ -133,9 +136,19 @@ td.item {
   color:#009933;    
 }
 
+td.m_description {
+  min-width: 35px;  
+}
+
 td.result-isotope {
   min-width: 35px;
   padding-right: 10px;  
+}
+
+td.result-symbol {
+  min-width: 30px;
+  padding-right: 15px;
+  text-align:right;  
 }
 
 td.result-number {
