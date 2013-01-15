@@ -155,8 +155,12 @@ textarea.input-textarea {
 
 /* Display template formatting */
 
-.faded {
+.faded-less {
   color:#888888;
+}
+
+.faded {
+  color:#bbbbbb;
 }
 
 li.sample-name {
