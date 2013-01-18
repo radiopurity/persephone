@@ -425,10 +425,14 @@ function searchResults(val) {
 
   var search_url; 
 
-  search_url  = $.couch.urlPrefix + '/_fti/local/' + dbname + '/_design/' + appName + '/fullsearch?q=' + val; 
-    
-  if (window.location.host.split(".")[1] == "cloudant"){
-    search_url = window.location.protocol + '//' + window.location.host + '/' + dbname + '/_search?q=' + val; 
+  // By default return all documents from the search
+
+  search_url = '/' + dbname + '/_all_docs?include_docs=true';
+
+  if ( window.location.host.split(".")[1] == "cloudant" ) {      
+    search_url = window.location.protocol + '//' + window.location.host 
+               + '/' + dbname + '/_design/views/_search/assays?q=' 
+               + val + '&include_docs=true';   
   }
     
   if ( val.toLowerCase() == "all" ) {
