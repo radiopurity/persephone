@@ -213,10 +213,11 @@ td.result-unit {
   padding-left:10px;  
 }
 
-#tagline{
+div#tagline {
   margin-top: 20px;
   text-align: center;  
-  font-size: 8pt
+  font-size: 8pt;
+  line-height: 1.75em;
 }
 
 form *.something-temporary {
