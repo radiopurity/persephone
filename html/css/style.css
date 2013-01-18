@@ -177,6 +177,9 @@ table.data-details {
   margin-bottom: 25px;  
 }
 
+.light-pink { color:#ecb7b8; }
+.dark-pink { color:#e18e94; }
+
 td.category {
   width: 100px;
   color:#e18e94;    

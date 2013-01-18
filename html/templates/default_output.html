@@ -4,6 +4,40 @@
 
 <li class="sample-name"><b>${sample.m_name}</b> <span class="faded">${grouping}</span>
 
+  {{each measurement.m_results}}
+  
+    {{if $value.value}} <!-- measurement -->
+
+      {{if $value.value == "U-238"}}
+        <span class="dark-pink">U</span> 
+      {{/if}}
+
+      {{if $value.isotope == "U-238" || $value.isotope == "U"}}
+        <span class="light-pink">U</span> 
+        <span class="light-pink">${$value.value}(${$value.error}) ${$value.unit}</span>
+      {{/if}}
+
+      {{if $value.isotope == "Th-232" || $value.isotope == "Th"}}
+        <span class="light-pink">Th</span> 
+        <span class="light-pink">${$value.value}(${$value.error}) ${$value.unit}</span>
+      {{/if}}   
+    
+    {{else}} <!-- limit -->
+
+      {{if $value.isotope == "U-238" || $value.isotope == "U"}}
+        <span class="light-pink">U</span> 
+        <span class="light-pink">&lt ${$value.limit} ${$value.unit}</span>
+      {{/if}}
+
+      {{if $value.isotope == "Th-232" || $value.isotope == "Th"}}
+        <span class="light-pink">Th</span> 
+        <span class="light-pink">&lt ${$value.limit} ${$value.unit}</span>
+      {{/if}}
+    
+    {{/if}}
+  
+  {{/each}}
+
   <ul>
 
   <!-- sample -->
