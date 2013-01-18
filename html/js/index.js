@@ -473,9 +473,11 @@ function searchResults(val) {
 // ____________________________________________________________________________________
 function enter_box(event) {    
  
+ console.log('hello');
+ 
   if (event.keyCode == 13) {
       
-    $( "#box-search" ).autocomplete("close");
+    //$( "#box-search" ).autocomplete("close");
     click_search();
     event.returnValue = false; // for IE
     if (event.preventDefault()) event.preventDefault(); 
@@ -485,3 +487,5 @@ function enter_box(event) {
   return false;     
         
 }  
+
+
