@@ -472,9 +472,7 @@ function searchResults(val) {
 
 // ____________________________________________________________________________________
 function enter_box(event) {    
- 
- console.log('hello');
- 
+  
   if (event.keyCode == 13) {
       
     //$( "#box-search" ).autocomplete("close");
