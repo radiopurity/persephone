@@ -122,15 +122,40 @@
             
           <p>Search returns assays containing one or more of the search terms.</p>
 
-          <p>You can alter this default behavior using wildcards and operators such as:</p>
+          <p>Example searches (by default, on the 'name' field):</p>
 
           <ul>
-            <li> "stainless steel"</li>
-            <li> stainless AND steel</li>
-            <li> stainless OR steel</li>
-            <li> stee?</li>
-            <li> stainless s*</li>
+            <li> "parylene n"</li>
+            <li> parylene AND "para tech"</li>
+            <li> parylene OR PCTFE</li>
+            <li> parylen?</li>
+            <li> pary*</li>
           </ul>
+
+          <p>Specify a different field:</p>
+
+          <ul>
+            <li> experiment:majorana</li>
+            <li> practitioner:smith</li>
+            <li> technique:naa</li>
+            <li> technique:(gamma OR naa) AND name:plastic                      
+          </ul>
+         
+          <p>Supported search fields are:<p>
+
+          <ul>
+            <li> 'grouping'/'experiment'</li>
+            <li> 'name'</li>
+            <li> 'description'</li>
+            <li> 'id'</li>                      
+            <li> 'source'</li>   
+            <li> 'owner'</li>               
+            <li> 'institution'</li>                      
+            <li> 'technique'</li>   
+            <li> 'date'</li>
+            <li> 'requestor'</li>   
+            <li> 'practitioner'</li>
+          </ul>          
          
           <p>Enter 'all' to return all assays.
 
