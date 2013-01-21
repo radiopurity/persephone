@@ -1,0 +1,51 @@
+
+{
+
+  "type":                   "measurement",
+
+  "grouping":               "0vBB Experiment",
+
+  "sample": {
+    "m_name":                 "Plombum, VG1 lead",
+    "m_description":          "Plombum, VG1 lead, lot #D9020",
+    "m_id":                   "Pb-002",
+    "m_source":               "Plombum FL",
+    "m_owner": { 
+      "name":                   "Alice Professor, A University", 
+      "contact":                "alice@university.edu" 
+    }
+  },
+
+  "measurement": {
+    "m_institution":          "Low-background Facility",
+    "m_technique":            "Gamma",
+    "m_date":                 ["2000-05-02", "2000-05-09"],
+    "m_requestor": { 
+      "name":                   "Alice Professor, A University", 
+      "contact":                "alice@university.edu" 
+    },
+    "m_practitioner": { 
+      "name":                   "Bob Technician", 
+      "contact":                "bob@lowbackground.edu" 
+    },
+    "m_description":          "Standard gamma count of the whole brick.", 
+    "m_results": [
+      { "isotope":"Th-232", "limit":4.2, "cl":0,     "unit":"ppb" },
+      { "isotope":"U-238",  "limit":20,  "cl":0,     "unit":"ppb" },
+      { "isotope":"K",      "value":70,  "error":40, "unit":"ppt" }
+    ]
+  },
+
+  "data_source": {
+    "m_reference":            "0vBB-EXP-0002 (Technical report)",
+    "m_input": { 
+      "name":                   "Eve Undergraduate", 
+      "contact":                "eve@university.edu",
+      "date":                   "2010-01-01"                
+    },
+    "m_notes":                ""    
+  },
+
+  "specification":          "1.01"
+
+}
