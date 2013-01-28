@@ -4,7 +4,7 @@
 # J.C. Loach (2013)
 
 # Textual replacements
-remove = {r"\centering":"", r"newline":"", r"tabular":""};
+remove = {r"\centering":"", r"\newline":"", r"\tabular":""};
 
 # Main loop through data file
 with open("exo_data.txt") as f_in:
@@ -26,7 +26,7 @@ with open("exo_data.txt") as f_in:
       f_out.write("  \"sample\": {\n")
       f_out.write("    \"m_name\":                 \"" + line[1] + "\",\n")
       f_out.write("    \"m_description\":          \"" + line[1] + "\",\n")
-      f_out.write("    \"m_id\":                   \"Table 3 Measurement " + line[0] + "\",\n")
+      f_out.write("    \"m_id\":                   \"Table 3. #" + line[0] + "\",\n")
       f_out.write("    \"m_source\":               \"\",\n")
       f_out.write("    \"m_owner\": {\n")
       f_out.write("      \"name\":                   \"\",\n")
