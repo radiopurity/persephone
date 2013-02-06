@@ -16,9 +16,9 @@
 
 \begin{document}
  
-\title{The Material Assay Data Format \\ v 1.01}
-\author{James C. Loach \\ Shanghai Jiaotong University}
-\date{Revised 14 January 2013}
+\title{The Material Assay Data Format \\ v 2.01}
+\author{James C. Loach \\ Shanghai Jiaotong University }
+\date{Revised 6 February 2013}
 
 \input{commands}
 
@@ -36,7 +36,7 @@ This document specifies a data format for encoding measurements (assays) of mate
 
 \subsection{Overview} 
 
-The data structure is divided into three top level sub-structures known as \textit{sample}, \textit{measurement} and \textit{data source}. The first captures information on physical characteristics and origin the thing being counted. The second deals with the actual measurement and its results. The third concerns the origin and input of the data contained in the document. This is the structure in outline:
+The data structure is divided into three top level sub-structures known as \texttt{sample}, \texttt{measurement} and \texttt{data source}. The first captures information on physical characteristics and origin the thing being counted. The second deals with the actual measurement and its results. The third concerns the origin and input of the data contained in the document. This is the structure in outline:
 
 \begin{small}
 \begin{verbatim}
@@ -44,7 +44,7 @@ The data structure is divided into three top level sub-structures known as \text
 
       "type":          "measurement",
 
-      "grouping":      "Experiment name or similar", 
+      "grouping":      "Experiment name or similar",
       
       "sample":        {...},  
       "measurement":   {...},   
@@ -59,17 +59,17 @@ where the \verb|{...}| indicate the three JSON sub-structures that will be descr
 
 \begin{description}
 
-  \item[grouping] The group to which the document belongs. Usually this will be the name of the experiment that made the measurement.
+  \item[\texttt{grouping}] The group to which the document belongs. Usually this will be the name of the experiment that made the measurement.
 
   Conventions: less than 100 characters; no period; required.
 
   Example: \textit{Majorana Demonstrator}
 
-  \item[specification] The version number of the Material Assay Data Format specification used to encode the document.
+  \item[\texttt{specification}] The version number of the Material Assay Data Format specification used to encode the document.
 
-  Conventions: [MAJOR VERSION].[MINOR VERSION]; required.
+  Conventions: \texttt{[MAJOR VERSION].}\texttt{[MINOR VERSION]}; required.
 
-  Example: \textit{1.00}
+  Example: \textit{2.01}
 
 \end{description}  
  
@@ -81,23 +81,26 @@ The sample sub-structure has this form:
 \begin{verbatim}
    "sample": {
 
-      "m_name":            "Short description",
-      "m_description":     "Detailed description",
-      "m_id":              "Identification number",
-      "m_source":          "Where it came from",
-      "m_owner":
-         {
-            "name":        "Who owns it", 
-            "contact":     "Institution or email/postal address"
-         }
+      "name":            "Short description",
+      "description":     "Detailed description",     
+      "id":              "Identification number",
+      "source":          "Where it came from",
 
+      "owner":
+         {
+            "name":         "Who owns it", 
+            "contact":      "Institution or email/postal address"
+         }
+       
    }
 \end{verbatim}
 \end{small}
 
+\newpage
+
 \begin{description}
 
-  \item[m\_name] A concise description of the sample, typically indicating the kind of material and its origin. It can be considered the heading of the document. 
+  \item[\texttt{name}] A concise description of the sample, typically indicating the kind of material and its origin. It can be considered the heading of the document. 
   
   Conventions: less than 100 characters; single line; no period; required.
   
@@ -105,15 +108,13 @@ The sample sub-structure has this form:
   
   Example: \textit{Homestake rhyolite, 4850 ft level, sample A3}
 
-\newpage
-
-  \item[m\_description] A detailed description of the sample, typically including information on its form, appearance and processing. 
+  \item[\texttt{description}] A detailed description of the sample, typically including information on its form, appearance and processing. 
   
-  Conventions: written as a sentence or comma-separated list of items; single line; no limit on length and level of detail; finishes with period; can be left blank.
+  Conventions: written as a sentence or comma-separated list of items; single line; no limit on length and level of detail; optional period; can be left blank.
   
   Example: \textit{Polished wafer of Corning 7980 ArF high purity fused silica, disc shape, 1 mm thick, 20 mm diameter, lot number 12345.}
 
-  \item[m\_id] An identification number associated with the sample, typically used by a counting facility, or other organization, to track the sample.
+  \item[\texttt{id}] An identification number associated with the sample, typically used by a counting facility, or other organization, to track the sample.
   
   Conventions: an alphanumeric identification string; can be left blank.
   
@@ -121,15 +122,13 @@ The sample sub-structure has this form:
 
   Example: \textit{2010-AF-0000004567-b}
 
-  \item[m\_source] Information on where the sample came from, typically consisting of a company name and purchase date.
+  \item[\texttt{source}] Information on where the sample came from, typically consisting of a company name and purchase date.
 
   Conventions: can be left blank.
   
   Example: \textit{Mark Optics Incorporated, purchased April 30th 2011.} 
-
-%\newpage
-
-  \item[m\_owner] Information on who owns the sample. It may refer to ownership at the time of the measurement or at some later date.
+  
+  \item[\texttt{owner}] Information on who owns the sample. It may refer to ownership at the time of the measurement or at some later date.
 
   Conventions: can be left blank.
   
@@ -149,44 +148,37 @@ The measurement sub-structure has this form:
 \begin{verbatim}
    "measurement": {
     
-      "m_institution":     "Where the count was done",
-      "m_technique":       "The technique that was used",
+      "institution":     "Where the count was done",
+      "technique":       "The technique that was used",     
       
-      "m_date":            "YYYY-MM-DD",
-      "m_date":           ["YYYY-MM-DD", "YYYY-MM-DD"],
+      "date":            [],
       
-      "m_requestor":
+      "requestor":
          {
-            "name":        "Who managed the measurement", 
-            "contact":     "Institution or email/postal address"
+            "name":         "Who managed the measurement", 
+            "contact":      "Institution or email/postal address"
+         },                  
+         
+      "practitioner":
+         {
+            "name":         "Who did the measurement", 
+            "contact":      "Institution or email/postal address"
          },
          
-      "m_practitioner":
-         {
-            "name":        "Who did the measurement", 
-            "contact":     "Institution or email/postal address"
-         },
-         
-      "m_description":     "Detailed multi-line
-                            description of the
-                            procedure and results",
+      "description":     "Detailed multi-line description of
+                          the procedure and results",
                             
-      "m_results": [
-         {
-            "isotope":     "II-AAA or II",
-            "value":       0,
-            "error":       0,
-            "unit":        "Unit"
-         },
-         {
-            "isotope":     "II-AAA or II",
-            "limit":       0,
-            "cl":          0,
-            "unit":        "Unit"
-         },
-         ...
-      ]
-        
+      "results":
+         [
+            {
+               "isotope":     "II-AAA or II or description",
+               "type":        "measurement or limit or range",
+               "value":       [],
+               "unit":        "Unit"
+            },
+            ...
+         ]
+               
    }
 \end{verbatim}
 \end{small}
@@ -194,7 +186,7 @@ The measurement sub-structure has this form:
 \newpage
 \begin{description}
 
-  \item[m\_institution] The name of the institution where the measurement was made.
+  \item[\texttt{institution}] The name of the institution where the measurement was made.
 
   Conventions: can be left blank.
   
@@ -202,7 +194,7 @@ The measurement sub-structure has this form:
   
   Example: \textit{LBNL LBF}
 
-  \item[m\_technique] The technique used to make the measurement.
+  \item[\texttt{technique}] The technique used to make the measurement.
 
   Conventions: can be left blank.
   
@@ -210,17 +202,21 @@ The measurement sub-structure has this form:
   
   Example: \textit{Gamma}
 
-  \item[m\_date] The date on which the measurement took place or began. This is either a single value indicating the date on which the experiment took place or began, or a two-value array indicating the period over which the measurement was made.
+  \item[\texttt{date}] The date on which the measurement took place. This array can contain either a single value indicating the date on which the experiment took place (or began), or a two values indicating the period over which the measurement was made.
 
-  Conventions: entered in the format YYYY-MM-DD; can be left blank.
+  Conventions: entered in the format \texttt{YYYY-MM-DD} or \texttt{YYYY-MM} or \texttt{YYYY}; can be left empty.
 
-  \item[m\_requestor] Information on who commissioned, funded, managed or was otherwise responsible for the measurement taking place.
+  Example: \textit{1980-04}
+
+  Example: \textit{1980-04-26}
+
+  \item[\texttt{requestor}] Information on who commissioned, funded, managed or was otherwise responsible for the measurement taking place.
 
   Conventions: can be left blank.
   
   Example: \textit{John Smith // jsmith@gnl.gov}     
 
-  \item[m\_practitioner] Who was responsible for actually making the measurement.
+  \item[\texttt{practitioner}] Who was responsible for actually making the measurement.
 
   Conventions: can be left blank.
   
@@ -228,7 +224,7 @@ The measurement sub-structure has this form:
   
   \newpage
   
-  \item[m\_description] A detailed description of the measurement. Typically this is a substantial piece of text duplicated from the practitioner's report. It may repeat data broken out into other fields.
+  \item[\texttt{description}] A detailed description of the measurement. Typically this is a substantial piece of text duplicated from the practitioner's report. It may repeat data broken out into other fields.
 
   Conventions: multi-lined block of text; can be left blank.
   
@@ -245,24 +241,53 @@ package) is 66 grams.  Results are listed below, where all
 values are based on the 143 gram total weight of the sample.}
 
 
-     Detector:        MERLIN(BKY)             U:  <100    ppb
+     \textit{Detector:        MERLIN(BKY)             U:  <100    ppb}
      
-     Sample:          S6MB annulus           Th:  <230    ppb
+     \textit{Sample:          S6MB annulus           Th:  <230    ppb}
 
-     Weight:          43 grams               K:  84(8) ppm
+     \textit{Weight:          43 grams               K:  84(8) ppm}
 
-     Data file:       5695S
+     \textit{Data file:       5695S}
 
-     Count time:      48100 sec
+     \textit{Count time:      48100 sec}
  
-  \item[m\_results] A list measurements (definite measurements or limits) for each isotope included in the measurement.
-  
-   Conventions: the isotope name should be entered as the two letter chemical symbol followed by a hyphen and the mass number; in \textit{exceptional circumstances} it is permissible to omit the hyphen and mass number; permissible units are pct, ppm, ppb, ppt, ppq, mBq/kg, uBq/kg, nBq/kg; the confidence level (c.l.) on a limit is an integer 0 < c.l. < 100; if the confidence level on a limit is omitted (i.e. set to 0) then it will be interpreted as a 95\% limit; confidence levels on measurements are assumed to be 68\%; documents with zero measurements \textit{are} permitted.
-   
-  Example (meas.): \textit{U-238 // 120 // 10 // ppb}  
+ \newpage
+ 
+  \item[\texttt{results}] A list of measurements for each isotope included in the measurement. The four measurement types are \texttt{measurement}, \texttt{range} and \texttt{limit}. The meaning of the contents of the \texttt{value} array varies according to the measurement type and the size of the array:
+    
+\begin{tabular}{lll}
 
-  Example (limit): \textit{Th-232 // 40 // 90 // uBq/kg}
+\hline
+
+\texttt{type} & \texttt{value} & Description \bstb\\
+
+\hline
+
+  \texttt{measurement} &  \texttt{[0] }         & measurement with no error \bst\\
+             & \texttt{[0,0] }     & measurement with symmetric error \\
+           & \texttt{[0,0,0]}  & measurement with asymmetric error {(+, -)} \bsb\\
+
+
+ 
+   \texttt{range} &  \texttt{[0,0] }     & range {(lower, upper)} \bst\\
+            & \texttt{[0,0,0]}  & range with confidence level  \bsb\\
+
+ 
+   \texttt{limit} &  \texttt{[0] }     & limit \bst\\
+             & \texttt{[0,0]}  & limit with confidence level  \bsb\\
+
+\hline
+
+\end{tabular}\newline
+    
+   General conventions: the isotope name should be entered as the two letter chemical symbol with or without the mass number (in \textit{exceptional circumstances} a more detailed description, such as 'U early' may be given); permissible units are \texttt{pct, ppm, ppb, ppt, ppq, mBq/kg, uBq/kg, nBq/kg, n/a}; the confidence level (c.l.) on a limit or range is a number 0 < c.l. < 100; if the confidence level on a limit or range is omitted then it will be interpreted as a 95\% limit; confidence levels on measurements are assumed to be 68\%; documents with zero measurements \textit{are} permitted.
    
+  Example: \textit{U-238 // "measurement" // [120,10] // "ppb"}  
+
+  Example: \textit{Th-232 // "range" // [40,50,95] // "uBq/kg"}
+
+  Example: \textit{Th-232 // "limit" // [40] // "uBq/kg"} 
+  
 \end{description} 
 
 \newpage
@@ -274,15 +299,15 @@ The data source sub-structure has this form:
 \begin{verbatim}
    "data_source": {
 
-      "m_reference":       "Where the data came from",
-      "m_input":
+      "reference":       "Where the data came from",
+      "input":
          {
-            "name":        "Who created this document, 
-            "contact":     "Institution or email/postal address",
-            "date":        "YYYY-MM-DD"
+            "name":         "Who created this document, 
+            "contact":      "Institution or email/postal address",
+            "date":         []
          },
       
-      "m_notes":           "Comments on/issues with data entry"
+      "notes":           "Comments on/issues with data entry"
 
    }
 \end{verbatim}
@@ -290,7 +315,7 @@ The data source sub-structure has this form:
 
 \begin{description}
 
-  \item[m\_reference] Where the information in the document was taken from.
+  \item[\texttt{reference}] Where the information in the document was taken from.
 
   Conventions: required.
   
@@ -298,13 +323,13 @@ The data source sub-structure has this form:
 
   Example: \textit{CERNEXPERIMENT internal report TECH-DOC-0004}
 
-  \item[m\_input] Information on who entered the data or who was responsible for the data entry.
+  \item[\texttt{input}] Information on who entered the data or who was responsible for the data entry.
 
   Conventions: entered in the format YYYY-MM-DD; required.
   
   Example: \textit{Alice Undergraduate // aundergrad@uni.edu}     
 
-  \item[m\_notes] Comments on issues that arose during the input of the data, typically focussing on the interpretation of the source data.
+  \item[\texttt{notes}] Comments on issues that arose during the input of the data, typically focussing on the interpretation of the source data.
   
   Conventions: multiple line block of text; can be left blank.
   
@@ -313,87 +338,135 @@ The data source sub-structure has this form:
 \end{description}
 
 \newpage
+
 \subsection{Extendability} % ............................................
+\label{sec:opt}
 
-The sub-structures \textit{measurement}, \textit{sample} and \textit{data source} may each contain extra key-value pairs in addition to those defined in the previous sections. Field names should begin with a prefix '\texttt{u\_}' (to distinguish them from the mandatory fields with prefix '\texttt{m\_}'), should be lowercase and contain no spaces or special characters (other than the underscore). Field values should be single-line text strings. The ability to extend the specification should only be used in \textit{exceptional circumstances}.
+\subsubsection{The \texttt{user} array}
 
-Consider this example of appropriate use:
+The sub-structures \texttt{measurement}, \texttt{sample} and \texttt{data\_source} may each contain additional structured information in form of an optional \texttt{user} array. This ability to extend the core specification should only be used in \textit{exceptional circumstances}. The \texttt{user} array takes this form:
+
 \begin{small}
 \begin{verbatim}
-   "m_measurement": {
+   "user": 
+      [
+         {
+            "name":                "Short description",
+            "description":         "Detailed description",         
+            "type":                "measurement or limit 
+                                      or range or string",           
+            "value":               [] or "",             
+            "unit":                "Associated unit"
+         },     
+         ...
+      ]
+\end{verbatim}
+\end{small}
+
+
+
+\begin{description}
+
+  \item[\texttt{name}] Display name.
+
+  Conventions: required.
+  
+  Example: \textit{Data file}
+
+
+  \item[\texttt{description}] Description.
+
+  Conventions: optional.
+  
+  Example: \textit{Size of the Marinelli beaker} 
+  
+\newpage
+  \item[\texttt{type}] The type of data stored in \texttt{value}.
+
+  Conventions: Following the same convention as the \texttt{measurement} sub-structure, this field describes the type of data stored in the \texttt{value} field; \textit{string} is added option; required. 
+  
+  Example: \textit{measurement} 
+
+  Example: \textit{range}
+  
+  Example: \textit{limit}
+  
+  Example: \textit{string}  
+  
+  \item[\texttt{value}] An array of numbers or a single string.
+
+  Conventions: required.
+
+  Example: \textit{[304.1]}
+  
+  Example: \textit{[0.1, 0.2]}   
+
+  Example: \textit{[21.1, 95]}   
+
+  Example: \textit{AB444-D.spe}      
+
+  \item[\texttt{unit}] Unit.
+
+  Conventions: optional.
+
+  Example: \textit{cm}
+
+\end{description}
+
+\newpage
+
+\subsubsection{Example of appropriate use}
+
+\noindent Below is an example of appropriate use. Here a user - a hypothetical low background counting facility - has decided to include a field to store the name of the measurement data file (containing the spectrum taken with the HPGe detector). The facility requires this number to have special prominence, and to be a separate field by which documents can be searched and sorted. At the same time it is a number of no interest to anyone outside of the facility.
+
+\begin{small}
+\begin{verbatim}
+   "measurement": {
     
-      "m_institution":     "...",
-      "m_technique":       "...",
-      "m_date":            "...",
-      "m_date":           ["...", "..."],
+      "institution":     "...",
+      "technique":       "...",
+      "date":            [""],
       
-      "m_requestor":     { "name": "...", "contact": "..." },
-      "m_practitioner":  { "name": "...", "contact": "..." },
+      "requestor":     { "name": "...", "contact": "..." },
+      "practitioner":  { "name": "...", "contact": "..." },
                
-      "m_description":     "...",
-                            
-      "m_results": [
-        { "isotope": "...", "value": 0, "error": 0, "unit": "..." }
+      "description":     "...",
+
+      "results": [
+         {
+            "isotope":   "...",
+            "type":      "meas",
+            "value":     [0],
+            "unit":      "Unit"
+         }
       ],
+
+      "user": [
+         { 
+            "name":      "Data file", 
+            "type":      "string",
+            "value":     "2010-A-0092" 
+         }
+      ]
       
-      "u_datafile":         "2010-A-0092"
-        
    }
 \end{verbatim}
 \end{small}
-Here a user - a hypothetical low background counting facility - has decided to include a field to store the name of the measurement data file (the spectrum taken with the HPGe detector). The facility requires this number to have special prominence, and to be a separate field by which documents can be searched and sorted. At the same time it is a number of no interest to anyone outside of the facility.
+
+\newpage
 
 \subsection{Changes} % ............................................
 
 \begin{description}
   \item[2013-01-14] (to v1.01) Correct insignificant typos.
   \item[2013-01-14] (to v1.01) Add comment that uncertainties on measurements are expected to be 68\% c.l. and correct default confidence level on limits from 90\% to 95\%.
+    \item[2013-01-30] (to v2.00) Change the way optional fields are handled, remove \texttt{m\_} and \texttt{u\_} prefixes.
+    \item[2013-01-30] (to v2.00) Convert data to a one- or two-valued array.
+    \item[2013-01-30] (to v2.00) Revise the way the results are handled. Now use a unified structure with a \texttt{type}. Combine values, error and limits into a variable-length \texttt{value} array.
+    \item[2013-02-06] (to v2.01) Results type \texttt{meas} becomes \texttt{measurement}.
+    \item[2013-02-06] (to v2.01) Rename \texttt{opt} array to user and revise it's structure.
 \end{description}
 
 
-
-%\begin{table}
-%\addtolength{\tabcolsep}{-2pt}
-%\caption{List of mandatory fields.}
-%\begin{center}
-%\begin{tabular}{llll}
-%\hline
-%\hline
-%
-%\mcl{1}{Sub-structure} &\mcc{3}{Field} \bstb \\
-%
-%\cline{2-4}
-%
-%        &\mcl{1}{Field} & \mcl{1}{Description} & \mcl{1}{Data type} \bstb \\
-%
-%\hline
-%
-%Sample & Name             & Short description     & String                                 \bst\\
-%               & Description   & Long description      & String                                \\
-%               & Source           & Where it came from &String                                \\
-%               & Owner            & Who owns it              &String                                \\
-%               & Tags               & Keywords                  & String                               \\              
-%               &                         & & Array of strings   \bsb\\  
-%
-%\hline
-%
-%Measurement & Name             & Short description     & String                                 \bst\\
-%               & Description   & Long description      & String                                \\
-%               & Source           & Where it came from &String                                \\
-%               & Owner            & Who owns it              &String                                \\
-%               & Tags               & Keywords                  & String                               \\              
-%               &                         & & Array of strings   \bsb\\  
-%
-%\hline
-%
-%Data source & Name             & Short description     & String                                 \bst\\
-%               & Description   & Long description      & String                                \\
-%               & Source           & Where it came from &String                                \\
-%               & Owner            & Who owns it              &String                                \\
-%               & Tags               & Keywords                  & String                               \\              
-%               &                         & & Array of strings   \bsb\\  
-%
-%
-%\etabn{roi}
 
 \end{document}
