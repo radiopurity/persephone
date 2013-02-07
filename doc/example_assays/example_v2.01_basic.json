@@ -1,0 +1,51 @@
+
+{
+
+  "type":                   "measurement",
+
+  "grouping":               "0vBB Experiment",
+
+  "sample": {
+    "name":                 "Plombum, VG2 lead",
+    "description":          "Plombum, VG2 lead, lot #D9119",
+    "id":                   "Pb-001",
+    "source":               "Plombum FL",
+    "owner": { 
+      "name":                   "Alice Professor, A University", 
+      "contact":                "alice@university.edu" 
+    }
+  },
+
+  "measurement": {
+    "institution":          "Low-background Facility",
+    "technique":            "Gamma",
+    "date":                 ["2000-01-02"],
+    "requestor": { 
+      "name":                   "Alice Professor, A University", 
+      "contact":                "alice@university.edu" 
+    },
+    "practitioner": { 
+      "name":                   "Bob Technician", 
+      "contact":                "bob@lowbackground.edu" 
+    },
+    "description":          "Standard gamma count of the whole brick.", 
+    "results": [
+      { "isotope":"Th-232", "type":"limit",       "value":[3.2],    "unit":"ppb" },
+      { "isotope":"U-238",  "type":"limit",       "value":[30],     "unit":"ppb" },
+      { "isotope":"K",      "type":"measurement", "value":[170,10], "unit":"ppt" }
+    ]
+  },
+
+  "data_source": {
+    "reference":            "0vBB-EXP-0001 (Technical report)",
+    "input": { 
+      "name":                   "Eve Undergraduate", 
+      "contact":                "eve@university.edu",
+      "date":                   "2010-01-01"                
+    },
+    "notes":                "There seems to be a typo in the results list in the report. Interperate U-239 as U-238."    
+  },
+
+  "specification":          "2.01"
+
+}

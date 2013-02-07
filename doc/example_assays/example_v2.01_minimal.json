@@ -1,0 +1,47 @@
+
+{
+
+  "type":                   "measurement",
+
+  "grouping":               "0vBB Experiment",
+
+  "sample": {
+    "name":                 "Plombum, VG3 lead (extra special)",
+    "description":          "Plombum, VG3 lead (extra special)",
+    "id":                   "",
+    "source":               "",
+    "owner": { 
+      "name":                   "", 
+      "contact":                "" 
+    }
+  },
+
+  "measurement": {
+    "institution":          "Low-background Facility",
+    "technique":            "Gamma",
+    "date":                ["2000-05-02"],
+    "requestor": { 
+      "name":                   "", 
+      "contact":                "" 
+    },
+    "practitioner": { 
+      "name":                   "", 
+      "contact":                "" 
+    },
+    "description":          "", 
+    "results": []
+  },
+
+  "data_source": {
+    "reference":            "0vBB-EXP-0003 (Technical report)",
+    "input": { 
+      "name":                   "Eve Undergraduate", 
+      "contact":                "eve@university.edu",
+      "date":                   "2010-01-01"                
+    },
+    "notes":                "Source report is somewhat uniformative - pages missing?"    
+  },
+
+  "specification":          "2.01"
+
+}
