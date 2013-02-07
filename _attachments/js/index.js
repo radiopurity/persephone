@@ -431,7 +431,7 @@ function searchResults(val) {
 
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
-               + '/' + dbname + '/_design/views/_search/assays?q=' 
+               + '/' + dbname + '/_design/persephone/_search/assays?q=' 
                + val + '&include_docs=true';   
   }
     
