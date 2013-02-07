@@ -224,19 +224,9 @@ function click_submit() {
  
   if ( $("#input").validate().numberOfInvalids() == 0 ) {           
 
-    // Parse the date
-
-    var arr_idate = $("#idate").val().split("/");
-       
-    var imonth = arr_idate[0]; 
-    var iday   = arr_idate[1]; 
-    var iyear  = arr_idate[2]; 
-      
     // Build the JSON for the results 
     //   (complex because fields don't have unique IDs)
       
-    //var n_results = $(".results-block").children('div.result-row').length;
-
     var iresult = {};
 
     $(".results-block").children('div.result-row').each(function(i) {
@@ -276,42 +266,50 @@ function click_submit() {
     });
       
     // Build the overall JSON
-            
+     
     var output_json =  {
-    
+
       "type": "measurement-provisional",
+      "grouping": $("#igrouping").val(),
       "sample": {
-        "name":        $("#iname").val(),
-        "description": $("#idesc").val(),
-        "source":      $("#isrc").val(),
-        "owner":       $("#iown").val(),
-        "set":         $("#itags").val(),
-        "mass":        $("#imass").val(),
-        "geometry":    $("#igeom").val()
+        "m_name":        $("#iname").val(),
+        "m_description": $("#idesc").val(),
+        "m_id":         $("#iid").val(),
+        "m_source":      $("#isrc").val(),
+        "m_owner":
+                {
+                "name" : $("#iown").val(),
+                "contact" : $("#iowncontact").val()
+                }
+           },
+      "m_measurement": {
+        "m_institution": $("#iinst").val(),
+        "m_technique":   $("#itech").val(),
+        "m_date": $("#idate").val(),
+        "m_results":     iresult,
+      "m_requestor":  {
+            "name": $("#ireq").val(),
+            "contact":    $("#ireqcon").val()
+                        },
+      "m_practitioner":  {
+            "name" : $("#iprac").val(),
+            "contact": $("#ipraccon").val()
+                        },
+      "m_description":          $("#imdesc").val()
       },
-      "measurement": {
-        "institution": $("#iinst").val(),
-        "technique":   $("#itech").val(),
-        "date": {
-        "day":     iday,
-        "month":   imonth,
-        "year":    iyear
+      "m_data_source": {
+         "m_reference":          $("#iref").val(),
+         "m_input" : {
+             "name": $("#ientry").val(),
+             "contact": $("#ientrycon").val(),
+             "date": $("#ientrydate").val()
+                    },
+         "m_notes" : $("#inotes").val()
       },
-      "results":     iresult,
-      "requestor":            $("#ireq").val(),
-      "requestor_contact":    $("#ireqcon").val(),
-      "practitioner":         $("#iprac").val(),
-      "practitioner_contact": $("#ipraccon").val(),
-      "description":          $("#imdesc").val()
-      },
-      "data_source": {
-         "reference":          $("#iref").val(),
-         "data_entry_name":    $("#ientry").val(),
-         "data_entry_contact": $("#ientrycon").val()
-      }
-            
+      "specification" : "1.0"
+
     };
-      
+ 
     db.saveDoc(
     
       output_json,
