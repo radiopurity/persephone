@@ -37,6 +37,8 @@ $(function(){
   });           
   */
 
+  $("#myTable").tablesorter({ sortList: [[0, 0] [1, 0]] });
+
   // Template - input      
   $.get('templates/default_input.html', function(tmp) {               
 

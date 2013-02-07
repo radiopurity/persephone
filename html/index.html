@@ -10,15 +10,17 @@
     
     <link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css" rel="stylesheet" /> 
 
+    <script type="text/javascript" src="/_utils/script/jquery.couch.js"></script>
+
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>    
     <script type="text/javascript" src="js/collapsing.js"></script>
-    <script type="text/javascript" src="/_utils/script/jquery.couch.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/jquery.placehold-0.3.min.js"></script>      
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="css/style.css"/> 
 
@@ -35,6 +37,7 @@
     
       <ul>
         <li><a href="#tab-search">Search</a></li>
+        <!-- <li><a href="#tab-search2">Search-II</a></li> -->
         <!-- <li><a href="#tab-submit">Submit</a></li> -->
         <!-- <li><a href="#tab-feedback">Feedback</a></li> --> 
         <!-- <li><a href="#tab-preferences">Preferences</a></li> --> 
@@ -56,6 +59,43 @@
       
       </div>    
       
+      <!-- Search tab -->
+
+      <div id="tab-search2">
+
+        <div id="div-search2">
+
+        <table id="myTable" class="tablesorter">
+          <thead>
+            <tr>
+              <th>Sample Name</th>
+              <th>Sample Source</th>
+              <th>Institution</th>
+              <th>Technique</th>
+              <th>K-isotype</th>
+              <th>Th-isotype</th>
+              <th>U-isotype</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Norddeutsche Affinerie, NSOV copper</td>
+              <td>Norddeutsche Affinerie</td>
+              <td>Shiva Inc.</td>
+              <td>GD-MS</td>
+              <td>0.4</td>
+              <td>5</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+        </table>
+
+        </div>
+          
+        <div id="materials" class="content"></div>
+      
+      </div>    
+
       <!-- Data tab --> 
       <!--
       <div id="tab-submit">
