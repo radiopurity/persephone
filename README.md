@@ -6,6 +6,8 @@ Persephone is a database system for storing material radio-purity data.
 
 It was originally developed by James Loach at LBNL (james.loach@gmail.com).
 
+Thank you to contributors: Adam Cox, Ben Wise, Keith Adler.
+
 Installation
 ------------
 
