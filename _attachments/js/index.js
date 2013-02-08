@@ -8,6 +8,9 @@ var collapsed = true;
 // ____________________________________________________________________________________
 $(function(){
 
+  // Set the appropriate logo
+  $("#logo").attr("src", "images/" + db.name + ".png");
+
   // Tabs
   $('#tabs').tabs();
 
