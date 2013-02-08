@@ -25,3 +25,12 @@ This is how to install on a local version of couchdb:
 
   - if sucessful you'll receive a URL to your application
 
+Example database
+----------------
+
+Available here:
+
+http://radiopurity.cloudant.com/rp/_design/persephone/index.html
+
+Contact james.loach@gmail.com for credentials.
+
