@@ -163,6 +163,22 @@ textarea.input-textarea {
   color:#bbbbbb;
 }
 
+.heading-grouping {
+  width:115px; 
+  display:inline-block; 
+  white-space: nowrap; 
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
+.heading-name {
+  width:250px; 
+  display:inline-block; 
+  white-space: nowrap; 
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
 li.sample-name {
   margin-bottom: 4px;  
 }
@@ -187,7 +203,8 @@ td.category {
 
 td.item {
   width: 90px;
-  color:#ecb7b8;    
+  color:#e18e94; 
+  /*color:#ecb7b8;*/    
 }
 
 td.m_description {

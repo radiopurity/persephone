@@ -446,17 +446,17 @@ function searchResults(val) {
     url: search_url,
     dataType: 'json', 
     async: false,
-    success: function(data) {
+    success: function(data) { 
 
     if ( data.total_rows > 0 ) {
 
       $("#materials").append('<ul id="output">');
    
-        for ( j = 0; j < data.total_rows; j++ ) { 
-   
+        for ( j = 0; j < data.total_rows; j++ ) {  
+ 
           var doc = data.rows[j].doc;
 
-          if ( doc.type == "measurement" ) {
+          if ( doc.type == "measurement" ) {  
             $.tmpl("output_template", doc).appendTo("#output");
           }
    
