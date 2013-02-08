@@ -30,9 +30,10 @@
     },
     "description":          "Standard gamma count of the whole brick.", 
     "results": [
-      { "isotope":"Th-232", "type":"limit",       "value":[3.2],    "unit":"ppb" },
-      { "isotope":"U-238",  "type":"limit",       "value":[30],     "unit":"ppb" },
-      { "isotope":"K",      "type":"measurement", "value":[170,10], "unit":"ppt" }
+      { "isotope":"Th-232", "type":"range",       "value":[3.2,4.2], "unit":"ppb" },
+      { "isotope":"U-238",  "type":"measurement",       "value":[30],      "unit":"ppb" },
+      { "isotope":"K",      "type":"limit", "value":[170,10],  "unit":"ppt" },
+      { "isotope":"Co-60",  "type":"measurement", "value":[270,40],  "unit":"ppt" }
     ]
   },
 
