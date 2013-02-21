@@ -65,20 +65,14 @@ div#materials {
   padding: 10px 0px 10px 25px;   
 }
 
-/*
-div.content {
-  padding: 15px 0px 15px 500px;   
-}
-*/
-
 div.content-text {
   padding: 0px 0px 0px 10px;   
 }
 
 
 #div-search {
-  width: 630px;
-  margin: 0px auto;
+  width: 588px;
+  margin: 5px auto;
 }
 
 #box-search {
@@ -93,14 +87,13 @@ div.content-text {
      with the text in the buttons... */   
 }
 
-fieldset.entry {
-  padding: 15px 10px 10px 10px;
-  margin: 0px 0px 15px 0px;  
-  width: 90%; 
+#div-submit {
+  width: 338px;
+  margin: 5px auto 30px auto;
 }
 
 div.input-row {
-  min-height:28px;
+  min-height:36px;
 }
 
 label.input-label {
@@ -123,8 +116,8 @@ label.input-label-opt {
 }
 
 input.input-box {
-  height:16px;
-  padding-left:4px;
+  height:24px;
+  padding: 0px 0px 0px 8px;
   margin-right:1px;   
 }
 
@@ -135,23 +128,90 @@ input.input-box-select {
   margin-right:1px;   
 }
 
-button.add-entry {
-  width:20px;
-  height:20px;
-  vertical-align:top;  
+table.input {
+  margin-left:80px;
+  margin-top:15px;
+  margin-bottom:10px;
 }
 
-button.remove-entry {
-  width:20px;
-  height:20px;
-  vertical-align:top;  
+tr.input {
+  height: 34px;
 }
 
+td.input-grouping-wide {
+  width: 200px;
+}
+
+td.input-grouping {
+  width: 110px;
+}
+
+td.input-name {
+  width: 90px;
+}
+
+.ui-tooltip {
+  border: 0px solid white;
+  box-shadow: 0 0 0px white;
+  color:#bbbbbb;
+}
+
+.ui-autocomplete {
+  max-height: 150px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+
+#grp                         { width:300px; }
+
+#sname, #sdesc, #sid, #ssrc  { width:300px; }
+#sown1                       { width:143px; }
+#sown2                       { width:142px; }
+
+#minst, #mtech               { width:300px; }
+#mdate1                      { width:269px; }
+#mdate2a, #mdate2b           { width:127px; }
+#mprac1, #mreq1              { width:143px; }
+#mprac2, #mreq2              { width:142px; }
+
+#dref                        { width:300px; }
+#dinp1                       { width:143px; }
+#dinp2                       { width:142px; }
+#dinp3                       { width:300px; }
+#dnotes                      { width:300px; }
+
+.rtype                       { width:105px; }
+
+.runit                       { width: 60px; }
+.risotope                    { width: 70px; }
+
+.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm,
+  .rlimit, .rlimitcl, .rrangel, .rrangeh, .rrangecl { 
+  width: 60px; 
+}
+
+.uname  { width: 100px; margin-left:15px }                   
+.udesc  { width: 130px; } 
+.utype  { width:  60px; } 
+.uvalue { width:  60px; } 
+.uunit  { width:  60px; } 
+
+.spacer1, .spacer2 { 
+  border-style: dotted;
+  disabled: true;
+  width: 60px; 
+}
+  
 textarea.input-textarea {
   padding:2px 0px 3px 5px;
-  margin:0px 1px 6px 0px;
   resize:none;  
+  width:303px;
 }
+
+button.input {
+  height:26px; 
+}  
 
 /* Display template formatting */
 
@@ -255,10 +315,9 @@ form *.something-temporary {
 
 label.error { 
   float: none; 
-  color: red; 
-  padding-left: 0.3em; 
-  padding-right: 1em; 
-  vertical-align: center;     
+  color: #e18e94;
+  margin-left: 20px; 
+  padding-right: 1em;      
 }
 
 /* Sortable table styles */

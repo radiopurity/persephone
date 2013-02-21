@@ -16,7 +16,7 @@
 
     <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>    
-    <script type="text/javascript" src="js/collapsing.js"></script>
+    <script type="text/javascript" src="js/collapsing.js"></script>      
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/jquery.placehold-0.3.min.js"></script>      
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
@@ -38,9 +38,8 @@
       <ul>
         <li><a href="#tab-search">Search</a></li>
         <!-- <li><a href="#tab-search2">Search-II</a></li> -->
-        <!-- <li><a href="#tab-submit">Submit</a></li> -->
-        <!-- <li><a href="#tab-feedback">Feedback</a></li> --> 
-        <!-- <li><a href="#tab-preferences">Preferences</a></li> --> 
+        <li><a href="#tab-submit">Submit</a></li> 
+        <li><a href="#tab-settings">Settings</a></li> 
         <li><a href="#tab-about">About</a></li> 
       </ul>
 
@@ -59,12 +58,10 @@
       
       </div>    
       
-      <!-- Search tab -->
+      <!-- Tablesorter search tab -->
       <!--
       <div id="tab-search2">
-
         <div id="div-search2">
-
         <table id="myTable" class="tablesorter">
           <thead>
             <tr>
@@ -89,70 +86,26 @@
             </tr>
           </tbody>
         </table>
-
         </div>
-          
         <div id="materials" class="content"></div>
-      
       </div>    
       -->
 
       <!-- Data tab --> 
-      <!--
+      
       <div id="tab-submit">
       
-         <div>
-           <button id="button-submit" onclick="javascript:click_submit();">Submit for approval</button>     
-           <button id="button-check" onclick="javascript:click_check();">Check</button>
+        <div id="div-submit">    
+           <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>        
+           <button id="button-check"  onclick="javascript:click_check();">Check</button>
            <button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
-           <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>
+           <button id="button-submit" onclick="javascript:click_submit();">Submit</button>            
          </div>
 
          <div id="input-form" class="content"></div>
       
       </div>
-      -->
-      
-      <!-- Feedback tab -->
-      <!--      
-      <div id="tab-feedback">
-
-        <div>
-          <button id="button-feedback" onclick="javascript:click_feedback();">Send feedback</button>     
-        </div>
-
-        <div id="feedback-form" class="content">
-      
-          <form id="feedback">
-            
-            <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
-               
-              <legend>Feedback</legend>
                   
-              <div class="input-row">
-                <label class="input-label">Name</label>
-                <input id="fname" name="fname" placeholder="Full name" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
-                <span class="istatus"></span>
-              </div>      
-              <div class="input-row">
-                <label class="input-label">Email</label>
-                <input id="femail" name="femail" placeholder="Email address" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
-                <span class="istatus"></span>
-               </div>
-               <div class="input-row">
-                 <label class="input-label">Comment</label>
-                 <textarea id="fcomment" name="fcomment" placeholder="Feedback" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>
-               </div>
-                  
-            </fieldset>             
-            
-          </form>
-               
-        </div>
-      
-      </div>
-      -->
-      
       <!-- About tab -->
 
       <div id="tab-about">
@@ -211,46 +164,29 @@
           <p><a href="https://github.com/nepahwin/persephone">Persephone</a> is software package being developed for a global community-wide material assay database. You are using a pre-production version.<p>
 
           <p>Please send feedback to <a href="mailto:james.loach@gmail.com">James Loach</a>.
-
-<!--
-          <p><b>Submitting</b></p>
-            
-          <p>Data should be entered into the search form as indicated.</p>
-
-          <p>Grayed out field names are optional.</p>
-
-          <p>Submitted data is not immediately searchable. The moderator must sign off on each document.</p>
-        
--->          
               
         </div>
       
       </div>
 
-      <!-- Preferences tab -->
-      <!--
-      <div id="tab-preferences">
-
-        <div id="preferences" class="content-text">     
+      <!-- Settings tab -->
       
-          <p>No options yet!</p>
+      <div id="tab-settings">
+
+        <div id="settings" class="content-text">     
       
         </div>
 
       </div>
-      -->
-
+     
     </div>
 
     <div id="dialog-submit" title="Entry submitted">
-      <p>Your entry has been submitted. It will appear in the database following the approval process.</p>
+      <p>Submitted successfully.</p>
+      <p>Chose whether you want to clear the form or keep its contents so you can create a similar entry.</p>
     </div>
 
-    <div id="dialog-feedback" title="Feedback submitted">
-      <p>Your feedback has been submitted. Thank you.</p>
-    </div>
-
-    <div id="tagline" class="faded-less">Persephone<br>Supported by AARM, LBNL, SMU, SJTU & others</div>
+    <div id="tagline" class="faded">Persephone<br>Supported by AARM, LBNL, SMU, SJTU & others</div>
 
     </div>
 
