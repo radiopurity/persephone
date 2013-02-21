@@ -61,7 +61,7 @@
               "type": { "required": true, "type": "string"}, 
               "value":{"$ref":"#value_def"},
               "unit": {
-                "pattern": "pct|ppm|ppb|ppt|ppq|mBq/kg|uBq/kg|nBq/kg", 
+                "pattern": "pct|ppm|ppb|ppt|ppq|mBq/kg|uBq/kg|\u00B5Bq/kg|nBq/kg", 
                 "required": true, 
                 "type": "string"
                 }, 
