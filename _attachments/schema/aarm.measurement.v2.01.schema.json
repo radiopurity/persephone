@@ -1,0 +1,175 @@
+{
+  "description": "", 
+  "title": "AARM database data document schema", 
+  "additionalProperties": false, 
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "required": false, 
+  "type": "object", 
+  "properties": {
+    "sample": {
+      "additionalProperties": false, 
+      "required": true, 
+      "type": "object", 
+      "properties": {
+        "user":{"$ref":"#user_def"},
+        "id": { "required": false,  "type": "string",  "title": "Identification number" }, 
+        "owner": {"$ref":"#contact_def"}, 
+        "description": { "required": false,  "type": "string",  "title": "detailed description"}, 
+        "source": {"required": false,  "type": "string",  "title": "where the sample came from"}, 
+        "name": { "required": true,  "type": "string",  "title": "short description" }
+        }
+      }, 
+    "data_source": {
+      "additionalProperties": false, 
+      "required": true, 
+      "type": "object",
+      "properties": {
+        "user":{"$ref":"#user_def"},
+        "notes": {"required": false,  "type": "string", "title": "Comments on issues with data entry"}, 
+        "input": {
+          "required": true, 
+          "type": "object", 
+          "extends":{"$ref":"#contact_def"},
+          "properties": {
+            "date": {
+              "pattern":"^(18|19|20)[0-9]{2}-(1[0-2]|0[1-9])-(0[1-9]|[12][0-9]|3[01])$",
+              "required": true, 
+              "type": "string", 
+              "description": "must be in the form of YYYY-MM-DD", 
+              "title": "creation date of this document"
+              }
+            }
+          }, 
+        "reference": {"required": true,  "type": "string", "title": "A reference to data source, such as a publication"}
+        }
+      }, 
+    "measurement": {
+      "additionalProperties": false, 
+      "required": true, 
+      "type": "object",
+      "properties": {
+        "user":{"$ref":"#user_def"},
+        "requestor": { "$ref":"#contact_def", "title": "Responsible for commissioning/managing/funding of measurement"}, 
+        "results": {
+          "uniqueItems": true, 
+          "additionalItems": false, 
+          "title": "A list of results", 
+          "minItems": 0, 
+          "items": {
+            "type": "object", 
+            "properties": {
+              "type": { "required": true, "type": "string"}, 
+              "value":{"$ref":"#value_def"},
+              "unit": {
+                "pattern": "pct|ppm|ppb|ppt|ppq|mBq/kg|uBq/kg|nBq/kg", 
+                "required": true, 
+                "type": "string"
+                }, 
+              "isotope": {
+                "pattern": "[A-Z][a-z]{0,1}-[0-9]{0,3}|[A-Z][a-z]{0,1}", 
+                "required": true, 
+                "type": "string"
+                }
+              }
+            }, 
+          "required": true, 
+          "type": "array"
+          }, 
+        "practitioner": { "$ref":"#contact_def", "title": "Person responsible for the measurement"}, 
+        "technique": {"required": false, "type": "string"}, 
+        "date": {
+          "minItems": 1, 
+          "items": {
+            "pattern":"^((18|19|20)[0-9]{2}-(1[0-2]|0[1-9])-(0[1-9]|[12][0-9]|3[01]))|((18|19|20)[0-9]{2}-(1[0-2]|0[1-9]))|((18|19|20)[0-9]{2})$",
+            "type":"string"
+            }, 
+          "required": false, 
+          "maxItems": 2, 
+          "uniqueItems": false, 
+          "additionalItems":false,
+          "type": "array"
+          }, 
+        "institution": { "required": false, "type": "string",  "title": "Name of Institution where measurement was made"}, 
+        "description": {"required": false, "type": "string", "title": "Detailed description of the procedures for data acquisition and analysis"}
+        }
+      }, 
+    "_rev": { "required": false,  "type": "string", 
+      "description": "this is NOT required since it is not required to upload the document to couchdb", 
+      "title": "couchdb _rev document revision number"
+      }, 
+    "_id": { "required": false,   "type": "string", 
+      "description": "this is NOT required since it is not required to upload the document to couchdb", 
+      "title": "couchdb _id document identifier"
+      }, 
+    "type": { "required": true, "enum": ["measurement"], "title": "Must be set to measurement"}, 
+    "user":{"$ref":"#user_def"},
+    "specification": { "required": true, "enum": ["2.01"],
+      "description": "must be set to '2.01' (a string)", 
+      "title": "The version number of the specification"
+      }, 
+    "grouping": { "required": true, "type": "string", 
+      "description": "Usually this will be the name of the experiment or collaboration that made the measurement", 
+      "title": "The group to which the document belongs"
+      }
+    },
+  "value_def":{
+    "title": "Values expressing a measurement, range or limit", 
+    "minItems": 1, 
+    "items": {
+      "type": "number"
+      }, 
+    "required": true, 
+    "maxItems": 3, 
+    "uniqueItems": false, 
+    "type": "array"
+    },
+  "contact_def":{
+    "required": false, 
+    "type": "object", 
+    "properties": {
+      "contact": {
+        "required": true, 
+        "type": "string", 
+        "title": "Institution or email/postal address"
+        }, 
+      "name": {
+        "required": true, 
+        "type": "string" 
+        }
+      }
+    },
+  "user_def" : {
+    "type":"array",
+    "required":false,
+    "items":{
+      "type":[
+          {
+            "type":"object",
+            "properties":{
+              "name":{ "required":true, "type":"string"},
+              "description":{ "required":false, "type":"string"},
+              "type":{ "required": true, 
+                "enum": ["string"]
+                },
+              "value":{ "required":true,  "type":"string"}
+              }
+            },
+          {
+            "type":"object",
+            "properties":{
+              "name":{ "required":true, "type":"string"},
+              "description":{ "required":false, "type":"string"},
+              "type":{ "required": true, 
+                "enum": ["measurement", "range", "limit"]
+                },
+              "value":{"$ref":"#value_def"},
+              "unit":{ "required":true, "type":"string",
+                "title":"A unit for the measured values"
+                }
+              }
+            }
+        ]
+      },
+    "title":"User-allowed extension"
+  }
+}
