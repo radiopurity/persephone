@@ -624,12 +624,12 @@ function makeCollapsible(listElement){
   // Make a list have collapsible sublists in listElement
       
   // Removed list item bullets and the space they occupy
-  listElement.style.listStyle='none';
-  listElement.style.marginLeft='0';
-  listElement.style.paddingLeft='0';
+  listElement.style.listStyle    = 'none';
+  listElement.style.marginLeft   = '0';
+  listElement.style.paddingLeft  = '0';
    
   // Loop over all child elements of the list
-  var child=listElement.firstChild;
+  var child = listElement.firstChild;
    
   while ( child != null ) {
       
@@ -652,6 +652,9 @@ function makeCollapsible(listElement){
       node.setAttribute('src', CLOSED_IMAGE);
       node.setAttribute('class', 'collapsibleClosed');
       node.onclick = createToggleFunction(node, list);
+      
+      console.log(list);
+      
       child.insertBefore(node, child.firstChild);
          
     }
