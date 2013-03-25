@@ -1,8 +1,11 @@
+    
+<div class="accordion">
 
-<!-- Default display template -->
-<!-- Data format specifcation v 2.01 -->
+<h3 style="height:19px">
 
-<li class="sample-name"><span class="faded-less heading-grouping">${grouping}</span> <span class="heading-name"><b>${sample.name}</b></span> 
+<a href="#">
+
+<span class="faded-less heading-grouping">${grouping}</span> <span class="heading-name"><b>${sample.name}</b></span>
 
   {{each measurement.results}}
 
@@ -39,6 +42,17 @@
   {{if $(measurement.results).length > 2 }}
     <span class="faded-less">&hellip;</span> 
   {{/if}}
+
+</a>   <button class="delete-button" type="button" style="font-size: 8px;float:right">&nbsp</button><button class="detail-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
+ 
+</h3>
+
+<div id="dinfo">
+
+<ul>
+<li class="sample-name"> 
+
+
 
   <ul>
 
@@ -245,3 +259,12 @@
   </ul>   
    
 </li>
+
+
+
+
+</ul>
+
+
+</div>
+</div>
