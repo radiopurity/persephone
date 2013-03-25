@@ -493,13 +493,7 @@ function click_search() {
   }    
          
   searchResults($("#box-search").val()); 
-     
-  collapsed = true;
-  $("input#button-expand").val("Expand");
-   
-  detailed = false;
-  $("input#button-detail").val("More detail");
-     
+          
   return false;
 
 }; 
@@ -509,9 +503,9 @@ function searchResults(val) {
 
   var search_url; 
 
-  // By default return all documents from the search
-
-  search_url = '/' + dbname + '/_all_docs?include_docs=true';
+  if ( val == 'all' ) {
+    search_url = '/' + dbname + '/_all_docs?include_docs=true';
+  }
 
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
