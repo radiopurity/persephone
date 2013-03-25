@@ -1,4 +1,3 @@
-    
 <div class="accordion">
 
 <h3 style="height:19px">
@@ -14,34 +13,34 @@
          $value.isotope == "Th-232" || $value.isotope == "Th" }}
 
       {{if $value.type == "measurement"}}
-        <span>${$value.isotope} </span>
+        <span class="heading-isotope-name">${$value.isotope} </span>
         {{if $value.value.length == 1 }}
-          <span class="faded-less">${$value.value[0]} ${$value.unit}</span>          
+          <span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>          
         {{/if}}
         {{if $value.value.length == 2 }}
-          <span class="faded-less">${$value.value[0]}(${$value.value[1]}) ${$value.unit}</span>          
+          <span class="faded-less heading-isotope-value">${$value.value[0]}(&hellip;) ${$value.unit}</span>          
         {{/if}}    
         {{if $value.value.length == 3 }}
-          <span class="faded-less">${$value.value[0]}(+${$value.value[1]}-${$value.value[2]}) ${$value.unit}</span>          
+          <span class="faded-less heading-isotope-value">${$value.value[0]}(&hellip;) ${$value.unit}</span>          
         {{/if}}   
       {{/if}}
 
       {{if $value.type == "limit"}}
-        <span>${$value.isotope} </span>
-        <span class="faded-less">&lt ${$value.value[0]} ${$value.unit}</span>     
+        <span class="heading-isotope-name">${$value.isotope} </span>
+        <span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>     
       {{/if}}
 
       {{if $value.type == "range"}}
-        <span>${$value.isotope} </span>
-        <span class="faded-less">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>             
+        <span class="heading-isotope-name">${$value.isotope} </span>
+        <span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>             
       {{/if}}
 
-    {{/if}}
+    {{/if}}    
      
   {{/each}}
 
   {{if $(measurement.results).length > 2 }}
-    <span class="faded-less">&hellip;</span> 
+    <span class="heading-isotope-name">&hellip;</span> 
   {{/if}}
 
 </a>   
@@ -261,9 +260,6 @@
   </ul>   
    
 </li>
-
-
-
 
 </ul>
 

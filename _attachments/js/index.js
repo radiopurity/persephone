@@ -22,7 +22,7 @@ $(function(){
   
   // Tabs
   $( "#tabs" ).tabs({
-    disabled: [ 2 ]
+    disabled: [ 1, 2 ]
   });
 
   // Menu bars            
@@ -510,14 +510,14 @@ function searchResults(val) {
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
                + '/' + dbname + '/_design/persephone/_search/assays?q=' 
-               + val + '&include_docs=true';   
+               + val + '&include_docs=true&limit=100';   
   }
     
   if ( val == "all" ) {
     search_url = '/' + dbname + '/_all_docs?limit=25&include_docs=true&descending=true';
     n_entries = 25;
   };
- 
+
   $("#materials").empty();
    
   $.ajax({ 
@@ -528,11 +528,11 @@ function searchResults(val) {
     success: function(data) { 
 
     if ( data.total_rows > 0 ) {
-   
-        if ( n_entries < 0 ) n_entries = data.total_rows;
+
+       if ( n_entries < 0 ) n_entries = data.total_rows;
    
         for ( j = 0; j < n_entries; j++ ) {  
- 
+
           var doc = data.rows[j].doc;
 
           if ( doc.type == "measurement" ) {  ;

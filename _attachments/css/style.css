@@ -12,6 +12,12 @@ body {
   font-size: 60%; 
 }
 
+#ribbon {
+  position: fixed;
+  top: 0em;
+  right: 0em;
+}
+
 /* Center the webpage */
 
 #container {
@@ -223,8 +229,26 @@ button.input {
   color:#bbbbbb;
 }
 
+.heading-isotope-value {
+  text-align:right;
+  width:90px; 
+  display:inline-block; 
+  white-space: nowrap; 
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
+.heading-isotope-name {
+  text-align:right;
+  width:25px; 
+  display:inline-block; 
+  white-space: nowrap; 
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
 .heading-grouping {
-  width:115px; 
+  width:130px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
