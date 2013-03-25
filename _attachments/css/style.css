@@ -68,13 +68,12 @@ ul {
 }
 
 div#materials {
-  padding: 13px 25px 25px 25px;   
+  padding: 0px 25px 25px 25px;   
 }
 
 div.content-text {
   padding: 0px 0px 0px 10px;   
 }
-
 
 #div-search {
   width: 395px;
@@ -261,6 +260,12 @@ button.input {
   white-space: nowrap; 
   text-overflow:ellipsis; 
   overflow:hidden;
+}
+
+#status-line {
+  text-align:center; 
+  padding-top:7px;
+  padding-bottom:13px;
 }
 
 li.sample-name {

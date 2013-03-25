@@ -488,7 +488,8 @@ function click_search() {
 
   if ( entry == "" || entry == "e.g. all") {
     $("#box-search").focus();    
-    $("div#materials").empty(); 
+    $("#materials").empty(); 
+    $("#status-line").empty(); 
     return false;
   }    
          
@@ -501,24 +502,27 @@ function click_search() {
 // ____________________________________________________________________________________
 function searchResults(val) {
 
+  $("#materials").empty();
+  $("#status-line").empty();
+
   val = val.toLowerCase();
 
-  var n_entries = -1;
+  var max_entries;
+  var n_entries;
 
   var search_url; 
 
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
                + '/' + dbname + '/_design/persephone/_search/assays?q=' 
-               + val + '&include_docs=true&limit=100';   
+               + val + '&include_docs=true&limit=100';
+    max_entries = 100;                  
   }
     
   if ( val == "all" ) {
     search_url = '/' + dbname + '/_all_docs?limit=25&include_docs=true&descending=true';
-    n_entries = 25;
+    max_entries = 25;
   };
-
-  $("#materials").empty();
    
   $.ajax({ 
         
@@ -527,10 +531,15 @@ function searchResults(val) {
     async: false,
     success: function(data) { 
 
-    if ( data.total_rows > 0 ) {
+      if ( data.total_rows > 0 ) {
 
-       if ( n_entries < 0 ) n_entries = data.total_rows;
-   
+        if ( data.total_rows > max_entries ) {
+          n_entries = max_entries;
+          $("#status-line").append('Output limited to ' + max_entries + ' entries');        
+        } else {         
+          n_entries = data.total_rows;                 
+        };
+      
         for ( j = 0; j < n_entries; j++ ) {  
 
           var doc = data.rows[j].doc;
