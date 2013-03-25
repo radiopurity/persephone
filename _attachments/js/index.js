@@ -501,11 +501,11 @@ function click_search() {
 // ____________________________________________________________________________________
 function searchResults(val) {
 
-  var search_url; 
+  val = val.toLowerCase();
 
-  if ( val == 'all' ) {
-    search_url = '/' + dbname + '/_all_docs?include_docs=true';
-  }
+  var n_entries = -1;
+
+  var search_url; 
 
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
@@ -513,22 +513,25 @@ function searchResults(val) {
                + val + '&include_docs=true';   
   }
     
-  if ( val.toLowerCase() == "all" ) {
-    search_url = '/' + dbname + '/_all_docs?include_docs=true';
+  if ( val == "all" ) {
+    search_url = '/' + dbname + '/_all_docs?limit=25&include_docs=true&descending=true';
+    n_entries = 25;
   };
-
+ 
   $("#materials").empty();
    
   $.ajax({ 
         
     url: search_url,
-    dataType: 'json', 
+    dataType: 'json',
     async: false,
     success: function(data) { 
 
     if ( data.total_rows > 0 ) {
    
-        for ( j = 0; j < data.total_rows; j++ ) {  
+        if ( n_entries < 0 ) n_entries = data.total_rows;
+   
+        for ( j = 0; j < n_entries; j++ ) {  
  
           var doc = data.rows[j].doc;
 

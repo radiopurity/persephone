@@ -232,7 +232,7 @@ button.input {
 }
 
 .heading-name {
-  width:250px; 
+  width:300px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
