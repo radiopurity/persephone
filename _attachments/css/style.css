@@ -9,7 +9,7 @@ html {
 body { 
   font-family: "Verdana", "Arial", "sans-serif";
   margin: 25px 50px 50px 50px;
-  font-size: 60%; 
+  font-size: 11px; 
 }
 
 #ribbon {
@@ -29,7 +29,7 @@ body {
 /* Center the tabs */
 
 #tabs .ui-tabs-nav {
-  height: 2.4em;
+  height: 2.35em;
   text-align: center;
 }
 #tabs .ui-tabs-nav li {
@@ -76,14 +76,18 @@ div.content-text {
 }
 
 #div-search {
-  width: 395px;
+  width: 450px;
   margin: 5px auto;
+}
+
+#button-search {
+   font-size:11px;
 }
 
 #box-search {
   padding: 0px 0px 0px 8px;
   margin: 0px 3px 0px 0px;
-  width:  350px;
+  width:  401px;
   height: 24px;
   line-height: 22px; 
   /* this line-height being an even number solves
@@ -263,7 +267,7 @@ button.input {
 }
 
 .heading-grouping {
-  width:130px; 
+  width:110px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
