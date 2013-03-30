@@ -505,8 +505,6 @@ function searchResults(val) {
   $("#materials").empty();
   $("#status-line").empty();
 
-  val = val.toLowerCase();
-
   var max_entries;
   var n_entries;
 
