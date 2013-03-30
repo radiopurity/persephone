@@ -220,6 +220,14 @@ button.input {
 
 /* Display template formatting */
 
+.about-header {
+  font-family: 'Oleo Script', cursive; 
+  text-align:center; 
+  font-size:20px;"
+}
+
+/* Display template formatting */
+
 .faded-less {
   color:#888888;
 }
