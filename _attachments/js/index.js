@@ -577,6 +577,8 @@ function searchResults(val) {
           event.preventDefault(); // the magic
           var parent = $(this).closest('div');
           var head = parent.prev('h3');
+          
+          
           parent.add(head).hide(function(){$(this).remove();});
         });
 

@@ -18,6 +18,10 @@ body {
   right: 0em;
 }
 
+//.ui-accordion-header-active {
+//  background:#ecb7b8 !important; // light pink for active
+//}
+
 /* Center the webpage */
 
 #container {
