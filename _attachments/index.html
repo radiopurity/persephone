@@ -83,60 +83,72 @@
       
           <p class="about-header dark-pink"><b>Searching</b></p>
           
-          <img class="about-image" src="images/about_search.gif" />
-            
-          <p>Search returns assays containing one or more of the search terms.</p>
+          <img class="about-image" src="images/about_search.gif"/>
+          
+          <div class="about-section">
 
-          <p>Example searches (on the 'name' field by default):</p>
+            <p>Search returns assays containing one or more of the search terms.</p>
+  
+            <p>Example searches (on the 'name' field by default):</p>
+  
+            <ul>
+              <li> "parylene n"</li>
+              <li> parylene AND "para tech"</li>
+              <li> parylene OR PCTFE</li>
+              <li> parylen?</li>
+              <li> pary*</li>
+            </ul>
 
-          <ul>
-            <li> "parylene n"</li>
-            <li> parylene AND "para tech"</li>
-            <li> parylene OR PCTFE</li>
-            <li> parylen?</li>
-            <li> pary*</li>
-          </ul>
+            <p>Specify a different field:</p>
+  
+            <ul>
+              <li> experiment:majorana</li>
+              <li> practitioner:smith</li>
+              <li> technique:naa</li>
+              <li> technique:(gamma OR naa) AND name:plastic                      
+            </ul>
+           
+            <p>Supported search fields are:<p>
+  
+            <ul>
+              <li> grouping/experiment</li>
+              <li> name</li>
+              <li> description</li>
+              <li> id</li>                      
+              <li> source</li>   
+              <li> owner</li>               
+              <li> institution</li>                      
+              <li> technique</li>   
+              <li> date</li>
+              <li> requestor</li>   
+              <li> practitioner</li>
+            </ul> 
 
-          <p>Specify a different field:</p>
+            <p>Enter 'all' to return all assays.
 
-          <ul>
-            <li> experiment:majorana</li>
-            <li> practitioner:smith</li>
-            <li> technique:naa</li>
-            <li> technique:(gamma OR naa) AND name:plastic                      
-          </ul>
-         
-          <p>Supported search fields are:<p>
-
-          <ul>
-            <li> grouping/experiment</li>
-            <li> name</li>
-            <li> description</li>
-            <li> id</li>                      
-            <li> source</li>   
-            <li> owner</li>               
-            <li> institution</li>                      
-            <li> technique</li>   
-            <li> date</li>
-            <li> requestor</li>   
-            <li> practitioner</li>
-          </ul>          
-         
-          <p>Enter 'all' to return all assays.
-
+          </div>  
+   
           <p class="about-header dark-pink"><b>Display</b></p>
 
           <img class="about-image" src="images/about_entry.gif" />
 
-          <p>Use the plus and minus buttons to expand individual assays. Click 'Expand all' to exapnd them all</p>
+          <div class="about-section">
 
-          <p>Click 'Toggle detail' to toggle the global detail level.</p>
+            <p>Use the plus and minus buttons to expand individual assays. Click 'Expand all' to exapnd them all</p>
+  
+            <p>Click 'Toggle detail' to toggle the global detail level.</p>
+
+          </div>
 
           <p class="about-header dark-pink"><b>About</b></p>
 
-          <p><a href="https://github.com/nepahwin/persephone">Persephone</a> is software package being developed for a global community-wide material assay database. You are using a pre-production version.<p>
+          <div class="about-section">
 
-          <p>Please send feedback to <a href="mailto:james.loach@gmail.com">James Loach</a>.
+            <p><a href="https://github.com/nepahwin/persephone">Persephone</a> is software package being developed for a global community-wide material assay database. You are using a pre-production version.<p>
+  
+            <p>Please send feedback to <a href="mailto:james.loach@gmail.com">James Loach</a>.
+
+          </div>
               
         </div>
       
