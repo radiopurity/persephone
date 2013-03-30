@@ -72,7 +72,7 @@ div#materials {
 }
 
 div.content-text {
-  padding: 0px 0px 0px 10px;   
+  padding: 0px 0px 0px 10px;  
 }
 
 #div-search {
@@ -223,7 +223,15 @@ button.input {
 .about-header {
   font-family: 'Oleo Script', cursive; 
   text-align:center; 
-  font-size:20px;"
+  font-size:20px;
+  margin-bottom: 10px;
+}
+
+.about-image {
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+  margin-bottom: 10px;  
 }
 
 /* Display template formatting */
