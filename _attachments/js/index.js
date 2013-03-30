@@ -626,3 +626,18 @@ function enter_box(event) {
   return false;     
         
 }  
+
+// ____________________________________________________________________________________
+function email_link(user, dom, linkText) {
+  
+ return document.write( "<a href=" + "mail" + "to:" + user + "@" + dom
+   + ">" + linkText + "<\/a>" );
+
+}
+
+
+
+
+
+
+

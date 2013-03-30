@@ -81,62 +81,83 @@
       
         <div id="about" class="content-text">      
       
+      
+      <div id="about-col1">
+      
+
           <p class="about-header dark-pink"><b>Searching</b></p>
-          
-          <img class="about-image" src="images/about_search.gif"/>
+         
+          <!--<img class="about-image" src="images/about_search.gif"/>-->
           
           <div class="about-section">
+  
+            <p>Default search on sample name:</p>
+  
+            <ul><b>
+              <li> "ofhc copper"</li>
+              <li> copper AND ofhc</li>
+              <li> copper OR lead</li>
+              <li> coppe?</li>
+              <li> cop*</li>
+            </ul></b>
 
-            <p>Search returns assays containing one or more of the search terms.</p>
-  
-            <p>Example searches (on the 'name' field by default):</p>
-  
-            <ul>
-              <li> "parylene n"</li>
-              <li> parylene AND "para tech"</li>
-              <li> parylene OR PCTFE</li>
-              <li> parylen?</li>
-              <li> pary*</li>
-            </ul>
+            <p>Searches are case-insensitive and OR by default.</p>
 
-            <p>Specify a different field:</p>
+            <p>You can specify a different search field:</p>
   
-            <ul>
+            <ul><b>
               <li> experiment:majorana</li>
-              <li> practitioner:smith</li>
-              <li> technique:naa</li>
-              <li> technique:(gamma OR naa) AND name:plastic                      
-            </ul>
+              <li> technique:(gamma OR naa)</li> 
+              <li> &nbsp;&nbsp;&nbsp;AND name:plastic</li>                      
+            </ul></b>
            
-            <p>Supported search fields are:<p>
-  
-            <ul>
-              <li> grouping/experiment</li>
-              <li> name</li>
-              <li> description</li>
-              <li> id</li>                      
-              <li> source</li>   
-              <li> owner</li>               
-              <li> institution</li>                      
-              <li> technique</li>   
-              <li> date</li>
-              <li> requestor</li>   
-              <li> practitioner</li>
-            </ul> 
-
-            <p>Enter 'all' to return all assays.
+            <p>These are the supported fields:</p>
+            
+            <ul><b>
+              <li>grouping/experiment</li>
+              <li>name</li>
+              <li>description</li>
+              <li>id</li>
+              <li>source</li>
+              <li>owner</li>
+              <li>institution</li>
+              <li>technique</li>
+              <li>date</li>
+              <li>requestor</li>
+              <li>practititoner</li>
+            </b></ul>
+            
+            <p>To view all assays enter <b>all</b>.</p>
 
           </div>  
    
+   </div>
+   
+   
+       <div id="about-col2">  
+   
           <p class="about-header dark-pink"><b>Display</b></p>
-
-          <img class="about-image" src="images/about_entry.gif" />
 
           <div class="about-section">
 
-            <p>Use the plus and minus buttons to expand individual assays. Click 'Expand all' to exapnd them all</p>
-  
-            <p>Click 'Toggle detail' to toggle the global detail level.</p>
+            <p>After searching you can click on entires for more detailed information.</p>
+            
+            <ul>
+              <li><img src="images/about_expand.gif" style="vertical-align:middle"> to see even more detail.</li>
+              <li><img src="images/about_close.gif" style="vertical-align:middle"> to remove the entry from the display.</li>
+            </ul>
+            <p>You can drag entries into a different order to help you compare them.</p>
+
+          </div>
+
+          <p class="about-header dark-pink"><b>Join us</b></p>
+
+          <div class="about-section">
+
+            <p>If you want to help develop this code, contribute your data, or use the software in your experiment or institution then please 
+<script type="text/javascript">
+  email_link("james.loach","gmail.com","contact us");
+</script>.
 
           </div>
 
@@ -144,13 +165,24 @@
 
           <div class="about-section">
 
-            <p><a href="https://github.com/nepahwin/persephone">Persephone</a> is software package being developed for a global community-wide material assay database. You are using a pre-production version.<p>
+            <p><a href="https://github.com/nepahwin/persephone">Persephone</a> is a software package for storing measurements of material radiopurity. It was originally created by James Loach at LBNL.<p>
   
-            <p>Please send feedback to <a href="mailto:james.loach@gmail.com">James Loach</a>.
+            <p>Contributors: Keith Adler, Matthew Bruemmer, Jodi Cooley, Adam Cox, James Loach, Khang Nguyen, Alan Poon.</p>
+
+            <p>Supporting institutions: Karlsruhe Institute of Technology (KIT), Lawrence Berkeley National Laboratory (LBNL), Southern Methodist University (SMU), Shanghai Jiaotong University (SJTU).</p>
+
+            <p>This work supported by the National Science Foundation under Grant Number 1242640 and the Assays and Acquisition of Radiopure Materials (AARM) collaboration.</p>
+
+
+
 
           </div>
               
         </div>
+
+      </div>
+      
+      
       
       </div>
 

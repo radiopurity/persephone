@@ -231,18 +231,37 @@ button.input {
 p.about-header {
   font-family: 'Oleo Script', cursive; 
   text-align:center; 
-  font-size:20px;
-  margin-bottom: 10px;
+  font-size:22px;
+  margin-bottom: 15px;
 }
 
 img.about-image {
   display: block; 
-  margin: 0 auto 10px auto; 
+  margin: 0 auto 20px auto; 
 }
 
 div.about-section {
-  width:500px; 
-  margin: 0 auto 0 auto; 
+  width:345px; 
+  margin: 0 auto 35px auto; 
+}
+
+div#about-col1, div#about-col2 {
+  display: table-cell;
+}
+
+div#about-col1 {
+  width:350px;
+  float: left;
+}
+
+div#about-col2 {
+  width:350px;
+}
+
+div#about {
+  width:700px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 /* Display template formatting */
