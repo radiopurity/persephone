@@ -221,10 +221,10 @@ $(function(){
    
   $('span#disclaimers').click(function(e) {      
     $('div#disclaimer').fadeToggle();
-    if ( $('span#disclaimers').text() == text_1 ) { 
-      $('span#disclaimers').text(text_2);     
+    if ( $('a#disclaimers').text() == text_1 ) { 
+      $('a#disclaimers').text(text_2);     
     } else {
-      $('span#disclaimers').text(text_1);   
+      $('a#disclaimers').text(text_1);   
     }  
     e.preventDefault();    
   });
