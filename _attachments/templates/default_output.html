@@ -9,8 +9,9 @@
 
   {{each measurement.results}}
 
-    {{if $value.isotope == "U-238"  || $value.isotope == "U"  || 
-         $value.isotope == "Th-232" || $value.isotope == "Th" }}
+    {{if ($value.isotope == "U-238"  || $value.isotope == "U"  || 
+          $value.isotope == "Th-232" || $value.isotope == "Th")
+            && $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
 
       {{if $value.type == "measurement"}}
         <span class="heading-isotope-name">${$value.isotope} </span>
