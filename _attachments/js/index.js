@@ -535,7 +535,7 @@ function searchResults(val) {
     max_entries = 100;                  
   }
     
-  if ( val == "all" ) {
+  if ( val == "all" || val == "All" ) {
     search_url = '/' + dbname + '/_all_docs?limit=25&include_docs=true&descending=true';
     max_entries = 25;
   };
