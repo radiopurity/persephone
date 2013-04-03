@@ -371,7 +371,7 @@ td.result-unit {
 div#tagline {
   margin-top: 20px;
   text-align: center;  
-  font-size: 8pt;
+  font-size: 9pt;
   line-height: 1.75em;
 }
 
@@ -380,12 +380,12 @@ span#disclaimers {
 }
 
 div#disclaimer {
-  width: 400px;
+  width: 600px;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   text-align: left;  
-  font-size: 8pt;
+  font-size: 9pt;
   line-height: 1.75em;
 }
 
