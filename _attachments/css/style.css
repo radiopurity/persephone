@@ -375,6 +375,10 @@ div#tagline {
   line-height: 1.75em;
 }
 
+span#disclaimers {
+  cursor: pointer;
+}
+
 div#disclaimer {
   width: 400px;
   margin-top: 20px;

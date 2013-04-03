@@ -214,21 +214,21 @@ $(function(){
 
   // Disclaimers
 
-  // hide the content
   $('div#disclaimer').hide();
    
   var text_1 = 'Display disclaimers';  
   var text_2 = 'Hide disclaimers';  
    
-  // capture clicks on the newly created link
-  $('a#disclaimers').click(function() {  
+  $('span#disclaimers').click(function(e) {      
     $('div#disclaimer').fadeToggle();
     if ( $('a#disclaimers').text() == text_1 ) { 
-      $('a#disclaimers').text(text_2)
+      $('a#disclaimers').text(text_2);     
     } else {
-      $('a#disclaimers').text(text_1)
+      $('a#disclaimers').text(text_1);   
     }  
+    e.preventDefault();    
   });
+
 
   // Handle change to result type
   
