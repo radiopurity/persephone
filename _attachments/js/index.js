@@ -607,7 +607,7 @@ function searchResults(val) {
           event.stopPropagation(); // this is
           event.preventDefault(); // the magic
           var parent = $(this).closest('div');
-          parent.find('.hideable').toggle();
+          parent.find('.hideable').fadeToggle();
           $(".ui-button-icon-primary", this)
             .toggleClass("ui-icon-zoomin ui-icon-zoomout");         
         });
