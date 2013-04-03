@@ -177,7 +177,7 @@
         </tr>
       {{/if}}          
  
-      {{if measurement.date[0] != ""}}  
+      {{if !jQuery.isEmptyObject(measurement.date) }}  
         <tr class="hideable">
           <td></td>
           <td class="item">Date</td>
