@@ -375,6 +375,16 @@ div#tagline {
   line-height: 1.75em;
 }
 
+div#disclaimer {
+  width: 400px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;  
+  font-size: 8pt;
+  line-height: 1.75em;
+}
+
 form *.something-temporary {
   color: #888;
   font-style: italic;
