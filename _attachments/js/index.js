@@ -222,13 +222,13 @@ $(function(){
   $('span#disclaimers').click(function(e) {      
     $('div#disclaimer').fadeToggle();
     if ( $('span#disclaimers').text() == text_1 ) { 
-      $('span#disclaimers').text(text_2);     
+      $('span#disclaimers').text(text_2);  
+      $("html, body").animate({ scrollTop: $(document).height() }, 1000);      
     } else {
       $('span#disclaimers').text(text_1);   
     }  
     e.preventDefault();    
   });
-
 
   // Handle change to result type
   
