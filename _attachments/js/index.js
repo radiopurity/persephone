@@ -530,9 +530,9 @@ function searchResults(val) {
 
   if ( window.location.host.split(".")[1] == "cloudant" ) {      
     search_url = window.location.protocol + '//' + window.location.host 
-               + '/' + dbname + '/_design/persephone/_search/assays_small?q=' 
+               + '/' + dbname + '/_design/persephone/_search/assays?q='     
                + val + '&include_docs=true&limit=100';
-    max_entries = 100;                  
+    max_entries = 100;    
   }
     
   if ( val == "all" || val == "All" ) {
