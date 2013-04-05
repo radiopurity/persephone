@@ -551,7 +551,7 @@ function searchResults(val) {
 
         if ( data.total_rows > max_entries ) {
           n_entries = max_entries;
-          $("#status-line").append('Output limited to ' + max_entries + ' entries');        
+          $("#status-line").append('Output limited to ' + max_entries + ' (from ' + data.total_rows + ')');        
         } else {         
           n_entries = data.total_rows;                 
         };
