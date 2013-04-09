@@ -25,7 +25,7 @@ body {
 /* Center the webpage */
 
 #container {
-   width:900px;
+   width:1000px;
    margin-left:auto;
    margin-right:auto;
 }
@@ -43,7 +43,7 @@ body {
 }
 
 #tabs {
-  max-width: 899px;
+  max-width: 999px;
 }
 
 table, tr, td, th{
@@ -276,7 +276,7 @@ div#about {
 
 .heading-isotope-value {
   text-align:right;
-  width:90px; 
+  width:105px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
@@ -285,7 +285,16 @@ div#about {
 
 .heading-isotope-name {
   text-align:right;
-  width:25px; 
+  width:47px; 
+  display:inline-block; 
+  white-space: nowrap; 
+  text-overflow:ellipsis; 
+  overflow:hidden;
+}
+
+.heading-isotope-name-short {
+  text-align:right;
+  width:30px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
@@ -293,7 +302,7 @@ div#about {
 }
 
 .heading-grouping {
-  width:110px; 
+  width:125px; 
   display:inline-block; 
   white-space: nowrap; 
   text-overflow:ellipsis; 
@@ -301,10 +310,11 @@ div#about {
 }
 
 .heading-name {
-  width:300px; 
+  width:310px; 
   display:inline-block; 
   white-space: nowrap; 
-  text-overflow:ellipsis; 
+  text-overflow:ellipsis;
+  padding-right:10px; 
   overflow:hidden;
 }
 
@@ -353,19 +363,20 @@ td.result-isotope {
 }
 
 td.result-symbol {
-  min-width: 30px;
-  padding-right: 15px;
+  min-width: 15px;
+  padding-left: 12px;
   text-align:right;  
 }
 
 td.result-number {
   min-width: 35px;
-  text-align:right;  
+  text-align:right;
+  padding-left:12px; 
 }
 
 td.result-unit {
   min-width: 35px;
-  padding-left:10px;  
+  padding-left:12px;  
 }
 
 div#tagline {
