@@ -10,6 +10,7 @@
   {{each measurement.results}}
 
     {{if ($value.isotope == "U-238"  || $value.isotope == "U"  || 
+          $value.isotope == "Th-228" || 
           $value.isotope == "Th-232" || $value.isotope == "Th")
             && $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
 
@@ -19,10 +20,10 @@
           <span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>          
         {{/if}}
         {{if $value.value.length == 2 }}
-          <span class="faded-less heading-isotope-value">${$value.value[0]}(&hellip;) ${$value.unit}</span>          
+          <span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>          
         {{/if}}    
         {{if $value.value.length == 3 }}
-          <span class="faded-less heading-isotope-value">${$value.value[0]}(&hellip;) ${$value.unit}</span>          
+          <span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>          
         {{/if}}   
       {{/if}}
 
@@ -41,7 +42,7 @@
   {{/each}}
 
   {{if $(measurement.results).length > 2 }}
-    <span class="heading-isotope-name">&hellip;</span> 
+    <span class="heading-isotope-name-short">&hellip;</span> 
   {{/if}}
 
 </a>   
@@ -121,10 +122,12 @@
                       <td class="result-number">${$value.value[0]}</td>       
                     {{/if}}
                     {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]} (${$value.value[1]})</td>           
+                      <td class="result-number">${$value.value[0]}</td>           
+                      <td class="result-number">(${$value.value[1]})</td>  
                     {{/if}}    
                     {{if $value.value.length == 3 }}
-                      <td class="result-number">${$value.value[0]} (+${$value.value[1]}-+${$value.value[2]})</td>         
+                      <td class="result-number">${$value.value[0]}</td>         
+                      <td class="result-number">(+${$value.value[1]}-+${$value.value[2]})</td> 
                     {{/if}}   
                   {{/if}}                
             
@@ -134,7 +137,8 @@
                       <td class="result-number">${$value.value[0]}</td>       
                     {{/if}}
                     {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]} (${$value.value[1]}% c.l.)</td>           
+                      <td class="result-number">${$value.value[0]}</td>           
+                      <td class="result-number">(${$value.value[1]}%)</td>
                     {{/if}}       
                   {{/if}}     
             
@@ -144,7 +148,8 @@
                       <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>       
                     {{/if}}
                     {{if $value.value.length == 3 }}
-                      <td class="result-number">${$value.value[0]}-${$value.value[1]} (${$value.value[2]}% c.l.)</td>           
+                      <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>           
+                      <td class="result-number">(${$value.value[2]}%)</td>  
                     {{/if}}   
                   {{/if}}     
                   
