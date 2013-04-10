@@ -534,8 +534,8 @@ function searchResults(val) {
   }
     
   if ( val == "all" || val == "All" ) {
-    search_url = '/' + dbname + '/_all_docs?limit=25&include_docs=true&descending=true';
-    max_entries = 25;
+    search_url = '/' + dbname + '/_all_docs?limit=50&include_docs=true&descending=true';
+    max_entries = 50;
   };
    
   $.ajax({ 
