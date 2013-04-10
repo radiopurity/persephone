@@ -79,7 +79,7 @@
       {{/if}}
   
       {{if sample.source != ""}}
-        <tr class="hideable">
+        <tr>
           <td></td>
           <td class="item">Source</td>
           <td>${sample.source}</td>
@@ -119,7 +119,8 @@
                   {{if $value.type == "measurement"}}
                     <td class="result-symbol">&nbsp</td>
                     {{if $value.value.length == 1 }}
-                      <td class="result-number">${$value.value[0]}</td>       
+                      <td class="result-number">${$value.value[0]}</td>
+                      <td class="result-number"></td>                             
                     {{/if}}
                     {{if $value.value.length == 2 }}
                       <td class="result-number">${$value.value[0]}</td>           
@@ -135,6 +136,7 @@
                     <td class="result-symbol">&lt</td>
                     {{if $value.value.length == 1 }}
                       <td class="result-number">${$value.value[0]}</td>       
+                      <td class="result-number"></td>
                     {{/if}}
                     {{if $value.value.length == 2 }}
                       <td class="result-number">${$value.value[0]}</td>           
@@ -145,7 +147,8 @@
                   {{if $value.type == "range"}}
                     <td class="result-symbol"></td>
                     {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>       
+                      <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>
+                      <td class="result-number"></td>                             
                     {{/if}}
                     {{if $value.value.length == 3 }}
                       <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>           
