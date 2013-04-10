@@ -51,8 +51,6 @@ $(function(){
   });           
   */
 
-  //$("#myTable").tablesorter({ sortList: [[0, 0] [1, 0]] });
-
   // INPUT FORM TEMPLATE   
 
   $.get('templates/default_input.html', function(tmp) {               
