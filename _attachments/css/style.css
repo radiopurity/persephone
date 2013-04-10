@@ -8,7 +8,8 @@ html {
 
 body { 
   font-family: "Verdana", "Arial", "sans-serif";
-  margin: 25px 50px 50px 50px;
+  margin: 25px 25px 25px 25px;
+  padding-bottom: 150px;
   font-size: 11px; 
 }
 
@@ -72,7 +73,7 @@ ul {
 }
 
 div#materials {
-  padding: 0px 25px 25px 25px;   
+  padding: 0px 15px 25px 15px;   
 }
 
 div.content-text {
