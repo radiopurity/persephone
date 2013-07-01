@@ -9,7 +9,7 @@ html {
 body { 
   font-family: "Verdana", "Arial", "sans-serif";
   margin: 25px 25px 25px 25px;
-  padding-bottom: 150px;
+  padding-bottom: 40px;
   font-size: 11px; 
 }
 
@@ -445,6 +445,7 @@ Back to top button
 #back-top a:hover {
   color: #000;
 }
+
 /* arrow icon (span tag) */
 #back-top span {
   width: 50px;
@@ -463,4 +464,8 @@ Back to top button
 }
 #back-top a:hover span {
   background-color: #777;
+}
+/* the loading tags*/
+#spinner{
+  text-align: center;
 }
