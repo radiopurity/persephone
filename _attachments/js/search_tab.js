@@ -12,7 +12,9 @@ function click_search() {
   if ( entry == "" || entry == "e.g. all") {
     $("#box-search").focus();    
     $("#materials").empty(); 
-    $("#status-line").empty(); 
+    $("#status-line").empty();
+    total_rows=0;
+    skip=0;
     return false;
   }    
 
@@ -90,10 +92,10 @@ function searchResults(val) {
     async: false,
     success: function(data) { 
       total_rows=data.total_rows;
+      $("#status-line").append('Total result: ' + data.total_rows);        
       if ( data.total_rows > 0 ) {
         if ( data.total_rows > max_entries ) {
           n_entries = max_entries;
-          $("#status-line").append('Total result: ' + data.total_rows);        
         } else {         
           n_entries = data.total_rows;                 
         };

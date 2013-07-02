@@ -225,7 +225,7 @@ textarea.input-textarea {
 
 button.input {
   height:26px; 
-}  
+}
 
 /* About tab template formatting */
 
@@ -320,6 +320,7 @@ div#about {
 }
 
 #status-line {
+  font-size: 14px;
   text-align:center; 
   padding-top:7px;
   padding-bottom:13px;
