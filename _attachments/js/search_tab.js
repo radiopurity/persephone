@@ -25,8 +25,13 @@ function click_search() {
 }; 
 
 /*===== decorate the search result ====*/
+ButtonFade = function(){
+      var parent = $(this).closest('div');
+      parent.find('.detail-button').fadeToggle();
+    };
+
 function DecorateResult() {
-    $(".hideable").hide();
+    // $(".hideable").hide();
     $("#materials > div").accordion({ 
       header: "h3", 
       navigation: true, 
@@ -41,7 +46,7 @@ function DecorateResult() {
       icons:{primary:"ui-icon-close"},
       text:false
     })    
-    $( ".delete-button" ).click(function(event){
+    $(".delete-button" ).click(function(event){
       event.stopPropagation(); // this is
       event.preventDefault(); // the magic
       var parent = $(this).closest('div');
@@ -51,7 +56,8 @@ function DecorateResult() {
     $(".detail-button").button({
       icons:{primary:"ui-icon-zoomin"},
       text:false
-    })    
+    })
+    $(".detail-button" ).unbind();
     $(".detail-button" ).click(function(event){
       event.stopPropagation(); // this is
       event.preventDefault(); // the magic
@@ -60,11 +66,10 @@ function DecorateResult() {
       $(".ui-button-icon-primary", this)
         .toggleClass("ui-icon-zoomin ui-icon-zoomout");         
     });
-    $(".detail-button" ).hide();
-    $("h3").click(function() {
-      var parent = $(this).closest('div');
-      parent.find('.detail-button').fadeToggle();
-    });
+    // $(".detail-button" ).hide();
+
+    $("h3").unbind('click',ButtonFade);
+    $("h3").bind('click', ButtonFade);
 };
 
 /*==== search for result ====*/

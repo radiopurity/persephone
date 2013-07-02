@@ -48,8 +48,8 @@
 
 </a>   
 
-<button class="delete-button" type="button" style="font-size: 8px;float:right">&nbsp</button>
-<button class="detail-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
+<button class="delete-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
+<button class="detail-button" type="button" style="font-size: 8px; float:right; display:none">&nbsp</button>
  
 </h3>
 
@@ -72,7 +72,7 @@
       </tr>
   
       {{if sample.id != ""}}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">ID</td>
           <td>${sample.id}</td>
@@ -88,7 +88,7 @@
       {{/if}}
   
       {{if sample.owner.name != "" || sample.owner.contact != "" }}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Owner</td>
           <td>
@@ -165,7 +165,7 @@
       </tr>
 
       {{if measurement.institution != ""}}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td class="category"></td>
           <td class="item">Institution</td>
           <td>${measurement.institution}</td>
@@ -173,7 +173,7 @@
       {{/if}}  
 
       {{if measurement.technique != ""}}  
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Technique</td>
           <td>${measurement.technique}</td>
@@ -181,7 +181,7 @@
       {{/if}}          
  
       {{if !jQuery.isEmptyObject(measurement.date) }}  
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Date</td>
           <td>
@@ -195,7 +195,7 @@
       {{/if}} 
 
       {{if measurement.requestor.name != "" || measurement.requestor.contact != "" }}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Requestor</td>
           <td>
@@ -208,7 +208,7 @@
       {{/if}}
 
       {{if measurement.practitioner.name != "" || measurement.practitioner.contact != "" }}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Practitioner</td>
           <td>
@@ -221,7 +221,7 @@
       {{/if}}
 
       {{if measurement.description != ""}} 
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Description</td>
           <td class="m_description"><span class="faded">${measurement.description}</span></td>
@@ -236,13 +236,13 @@
     <li>
     <table class="data-details">
 
-      <tr class="hideable">
+      <tr class="hideable" style="display:none">
         <td class="category">Data</td>
         <td class="item">Reference</td>
         <td><span class="faded">${data_source.reference}</span></td>
       </tr>
 
-      <tr class="hideable">
+      <tr class="hideable" style="display:none">
         <td></td>
         <td class="item">Data entry</td>
         <td>
@@ -251,7 +251,7 @@
       </tr>
       
       {{if data_source.notes != ""}}
-        <tr class="hideable">
+        <tr class="hideable" style="display:none">
           <td></td>
           <td class="item">Notes</td>
           <td>${data_source.notes}</td>
