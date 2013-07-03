@@ -8,45 +8,45 @@
 <span class="faded-less heading-grouping">${grouping}</span>
 <span class="heading-name"><b>${sample.name}</b></span>
 
-  {{each measurement.results}}
+	{{each measurement.results}}
 
-    {{if ($value.isotope == "U-238"  || $value.isotope == "U"  || 
-          $value.isotope == "Th-228" || 
-          $value.isotope == "Th-232" || $value.isotope == "Th")
-            && $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
+		{{if ($value.isotope == "U-238"	|| $value.isotope == "U"	|| 
+					$value.isotope == "Th-228" || 
+					$value.isotope == "Th-232" || $value.isotope == "Th")
+						&& $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
 
-      {{if $value.type == "measurement"}}
-        <span class="heading-isotope-name">${$value.isotope} </span>
-        {{if $value.value.length == 1 }}
-          <span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>          
-        {{/if}}
-        {{if $value.value.length == 2 }}
-          <span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>          
-        {{/if}}    
-        {{if $value.value.length == 3 }}
-          <span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>          
-        {{/if}}   
-      {{/if}}
+			{{if $value.type == "measurement"}}
+				<span class="heading-isotope-name">${$value.isotope} </span>
+				{{if $value.value.length == 1 }}
+					<span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>					
+				{{/if}}
+				{{if $value.value.length == 2 }}
+					<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+				{{/if}}		
+				{{if $value.value.length == 3 }}
+					<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+				{{/if}}	 
+			{{/if}}
 
-      {{if $value.type == "limit"}}
-        <span class="heading-isotope-name">${$value.isotope} </span>
-        <span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>     
-      {{/if}}
+			{{if $value.type == "limit"}}
+				<span class="heading-isotope-name">${$value.isotope} </span>
+				<span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>		 
+			{{/if}}
 
-      {{if $value.type == "range"}}
-        <span class="heading-isotope-name">${$value.isotope} </span>
-        <span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>             
-      {{/if}}
+			{{if $value.type == "range"}}
+				<span class="heading-isotope-name">${$value.isotope} </span>
+				<span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>						 
+			{{/if}}
 
-    {{/if}}    
-     
-  {{/each}}
+		{{/if}}		
+		 
+	{{/each}}
 
-  {{if $(measurement.results).length > 2 }}
-    <span class="heading-isotope-name-short">&hellip;</span> 
-  {{/if}}
+	{{if $(measurement.results).length > 2 }}
+		<span class="heading-isotope-name-short">&hellip;</span> 
+	{{/if}}
 
-</a>   
+</a>	 
 
 <button class="delete-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
 <button class="detail-button" type="button" style="font-size: 8px; float:right; display:none">&nbsp</button>
@@ -58,211 +58,211 @@
 <ul>
 <li class="sample-name"> 
 
-  <ul>
+	<ul>
 
-  <!-- sample -->
+	<!-- sample -->
 
-    <li>    
-    <table class="sample-details">
-     
-      <tr>
-        <td class="category">Sample</td>
-        <td class="item">Description</td>
-        <td>${sample.description}</td>
-      </tr>
-  
-      {{if sample.id != ""}}
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">ID</td>
-          <td>${sample.id}</td>
-        </tr>
-      {{/if}}
-  
-      {{if sample.source != ""}}
-        <tr>
-          <td></td>
-          <td class="item">Source</td>
-          <td>${sample.source}</td>
-        </tr>
-      {{/if}}
-  
-      {{if sample.owner.name != "" || sample.owner.contact != "" }}
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Owner</td>
-          <td>
-          ${sample.owner.name}
-          {{if sample.owner.contact != ""}}        
-            <span class="faded">${sample.owner.contact}</span>
-          {{/if}}
-          </td>
-        </tr>
-      {{/if}}
-  
-    </table>
-    </li>
+		<li>		
+		<table class="sample-details">
+		 
+			<tr>
+				<td class="category">Sample</td>
+				<td class="item">Description</td>
+				<td>${sample.description}</td>
+			</tr>
+	
+			{{if sample.id != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">ID</td>
+					<td>${sample.id}</td>
+				</tr>
+			{{/if}}
+	
+			{{if sample.source != ""}}
+				<tr>
+					<td></td>
+					<td class="item">Source</td>
+					<td>${sample.source}</td>
+				</tr>
+			{{/if}}
+	
+			{{if sample.owner.name != "" || sample.owner.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Owner</td>
+					<td>
+					${sample.owner.name}
+					{{if sample.owner.contact != ""}}				
+						<span class="faded">${sample.owner.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
+	
+		</table>
+		</li>
 
-  <!-- Measurement -->
+	<!-- Measurement -->
 
-    <li>
-    <table class="measurement-details">
+		<li>
+		<table class="measurement-details">
 
-      <tr>
-        <td class="category">Measurement</td>
-        <td class="item">Results</td>      
-        <td>
-          <table>
-            {{each measurement.results}}
-              <tr>
-                <td class="result-isotope">${$value.isotope}</td>
-                
-                  {{if $value.type == "measurement"}}
-                    <td class="result-symbol">&nbsp</td>
-                    {{if $value.value.length == 1 }}
-                      <td class="result-number">${$value.value[0]}</td>
-                      <td class="result-number"></td>                             
-                    {{/if}}
-                    {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]}</td>           
-                      <td class="result-number">(${$value.value[1]})</td>  
-                    {{/if}}    
-                    {{if $value.value.length == 3 }}
-                      <td class="result-number">${$value.value[0]}</td>         
-                      <td class="result-number">(+${$value.value[1]}-+${$value.value[2]})</td> 
-                    {{/if}}   
-                  {{/if}}                
-            
-                  {{if $value.type == "limit"}}
-                    <td class="result-symbol">&lt</td>
-                    {{if $value.value.length == 1 }}
-                      <td class="result-number">${$value.value[0]}</td>       
-                      <td class="result-number"></td>
-                    {{/if}}
-                    {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]}</td>           
-                      <td class="result-number">(${$value.value[1]}%)</td>
-                    {{/if}}       
-                  {{/if}}     
-            
-                  {{if $value.type == "range"}}
-                    <td class="result-symbol"></td>
-                    {{if $value.value.length == 2 }}
-                      <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>
-                      <td class="result-number"></td>                             
-                    {{/if}}
-                    {{if $value.value.length == 3 }}
-                      <td class="result-number">${$value.value[0]}-${$value.value[1]}</td>           
-                      <td class="result-number">(${$value.value[2]}%)</td>  
-                    {{/if}}   
-                  {{/if}}     
-                  
-                <td class="result-unit">${$value.unit}</td>
-              </tr>
-            {{/each}}
-          </table>
-        </td>
-      </tr>
+			<tr>
+				<td class="category">Measurement</td>
+				<td class="item">Results</td>			
+				<td>
+					<table>
+						{{each measurement.results}}
+							<tr>
+								<td class="result-isotope">${$value.isotope}</td>
+								
+									{{if $value.type == "measurement"}}
+										<td class="result-symbol">&nbsp</td>
+										{{if $value.value.length == 1 }}
+											<td class="result-number">${$value.value[0]}</td>
+											<td class="result-number"></td>														 
+										{{/if}}
+										{{if $value.value.length == 2 }}
+											<td class="result-number">${$value.value[0]}</td>					 
+											<td class="result-number">(${$value.value[1]})</td>	
+										{{/if}}		
+										{{if $value.value.length == 3 }}
+											<td class="result-number">${$value.value[0]}</td>				 
+											<td class="result-number">(+${$value.value[1]}-+${$value.value[2]})</td> 
+										{{/if}}	 
+									{{/if}}								
+						
+									{{if $value.type == "limit"}}
+										<td class="result-symbol">&lt</td>
+										{{if $value.value.length == 1 }}
+											<td class="result-number">${$value.value[0]}</td>			 
+											<td class="result-number"></td>
+										{{/if}}
+										{{if $value.value.length == 2 }}
+											<td class="result-number">${$value.value[0]}</td>					 
+											<td class="result-number">(${$value.value[1]}%)</td>
+										{{/if}}			 
+									{{/if}}		 
+						
+									{{if $value.type == "range"}}
+										<td class="result-symbol"></td>
+										{{if $value.value.length == 2 }}
+											<td class="result-number">${$value.value[0]}-${$value.value[1]}</td>
+											<td class="result-number"></td>														 
+										{{/if}}
+										{{if $value.value.length == 3 }}
+											<td class="result-number">${$value.value[0]}-${$value.value[1]}</td>					 
+											<td class="result-number">(${$value.value[2]}%)</td>	
+										{{/if}}	 
+									{{/if}}		 
+									
+								<td class="result-unit">${$value.unit}</td>
+							</tr>
+						{{/each}}
+					</table>
+				</td>
+			</tr>
 
-      {{if measurement.institution != ""}}
-        <tr class="hideable" style="display:none">
-          <td class="category"></td>
-          <td class="item">Institution</td>
-          <td>${measurement.institution}</td>
-        </tr>
-      {{/if}}  
+			{{if measurement.institution != ""}}
+				<tr class="hideable" style="display:none">
+					<td class="category"></td>
+					<td class="item">Institution</td>
+					<td>${measurement.institution}</td>
+				</tr>
+			{{/if}}	
 
-      {{if measurement.technique != ""}}  
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Technique</td>
-          <td>${measurement.technique}</td>
-        </tr>
-      {{/if}}          
+			{{if measurement.technique != ""}}	
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Technique</td>
+					<td>${measurement.technique}</td>
+				</tr>
+			{{/if}}					
  
-      {{if !jQuery.isEmptyObject(measurement.date) }}  
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Date</td>
-          <td>
-            {{if measurement.date.length == 1 }}
-              ${measurement.date[0]}
-            {{else}}
-              ${measurement.date[0]} <span class="faded">to</span> ${measurement.date[1]}
-            {{/if}}            
-          </td>
-        </tr>
-      {{/if}} 
+			{{if !jQuery.isEmptyObject(measurement.date) }}	
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Date</td>
+					<td>
+						{{if measurement.date.length == 1 }}
+							${measurement.date[0]}
+						{{else}}
+							${measurement.date[0]} <span class="faded">to</span> ${measurement.date[1]}
+						{{/if}}						
+					</td>
+				</tr>
+			{{/if}} 
 
-      {{if measurement.requestor.name != "" || measurement.requestor.contact != "" }}
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Requestor</td>
-          <td>
-          ${measurement.requestor.name}
-          {{if measurement.requestor.contact != ""}}
-            <span class="faded">${measurement.requestor.contact}</span>
-          {{/if}}
-          </td>
-        </tr>
-      {{/if}}
+			{{if measurement.requestor.name != "" || measurement.requestor.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Requestor</td>
+					<td>
+					${measurement.requestor.name}
+					{{if measurement.requestor.contact != ""}}
+						<span class="faded">${measurement.requestor.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
 
-      {{if measurement.practitioner.name != "" || measurement.practitioner.contact != "" }}
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Practitioner</td>
-          <td>
-          ${measurement.practitioner.name}
-          {{if measurement.practitioner.contact != ""}}
-            <span class="faded">${measurement.practitioner.contact}</span>
-          {{/if}}
-          </td>
-        </tr>
-      {{/if}}
+			{{if measurement.practitioner.name != "" || measurement.practitioner.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Practitioner</td>
+					<td>
+					${measurement.practitioner.name}
+					{{if measurement.practitioner.contact != ""}}
+						<span class="faded">${measurement.practitioner.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
 
-      {{if measurement.description != ""}} 
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Description</td>
-          <td class="m_description"><span class="faded">${measurement.description}</span></td>
-        </tr>
-      {{/if}}
-    
-    </table>
-    </li>
+			{{if measurement.description != ""}} 
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Description</td>
+					<td class="m_description"><span class="faded">${measurement.description}</span></td>
+				</tr>
+			{{/if}}
+		
+		</table>
+		</li>
 
-  <!-- Data source / entry -->
+	<!-- Data source / entry -->
 
-    <li>
-    <table class="data-details">
+		<li>
+		<table class="data-details">
 
-      <tr class="hideable" style="display:none">
-        <td class="category">Data</td>
-        <td class="item">Reference</td>
-        <td><span class="faded">${data_source.reference}</span></td>
-      </tr>
+			<tr class="hideable" style="display:none">
+				<td class="category">Data</td>
+				<td class="item">Reference</td>
+				<td><span class="faded">${data_source.reference}</span></td>
+			</tr>
 
-      <tr class="hideable" style="display:none">
-        <td></td>
-        <td class="item">Data entry</td>
-        <td>
-          <span class="faded"> ${data_source.input.name} ${data_source.input.contact} on ${data_source.input.date} spec v${specification}</span>         
-        </td>
-      </tr>
-      
-      {{if data_source.notes != ""}}
-        <tr class="hideable" style="display:none">
-          <td></td>
-          <td class="item">Notes</td>
-          <td>${data_source.notes}</td>
-        </tr>
-      {{/if}}
-        
-    </table>  
-    </li> 
+			<tr class="hideable" style="display:none">
+				<td></td>
+				<td class="item">Data entry</td>
+				<td>
+					<span class="faded"> ${data_source.input.name} ${data_source.input.contact} on ${data_source.input.date} spec v${specification}</span>				 
+				</td>
+			</tr>
+			
+			{{if data_source.notes != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Notes</td>
+					<td>${data_source.notes}</td>
+				</tr>
+			{{/if}}
+				
+		</table>	
+		</li> 
 
-  </ul>   
-   
+	</ul>	 
+	 
 </li>
 
 </ul>

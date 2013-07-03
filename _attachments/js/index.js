@@ -1,3 +1,8 @@
+/*
+$File: index.js
+$Author: James Loach
+$Description: the database index settings
+*/
 var dbname = window.location.pathname.split("/")[1];
 var appName = window.location.pathname.split("/")[3];
 var db = $.couch.db(dbname);
@@ -9,491 +14,491 @@ var methods = ["Ge", "ICP-MS", "NAA", "Alpha"];
 var units = ["pct", "ppm", "ppb", "ppt", "ppq", "mBq/kg", "uBq/kg", "nBq/kg", "n/a"];
 
 var types = [
-  "Meas.", "Meas. (error)", "Meas. (asym. error)", 
-  "Limit", "Limit (c.l.)", 
-  "Range", "Range (c.l.)"
+	"Meas.", "Meas. (error)", "Meas. (asym. error)", 
+	"Limit", "Limit (c.l.)", 
+	"Range", "Range (c.l.)"
 ];
 
-// ____________________________________________________________________________________
+/*==== initial configuration ====*/
 $(function(){
 
-  // Set the appropriate logo
-  $("#logo").attr("src", "images/" + db.name + ".png");
-  
-  // Tabs
-  $( "#tabs" ).tabs({
-    disabled: [ 2 ]
-  });
+	// Set the appropriate logo
+	$("#logo").attr("src", "images/" + db.name + ".png");
+	
+	// Tabs
+	$( "#tabs" ).tabs({
+	disabled: [ 2 ]
+	});
 
-  // Menu bars            
-  $( "input:submit", ".menu-bar" ).button();
-  $( ".menu-bar" ).click(function() { return false; });             
+	// Menu bars						
+	$( "input:submit", ".menu-bar" ).button();
+	$( ".menu-bar" ).click(function() { return false; });						 
 
-  // Plug-in to style placeholder in old Browsers
-  $( "input, textarea" ).placehold( "something-temporary" );
+	// Plug-in to style placeholder in old Browsers
+	$( "input, textarea" ).placehold( "something-temporary" );
 
-  /*
-  // Search box auto-complete [CURRENTLY DISABLED]
-  var availableTags = ["all"];
+	/*
+	// Search box auto-complete [CURRENTLY DISABLED]
+	var availableTags = ["all"];
 
-  $.ajax({
-    url: '/mj_assays/_design/test/_view/index',
-    dataType: 'json',
-    async: false,
-    success: function(data) {
-      $.each(data.rows, function() {
-        availableTags.push("\"" + this.key + "\"");
-        });         
-      }      
-    });
-    $( '#box-search' ).autocomplete({
-    source: availableTags
-  });           
-  */
+	$.ajax({
+	url: '/mj_assays/_design/test/_view/index',
+	dataType: 'json',
+	async: false,
+	success: function(data) {
+		$.each(data.rows, function() {
+		availableTags.push("\"" + this.key + "\"");
+		});				 
+		}			
+	});
+	$( '#box-search' ).autocomplete({
+	source: availableTags
+	});					 
+	*/
 
-  // INPUT FORM TEMPLATE   
+	// INPUT FORM TEMPLATE	 
 
-  $.get('templates/default_input.html', function(tmp) {               
+	$.get('templates/default_input.html', function(tmp) {							 
 
-    $.template("input_template", tmp);   
-    $.tmpl("input_template", null).appendTo("#input-form");
-    
-    // Hide all results boxes except those for 'measurement, symmetric error'
-    
-    $(".rmeaserrp, .rmeaserrm").hide();
-    $(".rlimit, .rlimitcl").hide();    
-    $(".rrangel, .rrangeh, .rrangecl").hide();          
+	$.template("input_template", tmp);	 
+	$.tmpl("input_template", null).appendTo("#input-form");
+	
+	// Hide all results boxes except those for 'measurement, symmetric error'
+	
+	$(".rmeaserrp, .rmeaserrm").hide();
+	$(".rlimit, .rlimitcl").hide();		
+	$(".rrangel, .rrangeh, .rrangecl").hide();					
 
-    // Spacers used to align results input boxes
-    // This dynamic alignment ensures correct alignment in different browsers
-    // Probably just have used a table...
-    
-    $(".spacer1").hide().attr('disabled', true);
-    $(".spacer2").show().attr('disabled', true);
-   
-    // Tooltip positions     
-     
-    $("#tab-submit").children().tooltip({ 
-      position: { my: "left+15 center", at: "right center" }
-    });     
-    $("#mdate2a").tooltip({ 
-      position: { my: "left+157 center", at: "right center" } 
-    });
-    $("#sown1, #mreq1, #mprac1, #dinp1").tooltip({ 
-      position: { my: "left+173 center", at: "right center" } 
-    });
-    $(".add-entry").tooltip({ 
-      position: { my: "left+48 center", at: "right center" } 
-    })
+	// Spacers used to align results input boxes
+	// This dynamic alignment ensures correct alignment in different browsers
+	// Probably just have used a table...
+	
+	$(".spacer1").hide().attr('disabled', true);
+	$(".spacer2").show().attr('disabled', true);
+	 
+	// Tooltip positions		 
+	 
+	$("#tab-submit").children().tooltip({ 
+		position: { my: "left+15 center", at: "right center" }
+	});		 
+	$("#mdate2a").tooltip({ 
+		position: { my: "left+157 center", at: "right center" } 
+	});
+	$("#sown1, #mreq1, #mprac1, #dinp1").tooltip({ 
+		position: { my: "left+173 center", at: "right center" } 
+	});
+	$(".add-entry").tooltip({ 
+		position: { my: "left+48 center", at: "right center" } 
+	})
 
-    // Date format switching
-    
-    $(".twodate").hide(); // Default to single date
-    
-    $("#button-date-sample").button({
-      icons:{primary:"ui-icon-refresh"}, 
-      text:false
-    });
-    
-    $("#button-date-sample").live('click', function(){ 
-    
-      if ( $("#mdate1").is(":visible") && $("#mdate1").val() != "" ) {
-        $("#mdate2a").val($("#mdate1").val()); 
-      } else {
-        $("#mdate1").val($("#mdate2a").val());     
-      }
-    
-      $(".onedate").toggle();
-      $(".twodate").toggle();        
-  
-      if ( $("#mdate1").is(":visible") ) {
-        $("#mdate1").focus();  
-      } else {
-        $("#mdate2b").focus();     
-      }
-  
-    });
+	// Date format switching
+	
+	$(".twodate").hide(); // Default to single date
+	
+	$("#button-date-sample").button({
+		icons:{primary:"ui-icon-refresh"}, 
+		text:false
+	});
+	
+	$("#button-date-sample").live('click', function(){ 
+	
+		if ( $("#mdate1").is(":visible") && $("#mdate1").val() != "" ) {
+		$("#mdate2a").val($("#mdate1").val()); 
+		} else {
+		$("#mdate1").val($("#mdate2a").val());		 
+		}
+	
+		$(".onedate").toggle();
+		$(".twodate").toggle();				
+	
+		if ( $("#mdate1").is(":visible") ) {
+		$("#mdate1").focus();	
+		} else {
+		$("#mdate2b").focus();		 
+		}
+	
+	});
 
-    // Add result line button
-    
-    $(".add-entry").button({
-      icons:{primary:"ui-icon-plus"},
-      text:false
-    })
-    
-    $(".add-entry").live('click', function(){     
-      var clone = $(".input-template").clone(true)
-        .removeClass('input-template').addClass('result-row');    
-      clone.insertAfter($(this).closest('tr')).show();       
-    });
+	// Add result line button
+	
+	$(".add-entry").button({
+		icons:{primary:"ui-icon-plus"},
+		text:false
+	})
+	
+	$(".add-entry").live('click', function(){		 
+		var clone = $(".input-template").clone(true)
+		.removeClass('input-template').addClass('result-row');		
+		clone.insertAfter($(this).closest('tr')).show();			 
+	});
 
-    $(".remove-entry").button({
-      icons:{primary:"ui-icon-minus"},
-      text:false
-    })
-       
-    $(".remove-entry").click(function(){   
-      $(this).closest('tr').remove();
-    })
+	$(".remove-entry").button({
+		icons:{primary:"ui-icon-minus"},
+		text:false
+	})
+		 
+	$(".remove-entry").click(function(){	 
+		$(this).closest('tr').remove();
+	})
 
-    // Buttons for user-defined fields
-    
-    $(".button-user-add").button({
-      icons:{primary:"ui-icon-plus"},
-      text:false
-    });
-      
-    $(".button-user-add").live('click', function(){
-      var clone = $(".user-input-template").clone(true)
-        .removeClass('user-input-template').addClass('row-user-sample');    
-      clone.insertAfter($(this).closest('tr')).show();
-      //$("#user-sample-null").hide();
-    });
+	// Buttons for user-defined fields
+	
+	$(".button-user-add").button({
+		icons:{primary:"ui-icon-plus"},
+		text:false
+	});
+		
+	$(".button-user-add").live('click', function(){
+		var clone = $(".user-input-template").clone(true)
+		.removeClass('user-input-template').addClass('row-user-sample');		
+		clone.insertAfter($(this).closest('tr')).show();
+		//$("#user-sample-null").hide();
+	});
 
-    $(".button-user-remove").button({
-      icons:{primary:"ui-icon-minus"},
-      text:false
-    });
+	$(".button-user-remove").button({
+		icons:{primary:"ui-icon-minus"},
+		text:false
+	});
 
-    $(".button-user-remove").click(function(){   
-      $(this).closest('tr').remove();
-    })
+	$(".button-user-remove").click(function(){	 
+		$(this).closest('tr').remove();
+	})
 
-    // Form validation
-        
-    var validator = $("#input").validate({
-       
-      rules: {
-        grp:       "required", 
-        sname:     "required",  
-        dref:      "required",
-        dinp1:     "required",
-        dinp2:     "required",
-        dinp3:     "required"                
-      }, 
-                   
-      messages: {
-        grp:       "Required", 
-        sname:     "Required",  
-        dref:      "Required",
-        dinp1:     "Required",
-        dinp2:     "Required",
-        dinp3:     "Required"    
-      },
-         
-      errorPlacement: function(error, element) {
-        error.appendTo(element.next('.istatus'));
-      }      
-       
-    });   
-        
-  });
+	// Form validation
+		
+	var validator = $("#input").validate({
+		 
+		rules: {
+		grp:			 "required", 
+		sname:		 "required",	
+		dref:			"required",
+		dinp1:		 "required",
+		dinp2:		 "required",
+		dinp3:		 "required"								
+		}, 
+					 
+		messages: {
+		grp:			 "Required", 
+		sname:		 "Required",	
+		dref:			"Required",
+		dinp1:		 "Required",
+		dinp2:		 "Required",
+		dinp3:		 "Required"		
+		},
+		 
+		errorPlacement: function(error, element) {
+		error.appendTo(element.next('.istatus'));
+		}			
+		 
+	});	 
+		
+	});
 
-  // Autocomplete functions
+	// Autocomplete functions
 
-  $(".risotope").live( 'focus', function() {
-    $(this).autocomplete({source:isotopes, minLength:0});
-    $(this).autocomplete('search', '');
-  });
+	$(".risotope").live( 'focus', function() {
+	$(this).autocomplete({source:isotopes, minLength:0});
+	$(this).autocomplete('search', '');
+	});
 
-  $(".runit").live( 'focus', function() {
-    $(this).autocomplete({source:units, minLength:0, 
-      change: function (event, ui) {  
-        if (!ui.item) { $(this).val(''); $(this).focus() }
-      }
-    });
-    $(this).autocomplete('search', '');
-  });
-  
-  $("#mtech").live( 'focus', function() {
-    $(this).autocomplete({source:methods, minLength:0});
-    $(this).autocomplete('search', '');
-  });  
+	$(".runit").live( 'focus', function() {
+	$(this).autocomplete({source:units, minLength:0, 
+		change: function (event, ui) {	
+		if (!ui.item) { $(this).val(''); $(this).focus() }
+		}
+	});
+	$(this).autocomplete('search', '');
+	});
+	
+	$("#mtech").live( 'focus', function() {
+	$(this).autocomplete({source:methods, minLength:0});
+	$(this).autocomplete('search', '');
+	});	
 
-  // Disclaimers
+	// Disclaimers
 
-  $('div#disclaimer').hide();
-   
-  var text_1 = 'Display disclaimers';  
-  var text_2 = 'Hide disclaimers';  
-   
-  $('span#disclaimers').click(function(e) {      
-    $('div#disclaimer').fadeToggle();
-    if ( $('span#disclaimers').text() == text_1 ) { 
-      $('span#disclaimers').text(text_2);  
-      $("html, body").animate({ scrollTop: $(document).height() }, 1000);      
-    } else {
-      $('span#disclaimers').text(text_1);   
-    }  
-    e.preventDefault();    
-  });
+	$('div#disclaimer').hide();
+	 
+	var text_1 = 'Display disclaimers';	
+	var text_2 = 'Hide disclaimers';	
+	 
+	$('span#disclaimers').click(function(e) {			
+	$('div#disclaimer').fadeToggle();
+	if ( $('span#disclaimers').text() == text_1 ) { 
+		$('span#disclaimers').text(text_2);	
+		$("html, body").animate({ scrollTop: $(document).height() }, 1000);			
+	} else {
+		$('span#disclaimers').text(text_1);	 
+	}	
+	e.preventDefault();		
+	});
 
-  // Handle change to result type
-  
-  $(".rtype").live('focus', function() {
+	// Handle change to result type
+	
+	$(".rtype").live('focus', function() {
 
-    $(this).autocomplete({
-      source:types, 
-      minLength:0, 
-      change: function (event, ui) {
-        
-        if (!ui.item) { $(this).val('Meas. (error)') }                  
+	$(this).autocomplete({
+		source:types, 
+		minLength:0, 
+		change: function (event, ui) {
+		
+		if (!ui.item) { $(this).val('Meas. (error)') }									
 
-        $(this).nextAll('.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm').hide();
-        $(this).nextAll('.rlimit, .rlimitcl').hide();
-        $(this).nextAll('.rrangel, .rrangeh, .rrangecl').hide();         
+		$(this).nextAll('.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm').hide();
+		$(this).nextAll('.rlimit, .rlimitcl').hide();
+		$(this).nextAll('.rrangel, .rrangeh, .rrangecl').hide();				 
 
-        var spacers = 1;
-                    
-        var cache_meas  = $(this).nextAll('.rmeas').val();
-        var cache_limit = $(this).nextAll('.rlimit').val();     
-                    
-        if ( $(this).val() == "Meas." ) {
-          
-          $(this).nextAll('.rmeas').show().focus();
-          if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };
-          spacers = 2;
-    
-        } else if ( $(this).val() == "Meas. (error)" ) {
-    
-          $(this).nextAll('.rmeas, .rmeaserr').show();
-          $(this).nextAll('.rmeas').focus();
-          if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };          
-    
-        } else if ( $(this).val() == "Meas. (asym. error)" ) {
-    
-          $(this).nextAll('.rmeas, .rmeaserrp, .rmeaserrm').show();
-          $(this).nextAll('.rmeas').focus();
-          if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };          
-          spacers = 0;
-    
-        } else if ( $(this).val() == "Limit" ) {
-    
-          $(this).nextAll('.rlimit').show();
-          $(this).nextAll('.rlimit').focus();
-          if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };          
-          spacers = 2;
-    
-        } else if ( $(this).val() == "Limit (c.l.)" ) {
-    
-          $(this).nextAll('.rlimit, .rlimitcl').show();       
-          $(this).nextAll('.rlimit').focus();
-          if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };           
-    
-        } else if ( $(this).val() == "Range" ) {
-    
-          $(this).nextAll('.rrangel, .rrangeh').show();      
-          $(this).nextAll('.rrangel').focus();
-    
-        } else if ( $(this).val() == "Range (c.l.)" ) {
-    
-          $(this).nextAll('.rrangel, .rrangeh, .rrangecl').show();
-          $(this).nextAll('.rrangel').focus();           
-          spacers = 0;
-    
-        } else {
-    
-          $(this).val() == "Meas. (error)";
-          $(this).nextAll('.rmeas, .rmeaserr').show();
-          $(this).nextAll('.rmeas').focus();      
-    
-        }
+		var spacers = 1;
+					
+		var cache_meas	= $(this).nextAll('.rmeas').val();
+		var cache_limit = $(this).nextAll('.rlimit').val();		 
+					
+		if ( $(this).val() == "Meas." ) {
+			
+			$(this).nextAll('.rmeas').show().focus();
+			if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };
+			spacers = 2;
+	
+		} else if ( $(this).val() == "Meas. (error)" ) {
+	
+			$(this).nextAll('.rmeas, .rmeaserr').show();
+			$(this).nextAll('.rmeas').focus();
+			if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
+	
+		} else if ( $(this).val() == "Meas. (asym. error)" ) {
+	
+			$(this).nextAll('.rmeas, .rmeaserrp, .rmeaserrm').show();
+			$(this).nextAll('.rmeas').focus();
+			if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
+			spacers = 0;
+	
+		} else if ( $(this).val() == "Limit" ) {
+	
+			$(this).nextAll('.rlimit').show();
+			$(this).nextAll('.rlimit').focus();
+			if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					
+			spacers = 2;
+	
+		} else if ( $(this).val() == "Limit (c.l.)" ) {
+	
+			$(this).nextAll('.rlimit, .rlimitcl').show();			 
+			$(this).nextAll('.rlimit').focus();
+			if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					 
+	
+		} else if ( $(this).val() == "Range" ) {
+	
+			$(this).nextAll('.rrangel, .rrangeh').show();			
+			$(this).nextAll('.rrangel').focus();
+	
+		} else if ( $(this).val() == "Range (c.l.)" ) {
+	
+			$(this).nextAll('.rrangel, .rrangeh, .rrangecl').show();
+			$(this).nextAll('.rrangel').focus();					 
+			spacers = 0;
+	
+		} else {
+	
+			$(this).val() == "Meas. (error)";
+			$(this).nextAll('.rmeas, .rmeaserr').show();
+			$(this).nextAll('.rmeas').focus();			
+	
+		}
 
-        if ( spacers == 0 ) {
-          $(this).nextAll(".spacer1").hide().attr('disabled', true);
-          $(this).nextAll(".spacer2").hide().attr('disabled', true);                
-        } else if ( spacers == 1 ) {
-          $(this).nextAll(".spacer1").hide().attr('disabled', true);
-          $(this).nextAll(".spacer2").show().attr('disabled', true);
-        } else {
-          $(this).nextAll(".spacer1").show().attr('disabled', true);
-          $(this).nextAll(".spacer2").show().attr('disabled', true);
-        }         
+		if ( spacers == 0 ) {
+			$(this).nextAll(".spacer1").hide().attr('disabled', true);
+			$(this).nextAll(".spacer2").hide().attr('disabled', true);								
+		} else if ( spacers == 1 ) {
+			$(this).nextAll(".spacer1").hide().attr('disabled', true);
+			$(this).nextAll(".spacer2").show().attr('disabled', true);
+		} else {
+			$(this).nextAll(".spacer1").show().attr('disabled', true);
+			$(this).nextAll(".spacer2").show().attr('disabled', true);
+		}				 
 
-      }});
-      
-    $(this).autocomplete('search', '');    
+		}});
+		
+	$(this).autocomplete('search', '');		
 
-  });
-       
-  // DISPLAY TEMPLATE
-  
-  $.get('templates/default_output.html', function(tmp) {               
-    $.template("output_template", tmp);   
-  });
-      
-  $("#button-search").button({icons:{primary: "ui-icon-search"},text:false});
+	});
+		 
+	// DISPLAY TEMPLATE
+	
+	$.get('templates/default_output.html', function(tmp) {							 
+	$.template("output_template", tmp);	 
+	});
+		
+	$("#button-search").button({icons:{primary: "ui-icon-search"},text:false});
 
-  $("#button-expand").button();   
-  $("#button-detail").button();   
+	$("#button-expand").button();	 
+	$("#button-detail").button();	 
 
-  $("#button-clear1").button();   
-  $("#button-clear2").button();
-  $("#button-check").button();   
-  $("#button-submit").button();  
+	$("#button-clear1").button();	 
+	$("#button-clear2").button();
+	$("#button-check").button();	 
+	$("#button-submit").button();	
 
-  $("#dialog-submit").dialog({ autoOpen: false, modal: true, resizable: false });   
+	$("#dialog-submit").dialog({ autoOpen: false, modal: true, resizable: false });	 
 
-  $("input:text:visible:first").focus();
-  
+	$("input:text:visible:first").focus();
+	
 });
 
 // ____________________________________________________________________________________
 function click_clear_all() {
 
-  $(':input','#input')
-    .not(':button, :submit, :reset, :hidden')
-    .val('')
-    .removeAttr('checked')
-    .removeAttr('selected');
+	$(':input','#input')
+	.not(':button, :submit, :reset, :hidden')
+	.val('')
+	.removeAttr('checked')
+	.removeAttr('selected');
 
-  $("#input").validate().resetForm()
+	$("#input").validate().resetForm()
 
 }
 
 // ____________________________________________________________________________________
 function click_clear_warnings() {
 
-  $("#input").validate().resetForm()
+	$("#input").validate().resetForm()
 
 }
 
 // ____________________________________________________________________________________
 function click_check() {
 
-  $("#input").validate().form() 
+	$("#input").validate().form() 
 
 }
 
 // ____________________________________________________________________________________
 function click_submit() {
 
-  $("#input").validate().form();
+	$("#input").validate().form();
  
-  if ( $("#input").validate().numberOfInvalids() == 0 ) {           
+	if ( $("#input").validate().numberOfInvalids() == 0 ) {					 
 
-    // Build the JSON for the results block
-      
-    var result = {};
+	// Build the JSON for the results block
+		
+	var result = {};
 
-    $(".results-block").children('div.result-row').each(function(i) {
+	$(".results-block").children('div.result-row').each(function(i) {
 
-      console.log($(this).find(".risotope").val());
+		console.log($(this).find(".risotope").val());
 
-/*         
-      // Loop through all the results for this measurement
-         
-      var iisotope = $(this).find(".risotope").val();
-      var iselect  = $(this).find(".iselect").val();
-      var ivalue   = $(this).find(".ivalue").val();
-      var ierror   = $(this).find(".ierror").val();         
-      var iunit    = $(this).find(".iunit").val();  
-        console.log(iisotope); 
-      if ( iselect == "Meas" ) {  
-            
-        // Measurement
-            
-        iresult[i] = {
-          "isotope": iisotope,
-          "value":   ivalue,
-          "error":   ierror,
-          "unit":    iunit 
-        };                                    
-               
-      } else {
-              
-        // Limit  
-              
-        iresult[i] = {
-          "isotope": iisotope,
-          "limit":   ivalue,
-          "error":   ierror,
-          "unit":    iunit 
-        }; 
-              
-      }
-*/         
+/*				 
+		// Loop through all the results for this measurement
+		 
+		var iisotope = $(this).find(".risotope").val();
+		var iselect	= $(this).find(".iselect").val();
+		var ivalue	 = $(this).find(".ivalue").val();
+		var ierror	 = $(this).find(".ierror").val();				 
+		var iunit		= $(this).find(".iunit").val();	
+		console.log(iisotope); 
+		if ( iselect == "Meas" ) {	
+			
+		// Measurement
+			
+		iresult[i] = {
+			"isotope": iisotope,
+			"value":	 ivalue,
+			"error":	 ierror,
+			"unit":		iunit 
+		};																		
+				 
+		} else {
+				
+		// Limit	
+				
+		iresult[i] = {
+			"isotope": iisotope,
+			"limit":	 ivalue,
+			"error":	 ierror,
+			"unit":		iunit 
+		}; 
+				
+		}
+*/				 
 
-    });
-      
-    // Build the overall JSON
-     
-    var output_json =  {
+	});
+		
+	// Build the overall JSON
+	 
+	var output_json =	{
 
-      "type":              "measurement",
+		"type":							"measurement",
 
-      "grouping":          $("#grp").val(),
-      
-      "sample": {
-        
-        "name":            $("#sname").val(),
-        "description":     $("#sdesc").val(),
-        "id":              $("#sid").val(),
-        "source":          $("#ssrc").val(),
-        "owner": {
-          "name":          $("#sown1").val(),
-          "contact":       $("#sown2").val()
-        }
+		"grouping":					$("#grp").val(),
+		
+		"sample": {
+		
+		"name":						$("#sname").val(),
+		"description":		 $("#sdesc").val(),
+		"id":							$("#sid").val(),
+		"source":					$("#ssrc").val(),
+		"owner": {
+			"name":					$("#sown1").val(),
+			"contact":			 $("#sown2").val()
+		}
 
-      },
-        
-      "measurement": {
+		},
+		
+		"measurement": {
 
-        "institution":     $("#minst").val(),
-        "technique":       $("#mtech").val(),
-        "description":     $("#mdesc").val(),        
-        "date":           [$("#mdate").val()],
-        "results":         result,
-        "requestor":  {
-          "name":          $("#mreq1").val(),
-          "contact":       $("#mreq2").val()
-        },
-        "practitioner":  {
-          "name" :         $("#mprac1").val(),
-          "contact":       $("#mprac2").val()
-        },
-        "description":     $("#mdesc").val()
-      },
+		"institution":		 $("#minst").val(),
+		"technique":			 $("#mtech").val(),
+		"description":		 $("#mdesc").val(),				
+		"date":					 [$("#mdate").val()],
+		"results":				 result,
+		"requestor":	{
+			"name":					$("#mreq1").val(),
+			"contact":			 $("#mreq2").val()
+		},
+		"practitioner":	{
+			"name" :				 $("#mprac1").val(),
+			"contact":			 $("#mprac2").val()
+		},
+		"description":		 $("#mdesc").val()
+		},
 
-      "data_source": {
-         "reference":      $("#dref").val(),
-         "input" : {
-           "name":         $("#dinp1").val(),
-           "contact":      $("#dinp2").val(),
-           "date":         $("#dinp3").val()
-         },
-         "notes" :         $("#dnotes").val()
-      },
-      "specification" : "2.02"
+		"data_source": {
+		 "reference":			$("#dref").val(),
+		 "input" : {
+			 "name":				 $("#dinp1").val(),
+			 "contact":			$("#dinp2").val(),
+			 "date":				 $("#dinp3").val()
+		 },
+		 "notes" :				 $("#dnotes").val()
+		},
+		"specification" : "2.02"
 
-    };
+	};
  
-     db.saveDoc(
-    
-       output_json,
+	 db.saveDoc(
+	
+		 output_json,
 
-        { success: function() {
+		{ success: function() {
 
-          $( "#dialog-submit" ).dialog({
-            modal: true,
-            buttons: {
-              "Clear": function() {
-                $(this).dialog("close");
-                click_clear_all();
-              },
-              "Keep": function() {
-                $(this).dialog("close");
-              }
-            }
-          });           
-             
-          $( "#dialog-submit" ).dialog("open" );
-          
-        }}
+			$( "#dialog-submit" ).dialog({
+			modal: true,
+			buttons: {
+				"Clear": function() {
+				$(this).dialog("close");
+				click_clear_all();
+				},
+				"Keep": function() {
+				$(this).dialog("close");
+				}
+			}
+			});					 
+			 
+			$( "#dialog-submit" ).dialog("open" );
+			
+		}}
 
-      );
+		);
 
-   } 
+	 } 
 
 }
 
