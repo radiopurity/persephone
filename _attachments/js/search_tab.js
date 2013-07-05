@@ -74,13 +74,16 @@ function DecorateResult() {
 
 /*==== search for result ====*/
 function searchResults(val) {
-
+	// clear the page
 	$("#materials").empty();
 	$("#status-line").empty();
+	// show table header
+	$(".table-header").show();
 
 	var n_entries;
 	skip=0;
 	total_rows=0;
+	
 	if ( window.location.host.split(".")[1] == "cloudant" ) {			
 		search_url = window.location.protocol + '//' + window.location.host 
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
@@ -88,9 +91,10 @@ function searchResults(val) {
 	}
 		
 	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_all_docs?limit='+ max_entries +'&include_docs=true&descending=true';
+		search_url = '/' + dbname + '/_design/persephone/_view/query-by-group?limit='+ max_entries +'&include_docs=true';
+		// search_url = '/' + dbname + '/_all_docs?limit='+ max_entries +'&include_docs=true&descending=true';
 	}
-	 
+
 	$.ajax({ 
 		url: search_url,
 		dataType: 'json',
@@ -151,9 +155,22 @@ function email_link(user, dom, linkText) {
 
 /*==== back to top jQuery ====*/
 $(document).ready(function(){
+	// decorate table-header
+	$(".table-header").accordion({ 
+			header: "h3", 
+			icons: { "header": "ui-icon-grip-diagonal-se", "activeHeader": "ui-icon-bullet" },
+			collapsible:true, 
+			disabled: true,
+			heightStyle: "content",
+			// create: function(event) { 
+			// 	$(event.target).accordion( "activate", false ); 
+			// } 
+		});
+
 	// hide #back-top first
 	$("#back-top").hide();
 	$("#spinner").hide();
+	
 	// fade in #back-top
 	$(function () {
 		$(window).scroll(function () {

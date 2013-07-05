@@ -58,12 +58,26 @@
 					<input id="box-search" placeholder="e.g. all" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
 					<button id="button-search" onclick="javascript:click_search();">Search</button>
 				</div>
-					
+
 				<div id="status-line" class="faded"></div>	
-					
-				<div id="materials" class="content"></div>
+
+				<div class="table-header" style="display:none">
+					<h3 style="height:19px">
+						<span class="heading-header-grouping">GROUPING</span>
+						<span class="heading-header-name"><b>EXPERIMENT TITLE</b></span>
+						<span class="heading-header-isotope">ISOTOPE</span>
+						<span class="heading-header-value">AMOUNT</span>					
+						<span class="heading-header-isotope">ISOTOPE</span>
+						<span class="heading-header-value">AMOUNT</span>		 
+					</h3>
+				</div>
+
+				<div id="materials" class="content">
+				</div>
+				
 				<!-- this is the 'loading_elem' -->
 				<div id="spinner" class='hideable'><img alt="Spinner" src="./images/loading.gif" /></div>
+				<!-- this is the 'back to top' icon -->
 				<div id="back-top">
 					<a href="#top"><span></span></a>
 				</div>

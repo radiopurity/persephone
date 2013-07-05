@@ -21,13 +21,12 @@ var types = [
 
 /*==== initial configuration ====*/
 $(function(){
-
 	// Set the appropriate logo
 	$("#logo").attr("src", "images/" + db.name + ".png");
 	
 	// Tabs
 	$( "#tabs" ).tabs({
-	disabled: [ 2 ]
+	disabled: [ 1 , 2 ]
 	});
 
 	// Menu bars						

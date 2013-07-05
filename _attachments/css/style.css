@@ -80,6 +80,11 @@ div.content-text {
 	padding: 0px 0px 0px 10px;	
 }
 
+/* table header configuration*/
+.table-header{
+	padding: 0px 15px 1px 15px;
+}
+
 #div-search {
 	width: 450px;
 	margin: 5px auto;
@@ -275,6 +280,49 @@ div#about {
 	color:#aaaaaa;
 }
 
+/* for table header */
+.table-header .ui-accordion-header { 
+	background: #dddddd !important;
+}
+
+.heading-header-grouping {
+	font-weight:bold;
+	width:125px; 
+	display:inline-block; 
+	white-space: nowrap; 
+	text-overflow:ellipsis; 
+	overflow:hidden;
+}
+.heading-header-name {
+	font-weight:bold;
+	width:300px; 
+	display:inline-block; 
+	white-space: nowrap; 
+	text-overflow:ellipsis;
+	padding-right:10px; 
+	overflow:hidden;
+}
+.heading-header-isotope{
+	font-weight:bold;
+	text-align:center;
+	width:95px; 
+	display:inline-block; 
+	white-space: nowrap; 
+	text-overflow:ellipsis; 
+	overflow:hidden;
+}
+
+.heading-header-value {
+	font-weight:bold;
+	text-align:center;
+	width:72px; 
+	display:inline-block; 
+	white-space: nowrap; 
+	text-overflow:ellipsis; 
+	overflow:hidden;
+}
+
+/* for table content*/
 .heading-isotope-value {
 	text-align:right;
 	width:105px; 
