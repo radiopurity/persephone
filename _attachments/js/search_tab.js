@@ -14,6 +14,7 @@ function click_search() {
 		$("#box-search").focus();		
 		$("#materials").empty(); 
 		$("#status-line").empty();
+		$(".table-header").hide();
 		total_rows=0;
 		skip=0;
 		return false;
@@ -93,6 +94,63 @@ function searchResults(val) {
 	if ( val == "all" || val == "All" ) {
 		search_url = '/' + dbname + '/_design/persephone/_view/query-by-group?limit='+ max_entries +'&include_docs=true';
 		// search_url = '/' + dbname + '/_all_docs?limit='+ max_entries +'&include_docs=true&descending=true';
+	}
+
+	$.ajax({ 
+		url: search_url,
+		dataType: 'json',
+		async: false,
+		success: function(data) { 
+			total_rows=data.total_rows;
+			$("#status-line").append('Total result: ' + data.total_rows);				
+			if ( data.total_rows > 0 ) {
+				if ( data.total_rows > max_entries ) {
+					n_entries = max_entries;
+				} else {				 
+					n_entries = data.total_rows;								 
+				};
+
+				if (data.bookmark){
+					bookmark = data.bookmark;
+				}
+
+				for ( j = 0; j < n_entries; j++ ) {	
+					var doc = data.rows[j].doc;
+
+					if ( doc.type == "measurement" ) {
+						var tt = $.tmpl("output_template", doc);
+						$("#materials").append(tt);
+					}
+				}
+
+				DecorateResult();
+				
+				$('#materials').infiniScroll('pollLevel');
+			}
+		}
+	})
+};
+
+/*==== order by Th ====*/
+function query_by_Th(val) {
+	// clear the page
+	$("#materials").empty();
+	$("#status-line").empty();
+	// show table header
+	$(".table-header").show();
+
+	var n_entries;
+	skip=0;
+	total_rows=0;
+	
+	if ( window.location.host.split(".")[1] == "cloudant" ) {			
+		search_url = window.location.protocol + '//' + window.location.host 
+							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
+							 + val + '&include_docs=true&limit=' + max_entries;
+	}
+		
+	if ( val == "all" || val == "All" ) {
+		search_url = '/' + dbname + '/_design/persephone/_view/query-by-Th?limit='+ max_entries +'&include_docs=true';
 	}
 
 	$.ajax({ 

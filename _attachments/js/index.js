@@ -26,7 +26,7 @@ $(function(){
 	
 	// Tabs
 	$( "#tabs" ).tabs({
-	disabled: [ 1 , 2 ]
+	disabled: [ 2 ]
 	});
 
 	// Menu bars						
@@ -196,8 +196,8 @@ $(function(){
 	// Autocomplete functions
 
 	$(".risotope").live( 'focus', function() {
-	$(this).autocomplete({source:isotopes, minLength:0});
-	$(this).autocomplete('search', '');
+		$(this).autocomplete({source:isotopes, minLength:0});
+		$(this).autocomplete('search', '');
 	});
 
 	$(".runit").live( 'focus', function() {
@@ -210,8 +210,8 @@ $(function(){
 	});
 	
 	$("#mtech").live( 'focus', function() {
-	$(this).autocomplete({source:methods, minLength:0});
-	$(this).autocomplete('search', '');
+		$(this).autocomplete({source:methods, minLength:0});
+		$(this).autocomplete('search', '');
 	});	
 
 	// Disclaimers
@@ -251,7 +251,7 @@ $(function(){
 					
 		var cache_meas	= $(this).nextAll('.rmeas').val();
 		var cache_limit = $(this).nextAll('.rlimit').val();		 
-					
+
 		if ( $(this).val() == "Meas." ) {
 			
 			$(this).nextAll('.rmeas').show().focus();
@@ -376,52 +376,102 @@ function click_submit() {
  
 	if ( $("#input").validate().numberOfInvalids() == 0 ) {					 
 
-	// Build the JSON for the results block
-		
-	var result = {};
+		// Build the JSON for the results block
+		var result = [];
+	
+		$(".result-row").each(function() {
+			// Loop through all the results for this measurement
+			 
+			var risotope = $(this).find(".risotope").val();
+			var rtype	= $(this).find(".rtype").val();
+			// Measurement
+			if (risotope != "" && rtype != ""){
+				// "Meas."
+				if ( rtype == types[0] ) {	
+					var rvalue = $(this).find(".rmeas").val();
+					var runit = $(this).find(".runit").val();
+					result.push({
+						"isotope": risotope,
+						"type": "measurement",
+						"value": [rvalue],
+						"unit":	runit 
+					});
+				}
+				// "Meas. (error)"
+				else if( rtype == types[1] ){
+					var rvalue = $(this).find(".rmeas").val();
+					var rmeaserr = $(this).find(".rmeaserr").val();
+					var runit = $(this).find(".runit").val();
+					result.push({
+						"isotope": risotope,
+						"type": "measurement",
+						"value": [rvalue,rmeaserr],
+						"unit":	runit
+					});
+				}
+				// "Meas. (asym. error)"
+				else if( rtype == types[2] ){
+					var rvalue = 	$(this).find(".rmeas").val();
+					var rmeaserrp = $(this).find(".rmeaserrp").val();
+					var rmeaserrm = $(this).find(".rmeaserrm").val();
+					var runit = 	$(this).find(".runit").val();
+					result.push({
+						"isotope":risotope,
+						"type":"measurement",
+						"value":[rvalue,rmeaserrp,rmeaserrm],
+						"unit":runit
+					});
+				}
+				// "Limit"
+				else if( rtype == types[3] ){
+					var rlimit = 	$(this).find(".rlimit").val();
+					var runit = 	$(this).find(".runit").val();
+					result.push({
+						"isotope":risotope,
+						"type":"limit",
+						"value":[rlimit],
+						"unit":runit
+					});
+				}
+				// "Limit (c.l.)"
+				else if( rtype == types[4] ){
+					var rlimit = 	$(this).find(".rlimit").val();
+					var rlimitcl = 	$(this).find(".rlimitcl").val();
+					var runit = 	$(this).find(".runit").val();
+					result.push({
+						"isotope":risotope,
+						"type":"limit",
+						"value":[rlimit,rlimitcl],
+						"unit":runit
+					});
+				}
+				// "Range"
+				else if( rtype == types[5] ){
+					var rrangel = 	$(this).find(".rrangel").val();
+					var rrangeh = 	$(this).find(".rrangeh").val();
+					result.push({
+						"isotope":risotope,
+						"type":"range",
+						"value":[rrangel,rrangeh],
+						"unit":runit
+					});
+				}
+				// "Range (c.l.)"
+				else if( rtype == types[6] ){
+					var rrangel = 	$(this).find(".rrangel").val();
+					var rrangeh = 	$(this).find(".rrangeh").val();
+					var rrangecl = 	$(this).find(".rrangecl").val();
+					result.push({
+						"isotope":risotope,
+						"type":"range",
+						"value":[rrangel,rrangeh,rrangecl],
+						"unit":runit
+					});
+				}
+			}			
+		});
 
-	$(".results-block").children('div.result-row').each(function(i) {
-
-		console.log($(this).find(".risotope").val());
-
-/*				 
-		// Loop through all the results for this measurement
-		 
-		var iisotope = $(this).find(".risotope").val();
-		var iselect	= $(this).find(".iselect").val();
-		var ivalue	 = $(this).find(".ivalue").val();
-		var ierror	 = $(this).find(".ierror").val();				 
-		var iunit		= $(this).find(".iunit").val();	
-		console.log(iisotope); 
-		if ( iselect == "Meas" ) {	
-			
-		// Measurement
-			
-		iresult[i] = {
-			"isotope": iisotope,
-			"value":	 ivalue,
-			"error":	 ierror,
-			"unit":		iunit 
-		};																		
-				 
-		} else {
-				
-		// Limit	
-				
-		iresult[i] = {
-			"isotope": iisotope,
-			"limit":	 ivalue,
-			"error":	 ierror,
-			"unit":		iunit 
-		}; 
-				
-		}
-*/				 
-
-	});
-		
 	// Build the overall JSON
-	 
 	var output_json =	{
 
 		"type":							"measurement",
