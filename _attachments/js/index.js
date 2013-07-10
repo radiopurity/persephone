@@ -372,6 +372,8 @@ function click_check() {
 // ____________________________________________________________________________________
 function click_submit() {
 
+	$("#submit-status").empty();
+
 	$("#input").validate().form();
  
 	if ( $("#input").validate().numberOfInvalids() == 0 ) {					 
@@ -545,7 +547,6 @@ function click_submit() {
 		"specification" : "2.02"
 	
 		};
- 
 		db.saveDoc(
 	
 		 output_json,
@@ -563,14 +564,15 @@ function click_submit() {
 					$(this).dialog("close");
 					}
 				}
-			});					 
-			 
+			});
+
 			$( "#dialog-submit" ).dialog("open" );
-				
+			
 			}}
 	
 		);
 	
+ 		$("#submit-status").append('Submitting Success!');
 	}
 
 }

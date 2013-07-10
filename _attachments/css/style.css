@@ -470,6 +470,15 @@ label.error {
 	padding-right: 1em;			
 }
 
+/* submit page */
+#submit-status {
+	color:#e18e94;
+	font-size: 20px;
+	text-align:center; 
+	padding-top:7px;
+	padding-bottom:13px;
+}
+
 /*
 Back to top button 
 */
