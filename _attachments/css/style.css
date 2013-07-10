@@ -82,7 +82,8 @@ div.content-text {
 
 /* table header configuration*/
 .table-header{
-	padding: 0px 15px 1px 15px;
+	padding: 0px 15px 0px 15px;
+	position: relative;
 }
 
 #div-search {
@@ -283,48 +284,11 @@ div#about {
 /* for table header */
 .table-header .ui-accordion-header { 
 	background: #dddddd !important;
+	font-weight: bold;
 }
-
-.heading-header-grouping {
-	font-weight:bold;
-	width:125px; 
-	display:inline-block; 
-	white-space: nowrap; 
-	text-overflow:ellipsis; 
-	overflow:hidden;
-}
-.heading-header-name {
-	font-weight:bold;
-	width:300px; 
-	display:inline-block; 
-	white-space: nowrap; 
-	text-overflow:ellipsis;
-	padding-right:10px; 
-	overflow:hidden;
-}
-.heading-header-isotope{
-	font-weight:bold;
-	text-align:center;
-	width:95px; 
-	display:inline-block; 
-	white-space: nowrap; 
-	text-overflow:ellipsis; 
-	overflow:hidden;
-}
-
-.heading-header-value {
-	font-weight:bold;
-	text-align:center;
-	width:72px; 
-	display:inline-block; 
-	white-space: nowrap; 
-	text-overflow:ellipsis; 
-	overflow:hidden;
-}
-
 /* for table content*/
 .heading-isotope-value {
-	text-align:right;
+	text-align:center;
 	width:105px; 
 	display:inline-block; 
 	white-space: nowrap; 
@@ -333,8 +297,8 @@ div#about {
 }
 
 .heading-isotope-name {
-	text-align:right;
-	width:47px; 
+	text-align:center;
+	width:75px; 
 	display:inline-block; 
 	white-space: nowrap; 
 	text-overflow:ellipsis; 
@@ -342,8 +306,8 @@ div#about {
 }
 
 .heading-isotope-name-short {
-	text-align:right;
-	width:30px; 
+	text-align:center;
+	width:20px; 
 	display:inline-block; 
 	white-space: nowrap; 
 	text-overflow:ellipsis; 

@@ -240,6 +240,9 @@ function email_link(user, dom, linkText) {
 
 /*==== back to top jQuery ====*/
 $(document).ready(function(){
+
+	// invoke thfloat() twice; once for "head" and once for "foot"; both attach to window
+
 	// decorate table-header
 	$(".table-header").accordion({ 
 			header: "h3", 
@@ -247,9 +250,6 @@ $(document).ready(function(){
 			collapsible:true, 
 			disabled: true,
 			heightStyle: "content",
-			// create: function(event) { 
-			// 	$(event.target).accordion( "activate", false ); 
-			// } 
 		});
 
 	// hide #back-top first
@@ -274,6 +274,9 @@ $(document).ready(function(){
 			return false;
 		});
 	});
+
+	// float search table
+	$("#search-table").thfloat()
 });
 
 /*==== infinity scroll ====*/
