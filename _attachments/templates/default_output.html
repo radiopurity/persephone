@@ -7,14 +7,12 @@
 <span class="faded-less heading-grouping">${grouping}</span>
 <span class="heading-name"><b>${sample.name}</b></span>
 
-	{{each measurement.results}}
+	{{each iso}}
 
-		{{if ($value.isotope == "U-238"	|| $value.isotope == "U"	|| 
-					$value.isotope == "Th-228" || 
-					$value.isotope == "Th-232" || $value.isotope == "Th")
-						&& $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
+		{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
 
 			{{if $value.type == "measurement"}}
+			
 				<span class="heading-isotope-name">${$value.isotope} </span>
 				{{if $value.value.length == 1 }}
 					<span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>					
@@ -37,8 +35,8 @@
 				<span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>						 
 			{{/if}}
 
-		{{/if}}		
-		 
+		{{/if}}
+
 	{{/each}}
 
 	{{if $(measurement.results).length > 2 }}

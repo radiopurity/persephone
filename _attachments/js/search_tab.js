@@ -5,6 +5,8 @@ $Description: this part handles query, filter, scroll function for search tab
 */
 
 var total_rows=0,bookmark,max_entries=20,search_url,skip=0,val;
+var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
+var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 
 /*==== click and search for result ====*/
 function click_search() {
@@ -73,6 +75,37 @@ function DecorateResult() {
 		$("h3").bind('click', ButtonFade);
 };
 
+/* fill the JSON into the output_template.html*/
+function FillTemplate(doc){
+	var th={ "isotope":"-", "type":"","value":["-"],"unit":"-"},u={ "isotope":"", "type":"","value":[],"unit":""}
+	var pri_th=100,pri_u=100;
+	if ( doc.type == "measurement" ) {
+		for(var k in doc.measurement.results){
+			var item = doc.measurement.results[k];
+			// select Th
+			for (var i = 0; i < Th_priority.length; i++) {
+				if (item.isotope == Th_priority[i] && i < pri_th){
+					th = item;
+					pri_th = i;
+				}
+			};
+
+			// select U
+			for (var i = 0; i < U_priority.length; i++) {
+				if (item.isotope == U_priority[i] && i < pri_u){
+					u = item;
+					pri_u = i;
+				}
+			};
+		}
+
+		doc.iso = [th , u];
+		
+		var tt = $.tmpl("output_template", doc);
+		$("#materials").append(tt);
+	}
+}
+
 /*==== search for result ====*/
 function searchResults(val) {
 	// clear the page
@@ -117,10 +150,7 @@ function searchResults(val) {
 				for ( j = 0; j < n_entries; j++ ) {	
 					var doc = data.rows[j].doc;
 
-					if ( doc.type == "measurement" ) {
-						var tt = $.tmpl("output_template", doc);
-						$("#materials").append(tt);
-					}
+					FillTemplate(doc);
 				}
 
 				DecorateResult();
@@ -174,10 +204,7 @@ function query_by_Th(val) {
 				for ( j = 0; j < n_entries; j++ ) {	
 					var doc = data.rows[j].doc;
 
-					if ( doc.type == "measurement" ) {
-						var tt = $.tmpl("output_template", doc);
-						$("#materials").append(tt);
-					}
+					FillTemplate(doc);
 				}
 
 				DecorateResult();
@@ -287,10 +314,7 @@ $(document).ready(function(){
 							for ( i in data.rows ) {	
 								var doc = data.rows[i].doc;
 
-								if ( doc.type == "measurement" ) {	;
-									var tt = $.tmpl("output_template", doc);
-									$("#materials").append(tt);
-								}
+								FillTemplate(doc);
 							}
 							DecorateResult();
 							methods.pollLevel()
