@@ -379,9 +379,8 @@ function click_submit() {
 		// Build the JSON for the results block
 		var result = [];
 	
+		// Loop through all the results for this measurement
 		$(".result-row").each(function() {
-			// Loop through all the results for this measurement
-			 
 			var risotope = $(this).find(".risotope").val();
 			var rtype	= $(this).find(".rtype").val();
 			// Measurement
@@ -470,9 +469,31 @@ function click_submit() {
 				}
 			}			
 		});
+	
+		// Build the JSON for the results block
+		var user = [];
 
-	// Build the overall JSON
-	var output_json =	{
+		// Loop through all the user
+		$(".row-user-sample").each(function(){
+			var uname = $(this).find(".uname").val();
+			var udesc	= $(this).find(".udesc").val();
+			var utype	= $(this).find(".utype").val();
+			var uvalue	= $(this).find(".uvalue").val();
+			var uunit	= $(this).find(".uunit").val();
+
+			if(uname != "" && utype != "" && uvalue != ""){
+				user.push({
+						"name": uname,
+						"description": udesc,
+						"type": 	utype,
+						"value": 	uvalue,
+						"unit": 	uunit
+				});
+			}
+		});
+
+		// Build the overall JSON
+		var output_json =	{
 
 		"type":							"measurement",
 
@@ -518,36 +539,39 @@ function click_submit() {
 		 },
 		 "notes" :				 $("#dnotes").val()
 		},
-		"specification" : "2.02"
 
-	};
+		"user": 	user,
+
+		"specification" : "2.02"
+	
+		};
  
-	 db.saveDoc(
+		db.saveDoc(
 	
 		 output_json,
+	
+			{ success: function() {
 
-		{ success: function() {
-
-			$( "#dialog-submit" ).dialog({
-			modal: true,
-			buttons: {
-				"Clear": function() {
-				$(this).dialog("close");
-				click_clear_all();
-				},
-				"Keep": function() {
-				$(this).dialog("close");
+				$( "#dialog-submit" ).dialog({
+				modal: true,
+				buttons: {
+					"Clear": function() {
+					$(this).dialog("close");
+					click_clear_all();
+					},
+					"Keep": function() {
+					$(this).dialog("close");
+					}
 				}
-			}
 			});					 
 			 
 			$( "#dialog-submit" ).dialog("open" );
-			
-		}}
-
+				
+			}}
+	
 		);
-
-	 } 
+	
+	}
 
 }
 
