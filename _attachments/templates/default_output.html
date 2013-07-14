@@ -1,11 +1,11 @@
-<div class="accordion">
+<div class="accordion" value=${_id}>
 
 <h3 style="height:19px">
 
 <a href="#">
 
-<span class="faded-less heading-grouping">${grouping}</span>
-<span class="heading-name"><b>${sample.name}</b></span>
+	<span class="faded-less heading-grouping">${grouping}</span>
+	<span class="heading-name"><b>${sample.name}</b></span>
 
 	{{each iso}}
 
@@ -46,8 +46,9 @@
 </a>	 
 
 <button class="delete-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
+<button class="export-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
 <button class="detail-button" type="button" style="font-size: 8px; float:right; display:none">&nbsp</button>
- 
+
 </h3>
 
 <div id="dinfo">

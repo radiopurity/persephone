@@ -289,7 +289,7 @@ div#about {
 /* for table content*/
 .heading-isotope-value {
 	text-align:center;
-	width:105px; 
+	width:90px; 
 	display:inline-block; 
 	white-space: nowrap; 
 	text-overflow:ellipsis; 
@@ -323,7 +323,7 @@ div#about {
 }
 
 .heading-name {
-	width:310px; 
+	width:290px; 
 	display:inline-block; 
 	white-space: nowrap; 
 	text-overflow:ellipsis;

@@ -30,11 +30,12 @@ function click_search() {
 /*===== decorate the search result ====*/
 ButtonFade = function(){
 			var parent = $(this).closest('div');
-			parent.find('.detail-button').fadeToggle();
+			parent.find('.detail-button').slideToggle(100);
+
+			parent.find('.heading-isotope-name-short').toggle();
 		};
 
 function DecorateResult() {
-		// $(".hideable").hide();
 		$("#materials > div").accordion({ 
 			header: "h3", 
 			navigation: true, 
@@ -48,7 +49,7 @@ function DecorateResult() {
 		$(".delete-button").button({
 			icons:{primary:"ui-icon-close"},
 			text:false
-		})		
+		})
 		$(".delete-button" ).click(function(event){
 			event.stopPropagation(); // this is
 			event.preventDefault(); // the magic
@@ -69,7 +70,17 @@ function DecorateResult() {
 			$(".ui-button-icon-primary", this)
 				.toggleClass("ui-icon-zoomin ui-icon-zoomout");				 
 		});
-		// $(".detail-button" ).hide();
+
+		$(".export-button").button({
+			icons:{primary:"ui-icon-circle-arrow-s"},
+			text:false
+		})
+		$(".export-button" ).click(function(event){
+			var parent = $(this).closest('div');
+			url = window.location.protocol + '//' + window.location.host 
+					+ '/' + dbname+'/'+parent.attr('value');
+			window.open(url, '_blank');
+		});
 
 		$("h3").unbind('click',ButtonFade);
 		$("h3").bind('click', ButtonFade);
@@ -77,7 +88,7 @@ function DecorateResult() {
 
 /* fill the JSON into the output_template.html*/
 function FillTemplate(doc){
-	var th={ "isotope":"-", "type":"","value":["-"],"unit":"-"},u={ "isotope":"", "type":"","value":[],"unit":""}
+	var th={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"},u={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"}
 	var pri_th=100,pri_u=100;
 	if ( doc.type == "measurement" ) {
 		for(var k in doc.measurement.results){
@@ -168,6 +179,9 @@ function query_by_Th(val) {
 	$("#status-line").empty();
 	// show table header
 	$(".table-header").show();
+
+	$("table-header").css("color" , "#dddddd");
+	$(this).css("color", "#e18e94");
 
 	var n_entries;
 	skip=0;
@@ -275,8 +289,6 @@ $(document).ready(function(){
 		});
 	});
 
-	// float search table
-	$("#search-table").thfloat()
 });
 
 /*==== infinity scroll ====*/
@@ -379,3 +391,27 @@ $(document).ready(function(){
 	}
 
 })( jQuery );
+
+/* Export JSON */
+function ExportJSON(JSONid){ 
+    // Start Excel and get Application object. 
+    var oXL = new ActiveXObject("Excel.Application"); 
+    // Get a new workbook. 
+    var oWB = oXL.Workbooks.Add(); 
+    var oSheet = oWB.ActiveSheet; 
+    var hang = objTable.rows.length; 
+
+    var lie = objTable.rows(0).cells.length; 
+
+    // Add table headers going cell by cell. 
+    for (var i=0;i<hang;i++) 
+    { 
+        for (var j=0;j<lie;j++) 
+        { 
+            oSheet.Cells(i+1,j+1).value = objTable.rows(i).cells(j).innerText; 
+        } 
+
+    } 
+    oXL.Visible = true; 
+    oXL.UserControl = true; 
+} 
