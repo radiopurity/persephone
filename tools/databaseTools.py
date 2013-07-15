@@ -106,6 +106,9 @@ def get_uuid(db):
 # .............................................................................
 # Upload JSON documents to a CouchDB
 def upload_json():
+    # Fix Python 2.x.
+    try: raw_input = input
+    except NameError: pass
 
     pwd = os.getcwd()
     msg = "Upload all files in\n" + pwd + "\n(Y/N) ? "
@@ -157,6 +160,9 @@ def upload_json():
 # .............................................................................
 # Download JSON documents from a CouchDB
 def download_json():
+    #Fix Python 2.x.
+    try: raw_input = input
+    except NameError: pass
 
     couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
     if len(couchdb) < 3: couchdb = "http://localhost:5984"
@@ -192,7 +198,12 @@ def download_json():
 # .............................................................................
 # Delete all documents of type 'measurement' from a CouchDB
 def prune_db():
-
+    # Fix Python 2.x.
+    try: raw_input = input
+    except NameError: pass
+    
+    print("Warning: This operation will DELETE documents from the database in question!")
+    
     couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
     if len(couchdb) < 3: couchdb = "http://localhost:5984"
     if couchdb.endswith('/'): couchdb = couchdb[:-1]
@@ -201,6 +212,7 @@ def prune_db():
     username = raw_input("User-name (if applicable) : ")
     password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
 
+    print("Working... This may take some time...")
     db_url = couchdb + "/" + db + "/"
     all_docs_url = db_url + "_all_docs"
     all_docs = requests.get( all_docs_url , auth=( username, password))
@@ -227,37 +239,47 @@ def prune_db():
             print(" searching ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
 
     print("\nNumber of documents to delete: " + repr(len(del_ids)))
-    successes = []
-    failures = []
-    count = 0
-
+    print("\nPlease confirm deletion of the following documents:")
     for i in del_ids:
-        count += 1
-        doc_url = db_url + i
-        rev_raw = requests.get( doc_url , auth=( username, password))
-        rev_array = re.findall("\"_?rev\":\".*?\"", rev_raw.text)
-        rev = rev_array[0][7:].replace("\"","")
-        del_url = db_url + i + "?rev=" + rev
-        r = requests.delete(del_url, auth=(username,password))
-        if count % 10 == 0:
-            print(" pruning ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
-        if r.status_code == requests.codes.ok:
-            successes.append(i)
-        else:
-            failures.append(i)
+        print("-> ",i)
+    prompt = "\n\nDelete all " + repr(len(del_ids)) + " Documents ? (Y/n) "
+    confirm_delete = raw_input(prompt)
+    if confirm_delete.lower()!="y":
+        print("Exiting: Delete operation aborted.")
+        exit()
+    else:
+        print("Working... This may take some time...")
+        successes = []
+        failures = []
+        count = 0
 
-    if len(failures) > 0:
-        print("\n\nThese files were not deleted :")
-        for i in failures:
-            print ("\t" + i)
-        print("\n\n")
+        for i in del_ids:
+            count += 1
+            doc_url = db_url + i
+            rev_raw = requests.get( doc_url , auth=( username, password))
+            rev_array = re.findall("\"_?rev\":\".*?\"", rev_raw.text)
+            rev = rev_array[0][7:].replace("\"","")
+            del_url = db_url + i + "?rev=" + rev
+            r = requests.delete(del_url, auth=(username,password))
+            if count % 10 == 0:
+                print(" pruning ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
+            if r.status_code == requests.codes.ok:
+                successes.append(i)
+            else:
+                failures.append(i)
+
+        if len(failures) > 0:
+            print("\n\nThese files were not deleted :")
+            for i in failures:
+                print ("\t" + i)
+            print("\n\n")
  
-    print('')
-    print("Documents searched                                 : " + repr(len(doc_ids)).rjust(5))
-    print("Documents identified for deletion                  : " + repr(len(del_ids)).rjust(5))
-    print("Documents successfully deleted                     : " + repr(len(successes)).rjust(5))
-    print("Documents identified for deletion, but NOT deleted : " + repr(len(failures)).rjust(5))
-    print('')
+        print('')
+        print("Documents searched                                 : " + repr(len(doc_ids)).rjust(5))
+        print("Documents identified for deletion                  : " + repr(len(del_ids)).rjust(5))
+        print("Documents successfully deleted                     : " + repr(len(successes)).rjust(5))
+        print("Documents identified for deletion, but NOT deleted : " + repr(len(failures)).rjust(5))
+        print('')
 
 # .............................................................................
 # Allows execution as a script or as a module
