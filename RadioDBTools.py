@@ -143,46 +143,45 @@ def upload_json():
 			print ("\t" + i)
 	print ("\n\nDone\n\n---------------------------------------------------\n\n")
 
+# .............................................................................
 def download_json():
-	print("< download_json > subroutine called:")
-	print( 
-"""
-Please do not enter username and password here. 
-Remember to enter http:// or similar and please refrain from
-using a trailing forward slash ("/").
 
-Press return to use http://localhost:5984 .
-""")
-	couchdb= input("Please enter the URL of the CouchDB installation to download from: ")
-	if len(couchdb) < 3:
-		couchdb = "http://localhost:5984"
-	db = input ("Please enter the name of the database (No / please) : ")
-	username = input ("Please enter your user-name (if applicable): ")
-	print ( "Note: Password will not appear when typed.")
-	password = getpass.getpass(prompt="Please enter your password (if applicable): ")
-	
-	db_url = couchdb + "/" + db + "/"
-	all_docs_url = db_url + "_all_docs"
-	all_docs = requests.get( all_docs_url , auth=( username, password))
-	doc_ids = []
-	doc_ids_raw = re.findall("\"id\":\".*?\"", all_docs.text)
-	for i in doc_ids_raw:
-		doc_ids.append(i[6:-1])
-	count=0
-	print("Working...")
-	for i in doc_ids:
-		count+=1
-		doc_url = db_url + i
-		r= requests.get(doc_url, auth=(username,password))
-		outfilename=db+"_"+repr(count)+".json"
-		out=codecs.open(outfilename, 'w', 'utf-8')
-		out.write(json.dumps(r.json(), indent="\t", separators=(',', ': ')))
-		out.close()
-		if (count%25)==0:
-			print(repr(count).rjust(4), "done of ", repr(len(doc_ids)).rjust(4), ".")
-	print ("\nNumber of Downloads Completed: " + repr(count))
-	print ("\n\nDone\n\n---------------------------------------------------\n\n")
+    couchdb = raw_input("URL of the CouchDB installation (not username or password): ")
+    if len(couchdb) < 3: couchdb = "http://localhost:5984"
+    if couchdb.endswith('/'): couchdb = couchdb[:-1]
+    db = raw_input("Database name : ")
+    if db.endswith('/'): db = db[:-1]
+    
+    username = raw_input("User-name (if applicable): ")
+    password = getpass.getpass(prompt="Password (if applicable, will not display): ")
+  
+    db_url = couchdb + "/" + db + "/"
+    all_docs_url = db_url + "_all_docs"
+    all_docs = requests.get(all_docs_url)
+    doc_ids = []
+    doc_ids_raw = re.findall("\"id\":\".*?\"", all_docs.text)
+    for i in doc_ids_raw:
+        doc_ids.append(i[6:-1])
 
+    count = 0
+    for i in doc_ids:
+        count += 1
+        doc_url = db_url + i
+        if username == "":
+            r = requests.get(doc_url)
+        else:
+            r = requests.get(doc_url, auth=(username, password))
+
+        outFileName = db + "_" + repr(count)+ ".json"
+        out = codecs.open(outFileName, 'w', 'utf-8')
+        out.write(json.dumps(r.json(), indent=2))
+        out.close()
+        if ( count%10 ) == 0:
+            print(" ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
+
+    print ("\nNumber of Downloads Completed: " + repr(count))
+
+# .............................................................................
 def prune_db():
 	print("< prune_db > subroutine called:")
 	print( 
