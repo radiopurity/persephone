@@ -1,3 +1,21 @@
+/*
+Sort the result by the uranium
+Unit:
+	Category One
+	   ppm (parts per million)
+	   ppb (parts per billion)
+	   ppt (parts per trillion)
+	   1 ppm = 1000 ppb
+	   1 ppb = 1000 ppt
+	Category Two
+	   Bq/kg (becquerels per kg)
+	   mBq/kg (milli becquerels per kg)
+	   muBq/kg = uBq/kg (micro becquerels per kg) (two different shorthands for the greek letter)
+	   1 Bq/kg = 1000 mBq/kg
+	   1 mBq/kg = 1000 uBq/kg = 1000 muBq/kr
+	Category Three
+	   Anything else
+*/
 function (doc) {
 	var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 	var pri_u = 9999;

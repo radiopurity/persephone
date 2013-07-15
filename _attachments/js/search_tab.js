@@ -17,7 +17,8 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".group-header").css("color", "#e18e94");
-		searchResults(val);
+		options = {"_search":"&sort=[\"grouping<string>\"]","_view":"query-by-group"}
+		searchResults(val , options);
 	});
 
 	// query-by-name
@@ -25,7 +26,8 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".name-header").css("color", "#e18e94");
-		query_by_name(val);
+		options = {"_search":"&sort=[\"name<string>\"]","_view":"query-by-name"}
+		searchResults(val , options);
 	});
 
 	// sort-by-Th
@@ -33,7 +35,8 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".th-header").css("color", "#e18e94");
-		sort_by_Th(val);
+		options = {"_search":"","_view":"query-by-th"}
+		searchResults(val , options);
 	});
 
 	// sort-by-U
@@ -41,7 +44,8 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".u-header").css("color", "#e18e94");
-		sort_by_U(val);
+		options = {"_search":"","_view":"query-by-u"}
+		searchResults(val , options);
 	});
 
 	// decorate table-header
@@ -96,7 +100,9 @@ function click_search() {
 	// change color of selected value
 	$(".header").css("color" , "#212121");
 	$(".group-header").css("color", "#e18e94");
-	searchResults(entry); 
+	
+	options = {"_search":"&sort=[\"grouping<string>\"]","_view":"query-by-group"}
+	searchResults(entry , options); 
 
 	return false;
 }; 
@@ -189,6 +195,7 @@ function DecorateResult() {
 	$("h3").bind('click', ButtonFade);
 };
 
+
 /* fill the JSON into the output_template.html*/
 function FillTemplate(doc){
 	var th={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"},u={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"}
@@ -220,8 +227,9 @@ function FillTemplate(doc){
 	}
 }
 
+
 /*==== search for result ====*/
-function searchResults(val) {
+function searchResults(val,options) {
 	// clear the page
 	$("#materials").empty();
 	$("#status-line").empty();
@@ -235,178 +243,11 @@ function searchResults(val) {
 	if ( window.location.host.split(".")[1] == "cloudant" ) {			
 		search_url = window.location.protocol + '//' + window.location.host 
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries +'&sort=["grouping<string>"]';
+							 + val + '&include_docs=true&limit=' + max_entries + options._search;
 	}
 		
 	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/query-by-group?limit='+ max_entries +'&include_docs=true';
-		// search_url = '/' + dbname + '/_all_docs?limit='+ max_entries +'&include_docs=true&descending=true';
-	}
-
-	$.ajax({ 
-		url: search_url,
-		dataType: 'json',
-		async: false,
-		success: function(data) { 
-			total_rows=data.total_rows;
-			$("#status-line").append('Total result: ' + data.total_rows);				
-			if ( data.total_rows > 0 ) {
-				if ( data.total_rows > max_entries ) {
-					n_entries = max_entries;
-				} else {				 
-					n_entries = data.total_rows;								 
-				};
-
-				if (data.bookmark){
-					bookmark = data.bookmark;
-				}
-
-				for ( j = 0; j < n_entries; j++ ) {	
-					var doc = data.rows[j].doc;
-
-					FillTemplate(doc);
-				}
-
-				DecorateResult();
-				
-				$('#materials').infiniScroll('pollLevel');
-			}
-		}
-	})
-};
-
-
-/*==== query-by-name ====*/
-function query_by_name(val) {
-	// clear the page
-	$("#materials").empty();
-	$("#status-line").empty();
-	
-	// show table header
-	$(".table-header").show();
-
-	var n_entries;
-	skip=0;
-	total_rows=0;
-	
-	if ( window.location.host.split(".")[1] == "cloudant" ) {			
-		search_url = window.location.protocol + '//' + window.location.host 
-							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries + "&sort=[\"-name<string>\"]";
-	}
-		
-	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/query-by-name?limit='+ max_entries +'&include_docs=true';
-	}
-
-	$.ajax({ 
-		url: search_url,
-		dataType: 'json',
-		async: false,
-		success: function(data) { 
-			total_rows=data.total_rows;
-			$("#status-line").append('Total result: ' + data.total_rows);				
-			if ( data.total_rows > 0 ) {
-				if ( data.total_rows > max_entries ) {
-					n_entries = max_entries;
-				} else {				 
-					n_entries = data.total_rows;								 
-				};
-
-				if (data.bookmark){
-					bookmark = data.bookmark;
-				}
-
-				for ( j = 0; j < n_entries; j++ ) {	
-					var doc = data.rows[j].doc;
-
-					FillTemplate(doc);
-				}
-
-				DecorateResult();
-				
-				$('#materials').infiniScroll('pollLevel');
-			}
-		}
-	})
-};
-
-/*==== order by Th ====*/
-function sort_by_Th(val) {
-	// clear the page
-	$("#materials").empty();
-	$("#status-line").empty();
-	
-	// show table header
-	$(".table-header").show();
-
-	var n_entries;
-	skip=0;
-	total_rows=0;
-	
-	if ( window.location.host.split(".")[1] == "cloudant" ) {			
-		search_url = window.location.protocol + '//' + window.location.host 
-							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries;
-	}
-		
-	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/sort-by-th?limit='+ max_entries +'&include_docs=true';
-	}
-
-	$.ajax({ 
-		url: search_url,
-		dataType: 'json',
-		async: false,
-		success: function(data) { 
-			total_rows=data.total_rows;
-			$("#status-line").append('Total result: ' + data.total_rows);				
-			if ( data.total_rows > 0 ) {
-				if ( data.total_rows > max_entries ) {
-					n_entries = max_entries;
-				} else {				 
-					n_entries = data.total_rows;								 
-				};
-
-				if (data.bookmark){
-					bookmark = data.bookmark;
-				}
-
-				for ( j = 0; j < n_entries; j++ ) {	
-					var doc = data.rows[j].doc;
-
-					FillTemplate(doc);
-				}
-
-				DecorateResult();
-				
-				$('#materials').infiniScroll('pollLevel');
-			}
-		}
-	})
-};
-
-
-/*==== order by U ====*/
-function sort_by_U(val) {
-	// clear the page
-	$("#materials").empty();
-	$("#status-line").empty();
-	// show table header
-	$(".table-header").show();
-
-	var n_entries;
-	skip=0;
-	total_rows=0;
-	
-	if ( window.location.host.split(".")[1] == "cloudant" ) {			
-		search_url = window.location.protocol + '//' + window.location.host 
-							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries;
-	}
-		
-	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/sort-by-u?limit='+ max_entries +'&include_docs=true';
+		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ max_entries +'&include_docs=true';
 	}
 
 	$.ajax({ 
