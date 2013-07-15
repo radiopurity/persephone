@@ -54,11 +54,20 @@ def help():
     print ("\nUsage: python" + name + "[-u|-d|-h]")
     print ("\n\nOptions:\n")
     print ("-u : Uploads .json files to a couchdb instance of your choice.\n")
-    print ("     Useage: python" + name + "-u.\n")
+    print ("     Useage: python" + name + "-u [URL].\n")
+    print ("     Optional parameter URL accepts full URL's and automatically uploads all")
+    print ("     documents in current directory.\n")
     print ("-d : Downloads .json files from a couchdb instance of your choice.\n")
-    print ("     Useage: python" + name + "-d.\n")
+    print ("     Useage: python" + name + "-d [URL].\n")
+    print ("     Optional parameter URL accepts full URL's and automatically downloads all")
+    print ("     documents in specified database.\n")
     print ("-p : Prunes (Deletes) all files of type \"measurement\" from a couchdb instance of your choice.\n")
     print ("     Useage: python" + name + "-p.\n")
+    print ()
+    print ("URL Format: http[s]://[username:password@]CouchDBName.com[:port]/DBName")
+    print ("ex.: http://localhost:5984/database1")
+    print ("     https://ben:mypassword@radiopurity.org/database1")
+
 
 # .............................................................................
 # Calls the different subroutines based on command line arguments
@@ -69,13 +78,13 @@ def main():
         if sys.argv[1] == "-h":
             help()
         elif sys.argv[1] == "-u":
-            if len(sys.argv) == 2:
+            if len(sys.argv) > 1 and len(sys.argv) < 4:
                 upload_json()
             else:
                 help()
                 print("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
         elif sys.argv[1] == "-d":
-            if len(sys.argv) == 2:
+            if len(sys.argv) > 1 and len(sys.argv) < 4:
                 download_json()
             else:
                 help()
@@ -106,13 +115,57 @@ def get_uuid(db):
 # .............................................................................
 # Upload JSON documents to a CouchDB
 def upload_json():
-    # Fix Python 2.x.
+    command_line_override=False
+    
+    if len(sys.argv) ==3:
+        try:
+            temp = re.findall("/.*?:", sys.argv[2])
+            if len(temp)>0:
+                username=temp[0].replace("/","").replace(":","")
+                print("Using user name : ", username)
+            else:
+                username=""
+                print("No user name found. Continuing without user name.")
+            temp=[]
+            temp = re.findall(":[^/]*?@", sys.argv[2])
+            if len(temp)>0:
+                password=temp[0].replace("@","").replace(":","")
+                print("Using password : ", password)
+            else:
+                password=""
+                print("No password found. Continuing without password.")
+            try:
+                url = re.findall("@.*", sys.argv[2])[0].replace("@","").replace("://","")
+            except:
+                url = re.findall("://.*", sys.argv[2])[0].replace("@","").replace("://","")
+            
+            couchdb, temp, db = url.rpartition("/")
+            print("Using CouchDB URL : ", couchdb)
+            print("Using Database Name: ", db)
+            
+            if couchdb=="" or db=="":
+                raise
+            
+            couchdb = "http://" + couchdb
+            command_line_override=True
+            
+            #print(username,password, couchdb, db)
+            #print(type(username),type(password), type(couchdb), type(db))
+        except:
+            print("\n\nFailed to find username/password/CouchDB URL/Database Name.")
+            print("Proceeding with prompt based input.\n\n")
+
+    
+    # Fix Python 2.x
     try: raw_input = input
     except NameError: pass
 
     pwd = os.getcwd()
     msg = "Upload all files in\n" + pwd + "\n(Y/N) ? "
-    uploadAll = raw_input(msg).lower()
+    if command_line_override:
+        uploadAll="y"
+    else:
+        uploadAll = raw_input(msg).lower()
 
     if uploadAll == "y":
         uploadListing = os.listdir(pwd)
@@ -125,14 +178,20 @@ def upload_json():
             upload = raw_input(msg).lower()
             if upload== "y":
                 uploadListing.append(i)
-
-    couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
-    if len(couchdb) < 3: couchdb = "http://localhost:5984"
-    if couchdb.endswith('/'): couchdb = couchdb[:-1]
-    db = raw_input("Database name : ")
-    if db.endswith('/'): db = db[:-1]
-    username = raw_input("User-name (if applicable) : ")
-    password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
+    
+    if not command_line_override:
+        couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
+        if len(couchdb) < 3: couchdb = "http://localhost:5984"
+        if couchdb.endswith('/'): couchdb = couchdb[:-1]
+        db = raw_input("Database name : ")
+        if db.endswith('/'): db = db[:-1]
+        username = raw_input("User-name (if applicable) : ")
+        password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
+    
+    #print(username,password, couchdb, db)
+    #print(type(username),type(password), type(couchdb), type(db))
+    
+    
     
     successes = []
     failures  = []
@@ -160,17 +219,58 @@ def upload_json():
 # .............................................................................
 # Download JSON documents from a CouchDB
 def download_json():
+    command_line_override=False
+    
+    if len(sys.argv) ==3:
+        try:
+            temp = re.findall("/.*?:", sys.argv[2])
+            if len(temp)>0:
+                username=temp[0].replace("/","").replace(":","")
+                print("Using user name : ", username)
+            else:
+                username=""
+                print("No user name found. Continuing without user name.")
+            temp=[]
+            temp = re.findall(":[^/]*?@", sys.argv[2])
+            if len(temp)>0:
+                password=temp[0].replace("@","").replace(":","")
+                print("Using password : ", password)
+            else:
+                password=""
+                print("No password found. Continuing without password.")
+            try:
+                url = re.findall("@.*", sys.argv[2])[0].replace("@","").replace("://","")
+            except:
+                url = re.findall("://.*", sys.argv[2])[0].replace("@","").replace("://","")
+            
+            couchdb, temp, db = url.rpartition("/")
+            print("Using CouchDB URL : ", couchdb)
+            print("Using Database Name: ", db)
+            
+            if couchdb=="" or db=="":
+                raise
+            
+            couchdb = "http://" + couchdb
+            command_line_override=True
+            
+            #print(username,password, couchdb, db)
+            #print(type(username),type(password), type(couchdb), type(db))
+        except:
+            print("\n\nFailed to find username/password/CouchDB URL/Database Name.")
+            print("Proceeding with prompt based input.\n\n")
+
     #Fix Python 2.x.
     try: raw_input = input
     except NameError: pass
 
-    couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
-    if len(couchdb) < 3: couchdb = "http://localhost:5984"
-    if couchdb.endswith('/'): couchdb = couchdb[:-1]
-    db = raw_input("Database name : ")
-    if db.endswith('/'): db = db[:-1]
-    username = raw_input("User-name (if applicable) : ")
-    password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
+    if not command_line_override:
+        couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
+        if len(couchdb) < 3: couchdb = "http://localhost:5984"
+        if couchdb.endswith('/'): couchdb = couchdb[:-1]
+        db = raw_input("Database name : ")
+        if db.endswith('/'): db = db[:-1]
+        username = raw_input("User-name (if applicable) : ")
+        password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
 
     db_url = couchdb + "/" + db + "/"
     all_docs_url = db_url + "_all_docs"

@@ -73,9 +73,13 @@ USAGE
 
 	Options:
 	-u : Uploads .json files to a couchdb instance of your choice.
-		Useage: python RadioDBTools.py -u.
+		Useage: python RadioDBTools.py -u [URL].
+		Optional parameter URL accepts full URL's and automatically uploads all
+		documents in current directory.
 	-d : Downloads .json files from a couchdb instance of your choice.
-		Useage: python RadioDBTools.py -d.
+		Useage: python RadioDBTools.py -d [URL].
+		Optional parameter URL accepts full URL's and automatically downloads all
+		documents in specified database.
 	-p : Prunes (Deletes) all files of type "measurement" from a couchdb instance of
 		 your choice.
 		Useage: python RadioDBTools.py -p.
