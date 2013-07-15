@@ -73,19 +73,19 @@ def main():
                 upload_json()
             else:
                 help()
-                print ("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
+                print("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
         elif sys.argv[1] == "-d":
             if len(sys.argv) == 2:
                 download_json()
             else:
                 help()
-                print ("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
+                print("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
         elif sys.argv[1] == "-p":
             if len(sys.argv) == 2:
                 prune_db()
             else:
                 help()
-                print ("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
+                print("\n*******\nERROR:\nIncorrect number of arguments.\n*******\n")
         else:
             help()
             print("\n*******\nERROR:\nUnknown or incorrect argument. Could not parse <" \
@@ -134,7 +134,7 @@ def upload_json():
     successes = []
     failures  = []
     
-    print ("\n Document Name           HTML Status Code (201 is Success)")
+    print("\n Document Name           HTML Status Code (201 is Success)")
     for i in uploadListing:
         f = open ( i, 'r')
         data = f.read()
@@ -146,13 +146,13 @@ def upload_json():
         else:
             failures.append(i)
     
-    print ("\nSuccessful Uploads : " + repr(len(successes)))
-    print ("Failed Uploads     : " + repr(len(failures)))
+    print("\nSuccessful Uploads : " + repr(len(successes)))
+    print("Failed Uploads     : " + repr(len(failures)))
     if len(failures) > 0:
-        print ("\nThese files failed to upload:")
+        print("\nThese files failed to upload:")
         for i in failures:
-            print ("   " + i)
-    print ''
+            print("   " + i)
+    print("")
 
 # .............................................................................
 # Download JSON documents from a CouchDB
@@ -187,7 +187,7 @@ def download_json():
         if count % 10 == 0:
             print(" downloading ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
 
-    print ("\nNumber of Downloads Completed: " + repr(count) + '\n')
+    print("\nNumber of Downloads Completed: " + repr(count) + '\n')
 
 # .............................................................................
 # Delete all documents of type 'measurement' from a CouchDB
@@ -226,7 +226,7 @@ def prune_db():
         if count % 10 == 0:
             print(" searching ... " + repr(count).rjust(4) + " / " + repr(len(doc_ids)).rjust(4))
 
-    print ("\nNumber of documents to delete: " + repr(len(del_ids)))
+    print("\nNumber of documents to delete: " + repr(len(del_ids)))
     successes = []
     failures = []
     count = 0
@@ -247,17 +247,17 @@ def prune_db():
             failures.append(i)
 
     if len(failures) > 0:
-        print ("\n\nThese files were not deleted :")
+        print("\n\nThese files were not deleted :")
         for i in failures:
             print ("\t" + i)
-        print ("\n\n")
+        print("\n\n")
  
-    print ''
-    print ("Documents searched                                 : " + repr(len(doc_ids)).rjust(5))
-    print ("Documents identified for deletion                  : " + repr(len(del_ids)).rjust(5))
-    print ("Documents successfully deleted                     : " + repr(len(successes)).rjust(5))
-    print ("Documents identified for deletion, but NOT deleted : " + repr(len(failures)).rjust(5))
-    print ''
+    print('')
+    print("Documents searched                                 : " + repr(len(doc_ids)).rjust(5))
+    print("Documents identified for deletion                  : " + repr(len(del_ids)).rjust(5))
+    print("Documents successfully deleted                     : " + repr(len(successes)).rjust(5))
+    print("Documents identified for deletion, but NOT deleted : " + repr(len(failures)).rjust(5))
+    print('')
 
 # .............................................................................
 # Allows execution as a script or as a module
