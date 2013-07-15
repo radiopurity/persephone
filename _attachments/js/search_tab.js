@@ -80,19 +80,21 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-arrowthickstop-1-s"},
 		text:false
 	})
+
 	$(".export-button,.export-option" ).unbind();
-	$(".export-button,.export-option" ).mouseenter(function(event){
+	
+	// timeout
+	var tt;
+	$(".export-button , .export-option" ).mouseover(function(event){
 		var parent = $(this).closest('div');
-		parent.find('.export-option').show();
-		// $(".ui-button-icon-primary", this)
-		// 	.toggleClass("ui-icon-link ui-icon-arrowthickstop-1-s");				 
+		parent.find('.export-option').fadeIn();
+		if(tt){clearTimeout(tt);}
 	});
 
-	$(".export-button,.export-option" ).mouseleave(function(event){
+	$(".export-button,.export-option" ).mouseout(function(event){
 		var parent = $(this).closest('div');
-		parent.find('.export-option').hide();
+		tt = setTimeout($.proxy(function() {parent.find('.export-option').fadeOut(); }, this), 200)
 	});
-
 
 	$(".export-json").click(function(event){
 		var parent = $(this).closest('div');
