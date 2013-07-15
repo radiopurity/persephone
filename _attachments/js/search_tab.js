@@ -77,18 +77,22 @@ function DecorateResult() {
 
 	/* export button */
 	$(".export-button").button({
-		icons:{primary:"ui-icon-link"},
+		icons:{primary:"ui-icon-arrowthickstop-1-s"},
 		text:false
 	})
-	$(".export-button" ).unbind();
-	$(".export-button" ).click(function(event){
-		event.stopPropagation(); // this is
-		event.preventDefault(); // the magic
+	$(".export-button,.export-option" ).unbind();
+	$(".export-button,.export-option" ).mouseenter(function(event){
 		var parent = $(this).closest('div');
-		parent.find('.export-option').fadeToggle();
-		$(".ui-button-icon-primary", this)
-			.toggleClass("ui-icon-link ui-icon-arrowthickstop-1-s");				 
+		parent.find('.export-option').show();
+		// $(".ui-button-icon-primary", this)
+		// 	.toggleClass("ui-icon-link ui-icon-arrowthickstop-1-s");				 
 	});
+
+	$(".export-button,.export-option" ).mouseleave(function(event){
+		var parent = $(this).closest('div');
+		parent.find('.export-option').hide();
+	});
+
 
 	$(".export-json").click(function(event){
 		var parent = $(this).closest('div');
