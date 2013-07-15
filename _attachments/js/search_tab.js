@@ -235,7 +235,7 @@ function searchResults(val) {
 	if ( window.location.host.split(".")[1] == "cloudant" ) {			
 		search_url = window.location.protocol + '//' + window.location.host 
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries;
+							 + val + '&include_docs=true&limit=' + max_entries +'&sort=["grouping<string>"]';
 	}
 		
 	if ( val == "all" || val == "All" ) {
@@ -292,7 +292,7 @@ function query_by_name(val) {
 	if ( window.location.host.split(".")[1] == "cloudant" ) {			
 		search_url = window.location.protocol + '//' + window.location.host 
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries;
+							 + val + '&include_docs=true&limit=' + max_entries + "&sort=[\"-name<string>\"]";
 	}
 		
 	if ( val == "all" || val == "All" ) {
