@@ -286,6 +286,11 @@ div#about {
 	background: #dddddd !important;
 	font-weight: bold;
 }
+
+.header:hover{
+	color:#ecb7b8 !important;
+}
+
 /* for table content*/
 .heading-isotope-value {
 	text-align:center;

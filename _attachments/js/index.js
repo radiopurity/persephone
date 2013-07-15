@@ -173,7 +173,7 @@ $(function(){
 		dref:			"required",
 		dinp1:		 "required",
 		dinp2:		 "required",
-		dinp3:		 "required"								
+		dinp3:		 "required"							
 		}, 
 					 
 		messages: {

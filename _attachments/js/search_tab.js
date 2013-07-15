@@ -4,9 +4,81 @@ $Author: Zheng Li
 $Description: this part handles query, filter, scroll function for search tab
 */
 
-var total_rows=0,bookmark,max_entries=20,search_url,skip=0,val;
+var total_rows=0,bookmark,max_entries=20,search_url,skip=0,val="all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
+
+var u_color = "#212121", th_color="#212121";
+
+/*==== back to top jQuery ====*/
+$(document).ready(function(){
+	// query-by-group
+	$(".group-header").click(function() {
+		// change color of selected value
+		$(".header").css("color" , "#212121");
+		$(".group-header").css("color", "#e18e94");
+		searchResults(val);
+	});
+
+	// query-by-name
+	$(".name-header").click(function() {
+		// change color of selected value
+		$(".header").css("color" , "#212121");
+		$(".name-header").css("color", "#e18e94");
+		query_by_name(val);
+	});
+
+	// sort-by-Th
+	$(".th-header").click(function() {
+		// change color of selected value
+		$(".header").css("color" , "#212121");
+		$(".th-header").css("color", "#e18e94");
+		sort_by_Th(val);
+	});
+
+	// sort-by-U
+	$(".u-header").click(function() {
+		// change color of selected value
+		$(".header").css("color" , "#212121");
+		$(".u-header").css("color", "#e18e94");
+		sort_by_U(val);
+	});
+
+	// decorate table-header
+	$(".table-header").accordion({ 
+			header: "h3", 
+			icons: { "header": "ui-icon-grip-diagonal-se", "activeHeader": "ui-icon-bullet" },
+			collapsible:true, 
+			disabled: true,
+			heightStyle: "content",
+		});
+	$(".table-header").hide();
+
+	// hide #back-top first
+	$("#back-top").hide();
+	$("#spinner").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+
+});
+
 
 /*==== click and search for result ====*/
 function click_search() {
@@ -16,12 +88,14 @@ function click_search() {
 		$("#box-search").focus();		
 		$("#materials").empty(); 
 		$("#status-line").empty();
-		$(".table-header").hide();
 		total_rows=0;
 		skip=0;
 		return false;
 	}		
 
+	// change color of selected value
+	$(".header").css("color" , "#212121");
+	$(".group-header").css("color", "#e18e94");
 	searchResults(entry); 
 
 	return false;
@@ -201,16 +275,15 @@ function searchResults(val) {
 	})
 };
 
-/*==== order by Th ====*/
-function query_by_Th(val) {
+
+/*==== query-by-name ====*/
+function query_by_name(val) {
 	// clear the page
 	$("#materials").empty();
 	$("#status-line").empty();
+	
 	// show table header
 	$(".table-header").show();
-
-	$("table-header").css("color" , "#dddddd");
-	$(this).css("color", "#e18e94");
 
 	var n_entries;
 	skip=0;
@@ -223,7 +296,117 @@ function query_by_Th(val) {
 	}
 		
 	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/query-by-Th?limit='+ max_entries +'&include_docs=true';
+		search_url = '/' + dbname + '/_design/persephone/_view/query-by-name?limit='+ max_entries +'&include_docs=true';
+	}
+
+	$.ajax({ 
+		url: search_url,
+		dataType: 'json',
+		async: false,
+		success: function(data) { 
+			total_rows=data.total_rows;
+			$("#status-line").append('Total result: ' + data.total_rows);				
+			if ( data.total_rows > 0 ) {
+				if ( data.total_rows > max_entries ) {
+					n_entries = max_entries;
+				} else {				 
+					n_entries = data.total_rows;								 
+				};
+
+				if (data.bookmark){
+					bookmark = data.bookmark;
+				}
+
+				for ( j = 0; j < n_entries; j++ ) {	
+					var doc = data.rows[j].doc;
+
+					FillTemplate(doc);
+				}
+
+				DecorateResult();
+				
+				$('#materials').infiniScroll('pollLevel');
+			}
+		}
+	})
+};
+
+/*==== order by Th ====*/
+function sort_by_Th(val) {
+	// clear the page
+	$("#materials").empty();
+	$("#status-line").empty();
+	
+	// show table header
+	$(".table-header").show();
+
+	var n_entries;
+	skip=0;
+	total_rows=0;
+	
+	if ( window.location.host.split(".")[1] == "cloudant" ) {			
+		search_url = window.location.protocol + '//' + window.location.host 
+							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
+							 + val + '&include_docs=true&limit=' + max_entries;
+	}
+		
+	if ( val == "all" || val == "All" ) {
+		search_url = '/' + dbname + '/_design/persephone/_view/sort-by-th?limit='+ max_entries +'&include_docs=true';
+	}
+
+	$.ajax({ 
+		url: search_url,
+		dataType: 'json',
+		async: false,
+		success: function(data) { 
+			total_rows=data.total_rows;
+			$("#status-line").append('Total result: ' + data.total_rows);				
+			if ( data.total_rows > 0 ) {
+				if ( data.total_rows > max_entries ) {
+					n_entries = max_entries;
+				} else {				 
+					n_entries = data.total_rows;								 
+				};
+
+				if (data.bookmark){
+					bookmark = data.bookmark;
+				}
+
+				for ( j = 0; j < n_entries; j++ ) {	
+					var doc = data.rows[j].doc;
+
+					FillTemplate(doc);
+				}
+
+				DecorateResult();
+				
+				$('#materials').infiniScroll('pollLevel');
+			}
+		}
+	})
+};
+
+
+/*==== order by U ====*/
+function sort_by_U(val) {
+	// clear the page
+	$("#materials").empty();
+	$("#status-line").empty();
+	// show table header
+	$(".table-header").show();
+
+	var n_entries;
+	skip=0;
+	total_rows=0;
+	
+	if ( window.location.host.split(".")[1] == "cloudant" ) {			
+		search_url = window.location.protocol + '//' + window.location.host 
+							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
+							 + val + '&include_docs=true&limit=' + max_entries;
+	}
+		
+	if ( val == "all" || val == "All" ) {
+		search_url = '/' + dbname + '/_design/persephone/_view/sort-by-u?limit='+ max_entries +'&include_docs=true';
 	}
 
 	$.ajax({ 
@@ -280,45 +463,6 @@ function email_link(user, dom, linkText) {
 	 + ">" + linkText + "<\/a>" );
 
 }
-
-/*==== back to top jQuery ====*/
-$(document).ready(function(){
-
-	// invoke thfloat() twice; once for "head" and once for "foot"; both attach to window
-
-	// decorate table-header
-	$(".table-header").accordion({ 
-			header: "h3", 
-			icons: { "header": "ui-icon-grip-diagonal-se", "activeHeader": "ui-icon-bullet" },
-			collapsible:true, 
-			disabled: true,
-			heightStyle: "content",
-		});
-
-	// hide #back-top first
-	$("#back-top").hide();
-	$("#spinner").hide();
-	
-	// fade in #back-top
-	$(function () {
-		$(window).scroll(function () {
-			if ($(this).scrollTop() > 100) {
-				$('#back-top').fadeIn();
-			} else {
-				$('#back-top').fadeOut();
-			}
-		});
-
-		// scroll body to 0px on click
-		$('#back-top a').click(function () {
-			$('body,html').animate({
-				scrollTop: 0
-			}, 800);
-			return false;
-		});
-	});
-
-});
 
 /*==== infinity scroll ====*/
 (function( $ ){
