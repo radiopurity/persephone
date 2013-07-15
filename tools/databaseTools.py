@@ -54,9 +54,11 @@ def help():
     print ("\nUsage: python" + name + "[-u|-d|-h]")
     print ("\n\nOptions:\n")
     print ("-u : Uploads .json files to a couchdb instance of your choice.\n")
-    print ("     Useage: python" + name + "-u [URL].\n")
+    print ("     Useage: python" + name + "-u [URL] [.Extension].\n")
     print ("     Optional parameter URL accepts full URL's and automatically uploads all")
     print ("     documents in current directory.\n")
+    print ("     Optional parameter .Extension tells program to ignore all files without a certain")
+    print ("     extension, i.e. .json files.(Note: The \".\" is a required character.)")
     print ("-d : Downloads .json files from a couchdb instance of your choice.\n")
     print ("     Useage: python" + name + "-d [URL].\n")
     print ("     Optional parameter URL accepts full URL's and automatically downloads all")
@@ -78,7 +80,7 @@ def main():
         if sys.argv[1] == "-h":
             help()
         elif sys.argv[1] == "-u":
-            if len(sys.argv) > 1 and len(sys.argv) < 4:
+            if len(sys.argv) > 1 and len(sys.argv) < 5:
                 upload_json()
             else:
                 help()
@@ -116,8 +118,10 @@ def get_uuid(db):
 # Upload JSON documents to a CouchDB
 def upload_json():
     command_line_override=False
+    use_extension=False
+    extension=""
     
-    if len(sys.argv) ==3:
+    if len(sys.argv) >2 and sys.argv[2][0]!=".":
         try:
             temp = re.findall("/.*?:", sys.argv[2])
             if len(temp)>0:
@@ -154,7 +158,14 @@ def upload_json():
         except:
             print("\n\nFailed to find username/password/CouchDB URL/Database Name.")
             print("Proceeding with prompt based input.\n\n")
-
+    
+    if len(sys.argv) >2:
+        if sys.argv[2][0]==".":
+            extension=sys.argv[2]
+            use_extension=True
+        elif len(sys.argv) >3 and sys.argv[3][0]==".":
+            extension=sys.argv[3]
+            use_extension=True
     
     # Fix Python 2.x
     try: raw_input = input
@@ -166,18 +177,30 @@ def upload_json():
         uploadAll="y"
     else:
         uploadAll = raw_input(msg).lower()
-
+    
+    dirListing=[]
+    
+    if use_extension:
+        for i in os.listdir(pwd):
+            if extension in i:
+                dirListing.append(i)
+    else:
+        dirListing = os.listdir(pwd)
+    
     if uploadAll == "y":
-        uploadListing = os.listdir(pwd)
+        uploadListing = dirListing
     else:
         print("\n")
         uploadListing =[]
-        dirListing = os.listdir(pwd)
         for i in dirListing:
             msg = "Would you like to upload " + i + " (Y/N) ? "
             upload = raw_input(msg).lower()
             if upload== "y":
                 uploadListing.append(i)
+    
+    if uploadListing==[]:
+        print("No applicable files found. Aborting Upload.")
+        exit()
     
     if not command_line_override:
         couchdb = raw_input("CouchDB URL (no username or password, enter for localhost) : ")
@@ -187,10 +210,6 @@ def upload_json():
         if db.endswith('/'): db = db[:-1]
         username = raw_input("User-name (if applicable) : ")
         password = getpass.getpass(prompt="Password (if applicable, will not display) : ")
-    
-    #print(username,password, couchdb, db)
-    #print(type(username),type(password), type(couchdb), type(db))
-    
     
     
     successes = []

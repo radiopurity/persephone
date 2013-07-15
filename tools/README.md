@@ -76,6 +76,8 @@ USAGE
 		Useage: python RadioDBTools.py -u [URL].
 		Optional parameter URL accepts full URL's and automatically uploads all
 		documents in current directory.
+		Optional parameter .Extension tells program to ignore all files without a certain
+		extension, i.e. .json files.(Note: The \".\" is a required character.)
 	-d : Downloads .json files from a couchdb instance of your choice.
 		Useage: python RadioDBTools.py -d [URL].
 		Optional parameter URL accepts full URL's and automatically downloads all
