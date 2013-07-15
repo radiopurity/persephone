@@ -1,20 +1,24 @@
 #!/usr/bin/python
 
-#  databaseTools.py
-#  ================
-
+#
+# ================
+# databaseTools.py
+# ================
+#
 #    Simple database tools:
 #
 #       - Batch upload assays to a CouchDB
 #       - Batch download assays from a CouchDB
-#       - Batch delete (prine) assays from a CouchDB
+#       - Batch delete (prune) assays from a CouchDB
 #           
 #    Assays need to be text files in JSON format.
 #    See README.md for more details.
 #
-#  This code is heavility based upon one written by Ben Wise at SMU.
-#  His code was released under an open-source license and this is
-#  his original file header : 
+#             ===============
+#    Based on RadioDBTools.py by Ben Wise.
+#             ===============
+#
+#    This code is heavily based upon an open source code developed by Be Wise:
 #
 #       -------------------------------------------------------------------------------
 #       Name:           RadioDBTools.py
@@ -29,6 +33,7 @@
 #       Licence:        GNU General Public License
 #       Version:        1.0
 #       -------------------------------------------------------------------------------
+#
 
 import sys
 import os
