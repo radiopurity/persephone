@@ -491,3 +491,27 @@ Back to top button
 #spinner{
 	text-align: center;
 }
+
+/* slide down list*/
+.export-option li{	
+	float: center;
+	list-style: none;
+	font: 12px Tahoma, Arial
+}
+
+.export-option li a{
+	display: block;
+	background: #eeeeee;
+	padding: 5px 12px;
+	text-decoration: none;
+	border: 1px solid #dddddd;
+	width: 64px;
+	color: #FFFFFF;
+	white-space: nowrap;
+	margin-left: 765px;
+	z-index:0;
+}
+
+.export-option li a:hover{
+	background: #ecb7b8;
+}

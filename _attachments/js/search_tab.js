@@ -36,54 +36,77 @@ ButtonFade = function(){
 		};
 
 function DecorateResult() {
-		$("#materials > div").accordion({ 
-			header: "h3", 
-			navigation: true, 
-			collapsible:true, 
-			heightStyle: "content",
-			create: function(event) { 
-				$(event.target).accordion( "activate", false ); 
-			} 
-		});
-		$( "#materials" ).sortable({axis: "y",handle: "h3"});
-		$(".delete-button").button({
-			icons:{primary:"ui-icon-close"},
-			text:false
-		})
-		$(".delete-button" ).click(function(event){
-			event.stopPropagation(); // this is
-			event.preventDefault(); // the magic
-			var parent = $(this).closest('div');
-			var head = parent.prev('h3');
-			parent.add(head).hide(function(){$(this).remove();});
-		});
-		$(".detail-button").button({
-			icons:{primary:"ui-icon-zoomin"},
-			text:false
-		})
-		$(".detail-button" ).unbind();
-		$(".detail-button" ).click(function(event){
-			event.stopPropagation(); // this is
-			event.preventDefault(); // the magic
-			var parent = $(this).closest('div');
-			parent.find('.hideable').fadeToggle();
-			$(".ui-button-icon-primary", this)
-				.toggleClass("ui-icon-zoomin ui-icon-zoomout");				 
-		});
+	$("#materials > div").accordion({ 
+		header: "h3", 
+		navigation: true, 
+		collapsible:true, 
+		heightStyle: "content",
+		create: function(event) { 
+			$(event.target).accordion( "activate", false ); 
+		} 
+	});
+	$( "#materials" ).sortable({axis: "y",handle: "h3"});
 
-		$(".export-button").button({
-			icons:{primary:"ui-icon-circle-arrow-s"},
-			text:false
-		})
-		$(".export-button" ).click(function(event){
-			var parent = $(this).closest('div');
-			url = window.location.protocol + '//' + window.location.host 
-					+ '/' + dbname+'/'+parent.attr('value');
-			window.open(url, '_blank');
-		});
+	/* delete button */
+	$(".delete-button").button({
+		icons:{primary:"ui-icon-close"},
+		text:false
+	})
+	$(".delete-button" ).click(function(event){
+		event.stopPropagation(); // this is
+		event.preventDefault(); // the magic
+		var parent = $(this).closest('div');
+		var head = parent.prev('h3');
+		parent.add(head).hide(function(){$(this).remove();});
+	});
 
-		$("h3").unbind('click',ButtonFade);
-		$("h3").bind('click', ButtonFade);
+	/* detail button */
+	$(".detail-button").button({
+		icons:{primary:"ui-icon-zoomin"},
+		text:false
+	})
+	$(".detail-button" ).unbind();
+	$(".detail-button" ).click(function(event){
+		event.stopPropagation(); // this is
+		event.preventDefault(); // the magic
+		var parent = $(this).closest('div');
+		parent.find('.hideable').fadeToggle();
+		$(".ui-button-icon-primary", this)
+			.toggleClass("ui-icon-zoomin ui-icon-zoomout");				 
+	});
+
+	/* export button */
+	$(".export-button").button({
+		icons:{primary:"ui-icon-link"},
+		text:false
+	})
+	$(".export-button" ).unbind();
+	$(".export-button" ).click(function(event){
+		event.stopPropagation(); // this is
+		event.preventDefault(); // the magic
+		var parent = $(this).closest('div');
+		parent.find('.export-option').fadeToggle();
+		$(".ui-button-icon-primary", this)
+			.toggleClass("ui-icon-link ui-icon-arrowthickstop-1-s");				 
+	});
+
+	$(".export-json").click(function(event){
+		var parent = $(this).closest('div');
+		url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/'+parent.attr('value');
+		window.open(url, '_blank');
+	});
+
+	$(".export-xml").click(function(event){
+		var parent = $(this).closest('div');
+		url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/_design/persephone/_list/exportXML/query-by-id?_id='+parent.attr('value');
+		window.open(url, '_blank');
+	});
+
+	/* decorate h3 */
+	$("h3").unbind('click',ButtonFade);
+	$("h3").bind('click', ButtonFade);
 };
 
 /* fill the JSON into the output_template.html*/
