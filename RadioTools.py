@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #-------------------------------------------------------------------------------
 # Name:		RadioTools.py
 # Purpose:	 Import .csv files to Material Assay Data Format v 2.01.

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #-------------------------------------------------------------------------------
 # Name:		RadioDBTools.py
 # Purpose:	To allow easy interfacing (uploading, downloading) with a CouchDB
@@ -26,18 +27,17 @@ MADFversion = "2.01"
 
 #Prints a Help Menu
 def help():
-	print ("< help > subroutine called:")
-	print ("\nWelcome to ", name)
-	print ("This script imports .csv files to Material Assay Data Format v.", MADFversion )
-	print ("\nUsage: python", name, "[-u|-d|-h]")
-	print ("\n\nOptions:\n")
-	print ("-u : Uploads .json files to a couchdb instance of your choice.\n")
-	print ("	 Useage: python", name, "-u.\n")
-	print ("-d : Downloads .json files from a couchdb instance of your choice.\n")
-	print ("	 Useage: python", name, "-d.\n")
-	print ("-p : Prunes (Deletes) all files of type \"measurement\" from a couchdb instance of your choice.\n")
-	print ("	 Useage: python", name, "-p.\n")
-
+        print ("< help > subroutine called:")
+        print ("\nWelcome to ", name)
+        print ("This script imports .csv files to Material Assay Data Format v.", MADFversion )
+        print ("\nUsage: python", name, "[-u|-d|-h]")
+        print ("\n\nOptions:\n")
+        print ("-u : Uploads .json files to a couchdb instance of your choice.\n")
+        print ("	 Useage: python", name, "-u.\n")
+        print ("-d : Downloads .json files from a couchdb instance of your choice.\n")
+        print ("	 Useage: python", name, "-d.\n")
+        print ("-p : Prunes (Deletes) all files of type \"measurement\" from a couchdb instance of your choice.\n")
+        print ("	 Useage: python", name, "-p.\n")
 
 #Calls the different subroutines based on which arguments are passed
 def main():
