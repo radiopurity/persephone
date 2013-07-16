@@ -12,11 +12,11 @@
 #    Licence:        GNU General Public License
 #    Version:        1.0
 #    -------------------------------------------------------------------------------
-schemafile="v2.01.schema.json"
+defaultschemafile="v2.01.schema.json"
 # .............................................................................
 
 #Doese JSON validation, returns True if valid, False otherwise
-def is_valid_JSON(doc_name,schema_file=schemafile):
+def is_valid_JSON(doc_name,schema_file=defaultschemafile):
     import json
     import os
     
@@ -59,7 +59,7 @@ def main():
     dirListing=[]
 
     for i in os.listdir(pwd):
-        if ".json" in i and not i==schemafile:
+        if ".json" in i and not i==defaultschemafile:
             dirListing.append(i)
     
     if dirListing==[]:
@@ -69,7 +69,7 @@ def main():
     print("File Name                                    Valid JSON?")
 
     for i in dirListing:
-        print( i.ljust(33), repr(is_valid_JSON(i, schemafile)).rjust(16))
+        print( i.ljust(33), repr(is_valid_JSON(i, defaultschemafile)).rjust(16))
 
 # .............................................................................
 # Allows execution as a script or as a module
