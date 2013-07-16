@@ -117,6 +117,13 @@ def get_uuid(db):
 # .............................................................................
 # Upload JSON documents to a CouchDB
 def upload_json():
+    validate=True
+    try:
+        import validateJSON
+    except:
+        print("validateJSON.py not found. Skipping Validation.")
+        validate=False
+
     command_line_override=False
     use_extension=False
     extension=""
@@ -214,24 +221,44 @@ def upload_json():
     
     successes = []
     failures  = []
+    invalid=[]
     
     print("\n Document Name           HTML Status Code (201 is Success)")
     for i in uploadListing:
-        f = open ( i, 'r')
-        data = f.read()
-        doc_url = couchdb + "/" + db + "/" + get_uuid(couchdb)
-        r = requests.put(doc_url, data = data, auth = (username, password))
-        print(' ' + i.ljust(31) + repr(r).rjust(26))
-        if r.status_code == requests.codes.created:
-            successes.append(i)
+        if validate:
+            if validateJSON.is_valid_JSON(i):
+                f = open ( i, 'r')
+                data = f.read()
+                doc_url = couchdb + "/" + db + "/" + get_uuid(couchdb)
+                r = requests.put(doc_url, data = data, auth = (username, password))
+                print(' ' + i.ljust(31) + repr(r).rjust(26))
+                if r.status_code == requests.codes.created:
+                    successes.append(i)
+                else:
+                    failures.append(i)
+            else:
+                invalid.append(i)
         else:
-            failures.append(i)
+            f = open ( i, 'r')
+            data = f.read()
+            doc_url = couchdb + "/" + db + "/" + get_uuid(couchdb)
+            r = requests.put(doc_url, data = data, auth = (username, password))
+            print(' ' + i.ljust(31) + repr(r).rjust(26))
+            if r.status_code == requests.codes.created:
+                successes.append(i)
+            else:
+                failures.append(i)
     
-    print("\nSuccessful Uploads : " + repr(len(successes)))
-    print("Failed Uploads     : " + repr(len(failures)))
+    print("\nSuccessful Uploads         : " + repr(len(successes)))
+    print("Failed Uploads             : " + repr(len(failures)))
+    print("Failed due to invalid JSON : " + repr(len(invalid)))
     if len(failures) > 0:
         print("\nThese files failed to upload:")
         for i in failures:
+            print("   " + i)
+    if len(invalid) > 0:
+        print("\nThese files failed to upload due to invalid JSON :")
+        for i in invalid:
             print("   " + i)
     print("")
 

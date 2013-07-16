@@ -16,18 +16,18 @@ README
 
 REQUIREMENTS & DEPENDENCIES
 	Requires Python 3.3 or Greater
-	
+
 	Requires Requests 1.2.3 or Greater for Database Interaction (databaseTools.py)
 		See http://docs.python-requests.org/en/latest/
 		Tip: Download tarball or zipball from GitHub Repo
 			 Then use $ python setup.py install
-	
+
 	Requires Julian/jsonschema to validate JSON (validateJSON.py)
 		See https://github.com/Julian/jsonschema
 		Tip: Download via GitHub (extract if necessary)
 			 Then in jsonschema main directory use 
 			 $ python setup.py install 
-	
+
 	Tip: Consider downloading Notepad++ (in Windows environments) for viewing and editing .txt and .json files.
 CONTACT 
 	If you have problems or questions please contact radiopurity.org or james.loach@gmail.com or bwise@smu.edu.
