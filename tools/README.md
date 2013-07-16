@@ -11,6 +11,7 @@ README
 					type "measurement" from a particular database.
 	unitTools.py converts between multiple different unit types for many different isotopes and is extensible as further data become available.
 					Ex.: unitTools.py can convert 1 ppm (U-238/K-40/Th-232) to Bq/kg. To see all available units execute python unitTools.py.
+	validateJSON.py checks which .json documents are valid according to the present schema.
 
 
 REQUIREMENTS & DEPENDENCIES
@@ -20,6 +21,12 @@ REQUIREMENTS & DEPENDENCIES
 		See http://docs.python-requests.org/en/latest/
 		Tip: Download tarball or zipball from GitHub Repo
 			 Then use $ python setup.py install
+	
+	Requires Julian/jsonschema to validate JSON (validateJSON.py)
+		See https://github.com/Julian/jsonschema
+		Tip: Download via GitHub (extract if necessary)
+			 Then in jsonschema main directory use 
+			 $ python setup.py install 
 	
 	Tip: Consider downloading Notepad++ (in Windows environments) for viewing and editing .txt and .json files.
 CONTACT 
@@ -99,7 +106,11 @@ USAGE
 					 > python unitTools.py K-40 12.34 ppm mBq/kg
 					 Both will attempt to convert 12.34 ppm of K-40 to mBq/kg.
 					 Tip: Avoid using parentheses to enclose the isotope.
-	
+
+
+	> python validateJSON.py
+		Useage: Execute "python validateJSON.py" or utilize modules in python shell.
+
 
 	For more information see radiopurity.org.
 
