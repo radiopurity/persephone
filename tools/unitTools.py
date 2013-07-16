@@ -97,6 +97,10 @@ convFactor = {
 # .............................................................................
 # Main Function, when run in command line will ask for values and run conversion
 def main():
+    # Fix Python 2.x
+    try: raw_input = input
+    except NameError: pass
+    
     print("Welcome to RadioConversion.py:\n\nCurrently supported conversions are:")
     
     for isotope, val in convFactor.items():
@@ -120,7 +124,7 @@ def main():
 # .............................................................................
 # Does the actual conversion
 def convert(srcIsotope, srcValue, srcUnit,  destUnit, destIsotope = None):
-
+    
     if destIsotope is "":
         destIsotope = srcIsotope
     
@@ -183,6 +187,10 @@ def convert(srcIsotope, srcValue, srcUnit,  destUnit, destIsotope = None):
 
 # .............................................................................
 def stringConvert(string, returnTuple=False):
+    # Fix Python 2.x
+    try: raw_input = input
+    except NameError: pass
+    
     import re
     warning = False
     
