@@ -50,7 +50,7 @@ def help():
           "     uploads all documents in current directory.\n"
           "     Optional parameter. Extension tells program to ignore\n"
           "     all files without a certain extension, i.e. .json files.\n"
-          "     (Note: The \".\" is a required character.)"
+          "     (Note: The \".\" is a required character.)\n"
           "-d : Downloads .json files from a couchdb instance of\n"
           "     your choice.\n"
           "     Useage: python" + name + "-d [URL].\n"
@@ -110,6 +110,15 @@ def get_uuid(db):
 
 
 def upload_json():
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+
     """Upload JSON documents to a CouchDB"""
     validate = True
     try:
@@ -170,7 +179,7 @@ def upload_json():
     if command_line_override:
         uploadAll = "y"
     else:
-        uploadAll = raw_input(msg).lower()
+        uploadAll = modified_input(msg).lower()
 
     dirListing = []
     if use_extension:
@@ -187,7 +196,7 @@ def upload_json():
         uploadListing = []
         for i in dirListing:
             msg = "Would you like to upload " + i + " (Y/N) ? "
-            upload = raw_input(msg).lower()
+            upload = modified_input(msg).lower()
             if upload == "y":
                 uploadListing.append(i)
 
@@ -196,16 +205,16 @@ def upload_json():
         exit()
 
     if not command_line_override:
-        couchdb = raw_input("CouchDB URL (no username or password,"
+        couchdb = modified_input("CouchDB URL (no username or password,"
                             " enter for localhost) : ")
         if len(couchdb) < 3:
             couchdb = "http://localhost:5984"
         if couchdb.endswith('/'):
             couchdb = couchdb[:-1]
-        db = raw_input("Database name : ")
+        db = modified_input("Database name : ")
         if db.endswith('/'):
             db = db[:-1]
-        username = raw_input("User-name (if applicable) : ")
+        username = modified_input("User-name (if applicable) : ")
         password = getpass.getpass(prompt="Password (if applicable, "
                                           "will not display) : ")
 
@@ -259,6 +268,16 @@ def download_json():
     """Download JSON documents from a CouchDB"""
     command_line_override = False
 
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+    
+    
     if len(sys.argv) == 3:
         try:
             temp = re.findall("/.*?:", sys.argv[2])
@@ -296,16 +315,16 @@ def download_json():
                   "Proceeding with prompt based input.\n\n")
 
     if not command_line_override:
-        couchdb = raw_input("CouchDB URL (no username "
+        couchdb = modified_input("CouchDB URL (no username "
                             "or password, enter for localhost) : ")
         if len(couchdb) < 3:
             couchdb = "http://localhost:5984"
         if couchdb.endswith('/'):
             couchdb = couchdb[:-1]
-        db = raw_input("Database name : ")
+        db = modified_input("Database name : ")
         if db.endswith('/'):
             db = db[:-1]
-        username = raw_input("User-name (if applicable) : ")
+        username = modified_input("User-name (if applicable) : ")
         password = getpass.getpass(
             prompt="Password (if applicable, will not display) : ")
 
@@ -337,22 +356,26 @@ def download_json():
 def prune_db():
     """Delete all documents of type 'measurement' from a CouchDB"""
     try:  # Fix Python 2.x.
-        raw_input = input
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
     except NameError:
         pass
 
-    print("Warning: This operation will DELETE documents"
+    print("Warning: This operation will DELETE documents "
           "from the database in question!")
-    couchdb = raw_input("CouchDB URL (no username or password,"
+    couchdb = modified_input("CouchDB URL (no username or password,"
                         "enter for localhost) : ")
     if len(couchdb) < 3:
         couchdb = "http://localhost:5984"
     if couchdb.endswith('/'):
         couchdb = couchdb[:-1]
-    db = raw_input("Database name : ")
+    db = modified_input("Database name : ")
     if db.endswith('/'):
         db = db[:-1]
-    username = raw_input("User-name (if applicable) : ")
+    username = modified_input("User-name (if applicable) : ")
     password = getpass.getpass(
         prompt="Password (if applicable, will not display) : ")
 
@@ -388,7 +411,7 @@ def prune_db():
     for i in del_ids:
         print("-> ", i)
     prompt = "\n\nDelete all " + repr(len(del_ids)) + " Documents ? (Y/n) "
-    confirm_delete = raw_input(prompt)
+    confirm_delete = modified_input(prompt)
     if confirm_delete.lower() != "y":
         print("Exiting: Delete operation aborted.")
         exit()
@@ -419,14 +442,15 @@ def prune_db():
             for i in failures:
                 print ("\t" + i)
             print("\n\n")
-        print("\nDocuments searched                               : " +
+    #Note:    >\n< right below this line, the ":" must be, here    >:< in order to compensate
+        print("\nDocuments searched                                 : " +
               repr(len(doc_ids)).rjust(5))
         print("Documents identified for deletion                  : " +
               repr(len(del_ids)).rjust(5))
         print("Documents successfully deleted                     : " +
               repr(len(successes)).rjust(5))
         print("Documents identified for deletion, but NOT deleted : " +
-              repr(len(failures)).rjust(5)) + "\n"
+              repr(len(failures)).rjust(5) + "\n")
 
 if __name__ == '__main__':
     main()
