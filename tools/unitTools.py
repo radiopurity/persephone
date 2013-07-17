@@ -4,17 +4,13 @@
 # unitTools.py
 # ============
 #
-#    DESCRIPTION
-#
-#    USAGE
-#    
-#    OPTIONS
+#    See README.md
 #
 #             ==================
 #    Based on RadioConversion.py by Ben Wise.
 #             ==================
 #
-#    This code is heavily based upon an open source code developed by 
+#    This code is heavily based upon an open source code developed by
 #    Ben Wise. The original file header:
 #
 #    --------------------------------------------------------------------------
@@ -33,41 +29,41 @@
 
 # .............................................................................
 # Dictionary Containing Quality Codes
-qualityCode = {
-    1 : "exact conversion",
-    2 : "approximate conversion",
-    3 : "No Conversion / Error"
+quality_code = {
+    1: "exact conversion",
+    2: "approximate conversion",
+    3: "No Conversion / Error"
     }
 
 # .............................................................................
 # Dictionary Containing Conversion Factors:
-convFactor = {
+conv_factor = {
 
     # Standard Conversions
-    ("Standard Conversions", "std") :
+    ("Standard Conversions", "std"):
         {
-            "ppm" : { 
-                "ppb" :     ( 1,       1000.0      ),
-                "ppt" :     ( 1,    1000000.0      ),
-                "ppq" :     ( 1, 1000000000.0      ),
-                "g/g" :     ( 1,           .000001 )
+            "ppm": { 
+                "ppb":     ( 1,       1000.0      ),
+                "ppt":     ( 1,    1000000.0      ),
+                "ppq":     ( 1, 1000000000.0      ),
+                "g/g":     ( 1,           .000001 )
             },
-            "Bq/kg" : {
-                "mBq/kg"  : ( 1,       1000.0      ),
-                "muBq/kg" : ( 1,    1000000.0      ),
-                "uBq/kg"  : ( 1,    1000000.0      ),
-                "Bq/g"    : ( 1,          0.001    ),
-                "/g"      : ( 1,          0.001    ),
-                "muBq/g"  : ( 1,       1000.0      ),
-                "uBq/g"   : ( 1,       1000.0      ),
-                "nBq/kg"  : ( 1, 1000000000.0      )
+            "Bq/kg": {
+                "mBq/kg" : ( 1,       1000.0      ),
+                "muBq/kg": ( 1,    1000000.0      ),
+                "uBq/kg" : ( 1,    1000000.0      ),
+                "Bq/g"   : ( 1,          0.001    ),
+                "/g"     : ( 1,          0.001    ),
+                "muBq/g" : ( 1,       1000.0      ),
+                "uBq/g"  : ( 1,       1000.0      ),
+                "nBq/kg" : ( 1, 1000000000.0      )
             }
         },
 
     # Uranium 238 Factors
     ("U-238", "U238", "238U", "238-U"):
         {
-        "ppm" : {"Bq/kg": (1, 12.4366)}
+        "ppm": {"Bq/kg": (1, 12.4366)}
         },
 
     # Thorium 232 Factors
@@ -82,226 +78,237 @@ convFactor = {
         "ppm": {"Bq/kg": (1, 265.2416)}
         }
 
-# Archetype:
-#   ("IsotopeName1", "IsotopeName2") :
-#       {
-#       "srcUnit"  : { "destUnit" : (qualityCode, Conversion Factor), "destUnit2" : (qualityCode, Conversion Factor)},
-#       "srcUnit2" : { "destUnit" : (qualityCode, Conversion Factor), "destUnit2" : (qualityCode, Conversion Factor)}
-#       },
-#***********
-#Note: due to the non-linear nature of data-access in dictionaries, duplicate entries are an exceedingly bad idea,
-#       since the program could pick either value.
-#***********
+    # Archetype:
+    #   ("IsotopeName1", "IsotopeName2") :
+    #       {
+    #       "src_unit"  : { "dest_unit" : (quality_code, Conversion Factor),
+    #                      "dest_unit2" : (quality_code, Conversion Factor)},
+    #       "src_unit2" : { "dest_unit" : (quality_code, Conversion Factor),
+    #                      "dest_unit2" : (quality_code, Conversion Factor)}
+    #       },
+    #
+    # Note: due to the non-linear nature of data-access in dictionaries,
+    # duplicate entries are an exceedingly bad idea, since the program
+    # could pick either value.
     }
 
-# .............................................................................
-# Main Function, when run in command line will ask for values and run conversion
+
 def main():
+    """Main Function, when run in command line will ask
+       for values and run conversion"""
     import sys
-    autoConvert=False
-    # Fix Python 2.x
-    try: raw_input = input
-    except NameError: pass
-    
-    string=""
-    
-    if len(sys.argv)>2:
-        for i in sys.argv:
-            if not i==sys.argv[0]: 
-                string = string + " " + i        
+    autoConvert = False
+
+    string = ""
+    if len(sys.argv) >= 2:
+        string = sys.argv[1]
+#        for i in sys.argv:
+#            if not i == sys.argv[0]:
+#                string = string + " " + i
         try:
-            print("\nAttempting to auto convert string : \"" , string, "\"\n")
-            stringConvert( string )
+            print("\nAttempting to auto-convert string : \"" + 
+                  string + "\"\n")
+            stringConvert(string)
             print("\n\nSuccess.")
-            autoConvert=True
+            autoConvert = True
         except:
-            print("\n\n-----------\nFailed to auto-convert string.\nPlease check that all requisite information is there.\nProceeding to interactive mode.\n-----------\n\n")
-        
-            
+            print("\n\n-----------\n"
+                  "Failed to auto-convert string.\n"
+                  "Please check that all requisite information is there.\n"
+                  "Proceeding to interactive mode.\n-----------\n\n")
+
     if not autoConvert:
-        print("Welcome to unitTools.py:\n\nCurrently supported conversions are:")
-    
-        for isotope, val in convFactor.items():
+        print("Welcome to unitTools.py:\n\n"
+              "Currently supported conversions are:")
+        for isotope, val in conv_factor.items():
             print(' ')
             print(isotope[0] + " :")
-            for s_unit,val2 in val.items():
-                for d_unit, QCfactorTuple in val2.items():
-                    print(s_unit.center(12) + "<-->" + d_unit.center(12) + " (" + qualityCode[QCfactorTuple[0]] + ")" )
+            for s_unit, val2 in val.items():
+                for d_unit, QC_factor_tuple in val2.items():
+                    print(s_unit.center(12) + "<-->" +
+                          d_unit.center(12) + " (" +
+                          quality_code[QC_factor_tuple[0]] + ")")
         print ("\n\n")
-    
-        SIso   = raw_input("Please enter the Source Isotope (or std for Standard Conversions): ")
+        SIso = raw_input("Please enter the Source Isotope "
+                         "(or std for Standard Conversions): ")
         SValue = float(raw_input("Please enter the value to convert : "))
-        SUnit  = raw_input("Please enter the units before conversion : ")
-        DUnit  = raw_input("Please enter the unit to convert to : ")
+        SUnit = raw_input("Please enter the units before conversion : ")
+        DUnit = raw_input("Please enter the unit to convert to : ")
         #    DIso   = raw_input("Please enter the Isotope to convert to : ")
-    
         QC, val = convert(SIso, SValue, SUnit, DUnit)
-    
-        print("Result : " + str(val) + " " + DUnit + "\nThis is a(n)" + qualityCode[QC] + ".")
+        print("Result : " + str(val) + " " + DUnit + "\n"
+              "This is a(n)" + quality_code[QC] + ".")
 
-# .............................................................................
-# Does the actual conversion
-def convert(srcIsotope, srcValue, srcUnit,  destUnit, destIsotope = None):
-    
-    if destIsotope is None or destIsotope==srcIsotope:
-        destIsotope = srcIsotope
+
+def convert(src_isotope, src_value, src_unit, dest_unit, dest_isotope=None):
+    if dest_isotope is None or dest_isotope == src_isotope:
+        dest_isotope = src_isotope
     else:
-        print("\n\n**********************\n\nWarning: Isotope to Isotope conversion not currently supported.\nIGNORING DESTINATION ISOTOPE.")
-        print("\nContinuing with conversion: ", srcValue, srcUnit, "(", srcIsotope, ") to", destUnit, "\n\n**********************\n\n")
-    
-    #In case of failed conversion these will be unaltered
-    intermediateQualityCode  = 0
-    intermediateQualityCode2 = 0
-    qualityCode              = 3
-    destValue                = None
-    
-    intermediateUnit = ""
-    
-    if srcIsotope != "std":
-        for k, v in convFactor.items():
-            if "std" in k:
-                tempDict = v
-        for std_unit,val in tempDict.items():
-            for nonstd_unit, val2 in val.items():
-                if srcUnit == nonstd_unit:
-                    intermediateUnit = std_unit
-        if intermediateUnit != "":
-            intermediateQualityCode, srcValue = convert("std", srcValue, srcUnit, intermediateUnit)
-            srcUnit = intermediateUnit
-        
-        intermediateUnit = ""
-        
-        for k,v in convFactor.items():
+        print("\n\n**********************\n"
+              "\nWarning: Isotope to Isotope conversion not"
+              "currently supported.\nIGNORING DESTINATION ISOTOPE.")
+        print("\nContinuing with conversion: ", src_value, src_unit,
+              "(", src_isotope, ") to", dest_unit,
+              "\n\n**********************\n\n")
+
+    intermediate_quality_code = 0
+    iintermediate_quality_code_2 = 0
+    quality_code = 3
+    dest_value = None
+    intermediate_unit = ""
+
+    if src_isotope != "std":
+        for k, v in conv_factor.items():
             if "std" in k:
                 tempDict = v
         for std_unit, val in tempDict.items():
             for nonstd_unit, val2 in val.items():
-                if destUnit == nonstd_unit:
-                    intermediateUnit = std_unit
-        if intermediateUnit != "":
-            intermediateQualityCode2, srcValue = convert("std", srcValue, intermediateUnit,  destUnit)
-            destUnit = intermediateUnit
-    
-    if srcUnit.lower() == destUnit.lower():
-        qualityCode = 1
-        destValue = srcValue
-    
-    for sourceisotopekey, val0 in convFactor.items():
-        if srcIsotope in sourceisotopekey:
+                if src_unit == nonstd_unit:
+                    intermediate_unit = std_unit
+        if intermediate_unit != "":
+            intermediate_quality_code, src_value \
+                = convert("std", src_value, src_unit, intermediate_unit)
+            src_unit = intermediate_unit
+
+        intermediate_unit = ""
+
+        for k, v in conv_factor.items():
+            if "std" in k:
+                tempDict = v
+        for std_unit, val in tempDict.items():
+            for nonstd_unit, val2 in val.items():
+                if dest_unit == nonstd_unit:
+                    intermediate_unit = std_unit
+        if intermediate_unit != "":
+            iintermediate_quality_code_2, src_value \
+                = convert("std", src_value, intermediate_unit,  dest_unit)
+            dest_unit = intermediate_unit
+
+    if src_unit.lower() == dest_unit.lower():
+        quality_code = 1
+        dest_value = src_value
+
+    for src_isotope_key, val0 in conv_factor.items():
+        if src_isotope in src_isotope_key:
             for unit1, val1 in val0.items():
-                if srcUnit in unit1:
-                    for unit2, QCfactorTuple in val1.items():
-                        if destUnit in unit2:
-                            qualityCode = QCfactorTuple[0]
-                            destValue = srcValue * QCfactorTuple[1]
-                elif destUnit in unit1:
-                    for unit2, QCfactorTuple in val1.items():
-                        if srcUnit in unit2:
-                            qualityCode = QCfactorTuple[0]
-                            destValue = srcValue * (1/QCfactorTuple[1])
+                if src_unit in unit1:
+                    for unit2, QC_factor_tuple in val1.items():
+                        if dest_unit in unit2:
+                            quality_code = QC_factor_tuple[0]
+                            dest_value = src_value * QC_factor_tuple[1]
+                elif dest_unit in unit1:
+                    for unit2, QC_factor_tuple in val1.items():
+                        if src_unit in unit2:
+                            quality_code = QC_factor_tuple[0]
+                            dest_value = src_value * (1/QC_factor_tuple[1])
 
-    if intermediateQualityCode > qualityCode:
-        qualityCode = intermediateQualityCode
-    if intermediateQualityCode2 > qualityCode:
-        qualityCode = intermediateQualityCode
+    if intermediate_quality_code > quality_code:
+        quality_code = intermediate_quality_code
+    if iintermediate_quality_code_2 > quality_code:
+        quality_code = intermediate_quality_code
 
-    return qualityCode , destValue
+    return quality_code, dest_value
 
-# .............................................................................
+
 def stringConvert(string, returnTuple=False):
-    # Fix Python 2.x
-    try: raw_input = input
-    except NameError: pass
-    
+    try: 
+        raw_input = input
+    except NameError:
+        pass
+
     import re
     warning = False
-    
+
     string = " " + string + " "
     string = re.sub(" ", "   ", string)
-    
-    number = re.findall(" [^a-zA-Z\-]*?([0-9]*\.[0-9]+|[0-9]+)[^a-zA-Z\-]*? ", string)
-    
+    number = re.findall(" [^a-zA-Z\-]*?([0-9]*\.[0-9]+|[0-9]+)[^a-zA-Z\-]*? ",
+                        string)
     if number == []:
         print("********\nNo numerical value found. Exiting.\n********")
         raise
-    
     if len(number) > 1:
-        print ("********\nWarning: Too many numbers matched in string.\nPossibility of Error is VERY HIGH.\n********")
-        warning=True
-    
+        print ("********\nWarning: Too many numbers matched"
+               " in string.\nPossibility of Error is VERY HIGH."
+               "\n********")
+        warning = True
+
     units = []
     isotopes = []
-    for k, v in convFactor.items():
+    for k, v in conv_factor.items():
         isotopes.append(k)
-        for std_unit,val in v.items():
+        for std_unit, val in v.items():
             units.append(std_unit)
             for nonstd_unit, val2 in val.items():
                 units.append(nonstd_unit)
-    
+
     temp = []
     for i in units:
         if not i in temp:
             temp.append(i)
     units = temp
-    
-    splitstring = re.split("[ ]", string)
-    
-    firstUnit  = ""
-    secondUnit = ""
-    
-    for i in splitstring:
+    split_string = re.split("[ ]", string)
+    first_unit = ""
+    second_unit = ""
+
+    for i in split_string:
         for x in units:
             if i == x:
-                if firstUnit == "":
-                    firstUnit = x
-                elif secondUnit == "":
-                    secondUnit = x
+                if first_unit == "":
+                    first_unit = x
+                elif second_unit == "":
+                    second_unit = x
                 else:
-                    print( "********\nWarning: Too many units matched in string.\nPossibility of Error is VERY HIGH.\n********")
+                    print("********\nWarning: Too many units matched "
+                          "in string.\nPossibility of Error is VERY HIGH.\n"
+                          "********")
                     warning = True
-    
-    firstIsotope  = ""
-    secondIsotope = ""
-    
-    for i in splitstring:
+
+    first_isotope = ""
+    second_isotope = ""
+
+    for i in split_string:
         for x in isotopes:
             if i in x:
-                if firstIsotope == "":
-                    firstIsotope = x[0]
-                elif secondIsotope == "":
-                    secondIsotope = x[0]
+                if first_isotope == "":
+                    first_isotope = x[0]
+                elif second_isotope == "":
+                    second_isotope = x[0]
                 else:
-                    print( "********\nWarning: Too many isotopes matched in string.\nPossibility of Error is VERY HIGH.\n********")
+                    print("********\nWarning: Too many isotopes matched "
+                          "in string.\nPossibility of Error is VERY HIGH.\n"
+                          "********")
                     warning = True
-    
-    if secondIsotope == "":
-        secondIsotope = firstIsotope
-    
-    print("------------\nConverting", number[0], firstUnit, "(", firstIsotope, ") to", secondUnit, "(", secondIsotope, ").\n------------")
-    
-    if firstUnit == "":
+
+    if second_isotope == "":
+        second_isotope = first_isotope
+
+    print("------------\nConverting " + number[0] + " " + first_unit +
+          " (" + first_isotope + ") to " + second_unit +
+          " (" + second_isotope + ").\n------------")
+
+    if first_unit == "":
         print("********\nNo units matched. Exiting.\n********")
         raise
-    
-    if secondUnit == "":
+    if second_unit == "":
         print("********\nNot enough units matched. Exiting.\n********")
         raise
-    
-    if firstIsotope == "":
+    if first_isotope == "":
         print("********\nNo isotope matched. Exiting.\n********")
         raise
-    
     if warning:
-        print("********\nWarning: The accuracy of the conversion is HIGHLY SUSPECT.\nPLEASE CHECK THAT THE ABOVE LINE IS CORRECT!!!\n********")
-    
-    QC, val = convert( firstIsotope, float(number[0]), firstUnit, secondUnit, secondIsotope)
-    
-    print("Result : ", val, " ", secondUnit, "\nThis is a(n)", qualityCode[QC], ".")
-    
+        print("********\nWarning: The accuracy of the conversion "
+              "is HIGHLY SUSPECT.\n"
+              "PLEASE CHECK THAT THE ABOVE LINE IS CORRECT!!!\n********")
+
+    QC, val = convert(first_isotope, float(number[0]), first_unit,
+                      second_unit, second_isotope)
+
+    print("Result : " + str(val) + " " + str(second_unit) +
+          "\nThis is a(n) " + str(quality_code[QC]) + ".")
+
     if returnTuple:
         return QC, val
 
-# .............................................................................
-# Allows execution as a script or as a module
+
 if __name__ == '__main__':
     main()
