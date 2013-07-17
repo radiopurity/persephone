@@ -97,32 +97,57 @@ convFactor = {
 # .............................................................................
 # Main Function, when run in command line will ask for values and run conversion
 def main():
-    print("Welcome to RadioConversion.py:\n\nCurrently supported conversions are:")
+    import sys
+    autoConvert=False
+    # Fix Python 2.x
+    try: raw_input = input
+    except NameError: pass
     
-    for isotope, val in convFactor.items():
-        print(' ')
-        print(isotope[0] + " :")
-        for s_unit,val2 in val.items():
-            for d_unit, QCfactorTuple in val2.items():
-                print(s_unit.center(12) + "<-->" + d_unit.center(12) + " (" + qualityCode[QCfactorTuple[0]] + ")" )
-    print ("\n\n")
+    string=""
     
-    SIso   = raw_input("Please enter the Source Isotope (or std for Standard Conversions): ")
-    SValue = float(raw_input("Please enter the value to convert : "))
-    SUnit  = raw_input("Please enter the units before conversion : ")
-    DUnit  = raw_input("Please enter the unit to convert to : ")
-#   DIso   = raw_input("Please enter the Isotope to convert to : ")
+    if len(sys.argv)>2:
+        for i in sys.argv:
+            if not i==sys.argv[0]: 
+                string = string + " " + i        
+        try:
+            print("\nAttempting to auto convert string : \"" , string, "\"\n")
+            stringConvert( string )
+            print("\n\nSuccess.")
+            autoConvert=True
+        except:
+            print("\n\n-----------\nFailed to auto-convert string.\nPlease check that all requisite information is there.\nProceeding to interactive mode.\n-----------\n\n")
+        
+            
+    if not autoConvert:
+        print("Welcome to unitTools.py:\n\nCurrently supported conversions are:")
     
-    QC, val = convert(SIso, SValue, SUnit, DUnit)
+        for isotope, val in convFactor.items():
+            print(' ')
+            print(isotope[0] + " :")
+            for s_unit,val2 in val.items():
+                for d_unit, QCfactorTuple in val2.items():
+                    print(s_unit.center(12) + "<-->" + d_unit.center(12) + " (" + qualityCode[QCfactorTuple[0]] + ")" )
+        print ("\n\n")
     
-    print("Result : " + str(val) + " " + DUnit + "\nThis is a(n)" + qualityCode[QC] + ".")
+        SIso   = raw_input("Please enter the Source Isotope (or std for Standard Conversions): ")
+        SValue = float(raw_input("Please enter the value to convert : "))
+        SUnit  = raw_input("Please enter the units before conversion : ")
+        DUnit  = raw_input("Please enter the unit to convert to : ")
+        #    DIso   = raw_input("Please enter the Isotope to convert to : ")
+    
+        QC, val = convert(SIso, SValue, SUnit, DUnit)
+    
+        print("Result : " + str(val) + " " + DUnit + "\nThis is a(n)" + qualityCode[QC] + ".")
 
 # .............................................................................
 # Does the actual conversion
 def convert(srcIsotope, srcValue, srcUnit,  destUnit, destIsotope = None):
-
-    if destIsotope is "":
+    
+    if destIsotope is None or destIsotope==srcIsotope:
         destIsotope = srcIsotope
+    else:
+        print("\n\n**********************\n\nWarning: Isotope to Isotope conversion not currently supported.\nIGNORING DESTINATION ISOTOPE.")
+        print("\nContinuing with conversion: ", srcValue, srcUnit, "(", srcIsotope, ") to", destUnit, "\n\n**********************\n\n")
     
     #In case of failed conversion these will be unaltered
     intermediateQualityCode  = 0
@@ -179,10 +204,15 @@ def convert(srcIsotope, srcValue, srcUnit,  destUnit, destIsotope = None):
         qualityCode = intermediateQualityCode
     if intermediateQualityCode2 > qualityCode:
         qualityCode = intermediateQualityCode
+
     return qualityCode , destValue
 
 # .............................................................................
 def stringConvert(string, returnTuple=False):
+    # Fix Python 2.x
+    try: raw_input = input
+    except NameError: pass
+    
     import re
     warning = False
     
