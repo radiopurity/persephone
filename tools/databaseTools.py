@@ -45,12 +45,14 @@ def help():
           "\nUsage: python" + name + "[-u|-d|-h]"
           "\n\nOptions:\n"
           "-u : Uploads .json files to a couchdb instance of your choice.\n"
-          "     Useage: python" + name + "-u [URL] [.Extension].\n"
+          "     Useage: python" + name + "-u [URL] [.Extension | File(s) to Upload].\n"
           "     Optional parameter URL accepts full URL's and automatically\n"
           "     uploads all documents in current directory.\n"
           "     Optional parameter. Extension tells program to ignore\n"
           "     all files without a certain extension, i.e. .json files.\n"
           "     (Note: The \".\" is a required character.)\n"
+          "     Optional parameter [File(s) to Upload], allows you to give " + name +"\n"
+          "     a list of files to upload.\n"
           "-d : Downloads .json files from a couchdb instance of\n"
           "     your choice.\n"
           "     Useage: python" + name + "-d [URL].\n"
@@ -70,7 +72,7 @@ def main():
         if sys.argv[1] == "-h":
             help()
         elif sys.argv[1] == "-u":
-            if len(sys.argv) > 1 and len(sys.argv) < 5:
+            if len(sys.argv) > 1:
                 upload_json()
             else:
                 help()
@@ -127,6 +129,19 @@ def upload_json():
         print("validateJSON.py not found. Skipping Validation.")
         validate = False
 
+    pwd = os.getcwd()
+        
+    uploadListing=[]
+        
+    filesSpecified=False
+    for i in sys.argv:
+        if not i==sys.argv[0]:
+            if i in os.listdir(pwd):
+                filesSpecified=True
+                uploadListing.append(i)
+                
+                
+    
     command_line_override = False
     use_extension = False
     extension = ""
@@ -164,46 +179,56 @@ def upload_json():
         except:
             print("\n\nFailed to find username/password/CouchDB "
                   "URL/Database Name.\n"
+                  "OR Failed to recognize listed file(s) as valid.\n"
                   "Proceeding with prompt based input.\n\n")
 
-    if len(sys.argv) > 2:
-        if sys.argv[2][0] == ".":
-            extension = sys.argv[2]
-            use_extension = True
-        elif len(sys.argv) > 3 and sys.argv[3][0] == ".":
-            extension = sys.argv[3]
-            use_extension = True
+    if not filesSpecified:
+        if len(sys.argv) > 2:
+            if sys.argv[2][0] == ".":
+                extension = sys.argv[2]
+                use_extension = True
+            elif len(sys.argv) > 3 and sys.argv[3][0] == ".":
+                extension = sys.argv[3]
+                use_extension = True
 
-    pwd = os.getcwd()
-    msg = "Upload all files in\n" + pwd + "\n(y/N) ? "
-    if command_line_override:
-        uploadAll = "y"
-    else:
-        uploadAll = modified_input(msg).lower()
 
-    dirListing = []
-    if use_extension:
-        for i in os.listdir(pwd):
-            if extension in i:
-                dirListing.append(i)
-    else:
-        dirListing = os.listdir(pwd)
+        msg = "Upload all files in\n" + pwd + "\n(y/N) ? "
+        if command_line_override:
+            uploadAll = "y"
+        else:
+            uploadAll = modified_input(msg).lower()
 
-    if uploadAll == "y":
-        uploadListing = dirListing
-    else:
-        print("\n")
-        uploadListing = []
-        for i in dirListing:
-            msg = "Would you like to upload " + i + " (Y/N) ? "
-            upload = modified_input(msg).lower()
-            if upload == "y":
-                uploadListing.append(i)
+        dirListing = []
+        if use_extension:
+            for i in os.listdir(pwd):
+                if extension in i:
+                    dirListing.append(i)
+        else:
+            dirListing = os.listdir(pwd)
+
+        if uploadAll == "y":
+            uploadListing = dirListing
+        else:
+            print("\n")
+            uploadListing = []
+            for i in dirListing:
+                msg = "Would you like to upload " + i + " (Y/N) ? "
+                upload = modified_input(msg).lower()
+                if upload == "y":
+                    uploadListing.append(i)
 
     if uploadListing == []:
         print("No applicable files found. Aborting Upload.")
         exit()
 
+    if filesSpecified:
+        print("\nProceeding to upload "+ repr(len(uploadListing)) + 
+              " files found on the command line.\n")
+        print("Files about to be uploaded are:")
+        for i in uploadListing:
+            print("--> "+ i)
+        print()
+            
     if not command_line_override:
         couchdb = modified_input("CouchDB URL (no username or password,"
                             " enter for localhost) : ")
