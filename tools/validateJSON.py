@@ -33,7 +33,7 @@ schema_dir = "../_attachments/schema"
 default_schema_file = "%s/v%s.schema.json" % (schema_dir, MADF_version)
 
 
-def isValidJSON(doc_name, schema_file=default_schema_file):
+def is_valid_JSON(doc_name, schema_file=default_schema_file):
 
     """Does JSON validation, returns True if valid, False otherwise"""
 
@@ -98,7 +98,7 @@ def main():
 
     print("File Name                                    Valid assay?")
     for i in file_list:
-        print(i.ljust(33) + repr(isValidJSON(i,
+        print(i.ljust(33) + repr(is_valid_JSON(i,
                                  default_schema_file)).rjust(16))
 
 
