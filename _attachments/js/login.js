@@ -1,6 +1,20 @@
 // Copyright Chris Anderson 2011
 // Revised by Zheng Li
 $(document).ready(function(){
+
+	$("#contactForm").couchLogin({
+		loggedIn : function() {
+			// Tabs
+			$( "#tabs" ).tabs({disabled: [] });
+			// close the login tab
+			setTimeout('$("#contactForm").slideUp("slow")', 2000);
+		}, 
+		loggedOut : function() {
+        	// Tabs
+			$( "#tabs" ).tabs({disabled: [ 1 , 2] });
+    	}
+	});
+
 	$("#contactLink").click(function(){
 		if ($("#contactForm").is(":hidden")){
 			$("#contactForm").slideDown("slow");
@@ -12,13 +26,10 @@ $(document).ready(function(){
 	
 });
 
-function closeForm(){
-	$("#messageSent").show("slow");
-	setTimeout('$("#messageSent").hide();$("#contactForm").slideUp("slow")', 2000);
-}
-
+// CouchDB login
 (function($) {
 	$.fn.couchLogin = function(opts) {
+		loginForm = '<fieldset> <label for="name">Name</label> <input id="login-name" type="text" /> <label for="password">Password</label> <input id="login-password" type="password" /> <input id="login-button" value="Login" type="submit" name="submit"/> </fieldset>';
 		var elem = $(this);
 		opts = opts || {};
 		function initWidget() {
@@ -26,47 +37,39 @@ function closeForm(){
 				success : function(r) {
 					var userCtx = r.userCtx;
 					if (userCtx.name) {
-						elem.empty();
+						$("#contactForm").empty();
 						elem.append(loggedIn(r));
-						if (opts.loggedIn) {opts.loggedIn(userCtx)}
-					} else if (userCtx.roles.indexOf("_admin") != -1) {
-						elem.html(templates.adminParty);
-					} else {
-						elem.html(templates.loggedOut);
+						if (opts.loggedIn) {opts.loggedIn()}
+					}else{
+						$("#contactForm").empty();
+						elem.append(loginForm);
+
 						if (opts.loggedOut) {opts.loggedOut()}
-					};
+					}
 				}
 			});
 		};
+
 		initWidget();
+
 		function doLogin(name, pass) {
 			$.couch.login({name:name, password:pass, success:initWidget});
 		};
-		elem.delegate("a[href=#login]", "click", function() {
-			elem.html(templates.loginForm);
-			elem.find('input[name="name"]').focus();
-		});
+
 		elem.delegate("a[href=#logout]", "click", function() {
 			$.couch.logout({success : initWidget});
 		});
-		elem.delegate("form.login", "submit", function() {
-			doLogin($('input[name=name]', this).val(),  
-				$('input[name=password]', this).val());
+
+		elem.delegate("#login-button", "click", function() {
+			doLogin($('#login-name').val(),  
+				$('#login-password').val());
 			return false;
 		});
 	}
-	var templates = {
-		adminParty : '<p><strong>Admin party, everyone is admin!</strong> Fix this in <a href="/_utils/index.html">Futon</a> before proceeding.</p>',
-		loggedOut : '<a href="#login">Login</a>',
-		loginForm : '<form class="login"><label for="name">Name</label><input type="text" name="name" class="ui-widget ui-widget-content ui-corner-all"/><label for="password">Password</label><input type="password" name="password" class="ui-widget ui-widget-content ui-corner-all"/><input type="submit" value="" id="login-submit"></form>',
-	};
 	function loggedIn(r) {
 		var auth_db = encodeURIComponent(r.info.authentication_db)
 		, uri_name = encodeURIComponent(r.userCtx.name)
-		, span = $('<span>Welcome <a target="_new" href="/_utils/document.html?' 
-			+ auth_db +'/org.couchdb.user%3A' + uri_name 
-			+ '" class="name"></a>! <a href="#logout">Logout?</a></span>');
-		$('a.name', span).text(r.userCtx.name); // you can get the user name here
+		, span = $('<span id="welcome"><br><br><br>Welcome, '+ r.userCtx.name +'<br><br><a href="#logout">Logout?</a></span>');
 		return span;
 	}
 })(jQuery);

@@ -37,6 +37,7 @@ body {
 #contactForm label
 {
 	display:block;
+	padding:2px;
 	color:#e18e94;
 }
 #contactForm input[type=text],input[type=password]
@@ -45,7 +46,7 @@ body {
 	border:solid 1px #cccccc;
 	width:100%;
 	margin-bottom:10px;
-	height:24px;
+	height:20px;
 } 
 #contactForm input[type=submit]
 {
@@ -61,17 +62,12 @@ body {
 	display:block;
 	cursor:pointer;
 }
-#messageSent
-{
-	color:#ff9933;
-	display:none;
+#welcome{
+	color:#e18e94;
+	display:block;
+	text-align: center;
+	width:100%;
 }
-/*#ribbon {
-	position: absolute;
-	top: 0em;
-	right: 0em;
-}*/
-
 
 
 /*.ui-accordion-header-active {
