@@ -4,40 +4,7 @@
 # importCSV.py
 # ============
 #
-#    DESCRIPTION
-#
-#    This code is for importing data in a CSV file into v2.01 of the
-#    Material Assay Data Format (MADF). Import takes place in two stages: 
-#    first a map is produced that specifies which columns in the CSV 
-#    correspond to which fields in the data structure; second the data 
-#    is converted, with one file being produced for each line in the CSV
-#    file. Once these JSON files have been produced they can be imported
-#    using the databaseTools.py program.
-#
-#    This code was written for importing data from the ILIAS database
-#    (after outputting data from the SQL database into CSV files).
-#
-#    USAGE
-#    
-#    python csvImport.py [Options] [[import file name].map][[import file name].csv]
-#
-#    OPTIONS
-#
-#    -h : Display this help message.
-#    -m : Create map for .csv file.
-#         Will allow you to import specific columns of the csv file
-#         into the fields of the MADF format.
-#         Creates [import file name].map file for later use.
-#         Useage: python csvImport.py -m [import file name].csv
-#    -i : Imports the entire .csv file into MADF format.
-#         Creates [import file name].X.txt files for each of X records
-#         in [import file name].csv
-#         Usage: python csvImport.py -i [import file name].map
-#         [import file name].csv
-#    -c : Allows you to concatenate results columns, when "<" and value or
-#         value and error are in separate columns.
-#         Useage: python csvImport.py -c [import file name].csv
-#    -e : Prints Error Codes/Exit Status Definitions.
+#    See README.md
 #
 #             =============
 #    Based on RadioTools.py by Ben Wise.
@@ -70,12 +37,12 @@ import getpass
 import json
 import re
 
-name        = "databaseTools.py"
+name = "databaseTools.py"
 MADFversion = "2.01"
 
-# .............................................................................
-# Gives explanations for custom error statuses
+
 def error_definitions():
+    """Gives explanations for custom error statuses"""
     print("< error_definitions > subroutine called:\n")
     print("Exit Status:\n")
     print("  0 : No Error. Exited Successfully.")
@@ -85,9 +52,9 @@ def error_definitions():
     print("  4 : Problem reading csv file.")
     print("  5 : Input incorrectly formatted.")
 
-# .............................................................................
-# Reads the .csv file and returns it as a list
+
 def read_csv(filename):
+    """Reads the .csv file and returns it as a list"""
     result = []
     try:
         with open(filename,'r') as f:
@@ -103,9 +70,9 @@ def read_csv(filename):
         print("Exit Status: 3")
         sys.exit (3)
 
-# .............................................................................
-# Reads the map of the csv file
+
 def read_map(filename):
+    """Reads the map of the csv file"""
     result = []
     try:
         with open(filename,'r') as f:
@@ -384,24 +351,23 @@ def main():
         print ("Exit Status: 2")
         sys.exit(2)
 
-# .............................................................................
 def column_concatenate():
     print("< column_concatenate > subroutine called:")
     data = read_csv(sys.argv[2])
     newformat=[""]
-    j = 0
-    temp = ""
+    j=0
+    temp=""
     for i in data[0]:
-        concat = 0
-        errorCol = 0
-        if not j == 0:
+        concat=0
+        errorCol=0
+        if not j==0:
             print("---------------------")
-            print("Do you want to concatenate \"" + temp + "\" and \"" + i + "\"? (Answer y or Y to concatenate)")
-            if input().lower() == 'y':
-                concat = 1
+            print("Do you want to concatenate \"", temp, "\" and \"", i, "\"? (Answer y or Y to concatenate)")
+            if input().lower()=='y':
+                concat=1
                 print("Is the latter a field that denotes a symmetric error? (Answer y or Y)")
-                if input().lower() == 'y':
-                    errorCol = 1
+                if input().lower()=='y':
+                    errorCol=1
             if concat:
                 if errorCol:
                     newformat.append("e")
@@ -409,36 +375,38 @@ def column_concatenate():
                     newformat.append("c")
             else:
                 newformat.append("")
-        temp = i
-        j = j + 1
+        temp=i
+        j=j+1
     #for i in newformat:
-                    #print (i, "|", end="")
+            #print (i, "|", end="")
     newdata=[]
     for record in data:
-        j = 0
-        temprecord = []
-        tempfield = ""
+        j=0
+        temprecord=[]
+        tempfield=""
         for i in record:
-            if j == 0:
-                tempfield = i
+            if j==0:
+                tempfield=i
             else:
-                if newformat[j] == "e":
-                    if not i.lower() == "null":
-                        tempfield = tempfield + "(" + i + ")"
-                elif newformat[j] == "c":
-                    tempfield = tempfield + i
+                if newformat[j]=="e":
+                    if not i.lower()=="null":
+                        tempfield=tempfield+"("+i+")"
+                elif newformat[j]=="c":
+                    tempfield =tempfield + i
                 else:
                     temprecord.append(tempfield)
-                    tempfield = i
-            j = j + 1
-    temprecord.append(tempfield)
-    newdata.append(temprecord)
+                    tempfield=i
+            j=j+1
+        temprecord.append(tempfield)
+        newdata.append(temprecord)
 
-    outfilename = sys.argv[2][:len(sys.argv[2])-4]+"Concatenated.csv"
+    outfilename=sys.argv[2][:len(sys.argv[2])-4]+"Concatenated.csv"
     with open(outfilename, 'w', newline='',encoding='utf-8') as f:
-        writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL )
+        writer=csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL )
         #for a in newdata:
         writer.writerows(newdata)
+
+
 
 # .............................................................................
 # Allows execution as a script or as a module
