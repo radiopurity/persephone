@@ -85,10 +85,6 @@ def main():
     if len(sys.argv) == 1:  # Validating a list of files
         all_files = True
   
-    try:
-        modified_input = input
-    except NameError:
-        pass
 
     file_list = []
 
