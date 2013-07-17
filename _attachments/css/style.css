@@ -13,15 +13,70 @@ body {
 	font-size: 11px; 
 }
 
-#ribbon {
+
+/*Login Ribbon*/
+#contactFormContainer
+{
 	position: fixed;
 	top: 0em;
 	right: 0em;
+	z-index: 999999;
 }
+#contactForm
+{
+	height:150px;
+	width:100px;
+	background-color: #ffffff;
+	display:none;
+}
+#contactForm fieldset
+{
+	padding:5px;
+	border:none;
+}      
+#contactForm label
+{
+	display:block;
+	color:#e18e94;
+}
+#contactForm input[type=text],input[type=password]
+{
+	display:block;
+	border:solid 1px #cccccc;
+	width:100%;
+	margin-bottom:10px;
+	height:24px;
+} 
+#contactForm input[type=submit]
+{
+	background-color:#ffffff;
+	border:solid 1px #cccccc;
+	color:#e18e94;
+	padding:5px;
+}                
+#contactLink{
+	height:99px;
+	width:100px;
+	background-image:url('../images/ribbon.gif');
+	display:block;
+	cursor:pointer;
+}
+#messageSent
+{
+	color:#ff9933;
+	display:none;
+}
+/*#ribbon {
+	position: absolute;
+	top: 0em;
+	right: 0em;
+}*/
 
-//.ui-accordion-header-active {
-//	background:#ecb7b8 !important; // light pink for active
-//}
+
+
+/*.ui-accordion-header-active {
+	background:#ecb7b8 !important; // light pink for active
+}*/
 
 /* Center the webpage */
 
@@ -291,6 +346,10 @@ div#about {
 	color:#ecb7b8 !important;
 }
 
+.group-header{
+	margin-left: 18px;
+}
+
 /* for table content*/
 .heading-isotope-value {
 	text-align:center;
@@ -521,3 +580,4 @@ Back to top button
 .export-option li a:hover{
 	background: #ecb7b8;
 }
+

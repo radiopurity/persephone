@@ -22,6 +22,8 @@
 		<script type="text/javascript" src="js/additional-methods.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		
+		<!-- jQuery CouchApp login -->
+		<script type="text/javascript" src="js/login.js"></script>
 		<!-- jsin the index -->
 		<script type="text/javascript" src="js/index.js"></script>
 		<!-- jQuery in the search tab -->
@@ -34,19 +36,31 @@
 	</head>
 
 	<body>
-
-		<img id="ribbon" src="images/ribbon.gif" />
+		<div id="contactFormContainer">
+				<div id="contactForm">
+					<fieldset>
+						<label for="name">Name</label>
+						<input id="name" type="text" />
+						<label for="password">Password</label>
+						<input id="password" type="password" />
+						<input id="sendMail" value="Login" type="submit" name="submit" onclick="closeForm()" />
+						<span id="messageSent">Your message has been sent successfully!</span>
+				   </fieldset>
+				</div>
+				<div id="contactLink"></div>
+			</div>
 
 		<div id="container">
 
 		<div id="header"><img id="logo"></img></div>
-			
+
 		<div id="tabs">
 		
 			<ul>
 				<li><a href="#tab-search">Search</a></li>
 				<li><a href="#tab-submit">Submit</a></li> 
-				<li><a href="#tab-settings">Settings</a></li> 
+				<li><a href="#tab-edit">Edit</a></li>
+				<!-- <li><a href="#tab-settings">Settings</a></li>  -->
 				<li><a href="#tab-about">About</a></li> 
 			</ul>
 

@@ -51,7 +51,7 @@ $(document).ready(function(){
 	// decorate table-header
 	$(".table-header").accordion({ 
 			header: "h3", 
-			icons: { "header": "ui-icon-grip-diagonal-se", "activeHeader": "ui-icon-bullet" },
+			icons: false,
 			collapsible:true, 
 			disabled: true,
 			heightStyle: "content",

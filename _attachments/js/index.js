@@ -26,7 +26,7 @@ $(function(){
 	
 	// Tabs
 	$( "#tabs" ).tabs({
-	disabled: [ 2 ]
+	disabled: [ 1 , 2]
 	});
 
 	// Menu bars						
@@ -576,5 +576,3 @@ function click_submit() {
 	}
 
 }
-
-
