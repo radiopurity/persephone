@@ -4,17 +4,13 @@
 # validateJSON.py
 # ===============
 #
-#    DESCRIPTION
-#
-#    USAGE
-#    
-#    OPTIONS
+#    See README.md.
 #
 #             ===============
 #    Based on validateJSON.py by Ben Wise.
 #             ===============
 #
-#    This code is heavily based upon an open source code developed by 
+#    This code is heavily based upon an open source code developed by
 #    Ben Wise. The original file header:
 #
 #    --------------------------------------------------------------------------
@@ -30,65 +26,81 @@
 #    Version:        1.0
 #    --------------------------------------------------------------------------
 
-defaultSchemaFile = "../_attachments/schema/v2.01.schema.json"
+import sys
 
-# .............................................................................
-# Doese JSON validation, returns True if valid, False otherwise
-def is_valid_JSON(docName,schemaFile=defaultSchemaFile):
+MADF_version = "2.01"
+schema_dir = "../_attachments/schema"
+default_schema_file = "%s/v%s.schema.json" % (schema_dir, MADF_version)
+
+
+def isValidJSON(doc_name, schema_file=default_schema_file):
+
+    """Does JSON validation, returns True if valid, False otherwise"""
+
     import json
     import os
-    
     try:
         import jsonschema
     except:
-        print("Failed to load jsonschema. No Validation Possible.")
+        print("Failed to load jsonschema. No validation possible.")
         raise
-    
+
     try:
-        schema = json.loads(open(schemaFile).read())
+        schema = json.loads(open(schema_file).read())
     except:
-        print("\n\nValid Schema Failed to Open/Load.\nPlease make sure you have the schema.json file in this directory.\nYou may also need to change the schemaFile variable in validateJSON.py\n\n")
+        print("\n\nValid schema failed to Open/Load.\n"
+              "Please make sure you have the schema.json file "
+              "in this directory.\nYou may also need to change the "
+              "schema_file variable in validateJSON.py\n\n")
         raise
-    
-    data = json.loads(open(docName).read())
-    
-    #this will raise an Exception if data doesn't match the schema
-    #otherwise is returns None
+
+    data = json.loads(open(doc_name).read())
+    # This will raise an Exception if data doesn't match the schema
+    # otherwise is returns None
     try:
         jsonschema.validate(data, schema)
     except:
-        #print(docName," Failed to validate correctly.")
+        # print(doc_name," Failed to validate correctly.")
         return False
     else:
         return True
 
-# .............................................................................
-# Validates all .JSON files in directory
+
 def main():
-    print("\nJSON Validator:\n\n")
+    """Validates all .json files in directory"""
+
+    print("\nAssay validator:\n\n")
     import os
-    
-    # Fix Python 2.x
-    try: raw_input = input
-    except NameError: pass
 
-    pwd = os.getcwd()
-    dirListing=[]
+    all_files = False
+    if len(sys.argv) == 1:  # Validating a list of files
+        all_files = True
+  
+    try:
+        raw_input = input
+    except NameError:
+        pass
 
-    for i in os.listdir(pwd):
-        if ".json" in i and not i==defaultSchemaFile:
-            dirListing.append(i)
-    
-    if dirListing==[]:
-        print("No applicable files found.")
-        exit()
-    
-    print("File Name                                    Valid JSON?")
+    file_list = []
 
-    for i in dirListing:
-        print( i.ljust(33) + repr(is_valid_JSON(i, defaultSchemaFile)).rjust(16))
+    if all_files == True:
+        pwd = os.getcwd()
+        for i in os.listdir(pwd):
+            if ".json" in i and not i == default_schema_file:
+                file_list.append(i)
+        if file_list == []:
+            print("No JSON files found.")
+            exit()
+    else:
+        for i in sys.argv:
+            if i != sys.argv[0]:
+                file_list.append(i)
 
-# .............................................................................
-# Allows execution as a script or as a module
+    print("File Name                                    Valid assay?")
+    for i in file_list:
+        print(i.ljust(33) + repr(isValidJSON(i,
+                                 default_schema_file)).rjust(16))
+
+
 if __name__ == '__main__':
     main()
