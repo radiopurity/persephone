@@ -17,10 +17,10 @@
 #    This code is heavily based upon an open source code developed by 
 #    Ben Wise. The original file header:
 #
-#    -------------------------------------------------------------------------------
+#    --------------------------------------------------------------------------
 #    Name:           unitTools.py
-#    Purpose:        To facilitate conversion between different radiological units,
-#                    such as Bq/kg, g/g, ppm, ppb, ppt, etc.
+#    Purpose:        To facilitate conversion between different radiological
+#                    units, such as Bq/kg, g/g, ppm, ppb, ppt, etc.
 #
 #    Author:         Ben Wise
 #    Email:          bwise@smu.edu
@@ -29,7 +29,7 @@
 #    Copyright:      (c) Ben Wise 2013
 #    Licence:        GNU General Public License
 #    Version:        1.0
-#    -------------------------------------------------------------------------------
+#    --------------------------------------------------------------------------
 
 # .............................................................................
 # Dictionary Containing Quality Codes

@@ -18,21 +18,21 @@
 #    Based on RadioDBTools.py by Ben Wise.
 #             ===============
 #
-#    This code is heavily based upon an open source code developed by Be Wise:
+#    This code is heavily based upon an open source code developed by Ben Wise:
 #
-#       -------------------------------------------------------------------------------
-#       Name:           RadioDBTools.py
-#       Purpose:        To allow easy interfacing (uploading, downloading) with a CouchDB
-#                       instance.
+#    --------------------------------------------------------------------------
+#    Name:           RadioDBTools.py
+#    Purpose:        To allow easy interfacing (uploading, downloading) 
+#                    with a CouchDB instance.
 #        
-#       Creator:        Ben Wise
-#       Email:          bwise@smu.edu
+#    Creator:        Ben Wise
+#    Email:          bwise@smu.edu
 #       
-#       Created:        27/06/2013
-#       Copyright:      (c) Ben Wise 2013
-#       Licence:        GNU General Public License
-#       Version:        1.0
-#       -------------------------------------------------------------------------------
+#    Created:        27/06/2013
+#    Copyright:      (c) Ben Wise 2013
+#    Licence:        GNU General Public License
+#    Version:        1.0
+#    --------------------------------------------------------------------------
 #
 
 import sys

@@ -17,7 +17,7 @@
 #    This code is heavily based upon an open source code developed by 
 #    Ben Wise. The original file header:
 #
-#    -------------------------------------------------------------------------------
+#    --------------------------------------------------------------------------
 #    Name:           validateJSON.py
 #    Purpose:        To facilitate JSON document validity checking.
 #
@@ -28,7 +28,7 @@
 #    Copyright:      (c) Ben Wise 2013
 #    Licence:        GNU General Public License
 #    Version:        1.0
-#    -------------------------------------------------------------------------------
+#    --------------------------------------------------------------------------
 
 defaultSchemaFile = "../_attachments/schema/v2.01.schema.json"
 
