@@ -793,89 +793,88 @@ function CreateAssayPage(options){
 		// Handle change to result type
 		
 		$(label+".rtype").bind('focus', function() {
-
 			$(this).autocomplete({
 				source:types,
 				minLength:0, 
 				change: function (event, ui) {
 				
-				if (!ui.item) { $(this).val('Meas. (error)') }									
-	
-				$(this).nextAll('.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm').hide();
-				$(this).nextAll('.rlimit, .rlimitcl').hide();
-				$(this).nextAll('.rrangel, .rrangeh, .rrangecl').hide();				 
-	
-				var spacers = 1;
-							
-				var cache_meas	= $(this).nextAll('.rmeas').val();
-				var cache_limit = $(this).nextAll('.rlimit').val();		 
-	
-				if ( $(this).val() == "Meas." ) {
-					
-					$(this).nextAll('.rmeas').show().focus();
-					if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };
-					spacers = 2;
-			
-				} else if ( $(this).val() == "Meas. (error)" ) {
-			
-					$(this).nextAll('.rmeas, .rmeaserr').show();
-					$(this).nextAll('.rmeas').focus();
-					if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
-			
-				} else if ( $(this).val() == "Meas. (asym. error)" ) {
-			
-					$(this).nextAll('.rmeas, .rmeaserrp, .rmeaserrm').show();
-					$(this).nextAll('.rmeas').focus();
-					if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
-					spacers = 0;
-			
-				} else if ( $(this).val() == "Limit" ) {
-			
-					$(this).nextAll('.rlimit').show();
-					$(this).nextAll('.rlimit').focus();
-					if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					
-					spacers = 2;
-			
-				} else if ( $(this).val() == "Limit (c.l.)" ) {
-			
-					$(this).nextAll('.rlimit, .rlimitcl').show();			 
-					$(this).nextAll('.rlimit').focus();
-					if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					 
-			
-				} else if ( $(this).val() == "Range" ) {
-			
-					$(this).nextAll('.rrangel, .rrangeh').show();			
-					$(this).nextAll('.rrangel').focus();
-			
-				} else if ( $(this).val() == "Range (c.l.)" ) {
-			
-					$(this).nextAll('.rrangel, .rrangeh, .rrangecl').show();
-					$(this).nextAll('.rrangel').focus();					 
-					spacers = 0;
-			
-				} else {
-			
-					$(this).val() == "Meas. (error)";
-					$(this).nextAll('.rmeas, .rmeaserr').show();
-					$(this).nextAll('.rmeas').focus();			
-			
-				}
-	
-				if ( spacers == 0 ) {
-					$(this).nextAll(".spacer1").hide().attr('disabled', true);
-					$(this).nextAll(".spacer2").hide().attr('disabled', true);								
-				} else if ( spacers == 1 ) {
-					$(this).nextAll(".spacer1").hide().attr('disabled', true);
-					$(this).nextAll(".spacer2").show().attr('disabled', true);
-				} else {
-					$(this).nextAll(".spacer1").show().attr('disabled', true);
-					$(this).nextAll(".spacer2").show().attr('disabled', true);
-				}				 
-	
-				}});
+					if (!ui.item) { $(this).val(types[1]) }									
+		
+					$(this).nextAll('.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm').hide();
+					$(this).nextAll('.rlimit, .rlimitcl').hide();
+					$(this).nextAll('.rrangel, .rrangeh, .rrangecl').hide();				 
+		
+					var spacers = 1;
+								
+					var cache_meas	= $(this).nextAll('.rmeas').val();
+					var cache_limit = $(this).nextAll('.rlimit').val();		 
+		
+					if ( $(this).val() == types[0] ) {
+						
+						$(this).nextAll('.rmeas').show().focus();
+						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };
+						spacers = 2;
 				
-				$(this).autocomplete('search', '');		
-
+					} else if ( $(this).val() == types[1] ) {
+				
+						$(this).nextAll('.rmeas, .rmeaserr').show();
+						$(this).nextAll('.rmeas').focus();
+						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
+				
+					} else if ( $(this).val() == types[2] ) {
+				
+						$(this).nextAll('.rmeas, .rmeaserrp, .rmeaserrm').show();
+						$(this).nextAll('.rmeas').focus();
+						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
+						spacers = 0;
+				
+					} else if ( $(this).val() == types[3] ) {
+				
+						$(this).nextAll('.rlimit').show();
+						$(this).nextAll('.rlimit').focus();
+						if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					
+						spacers = 2;
+				
+					} else if ( $(this).val() == types[4] ) {
+				
+						$(this).nextAll('.rlimit, .rlimitcl').show();			 
+						$(this).nextAll('.rlimit').focus();
+						if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					 
+				
+					} else if ( $(this).val() == types[5] ) {
+				
+						$(this).nextAll('.rrangel, .rrangeh').show();			
+						$(this).nextAll('.rrangel').focus();
+				
+					} else if ( $(this).val() == types[6] ) {
+				
+						$(this).nextAll('.rrangel, .rrangeh, .rrangecl').show();
+						$(this).nextAll('.rrangel').focus();					 
+						spacers = 0;
+				
+					} else {
+				
+						$(this).val() == "Meas. (error)";
+						$(this).nextAll('.rmeas, .rmeaserr').show();
+						$(this).nextAll('.rmeas').focus();			
+				
+					}
+		
+					if ( spacers == 0 ) {
+						$(this).nextAll(".spacer1").hide().attr('disabled', true);
+						$(this).nextAll(".spacer2").hide().attr('disabled', true);								
+					} else if ( spacers == 1 ) {
+						$(this).nextAll(".spacer1").hide().attr('disabled', true);
+						$(this).nextAll(".spacer2").show().attr('disabled', true);
+					} else {
+						$(this).nextAll(".spacer1").show().attr('disabled', true);
+						$(this).nextAll(".spacer2").show().attr('disabled', true);
+					}				 
+	
+				}
+			});
+				
+			$(this).autocomplete('search', '');		
 		});
 
 		//  initial submit button
@@ -1231,33 +1230,18 @@ $File: edit_tab.js
 $Author: Zheng Li
 $Description: edit the assays
 */
-function clear_all_value(){
-	$(".rtype").val("");
-	$(".risotope").val("");
-	$(".runit").val("");
-	
-	$(".rmeas").val("");
-	$(".rtype").val("");
-	$(".rmeas").val("");
-	$(".rmeaserr").val("");
-	$(".rmeaserrp").val("");
-	$(".rmeaserrm").val("");
-	$(".rlimit").val("");
-	$(".rlimitcl").val("");
-	$(".rrangel").val("");
-	$(".rrangeh").val("");
-	$(".rrangecl").val("");
-}
 // Fill the result row blank
 function FillResultRow(label, doc) {
 	$(label+".risotope").val(doc.isotope);
 	$(label+".runit").val(doc.unit);
 	if (doc.type == "measurement"){
-
 		if(doc.value.length == 1){
 			$(label+".rtype").val(types[0]);
 
 			$(label+".rmeas").val(doc.value[0]);
+
+			$(label+".rmeaserr").hide();
+			$(label+".spacer1").show().attr('disabled', true);
 		}
 
 		else if(doc.value.length == 2){
@@ -1272,6 +1256,11 @@ function FillResultRow(label, doc) {
 			$(label+".rmeas").val(doc.value[0]);
 			$(label+".rmeaserrp").val(doc.value[1]);
 			$(label+".rmeaserrm").val(doc.value[2]);
+
+			$(label+".rmeaserr").hide();
+			$(label+".rmeaserrp").show();
+			$(label+".rmeaserrm").show();
+			$(label+".spacer2").hide();
 		}
 	}
 	else if(doc.type == "limit"){
@@ -1280,13 +1269,21 @@ function FillResultRow(label, doc) {
 			$(label+".rtype").val(types[3]);
 
 			$(label+".rlimit").val(doc.value[0]);
+
+			$(label+'.rlimit').show();
+			$(label+".rmeas").hide();
+			$(label+".rmeaserr").hide();
+			$(label+".spacer1").show().attr('disabled', true);
 		}
 
 		else if(doc.value.length == 2){
 			$(label+".rtype").val(types[4]);
 
-			$(label+".rlimit").val(doc.value[0]);
-			$(label+".rlimitcl").val(doc.value[1]);
+			$(label+".rlimit").val(doc.value[0]).show();
+			$(label+".rlimitcl").val(doc.value[1]).show();
+
+			$(label+".rmeas").hide();
+			$(label+".rmeaserr").hide();
 		}
 	}
 	else if(doc.type == "range"){
@@ -1294,16 +1291,23 @@ function FillResultRow(label, doc) {
 		if(doc.value.length == 2){
 			$(label+".rtype").val(types[5]);
 
-			$(label+".rrangel").val(doc.value[0]);
-			$(label+".rrangeh").val(doc.value[1]);
+			$(label+".rrangel").val(doc.value[0]).show;
+			$(label+".rrangeh").val(doc.value[1]).show;
+
+			$(label+".rmeas").hide();
+			$(label+".rmeaserr").hide();
 		}
 
 		else if(doc.value.length == 3){
 			$(label+".rtype").val(types[6]);
 
-			$(label+".rrangel").val(doc.value[0]);
-			$(label+".rrangeh").val(doc.value[1]);
-			$(label+".rrangecl").val(doc.value[2]);
+			$(label+".rrangel").val(doc.value[0]).show;
+			$(label+".rrangeh").val(doc.value[1]).show;
+			$(label+".rrangecl").val(doc.value[2]).show;
+
+			$(label+".rmeas").hide();
+			$(label+".rmeaserr").hide();
+			$(label+".spacer2").hide();
 		}
 	}
 }
