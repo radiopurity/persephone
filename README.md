@@ -3,10 +3,15 @@ About
 -----
 
 Persephone is a database system for storing material radio-purity data.
+It is based on a system developed by James Loach at LBNL.
 
-It was originally developed by James Loach at LBNL (james.loach@gmail.com).
+Main contributors to the code:
 
-Thank you to contributors: Khang Nguyen, Adam Cox, Ben Wise, Keith Adler.
+   James Loach (james.loach@gmail.com)
+   Adam Cox (gadamc@gmail.com)
+   Khang Nguyen (photonfactor@gmail.com)
+   Zheng Li (ronnie.alonso@gmail.com)
+   Ben Wise (bwise@mail.smu.edu)
 
 Installation
 ------------
@@ -25,12 +30,8 @@ This is how to install on a local version of couchdb:
 
   - if sucessful you'll receive a URL to your application
 
-Example database
-----------------
+Community database
+------------------
 
-Available here:
-
-http://radiopurity.cloudant.com/rp/_design/persephone/index.html
-
-Contact james.loach@gmail.com for credentials.
+Available at http://www.radiopurity.org
 
