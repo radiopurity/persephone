@@ -1,0 +1,278 @@
+<form id="input">
+
+	<!-- SAMPLE -->
+
+	<table class="input">
+		<tr class="input">
+			<td class="input-grouping-wide"><b>Grouping/experiment</b></td>
+			<td>
+				<input id="grp" name="grp" title="Usually the experiment name" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+	</table>
+
+	<table class="input">
+		<tr class="input">
+			<td class="input-grouping"><b>Sample</b></td>
+			<td class="input-name">Name</td>
+			<td>
+				<input id="sname" name="sname" title="Short description" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Description</td>
+			<td>
+				<input id="sdesc" name="sdesc" title="Long description" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>	
+			</td>
+		</tr>
+		<tr class="input">
+			<td></td>
+			<td class="input-name">ID</td>
+			<td>
+				<input id="sid" name="iid" title="Identification code" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>	
+			</td>
+		</tr>
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Source</td>
+			<td>
+				<input id="ssrc" name="ssrc" title="Where the sample came from" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Owner</td>
+			<td>
+				<input id="sown1" name="sown1" title="Who owns the sample" placeholder="Name" class="input-box ui-widget-content"/>
+				<input id="sown2" name="sown2" title="How to contact the sample owner" placeholder="Email or institution" class="input-box ui-widget-content">
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<!-- Start user-defined fields sub-template -->
+	
+		<tr class="user-input-template" style="display:none">
+			<td></td>
+			<td class="input-name"></td>
+			<td>
+				<input placeholder="Name"				class="uname input-box ui-widget-content"/>
+				<input placeholder="Description" class="udesc input-box ui-widget-content"/>
+				<input placeholder="Type"	class="utype input-box ui-widget-content"/> 
+				<input placeholder="Value" class="uvalue input-box ui-widget-content"/> 
+				<input placeholder="Unit"	class="uunit input-box ui-widget-content"/> 
+				<button class="button-user-remove" type="button" class="input">&nbsp;</button>								 
+			</td>
+		</tr>
+	
+		<!-- End user-defined fields sub-template -->
+		
+		<tr id="user-sample-null" class="input">
+			<td></td>
+			<td class="input-name">User</td>
+			<td>
+				<button class="button-user-add input" type="button">&nbsp;</button>
+			</td>
+		</tr>
+
+	</table>
+
+	<!-- MEASUREMENT -->
+
+	<table class="input">
+	
+		<tr class="input">
+			<td class="input-grouping"><b>Measurement</b></td>
+			<td class="input-name">Institution</td>
+			<td>
+				<input id="minst" name="minst" title="Where the measurement was done" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Technique</td>
+			<td>
+				<input id="mtech" name="mtech" title="How the measurement was done" title="Where it came from" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>	
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Date</td>
+			<td>
+				<button id="button-date-sample" type="button" class="input">&nbsp</button>
+				<input id="mdate1"	 name="mdate1"	placeholder="yyyy-mm-dd or yyyy-mm or yyyy" title="Date of the measurement" class="input-box ui-widget-content onedate"/>
+				<input id="mdate2a" name="mdate2a" placeholder="yyyy-mm-dd or &hellip;" title="Start date of the measurement" class="input-box ui-widget-content twodate"/>
+				<input id="mdate2b" name="mdate2a" placeholder="yyyy-mm-dd or &hellip;" title="End date of the measurement" class="input-box ui-widget-content twodate"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Requestor</td>
+			<td>
+				<input id="mreq1" name="mreq1" title="Who requested the measurement" placeholder="Name" class="input-box ui-widget-content"/>
+				<input id="mreq2" name="mreq2" title="How to contact the requestor" placeholder="Email or institution" class="input-box ui-widget-content">
+				<span class="istatus"></span>
+			</td>
+		</tr>
+		
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Practitioner</td>
+			<td>
+				<input id="mprac1" name="mprac1" title="Who performed the measurement" placeholder="Name" class="input-box ui-widget-content"/>
+				<input id="mprac2" name="mprac2" title="How to contact the practitioner" placeholder="Email or institution" class="input-box ui-widget-content">
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Description</td>
+			<td>
+			<textarea id="mdesc" name="mdesc" title="Detailed description" cols="60" rows="10" class="input-textarea ui-widget-content ui-corner-all"></textarea>				
+				<span class="istatus"></span>	
+			</td>
+		</tr>
+
+		<!-- Start results row sub-template -->
+
+		<tr class="input-template result-row" style="display:none">
+			<td></td>
+			<td class="input-name"></td>		
+			<td> 
+				<input placeholder="Isotope"	class="risotope input-box ui-widget-content"/>
+				<input class="rtype input-box ui-widget-content" value="Meas. (error)"/>
+																					
+				<input placeholder="Value"	 	class="rmeas input-box ui-widget-content"/>
+				<input placeholder="Error"	 	class="rmeaserr input-box ui-widget-content"/> 
+				<input placeholder="Error +" 	class="rmeaserrp input-box ui-widget-content"/> 
+				<input placeholder="Error -" 	class="rmeaserrm input-box ui-widget-content"/> 
+
+				<input placeholder="Limit"		class="rlimit input-box ui-widget-content"/>
+				<input placeholder="c.l."		class="rlimitcl input-box ui-widget-content"/> 
+				
+				<input placeholder="Range -"	class="rrangel input-box ui-widget-content"/>
+				<input placeholder="Range +"	class="rrangeh input-box ui-widget-content"/>
+				<input placeholder="c.l."		class="rrangecl input-box ui-widget-content"/>							
+
+				<input class="spacer1 input-box ui-widget-content"/>
+				<input class="spacer2 input-box ui-widget-content"/>
+
+				<input placeholder="Unit"		class="runit input-box ui-widget-content"/>								
+							
+				<button class="add-entry menu-button" type="button">&nbsp</button>
+				<button class="remove-entry menu-button" type="button">&nbsp</button>
+				
+				<span class="istatus"></span>
+
+			</td>
+		</tr>
+		
+		<!-- End results row sub-template -->		
+
+		<!-- Results row default (perhaps logically redundant) -->
+
+		<tr class="input result-row">
+			<td></td>
+			<td class="input-name">Results</td>		
+			<td>	
+				<input placeholder="Isotope"		class="risotope input-box ui-widget-content"/>
+				<input class="rtype input-box ui-widget-content" value="Meas. (error)"/>
+				
+				<input placeholder="Value"			class="rmeas input-box ui-widget-content"/>
+				<input placeholder="Error"			class="rmeaserr input-box ui-widget-content"/> 
+				<input placeholder="Error +"		class="rmeaserrp input-box ui-widget-content"/> 
+				<input placeholder="Error -"		class="rmeaserrm input-box ui-widget-content"/> 
+
+				<input placeholder="Limit"			class="rlimit input-box ui-widget-content"/>
+				<input placeholder="c.l."			class="rlimitcl input-box ui-widget-content"/> 
+				
+				<input placeholder="Range -"		class="rrangel input-box ui-widget-content"/>
+				<input placeholder="Range +"		class="rrangeh input-box ui-widget-content"/>
+				<input placeholder="c.l."			class="rrangecl input-box ui-widget-content"/>							
+
+				<input class="spacer1 input-box ui-widget-content"/>
+				<input class="spacer2 input-box ui-widget-content"/>
+
+				<input placeholder="Unit"			class="runit input-box ui-widget-content"/>								
+							
+				<button class="add-entry menu-button" type="button">&nbsp</button>
+				
+				<span class="istatus"></span>
+
+			</td>
+		</tr>
+		
+		<tr class="input">
+			<td></td>
+			<td class="input-name">User</td>
+			<td>
+				<button class="button-user-add input" type="button">&nbsp;</button>
+			</td>
+		</tr>
+		
+	</table>
+
+	<!-- DATA SOURCE -->
+
+	<table class="input">
+	
+		<tr class="input">
+			<td class="input-grouping"><b>Data source</b></td>
+			<td class="input-name">Reference</td>
+			<td>
+				<input id="dref" name="dref" title="Reference to the data source" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>					
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Input person</td>
+			<td>
+				<input id="dinp1" name="dinp1" title="Who entered the data" placeholder="Name" class="input-box ui-widget-content"/>
+				<input id="dinp2" name="dinp2" title="How to contact them" placeholder="Email or institution" class="input-box ui-widget-content">
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">Input date</td>
+			<td>
+				<input id="dinp3" name="dinp3" title="Date of data entry" placeholder="yyyy-mm-dd" class="input-box ui-widget-content">
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td class="input-grouping"></td>
+			<td class="input-name">Notes</td>
+			<td>
+				<input id="dnotes" name="dnotes" title="Notes on input" class="input-box ui-widget-content"/>
+				<span class="istatus"></span>
+			</td>
+		</tr>
+
+		<tr class="input">
+			<td></td>
+			<td class="input-name">User</td>
+			<td>
+				<button class="button-user-add input" type="button">&nbsp;</button>
+			</td>
+		</tr>
+
+	<table>
+
+</form> 

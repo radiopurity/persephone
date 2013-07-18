@@ -11,7 +11,7 @@
 		<link rel="bookmark" href="images/favicon.ico" >
 		<link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css" rel="stylesheet" /> 
 
-		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 
 		<script type="text/javascript" src="js/jquery.couch.js"></script>
 
@@ -22,12 +22,8 @@
 		<script type="text/javascript" src="js/additional-methods.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		
-		<!-- jQuery CouchApp login -->
-		<script type="text/javascript" src="js/login.js"></script>
-		<!-- jsin the index -->
+		<!-- jQuery index -->
 		<script type="text/javascript" src="js/index.js"></script>
-		<!-- jQuery in the search tab -->
-		<script type="text/javascript" src="js/search_tab.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="css/style.css"/> 
 
@@ -88,7 +84,7 @@
 
 				<div id="input-form" class="content"></div>
 				
-				<div id="submit-status" class="faded"></div>
+				<div id="dialog-submit" title="Entry submitted" style="display:none"></div>
 
 				<div id="div-submit">
 					<button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>				
@@ -98,7 +94,23 @@
 				</div>
 
 			</div>
-									
+								
+			<!-- Edit tab -->
+			<div id="tab-edit">
+
+				<div id="input-form" class="content"></div>
+				
+				<div id="dialog-edit" title="Entry submitted" style="display:none"></div>
+
+				<div id="div-edit">
+					<button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>				
+					<button id="button-check"	onclick="javascript:click_check();">Check</button>
+					<button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
+					<button id="button-submit" onclick="javascript:click_submit();">Submit</button>						
+				</div>
+
+			</div>
+
 			<!-- About tab -->
 
 			<div id="tab-about">
@@ -226,11 +238,6 @@
 
 			</div>
 		 
-		</div>
-
-		<div id="dialog-submit" title="Entry submitted">
-			<p>Submitted successfully.</p>
-			<p>Chose whether you want to clear the form or keep its contents so you can create a similar entry.</p>
 		</div>
 
 		<div id="tagline" class="faded"><a style="text-decoration: none" class="faded" href="https://github.com/nepahwin/persephone">Persephone</a> &middot; <span id="disclaimers" style="text-decoration: none" class="faded" href="#">Display disclaimers</span><br>Supported by AARM, KIT, LBNL, MAJORANA, SMU, SJTU & others</div>
