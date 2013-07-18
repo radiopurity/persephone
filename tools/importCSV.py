@@ -91,6 +91,15 @@ def read_map(filename):
 # .............................................................................
 # Creates a map of the .csv file
 def map():
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+
     print("< map > subroutine called:")
     data = read_csv(sys.argv[2])
     record = data[0]
@@ -116,7 +125,7 @@ def map():
         while temp < 1 or temp > 19:
             try:
                 message = i + ": "
-                temp = int(input(message))
+                temp = int(modified_input(message))
             except ValueError:
                 print("\n*******\nERROR:\nInput must be a number.\n***" + \
                       "****\nExit Status: 5")
@@ -136,7 +145,7 @@ def map():
 
             if temp == 17:
                 print ("----\nYou selected this as a result field.\nPlease specify the isotope in II-### or II or String Format\ne.g. U-235 , Th , or U early.\n")
-                isotope = input("Isotope : ")
+                isotope = modified_input("Isotope : ")
                 print ("----")
                 temp = "R=" + isotope
 
@@ -246,6 +255,16 @@ def format_json_to_output_doc(outfilename,record=["","","","","","","","","","",
 # Executes the import and conversion of the .csv file
 def MADF_import():
     print("< csv_import > subroutine called:")
+    
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+    
     print("\nBeginning import of" + sys.argv[3] + "using map file" + sys.argv[2] + ".\n")
     map_data = []
     for i in read_map(sys.argv[2])[0]:
@@ -259,12 +278,12 @@ def MADF_import():
     data = read_csv(sys.argv[3])
     print("CSV file has been read in successfully.")
     print("\nAdditional Information Required!")
-    inputName = input("Please enter your name: ")
-    inputContact = input("Please enter your contact information (Institution or email/postal address) : ")
+    inputName = modified_input("Please enter your name: ")
+    inputContact = modified_input("Please enter your contact information (Institution or email/postal address) : ")
     print("\nOptional: You can override the previously mapped (or perhaps unmapped) data source field no.\nDo you want to do so?")
-    overrideReference = input("y or n (any other input will be interpreted as no) ? ")
+    overrideReference = modified_input("y or n (any other input will be interpreted as no) ? ")
     if ("y" in overrideReference) or ("Y" in overrideReference):
-            reference = input("Please input data source information : ")
+            reference = modified_input("Please input data source information : ")
     print("\n-----------------------------------\nBegin Importing to JSON Format.\n")
     j = 0
     count = 0
@@ -353,6 +372,16 @@ def main():
 
 def column_concatenate():
     print("< column_concatenate > subroutine called:")
+    
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+    
     data = read_csv(sys.argv[2])
     newformat=[""]
     j=0
@@ -363,10 +392,10 @@ def column_concatenate():
         if not j==0:
             print("---------------------")
             print("Do you want to concatenate \"", temp, "\" and \"", i, "\"? (Answer y or Y to concatenate)")
-            if input().lower()=='y':
+            if modified_input().lower()=='y':
                 concat=1
                 print("Is the latter a field that denotes a symmetric error? (Answer y or Y)")
-                if input().lower()=='y':
+                if modified_input().lower()=='y':
                     errorCol=1
             if concat:
                 if errorCol:

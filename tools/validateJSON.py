@@ -69,6 +69,15 @@ def is_valid_JSON(doc_name, schema_file=default_schema_file):
 def main():
     """Validates all .json files in directory"""
 
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
+    
     print("\nAssay validator:\n\n")
     import os
 
@@ -76,10 +85,6 @@ def main():
     if len(sys.argv) == 1:  # Validating a list of files
         all_files = True
   
-    try:
-        raw_input = input
-    except NameError:
-        pass
 
     file_list = []
 

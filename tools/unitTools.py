@@ -98,6 +98,15 @@ def main():
        for values and run conversion"""
     import sys
     autoConvert = False
+    
+    try:  # Fix Python 2.x.
+        if sys.version_info>=(3,0):
+            modified_input = input
+            print("Python 3.x Compatible!")
+        else:
+            modified_input=raw_input
+    except NameError:
+        pass
 
     string = ""
     if len(sys.argv) >= 2:
@@ -129,12 +138,12 @@ def main():
                           d_unit.center(12) + " (" +
                           quality_code[QC_factor_tuple[0]] + ")")
         print ("\n\n")
-        SIso = raw_input("Please enter the Source Isotope "
+        SIso = modified_input("Please enter the Source Isotope "
                          "(or std for Standard Conversions): ")
-        SValue = float(raw_input("Please enter the value to convert : "))
-        SUnit = raw_input("Please enter the units before conversion : ")
-        DUnit = raw_input("Please enter the unit to convert to : ")
-        #    DIso   = raw_input("Please enter the Isotope to convert to : ")
+        SValue = float(modified_input("Please enter the value to convert : "))
+        SUnit = modified_input("Please enter the units before conversion : ")
+        DUnit = modified_input("Please enter the unit to convert to : ")
+        #    DIso   = modified_input("Please enter the Isotope to convert to : ")
         QC, val = convert(SIso, SValue, SUnit, DUnit)
         print("Result : " + str(val) + " " + DUnit + "\n"
               "This is a(n)" + quality_code[QC] + ".")
@@ -212,7 +221,7 @@ def convert(src_isotope, src_value, src_unit, dest_unit, dest_isotope=None):
 
 def stringConvert(string, returnTuple=False):
     try: 
-        raw_input = input
+        modified_input = input
     except NameError:
         pass
 
