@@ -712,11 +712,11 @@ function CreateAssayPage(options){
 		$(label+".remove-entry").button({
 			icons:{primary:"ui-icon-minus"},
 			text:false
-		})
+		});
 
 		$(label+".remove-entry").click(function(){	 
 			$(this).closest('tr').remove();
-		})
+		});
 
 		// Buttons for user-defined fields
 
@@ -739,11 +739,10 @@ function CreateAssayPage(options){
 
 		$(label+".button-user-remove").click(function(){	 
 			$(this).closest('tr').remove();
-		})
+		});
 
 		// Form validation
-
-		var validator = $(label+" #input").validate({
+		$(label+" #input").validate({
 
 			rules: {
 				grp:			 "required", 
@@ -1196,7 +1195,7 @@ function click_submit(options) {
 
 
 		db.saveDoc(output_json , {
-				success: function() {
+				success: function(response, textStatus, jqXHR) {
 					if(options.dialog == "#dialog-submit"){
 						$( options.dialog ).dialog({
 							modal: true,
@@ -1228,6 +1227,7 @@ function click_submit(options) {
 									$( "#tabs" ).tabs({ active: 0 });
 								},
 								"Keep": function() {
+									edit_rev =response.rev;
 									$(this).dialog("close");
 								}
 							}
@@ -1389,8 +1389,7 @@ function FillEditBlank(doc){
 			// insert after the first result-row
 			clone.insertAfter($("#tab-edit .result-row:eq(1)")).show();
 
-			label="#tab-edit .result-row:eq(2) ";
-			FillResultRow(label , doc.measurement.results[i]);
+			FillResultRow("#tab-edit .result-row:eq(2) " , doc.measurement.results[i]);
 		};
 	}
 	
