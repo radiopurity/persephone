@@ -639,9 +639,9 @@ function CreateAssayPage(options){
 
 		$.template("input_template", tmp);	 
 		$.tmpl("input_template", null).appendTo(label+"#input-form");
-		
+
 		// Hide all results boxes except those for 'measurement, symmetric error'
-		
+
 		$(label+".rmeaserrp, "+label+".rmeaserrm").hide();
 		$(label+".rlimit, "+label+".rlimitcl").hide();		
 		$(label+".rrangel, "+label+".rrangeh, "+label+".rrangecl").hide();					
@@ -649,12 +649,12 @@ function CreateAssayPage(options){
 		// Spacers used to align results input boxes
 		// This dynamic alignment ensures correct alignment in different browsers
 		// Probably just have used a table...
-		
+
 		$(label+".spacer1").hide().attr('disabled', true);
 		$(label+".spacer2").show().attr('disabled', true);
-		 
+
 		// Tooltip positions		 
-		 
+
 		$(label).children().tooltip({ 
 			position: { my: "left+15 center", at: "right center" }
 		});		 
@@ -669,40 +669,40 @@ function CreateAssayPage(options){
 		})
 
 		// Date format switching
-		
+
 		$(label+".twodate").hide(); // Default to single date
-		
+
 		$(label+"#button-date-sample").button({
 			icons:{primary:"ui-icon-refresh"}, 
 			text:false
 		});
-		
+
 		$(label+"#button-date-sample").bind('click', function(){ 
-		
+
 			if ( $(label+"#mdate1").is(":visible") && $(label+"#mdate1").val() != "" ) {
 				$(label+"#mdate2a").val($(label+"#mdate1").val()); 
 			} else {
 				$(label+"#mdate1").val($(label+"#mdate2a").val());		 
 			}
-		
+
 			$(label+".onedate").toggle();
 			$(label+".twodate").toggle();		
-		
+
 			if ( $(label+"#mdate1").is(":visible") ) {
 				$(label+"#mdate1").focus();	
 			} else {
 				$(label+"#mdate2b").focus();		 
 			}
-		
+
 		});
 
 		// Add result line button
-		
+
 		$(label+".add-entry").button({
 			icons:{primary:"ui-icon-plus"},
 			text:false
 		})
-		
+
 		$(label+".add-entry").bind('click', function(){		 
 			var clone = $(label+".input-template").clone(true)
 			.removeClass('input-template').addClass('result-row');		
@@ -713,18 +713,18 @@ function CreateAssayPage(options){
 			icons:{primary:"ui-icon-minus"},
 			text:false
 		})
-			 
+
 		$(label+".remove-entry").click(function(){	 
 			$(this).closest('tr').remove();
 		})
 
 		// Buttons for user-defined fields
-		
+
 		$(label+".button-user-add").button({
 			icons:{primary:"ui-icon-plus"},
 			text:false
 		});
-			
+
 		$(label+".button-user-add").bind('click', function(){
 			var clone = $(label+".user-input-template").clone(true)
 			.removeClass('user-input-template').addClass('row-user-sample');		
@@ -742,9 +742,9 @@ function CreateAssayPage(options){
 		})
 
 		// Form validation
-			
+
 		var validator = $(label+" #input").validate({
-			 
+
 			rules: {
 				grp:			 "required", 
 				sname:		 "required",	
@@ -753,7 +753,7 @@ function CreateAssayPage(options){
 				dinp2:		 "required",
 				dinp3:		 "required"							
 			}, 
-						 
+
 			messages: {
 				grp:			 "Required", 
 				sname:		 "Required",	
@@ -762,13 +762,13 @@ function CreateAssayPage(options){
 				dinp2:		 "Required",
 				dinp3:		 "Required"		
 			},
-			 
+
 			errorPlacement: function(error, element) {
 				error.appendTo(element.next('.istatus'));
 			}			
-			 
+
 		});	 
-		
+
 		// Autocomplete functions
 
 		$(label+".risotope").bind( 'focus', function() {
@@ -784,82 +784,82 @@ function CreateAssayPage(options){
 			});
 			$(this).autocomplete('search', '');
 		});
-		
+
 		$(label+"#mtech").bind( 'focus', function() {
 			$(this).autocomplete({source:methods, minLength:0});
 			$(this).autocomplete('search', '');
 		});	
 
 		// Handle change to result type
-		
+
 		$(label+".rtype").bind('focus', function() {
 			$(this).autocomplete({
 				source:types,
 				minLength:0, 
 				change: function (event, ui) {
-				
+
 					if (!ui.item) { $(this).val(types[1]) }									
-		
+
 					$(this).nextAll('.rmeas, .rmeaserr, .rmeaserrp, .rmeaserrm').hide();
 					$(this).nextAll('.rlimit, .rlimitcl').hide();
 					$(this).nextAll('.rrangel, .rrangeh, .rrangecl').hide();				 
-		
+
 					var spacers = 1;
-								
+
 					var cache_meas	= $(this).nextAll('.rmeas').val();
 					var cache_limit = $(this).nextAll('.rlimit').val();		 
-		
+
 					if ( $(this).val() == types[0] ) {
-						
+
 						$(this).nextAll('.rmeas').show().focus();
 						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };
 						spacers = 2;
-				
+
 					} else if ( $(this).val() == types[1] ) {
-				
+
 						$(this).nextAll('.rmeas, .rmeaserr').show();
 						$(this).nextAll('.rmeas').focus();
 						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
-				
+
 					} else if ( $(this).val() == types[2] ) {
-				
+
 						$(this).nextAll('.rmeas, .rmeaserrp, .rmeaserrm').show();
 						$(this).nextAll('.rmeas').focus();
 						if ( cache_limit != '' ) { $(this).nextAll('.rmeas').val(cache_limit) };					
 						spacers = 0;
-				
+
 					} else if ( $(this).val() == types[3] ) {
-				
+
 						$(this).nextAll('.rlimit').show();
 						$(this).nextAll('.rlimit').focus();
 						if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					
 						spacers = 2;
-				
+
 					} else if ( $(this).val() == types[4] ) {
-				
+
 						$(this).nextAll('.rlimit, .rlimitcl').show();			 
 						$(this).nextAll('.rlimit').focus();
 						if ( cache_meas != '' ) { $(this).nextAll('.limit').val(cache_meas) };					 
-				
+
 					} else if ( $(this).val() == types[5] ) {
-				
+
 						$(this).nextAll('.rrangel, .rrangeh').show();			
 						$(this).nextAll('.rrangel').focus();
-				
+
 					} else if ( $(this).val() == types[6] ) {
-				
+
 						$(this).nextAll('.rrangel, .rrangeh, .rrangecl').show();
 						$(this).nextAll('.rrangel').focus();					 
 						spacers = 0;
-				
+
 					} else {
-				
+
 						$(this).val() == "Meas. (error)";
 						$(this).nextAll('.rmeas, .rmeaserr').show();
 						$(this).nextAll('.rmeas').focus();			
-				
+
 					}
-		
+
 					if ( spacers == 0 ) {
 						$(this).nextAll(".spacer1").hide().attr('disabled', true);
 						$(this).nextAll(".spacer2").hide().attr('disabled', true);								
@@ -870,10 +870,10 @@ function CreateAssayPage(options){
 						$(this).nextAll(".spacer1").show().attr('disabled', true);
 						$(this).nextAll(".spacer2").show().attr('disabled', true);
 					}				 
-	
+
 				}
 			});
-				
+
 			$(this).autocomplete('search', '');		
 		});
 
@@ -891,7 +891,7 @@ function CreateAssayPage(options){
 			FillEditBlank(options.doc);
 		}
 	});
-	
+
 }
 
 // ____________________________________________________________________________________
@@ -926,6 +926,10 @@ function db_delete(){
 
 	db.saveDoc(doc , {
 			success: function() {
+				$("#tab-edit #input-form").empty();
+				$("#div-edit").hide();
+				edit_id = "";
+				edit_rev = "";
 				$( "#tabs" ).tabs({ active: 0 });
 			},
 
@@ -961,7 +965,6 @@ function click_delete(options) {
 Submit Assays
 options = {"label":"tab-submit" , "dialog":"#dialog-submit "}
 */
-
 function click_submit(options) {
 	label = options.label;
 
@@ -1191,25 +1194,50 @@ function click_submit(options) {
 			};
 		}
 
-		$( options.dialog ).dialog({
-			modal: true,
-			buttons: {
-				"Clear": function() {
-					$(this).dialog("close");
-					click_clear_all(label);
-				},
-				"Keep": function() {
-					$(this).dialog("close");
-				}
-			}
-		});
 
 		db.saveDoc(output_json , {
 				success: function() {
-					$(options.dialog).empty();
-					$(options.dialog).append('<p>Submitted successfully.</p> <p>Chose whether you want to clear the form or keep its contents so you can create a similar entry.</p>');
+					if(options.dialog == "#dialog-submit"){
+						$( options.dialog ).dialog({
+							modal: true,
+							buttons: {
+								"Clear": function() {
+									$(this).dialog("close");
+									click_clear_all(label);
+								},
+								"Keep": function() {
+									$(this).dialog("close");
+								}
+							}
+						});
+						$(options.dialog).empty();
+						$(options.dialog).append('<p>Submitted successfully.</p> <p>Chose whether you want to clear the form or keep its contents so you can create a similar entry.</p>');
+	
+						$( options.dialog ).dialog("open" );
+					}
+					else if(options.dialog == "#dialog-edit"){
+						$( options.dialog ).dialog({
+							modal: true,
+							buttons: {
+								"Index": function() {
+									$(this).dialog("close");
+									$("#tab-edit #input-form").empty();
+									$("#div-edit").hide();
+									edit_id = "";
+									edit_rev = "";
+									$( "#tabs" ).tabs({ active: 0 });
+								},
+								"Keep": function() {
+									$(this).dialog("close");
+								}
+							}
+						});
 
-					$( options.dialog ).dialog("open" );
+						$(options.dialog).empty();
+						$(options.dialog).append('<p>Edited successfully.</p> <p>Chose whether you want to go back to index or keep its contents so you can continue editing a similar entry.</p>');
+	
+						$( options.dialog ).dialog("open" );
+					}
 				},
 
 				error: function(jqXHR, textStatus, errorThrown){
@@ -1376,12 +1404,6 @@ function FillEditBlank(doc){
 
 // Show the assays' infomation
 function EditAssay(_id) {
-	$( "#tabs" ).tabs({ active: 2 });
-
-	// $(".result-row").not(".input.result-row , .input-template.result-row").remove();
-	
-	// clear_all_value();
-
 	if (_id != edit_id) {
 		url = window.location.protocol + '//' + window.location.host 
 					+ '/' + dbname + '/' + _id;
@@ -1394,10 +1416,13 @@ function EditAssay(_id) {
 					edit_id = data._id;
 					edit_rev = data._rev;
 					$("#tab-edit #input-form").empty();
+					$("#div-edit").show();
 					options = {"label":"#tab-edit ","doc":data};
 					CreateAssayPage(options);
 				}
 			}
 		})
 	};
+
+	$( "#tabs" ).tabs({ active: 2 });
 }
