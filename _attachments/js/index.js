@@ -978,12 +978,13 @@ function click_submit(options) {
 		$(label + " .result-row").each(function() {
 			var risotope = $(this).find(".risotope").val();
 			var rtype	= $(this).find(".rtype").val();
+			var runit = $(this).find(".runit").val();
+
 			// Measurement
 			if (risotope != "" && rtype != ""){
 				// "Meas."
 				if ( rtype == types[0] ) {	
 					var rvalue = $(this).find(".rmeas").val();
-					var runit = $(this).find(".runit").val();
 					result.push({
 						"isotope": risotope,
 						"type": "measurement",
@@ -995,7 +996,7 @@ function click_submit(options) {
 				else if( rtype == types[1] ){
 					var rvalue = $(this).find(".rmeas").val();
 					var rmeaserr = $(this).find(".rmeaserr").val();
-					var runit = $(this).find(".runit").val();
+
 					result.push({
 						"isotope": risotope,
 						"type": "measurement",
@@ -1008,7 +1009,7 @@ function click_submit(options) {
 					var rvalue = 	$(this).find(".rmeas").val();
 					var rmeaserrp = $(this).find(".rmeaserrp").val();
 					var rmeaserrm = $(this).find(".rmeaserrm").val();
-					var runit = 	$(this).find(".runit").val();
+
 					result.push({
 						"isotope":risotope,
 						"type":"measurement",
@@ -1019,7 +1020,7 @@ function click_submit(options) {
 				// "Limit"
 				else if( rtype == types[3] ){
 					var rlimit = 	$(this).find(".rlimit").val();
-					var runit = 	$(this).find(".runit").val();
+
 					result.push({
 						"isotope":risotope,
 						"type":"limit",
@@ -1031,7 +1032,6 @@ function click_submit(options) {
 				else if( rtype == types[4] ){
 					var rlimit = 	$(this).find(".rlimit").val();
 					var rlimitcl = 	$(this).find(".rlimitcl").val();
-					var runit = 	$(this).find(".runit").val();
 					result.push({
 						"isotope":risotope,
 						"type":"limit",
@@ -1043,6 +1043,7 @@ function click_submit(options) {
 				else if( rtype == types[5] ){
 					var rrangel = 	$(this).find(".rrangel").val();
 					var rrangeh = 	$(this).find(".rrangeh").val();
+
 					result.push({
 						"isotope":risotope,
 						"type":"range",
@@ -1055,6 +1056,7 @@ function click_submit(options) {
 					var rrangel = 	$(this).find(".rrangel").val();
 					var rrangeh = 	$(this).find(".rrangeh").val();
 					var rrangecl = 	$(this).find(".rrangecl").val();
+
 					result.push({
 						"isotope":risotope,
 						"type":"range",
@@ -1319,8 +1321,8 @@ function FillResultRow(label, doc) {
 		if(doc.value.length == 2){
 			$(label+".rtype").val(types[5]);
 
-			$(label+".rrangel").val(doc.value[0]).show;
-			$(label+".rrangeh").val(doc.value[1]).show;
+			$(label+".rrangel").val(doc.value[0]).show();
+			$(label+".rrangeh").val(doc.value[1]).show();
 
 			$(label+".rmeas").hide();
 			$(label+".rmeaserr").hide();
@@ -1329,9 +1331,9 @@ function FillResultRow(label, doc) {
 		else if(doc.value.length == 3){
 			$(label+".rtype").val(types[6]);
 
-			$(label+".rrangel").val(doc.value[0]).show;
-			$(label+".rrangeh").val(doc.value[1]).show;
-			$(label+".rrangecl").val(doc.value[2]).show;
+			$(label+".rrangel").val(doc.value[0]).show();
+			$(label+".rrangeh").val(doc.value[1]).show();
+			$(label+".rrangecl").val(doc.value[2]).show();
 
 			$(label+".rmeas").hide();
 			$(label+".rmeaserr").hide();
