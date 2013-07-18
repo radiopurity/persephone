@@ -11,7 +11,7 @@
 		<link rel="bookmark" href="images/favicon.ico" >
 		<link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css" rel="stylesheet" /> 
 
-		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 
 		<script type="text/javascript" src="js/jquery.couch.js"></script>
 
@@ -87,10 +87,10 @@
 				<div id="dialog-submit" title="Entry submitted" style="display:none"></div>
 
 				<div id="div-submit">
-					<button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>				
-					<button id="button-check"	onclick="javascript:click_check();">Check</button>
-					<button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
-					<button id="button-submit" onclick="javascript:click_submit();">Submit</button>						
+					<button id="button-delete" onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>				
+					<button id="button-check"	onclick="javascript:click_check('#tab-submit ');">Check</button>
+					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-submit ');">Clear warnings</button>
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit'});">Submit</button>						
 				</div>
 
 			</div>
@@ -103,10 +103,10 @@
 				<div id="dialog-edit" title="Entry submitted" style="display:none"></div>
 
 				<div id="div-edit">
-					<button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>				
-					<button id="button-check"	onclick="javascript:click_check();">Check</button>
-					<button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
-					<button id="button-submit" onclick="javascript:click_submit();">Submit</button>						
+					<button id="button-clear2" onclick="javascript:click_delete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>				
+					<button id="button-check"	onclick="javascript:click_check('#tab-edit ');">Check</button>
+					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-edit ');">Clear warnings</button>
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit'});">Edit</button>						
 				</div>
 
 			</div>
