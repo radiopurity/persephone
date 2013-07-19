@@ -13,12 +13,22 @@
 */
 
 /*
-$File: index.js
-$Author: James Loach
-$Description: the database index settings
-*/
-/* global variables */
+============
+index.js
+============
+--------------------------------------------------------------------------
+Name:           index.js
+Purpose:        Main Javascript Funciton for Persephone.
 
+Author:         James Loach, Zheng Li
+Email:         	james.loach@gmail.com,ronnie.alonso@gmail.com
+
+Created:        19 July 2013
+Copyright:      (c) James Loach 2013
+--------------------------------------------------------------------------
+*/
+
+/* global variables */
 var dbname = window.location.pathname.split("/")[1];
 var appName = window.location.pathname.split("/")[3];
 var db = $.couch.db(dbname);
@@ -138,10 +148,13 @@ $(document).ready(function(){
 
 
 /*
-$File: search_tab.js
-$Author: Zheng Li
-$Description: this part handles query, filter, scroll function for search tab
+=============================================
+==============				 ================
+==============	Search Tab   ================
+==============				 ================
+=============================================
 */
+
 $(document).ready(function(){
 	/* index intial configuration */
 	// Set the appropriate logo
@@ -636,38 +649,17 @@ function getSelectedTabIndex() {
 
 })( jQuery );
 
-/* Export JSON */
-function ExportJSON(JSONid){ 
-    // Start Excel and get Application object. 
-    var oXL = new ActiveXObject("Excel.Application"); 
-    // Get a new workbook. 
-    var oWB = oXL.Workbooks.Add(); 
-    var oSheet = oWB.ActiveSheet; 
-    var hang = objTable.rows.length; 
-
-    var lie = objTable.rows(0).cells.length; 
-
-    // Add table headers going cell by cell. 
-    for (var i=0;i<hang;i++) 
-    { 
-        for (var j=0;j<lie;j++) 
-        { 
-            oSheet.Cells(i+1,j+1).value = objTable.rows(i).cells(j).innerText; 
-        } 
-
-    } 
-    oXL.Visible = true; 
-    oXL.UserControl = true; 
-}
-
 
 /*
-$File: submit.js
-$Author: James Loach, Zheng Li
-$Description: implement the submit assay function
+=============================================
+==============				 ================
+==============	Submit Tab   ================
+==============				 ================
+=============================================
 */
+
 /*==== initial configuration ====*/
-// options = {"doc":fillDoc , "label":pageTab}
+// Argument: options = {"doc":fillDoc , "label":pageTab}
 function CreateAssayPage(options){
 	label = options.label;
 	// INPUT FORM TEMPLATE	 
@@ -974,6 +966,7 @@ function db_delete(){
 		}
 	);
 }
+
 /*
 Delete Assays
 options = {"label":"tab-submit" , "dialog":"#dialog-submit"}
@@ -1292,9 +1285,11 @@ function click_submit(options) {
 
 
 /*
-$File: edit_tab.js
-$Author: Zheng Li
-$Description: edit the assays
+=============================================
+==============				 ================
+==============	Edit Tab   ================
+==============				 ================
+=============================================
 */
 // Fill the result row blank
 function FillResultRow(label, doc) {

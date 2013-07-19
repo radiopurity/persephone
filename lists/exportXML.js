@@ -1,3 +1,18 @@
+/*
+============
+exportXML.js
+============
+--------------------------------------------------------------------------
+Name:           exportXML.js
+Purpose:        To export the measurement result in XML in the search-tab.
+
+Author:         Zheng Li
+Email:          Ronnie.alonso@gmail.com
+
+Created:        13 July 2013
+Copyright:      (c) Zheng Li 2013
+--------------------------------------------------------------------------
+*/
 function(doc, req) {
 	provides("xml", function() {
 		var html = "<assay>\n";

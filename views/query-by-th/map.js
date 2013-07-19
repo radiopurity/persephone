@@ -1,20 +1,33 @@
 /*
-Sort the result by the thorium
-Unit:
-	Category One
-	   ppm (parts per million)
-	   ppb (parts per billion)
-	   ppt (parts per trillion)
-	   1 ppm = 1000 ppb
-	   1 ppb = 1000 ppt
-	Category Two
-	   Bq/kg (becquerels per kg)
-	   mBq/kg (milli becquerels per kg)
-	   muBq/kg = uBq/kg (micro becquerels per kg) (two different shorthands for the greek letter)
-	   1 Bq/kg = 1000 mBq/kg
-	   1 mBq/kg = 1000 uBq/kg = 1000 muBq/kr
-	Category Three
-	   Anything else
+map.js
+============
+--------------------------------------------------------------------------
+Name:           map.js
+Purpose:        Sort the result by the thorium.
+
+Description:
+	Unit:
+		Category One
+		   ppm (parts per million)
+		   ppb (parts per billion)
+		   ppt (parts per trillion)
+		   1 ppm = 1000 ppb
+		   1 ppb = 1000 ppt
+		Category Two
+		   Bq/kg (becquerels per kg)
+		   mBq/kg (milli becquerels per kg)
+		   muBq/kg = uBq/kg (micro becquerels per kg) (two different shorthands for the greek letter)
+		   1 Bq/kg = 1000 mBq/kg
+		   1 mBq/kg = 1000 uBq/kg = 1000 muBq/kr
+		Category Three
+		   Anything else
+
+Author:         Zheng Li
+Email:          Ronnie.alonso@gmail.com
+
+Created:        14 July 2013
+Copyright:      (c) Zheng Li 2013
+--------------------------------------------------------------------------
 */
 function (doc) {
 	var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];

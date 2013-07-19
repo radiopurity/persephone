@@ -1,3 +1,18 @@
+/*
+============
+exportCSV.js
+============
+--------------------------------------------------------------------------
+Name:           exportCSV.js
+Purpose:        To export the measurement result in CSVin the search-tab.
+
+Author:         Zheng Li
+Email:          Ronnie.alonso@gmail.com
+
+Created:        18 July 2013
+Copyright:      (c) Zheng Li 2013
+--------------------------------------------------------------------------
+*/
 function(doc, req) {
 	provides("csv", function() {
 		var str1="", str2="", csv = "";
