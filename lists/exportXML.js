@@ -1,6 +1,6 @@
 function(doc, req) {
 	provides("xml", function() {
-		html = "<assay>\n";
+		var html = "<assay>\n";
 		while (row = getRow()) {
 			if(row.key == req.query._id){
 				html += "<_id>" + row.key + "</_id>\n"+

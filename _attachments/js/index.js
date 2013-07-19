@@ -382,15 +382,32 @@ function DecorateResult() {
 
 	$(".export-json").click(function(event){
 		var parent = $(this).closest('div');
-		url = window.location.protocol + '//' + window.location.host 
+		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/'+parent.attr('value');
 		window.open(url, '_blank');
 	});
 
 	$(".export-xml").click(function(){
 		var parent = $(this).closest('div');
-		url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportXML/query-by-id?_id='+parent.attr('value');
+		var url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
+		
+		window.open(url, '_blank');
+		// var xmlHttp = null;
+
+		// xmlHttp = new XMLHttpRequest();
+		// xmlHttp.open( "GET", url, false );
+		// xmlHttp.send( null );
+		// data =  "data:x-application/xml;charset=utf-8," + escape(xmlHttp.responseText);
+
+		// window.open(data);
+	});
+
+	$(".export-csv").click(function(){
+		var parent = $(this).closest('div');
+		var url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?_id='+parent.attr('value');
+		
 		window.open(url, '_blank');
 	});
 
@@ -405,7 +422,6 @@ function DecorateResult() {
 	$("h3").unbind('click',ButtonFade);
 	$("h3").bind('click', ButtonFade);
 };
-
 
 /* fill the JSON into the output_template.html*/
 function FillTemplate(doc){
