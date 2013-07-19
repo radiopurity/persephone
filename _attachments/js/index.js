@@ -923,7 +923,7 @@ function CreateAssayPage(options){
 
 		// Have content to fill
 		if(options.doc){
-			FillEditBlank(options.doc);
+			FillEditBlank(label , options.doc);
 		}
 	});
 
@@ -1379,64 +1379,64 @@ function FillResultRow(label, doc) {
 }
 
 // Fill the blank
-function FillEditBlank(doc){
-	$("#tab-edit #grp").val(doc.grouping);
+function FillEditBlank(label, doc){
+	$(label + " #grp").val(doc.grouping);
 
 	// sample
-	$("#tab-edit #sname").val(doc.sample.name);
-	$("#tab-edit #sdesc").val(doc.sample.description);
-	$("#tab-edit #sid").val(doc.sample.id);
-	$("#tab-edit #ssrc").val(doc.sample.source);
-	$("#tab-edit #sown1").val(doc.sample.owner.name);
-	$("#tab-edit #sown2").val(doc.sample.owner.contact);
+	$(label + " #sname").val(doc.sample.name);
+	$(label + " #sdesc").val(doc.sample.description);
+	$(label + " #sid").val(doc.sample.id);
+	$(label + " #ssrc").val(doc.sample.source);
+	$(label + " #sown1").val(doc.sample.owner.name);
+	$(label + " #sown2").val(doc.sample.owner.contact);
 
 	// measurement
-	$("#tab-edit #minst").val(doc.measurement.institution);
-	$("#tab-edit #mtech").val(doc.measurement.technique);
+	$(label + " #minst").val(doc.measurement.institution);
+	$(label + " #mtech").val(doc.measurement.technique);
 	// measurement date
 	if(doc.measurement.date.length <= 1){
-		$("#tab-edit #mdate1").val(doc.measurement.date[0]);
+		$(label + " #mdate1").val(doc.measurement.date[0]);
 
 	}else{
-		$("#tab-edit #mdate2a").val(doc.measurement.date[0]);
-		$("#tab-edit #mdate2b").val(doc.measurement.date[1]);
+		$(label + " #mdate2a").val(doc.measurement.date[0]);
+		$(label + " #mdate2b").val(doc.measurement.date[1]);
 
-		$("#tab-edit .onedate").toggle();
-		$("#tab-edit .twodate").toggle();
+		$(label + " .onedate").toggle();
+		$(label + " .twodate").toggle();
 	}
 
-	$("#tab-edit #mreq1").val(doc.measurement.requestor.name);
-	$("#tab-edit #mreq2").val(doc.measurement.requestor.contact);
+	$(label + " #mreq1").val(doc.measurement.requestor.name);
+	$(label + " #mreq2").val(doc.measurement.requestor.contact);
 	
-	$("#tab-edit #mprac1").val(doc.measurement.practitioner.name);
-	$("#tab-edit #mprac2").val(doc.measurement.practitioner.name);
+	$(label + " #mprac1").val(doc.measurement.practitioner.name);
+	$(label + " #mprac2").val(doc.measurement.practitioner.name);
 
-	$("#tab-edit #mdesc").val(doc.measurement.description);
+	$(label + " #mdesc").val(doc.measurement.description);
 
 	// display results
 	var len = doc.measurement.results.length;
 
 	if (len >= 1){
 		// First result-row
-		FillResultRow("#tab-edit .result-row:eq(1) " , doc.measurement.results[0]);
+		FillResultRow(label + " .result-row:eq(1) " , doc.measurement.results[0]);
 
 		// Add enough entry
 		for (var i = 1; i < len; i++) {
-			var clone = $("#tab-edit .input-template").clone(true).removeClass('input-template').addClass('result-row');
+			var clone = $(label + " .input-template").clone(true).removeClass('input-template').addClass('result-row');
 
 			// insert after the first result-row
-			clone.insertAfter($("#tab-edit .result-row:eq(1)")).show();
+			clone.insertAfter($(label + " .result-row:eq(1)")).show();
 
-			FillResultRow("#tab-edit .result-row:eq(2) " , doc.measurement.results[i]);
+			FillResultRow(label + " .result-row:eq(2) " , doc.measurement.results[i]);
 		};
 	}
 	
 	// Data Source
-	$("#tab-edit #dref").val(doc.data_source.reference);
-	$("#tab-edit #dinp1").val(doc.data_source.input.name);
-	$("#tab-edit #dinp2").val(doc.data_source.input.contact);
-	$("#tab-edit #dinp3").val(doc.data_source.input.date);
-	$("#tab-edit #dnotes").val(doc.data_source.notes);
+	$(label + " #dref").val(doc.data_source.reference);
+	$(label + " #dinp1").val(doc.data_source.input.name);
+	$(label + " #dinp2").val(doc.data_source.input.contact);
+	$(label + " #dinp3").val(doc.data_source.input.date);
+	$(label + " #dnotes").val(doc.data_source.notes);
 }
 
 // Show the assays' infomation
