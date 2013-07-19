@@ -406,14 +406,6 @@ function DecorateResult() {
 				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
 		
 		window.open(url, '_blank');
-		// var xmlHttp = null;
-
-		// xmlHttp = new XMLHttpRequest();
-		// xmlHttp.open( "GET", url, false );
-		// xmlHttp.send( null );
-		// data =  "data:x-application/xml;charset=utf-8," + escape(xmlHttp.responseText);
-
-		// window.open(data);
 	});
 
 	$(".export-csv").click(function(){
