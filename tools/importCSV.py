@@ -144,8 +144,9 @@ def map():
                 temp = -1
 
             if temp == 17:
-                print ("----\nYou selected this as a result field.\nPlease specify the isotope in II-### or II or String Format\ne.g. U-235 , Th , or U early.\n")
+                print ("----\nYou selected this as a result field.\nPlease specify the isotope in II-### or II or String Format\ne.g. U-235 , Th , or U-early.\n(Isotope may NOT contain spaces.)\n")
                 isotope = modified_input("Isotope : ")
+                isotope = isotope.replace(" ", "")
                 print ("----")
                 temp = "R=" + isotope
 
