@@ -138,8 +138,8 @@ div.content-text {
 }
 
 #div-search {
-	width: 450px;
-	margin: 5px auto;
+	width: 600px;
+	margin: 5px 5px 5px 250px;
 }
 
 #button-search {
@@ -242,11 +242,11 @@ div.content-text {
 
 #meas-info{
 	padding-top: 1em;
+	width:80%;
 	float:left;
 }
 #export-menu{
 	float:right;
-	padding-top: 1px;
 }
 
 .accordion .ui-accordion-content {  

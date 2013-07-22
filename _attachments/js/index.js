@@ -233,8 +233,56 @@ $(document).ready(function(){
 
 	// search button initialization
 	$("#button-search").button({icons:{primary: "ui-icon-search"},text:false});
-	$("#button-expand").button();
-	$("#button-detail").button();
+	$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-e"},text:false});
+	$("#button-expand-all").button({icons:{primary: "ui-icon-folder-open"},text:false});
+	$("#button-collapse-all").button({icons:{primary: "ui-icon-folder-collapsed"},text:false});
+	$("#button-download-expanded").button({icons:{primary: "ui-icon-arrowthickstop-1-s"},text:false});
+
+	// // show more button animation
+	// $("#button-show-more").bind("click", function(event){
+	// 	event.stopPropagation();
+	// 	event.preventDefault(); 
+
+	// 	$(".button-more").not("#button-show-more").toggle(100);
+
+	// 	$(".ui-button-icon-primary", this).toggleClass("ui-icon-carat-1-e ui-icon-carat-1-w");
+		 
+	// });
+
+	/* search button configuration */
+	// show more button
+	// timeout
+	var tt;
+	$(".button-more" ).mouseover(function(event){
+
+		$(".button-more").not("#button-show-more").show(100);
+
+		$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-e"},text:false});
+
+		if(tt){clearTimeout(tt);}
+	});
+
+	$(".button-more" ).mouseout(function(event){
+		tt = setTimeout(
+			function(){
+					$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-w"},text:false});
+					$(".button-more").not("#button-show-more").hide(100);}
+			, 200);
+	});
+
+	// expand all fucntion
+	$("#button-expand-all").bind("click",function(){
+		$("#materials > div .ui-accordion-content").fadeIn();
+
+	});
+
+	// collapse all fucntion
+	$("#button-collapse-all").bind("click",function(){
+
+		$("#materials > div .ui-accordion-content").fadeOut();
+
+	});
+
 
 	/* search function */
 	// query-by-group
@@ -358,7 +406,7 @@ function DecorateResult() {
 	/* delete button */
 	$(".delete-button").button({
 		icons:{primary:"ui-icon-close"},
-		text:false
+		text:false,
 	})
 	$('.delete-button').width(20);
 	$('.delete-button').height(20);
@@ -384,7 +432,7 @@ function DecorateResult() {
 		var parent = $(this).closest('div');
 		parent.find('.hideable').fadeToggle();
 		$(".ui-button-icon-primary", this)
-			.toggleClass("ui-icon-zoomin ui-icon-zoomout");				 
+			.toggleClass("ui-icon-zoomin ui-icon-zoomout");	
 	});
 
 	/* export button */
@@ -408,7 +456,9 @@ function DecorateResult() {
 
 	$(".export-button , .export-option" ).mouseout(function(event){
 		var parent = $(this).closest('div');
-		tt = setTimeout($.proxy(function() {parent.find('.export-option').fadeOut(); }, this), 100)
+		tt = setTimeout(
+			$.proxy(function() {parent.find('.export-option').fadeOut(); }, this)
+			, 100)
 	});
 
 	$(".export-option" ).menu();
@@ -420,7 +470,7 @@ function DecorateResult() {
 
 	$(".export-json").unbind("click");
 	$(".export-json").click(function(event){
-		var parent = $(this).closest('div');
+		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/'+parent.attr('value');
 		window.open(url, '_blank');
@@ -428,7 +478,7 @@ function DecorateResult() {
 
 	$(".export-xml").unbind("click");
 	$(".export-xml").click(function(){
-		var parent = $(this).closest('div');
+		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
 		
@@ -437,7 +487,7 @@ function DecorateResult() {
 
 	$(".export-csv").unbind("click");
 	$(".export-csv").click(function(){
-		var parent = $(this).closest('div');
+		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?_id='+parent.attr('value');
 		
@@ -446,7 +496,7 @@ function DecorateResult() {
 
 	$(".edit-assay").unbind("click");
 	$(".edit-assay").bind("click" , function(){
-		var parent = $(this).closest('div');
+		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
 
 		EditAssay(id);
@@ -454,7 +504,7 @@ function DecorateResult() {
 
 	$(".clone-assay").unbind("click");
 	$(".clone-assay").bind("click" , function(){
-		var parent = $(this).closest('div');
+		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
 
 		EditAssay(id);
@@ -1471,7 +1521,9 @@ function FillEditBlank(label, doc){
 	$(label + " #ssrc").val(doc.sample.source);
 	$(label + " #sown1").val(doc.sample.owner.name);
 	$(label + " #sown2").val(doc.sample.owner.contact);
-	FillUser(label, "sample" , doc.sample.user);
+
+	if(!jQuery.isEmptyObject(doc.sample.user))
+		{FillUser(label, "sample" , doc.sample.user);}
 
 	// measurement
 	$(label + " #minst").val(doc.measurement.institution);
@@ -1513,8 +1565,8 @@ function FillEditBlank(label, doc){
 			FillResultRow(label + " .result-row:eq(2) " , doc.measurement.results[i]);
 		};
 	}
-
-	FillUser(label, "measurement" , doc.measurement.user);
+	if(!jQuery.isEmptyObject(doc.measurement.user))
+		{FillUser(label, "measurement" , doc.measurement.user);}
 
 	// Data Source
 	$(label + " #dref").val(doc.data_source.reference);
@@ -1522,7 +1574,8 @@ function FillEditBlank(label, doc){
 	$(label + " #dinp2").val(doc.data_source.input.contact);
 	$(label + " #dinp3").val(doc.data_source.input.date);
 	$(label + " #dnotes").val(doc.data_source.notes);
-	FillUser(label, "data" , doc.data_source.user);
+	if(!jQuery.isEmptyObject(doc.data_source.user))
+		{FillUser(label, "data" , doc.data_source.user);}
 
 }
 
