@@ -1,67 +1,59 @@
 <div class="accordion" value=${_id}>
 
 <h3 style="height:19px">
-
-<a href="#">
-
-	<span class="faded-less heading-grouping">${grouping}</span>
-	<span class="heading-name"><b>${sample.name}</b></span>
-
-	{{each iso}}
-
-		{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
-
-			{{if $value.type == "measurement"}}
-			
-				<span class="heading-isotope-name">${$value.isotope} </span>
-				{{if $value.value.length == 1 }}
-					<span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>					
+	
+	<a href="#">
+		<span class="faded-less heading-grouping">${grouping}</span>
+		<span class="heading-name"><b>${sample.name}</b></span>
+	
+		{{each iso}}
+	
+			{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
+	
+				{{if $value.type == "measurement"}}
+				
+					<span class="heading-isotope-name">${$value.isotope} </span>
+					{{if $value.value.length == 1 }}
+						<span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>					
+					{{/if}}
+					{{if $value.value.length == 2 }}
+						<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+					{{/if}}		
+					{{if $value.value.length == 3 }}
+						<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+					{{/if}}	 
 				{{/if}}
-				{{if $value.value.length == 2 }}
-					<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
-				{{/if}}		
-				{{if $value.value.length == 3 }}
-					<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
-				{{/if}}	 
+	
+				{{if $value.type == "limit"}}
+					<span class="heading-isotope-name">${$value.isotope} </span>
+					<span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>		 
+				{{/if}}
+	
+				{{if $value.type == "range"}}
+					<span class="heading-isotope-name">${$value.isotope} </span>
+					<span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>						 
+				{{/if}}
+	
 			{{/if}}
-
-			{{if $value.type == "limit"}}
-				<span class="heading-isotope-name">${$value.isotope} </span>
-				<span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>		 
-			{{/if}}
-
-			{{if $value.type == "range"}}
-				<span class="heading-isotope-name">${$value.isotope} </span>
-				<span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>						 
-			{{/if}}
-
+	
+		{{/each}}
+	
+		{{if $(measurement.results).length > 2 }}
+			<span class="heading-isotope-name-short">&hellip;</span> 
 		{{/if}}
-
-	{{/each}}
-
-	{{if $(measurement.results).length > 2 }}
-		<span class="heading-isotope-name-short">&hellip;</span> 
-	{{/if}}
-
-</a>	 
-
-<button class="delete-button" type="button" style="font-size: 8px; float:right">&nbsp</button>
-<button class="export-button" type="button" style="font-size: 8px; float:right; display:none">&nbsp</button>
-<button class="detail-button" type="button" style="font-size: 8px; float:right; display:none">&nbsp</button>
-<ul class="export-option" style="display:none">
-	<li><a href="#" class="export-json" >Export JSON</a></li>
-	<li><a href="#" class="export-xml" >Export XML</a></li>
-	<li><a href="#" class="export-csv" >Export CSV</a></li>
-	<li><a href="#" class="edit-assay">Edit</a></li>
-	<li><a href="#" class="clone-assay">Duplicate</a></li>
-</ul>
+	
+		<button class="delete-button" type="button" style="float:right;">&nbsp</button>
+		<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
+		<button class="detail-button" type="button" style="float:right;display:none">&nbsp</button>
+	</a>	 
 
 </h3>
 
-<div id="dinfo">
 
-<ul>
-<li class="sample-name"> 
+<div>
+	<span id="meas-info">
+		<ul>
+			<li class="sample-name"> 
 
 	<ul>
 
@@ -104,6 +96,28 @@
 					</td>
 				</tr>
 			{{/if}}
+
+			
+			<tr class="hideable" style="display:none">
+				<td></td>
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each sample.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
+				
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+			</tr>
 	
 		</table>
 		</li>
@@ -232,7 +246,27 @@
 					<td class="m_description"><span class="faded">${measurement.description}</span></td>
 				</tr>
 			{{/if}}
-		
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each measurement.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
+				
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+			</tr>
 		</table>
 		</li>
 
@@ -262,15 +296,57 @@
 					<td>${data_source.notes}</td>
 				</tr>
 			{{/if}}
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each data_source.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
 				
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+			</tr>
 		</table>	
 		</li> 
 
 	</ul>	 
-	 
-</li>
+				 
+			</li>
+		
+		</ul>
+	</span>
 
-</ul>
+	<span id="export-menu">
+		<ul class="export-option" style="display:none">
+		<li class="export-menu">
+			<a href="#">Export</a>
+			<ul>
+				<li><a href="#" class="export-json" >Export JSON</a></li>
+				<li><a href="#" class="export-xml" >Export XML</a></li>
+				<li><a href="#" class="export-csv" >Export CSV</a></li>
+			</ul>
+		</li>
+		<li class="edit-menu">
+			<a href="#">Edit</a>
+			<ul>
+				<li><a href="#" class="edit-assay">Modify</a></li>
+				<li><a href="#" class="clone-assay">Duplicate</a></li>
+			</ul>
+		</li>
+		</ul>
+	</span>
 
 </div>
+
 </div>

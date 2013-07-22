@@ -50,7 +50,7 @@ var total_rows=0,bookmark,max_entries=20,search_url,skip=0,val="all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 var u_color = "#212121", th_color="#212121";
-
+var login_flag = 0;
 /*
 $File: login.js
 $Author: Zheng Li
@@ -64,13 +64,24 @@ $(document).ready(function(){
 		loggedIn : function() {
 			// Tabs
 			$( "#tabs" ).tabs({disabled: [] });
-			
+
+			// set login_flag
+			login_flag = 1;
+			// enable the edit function
+			$(".edit-menu").removeClass("ui-state-disabled");
+
 			// close the login tab
 			setTimeout('$("#contactForm").slideUp("slow")', 2000);
 		}, 
 		loggedOut : function() {
         	// Tabs
 			$( "#tabs" ).tabs({disabled: [ 1 , 2] });
+
+			// set login_flag
+			login_flag = 0;
+			// disable the edit function
+			$(".edit-menu").addClass("ui-state-disabled");
+
     	}
 	});
 
@@ -349,6 +360,8 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-close"},
 		text:false
 	})
+	$('.delete-button').width(20);
+	$('.delete-button').height(20);
 	$(".delete-button" ).click(function(event){
 		event.stopPropagation(); // this is
 		event.preventDefault(); // the magic
@@ -361,7 +374,9 @@ function DecorateResult() {
 	$(".detail-button").button({
 		icons:{primary:"ui-icon-zoomin"},
 		text:false
-	})
+	});
+	$('.detail-button').width(20);
+	$('.detail-button').height(20);
 	$(".detail-button" ).unbind();
 	$(".detail-button" ).click(function(event){
 		event.stopPropagation(); // this is
@@ -376,12 +391,15 @@ function DecorateResult() {
 	$(".export-button").button({
 		icons:{primary:"ui-icon-arrowthickstop-1-s"},
 		text:false
-	})
+	});
+	$('.export-button').width(20);
+	$('.export-button').height(20);
 
-	$(".export-button,.export-option" ).unbind();
-	
 	// timeout
 	var tt;
+	$(".export-button,.export-option" ).unbind("mouseover");
+	$(".export-button,.export-option" ).unbind("mouseout");
+	
 	$(".export-button , .export-option" ).mouseover(function(event){
 		var parent = $(this).closest('div');
 		parent.find('.export-option').fadeIn();
@@ -390,8 +408,15 @@ function DecorateResult() {
 
 	$(".export-button , .export-option" ).mouseout(function(event){
 		var parent = $(this).closest('div');
-		tt = setTimeout($.proxy(function() {parent.find('.export-option').fadeOut(); }, this), 200)
+		tt = setTimeout($.proxy(function() {parent.find('.export-option').fadeOut(); }, this), 100)
 	});
+
+	$(".export-option" ).menu();
+	if(!login_flag){
+		// disable the edit function
+		$(".edit-menu").addClass("ui-state-disabled");
+	}
+	
 
 	$(".export-json").unbind("click");
 	$(".export-json").click(function(event){
@@ -1111,15 +1136,13 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			if(uname != "" && utype != "" && uvalue != ""){
-				suser.push({
-						"name": uname,
-						"description": udesc,
-						"type": 	utype,
-						"value": 	uvalue,
-						"unit": 	uunit
-				});
-			}
+			suser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	uvalue,
+					"unit": 	uunit
+			});
 		});
 
 		// Loop through measurement user
@@ -1130,15 +1153,13 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			if(uname != "" && utype != "" && uvalue != ""){
-				muser.push({
-						"name": uname,
-						"description": udesc,
-						"type": 	utype,
-						"value": 	uvalue,
-						"unit": 	uunit
-				});
-			}
+			muser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	uvalue,
+					"unit": 	uunit
+			});
 		});
 
 		// Loop through data source user
@@ -1149,15 +1170,13 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			if(uname != "" && utype != "" && uvalue != ""){
-				duser.push({
-						"name": uname,
-						"description": udesc,
-						"type": 	utype,
-						"value": 	uvalue,
-						"unit": 	uunit
-				});
-			}
+			duser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	uvalue,
+					"unit": 	uunit
+			});
 		});
 
 		// Build the JSON for the mdate block

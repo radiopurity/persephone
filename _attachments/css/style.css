@@ -235,6 +235,24 @@ div.content-text {
 	padding-bottom:13px;
 }
 
+/* slide down list*/
+.ui-menu {
+	width: 90px;
+}
+
+#meas-info{
+	padding-top: 1em;
+	float:left;
+}
+#export-menu{
+	float:right;
+	padding-top: 1px;
+}
+
+.accordion .ui-accordion-content {  
+    padding:0 0 1em 2.2em; 
+}  
+
 li.sample-name {
 	margin-bottom: 4px;	
 }
@@ -329,31 +347,6 @@ label.error {
 	color: #e18e94;
 	margin-left: 20px; 
 	padding-right: 1em;			
-}
-
-/* slide down list*/
-.export-option li{	
-	float: center;
-	list-style: none;
-	font: 12px Tahoma, Arial
-}
-
-.export-option li a{
-	display: block;
-	background: #eeeeee;
-	padding: 5px 12px;
-	text-decoration: none;
-	border: 1px solid #dddddd;
-	width: 64px;
-	color: #FFFFFF;
-	white-space: nowrap;
-	margin-left: 765px;
-	z-index:99999;
-	position: relative;
-}
-
-.export-option li a:hover{
-	background: #ecb7b8;
 }
 
 /*
