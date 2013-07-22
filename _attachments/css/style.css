@@ -406,8 +406,8 @@ Back to top button
 }
 
 /* Submit & Edit Page */
-#div-submit , #div-edit{
-	width: 380px;
+.div-submit , .div-edit{
+	width: 470px;
 	margin: 5px auto 30px auto;
 }
 

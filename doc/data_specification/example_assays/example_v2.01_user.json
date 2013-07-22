@@ -33,7 +33,13 @@
       { "isotope":"Th-232", "type":"limit",       "value":[3.3],    "unit":"ppb" },
       { "isotope":"U-238",  "type":"limit",       "value":[19],     "unit":"ppb" },
       { "isotope":"K",      "type":"measurement", "value":[170,30], "unit":"ppt" }
-    ]
+    ],
+    "user": [ {
+      "name":        "Data file",
+      "description": ".spe data file",
+      "type":        "string",
+      "value":       "2010-A-0092.spe"
+    } ],
   },
 
   "data_source": {
@@ -45,13 +51,6 @@
     },
     "notes":                "There seems to be a typo in the results list in the report. Interperate U-239 as U-238."    
   },
-
-  "user": [ {
-      "name":        "Data file",
-      "description": ".spe data file",
-      "type":        "string",
-      "value":       "2010-A-0092.spe"
-  } ],
 
   "specification":          "2.01"
 

@@ -240,7 +240,7 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".name-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"name<string>\"]","_view":"query-by-name"}
+		options = {"_search":"&sort=[\"sample.name<string>\"]","_view":"query-by-name"}
 		searchResults(val , options);
 	});
 
@@ -388,11 +388,12 @@ function DecorateResult() {
 		if(tt){clearTimeout(tt);}
 	});
 
-	$(".export-button,.export-option" ).mouseout(function(event){
+	$(".export-button , .export-option" ).mouseout(function(event){
 		var parent = $(this).closest('div');
 		tt = setTimeout($.proxy(function() {parent.find('.export-option').fadeOut(); }, this), 200)
 	});
 
+	$(".export-json").unbind("click");
 	$(".export-json").click(function(event){
 		var parent = $(this).closest('div');
 		var url = window.location.protocol + '//' + window.location.host 
@@ -400,6 +401,7 @@ function DecorateResult() {
 		window.open(url, '_blank');
 	});
 
+	$(".export-xml").unbind("click");
 	$(".export-xml").click(function(){
 		var parent = $(this).closest('div');
 		var url = window.location.protocol + '//' + window.location.host 
@@ -408,6 +410,7 @@ function DecorateResult() {
 		window.open(url, '_blank');
 	});
 
+	$(".export-csv").unbind("click");
 	$(".export-csv").click(function(){
 		var parent = $(this).closest('div');
 		var url = window.location.protocol + '//' + window.location.host 
@@ -416,7 +419,16 @@ function DecorateResult() {
 		window.open(url, '_blank');
 	});
 
+	$(".edit-assay").unbind("click");
 	$(".edit-assay").bind("click" , function(){
+		var parent = $(this).closest('div');
+		var id = parent.attr('value');
+
+		EditAssay(id);
+	});
+
+	$(".clone-assay").unbind("click");
+	$(".clone-assay").bind("click" , function(){
 		var parent = $(this).closest('div');
 		var id = parent.attr('value');
 
@@ -749,7 +761,6 @@ function CreateAssayPage(options){
 			var clone = $(label+".user-input-template").clone(true)
 			.removeClass('user-input-template').addClass('row-user-sample');		
 			clone.insertAfter($(this).closest('tr')).show();
-			//$("#user-sample-null").hide();
 		});
 
 		$(label+".button-user-remove").button({
@@ -902,6 +913,7 @@ function CreateAssayPage(options){
 		$(label+"#button-check").button();
 		$(label+"#button-submit").button();
 		$(label+"#button-delete").button();
+		$(label+"#button-edit").button();
 
 		$(label+"input:text:visible:first").focus();
 
@@ -946,7 +958,7 @@ function db_delete(){
 	db.saveDoc(doc , {
 			success: function() {
 				$("#tab-edit #input-form").empty();
-				$("#div-edit").hide();
+				$(".div-edit").hide();
 				edit_id = "";
 				edit_rev = "";
 				$( "#tabs" ).tabs({ active: 0 });
@@ -983,7 +995,7 @@ function click_delete(options) {
 
 /*
 Submit Assays
-options = {"label":"tab-submit" , "dialog":"#dialog-submit "}
+options = {"label":"tab-submit" , "dialog":"#dialog-submit " , "method":"update"}
 */
 function click_submit(options) {
 	label = options.label;
@@ -1088,8 +1100,65 @@ function click_submit(options) {
 			}			
 		});
 	
-		// Build the JSON for the results block
-		var user = [];
+		// Build the JSON for the user block
+		var suser=[],muser=[],duser=[];
+
+		// Loop through sample user
+		$(label + ".sample-input .row-user-sample").each(function(){
+			var uname 	= $(this).find(".uname").val();
+			var udesc	= $(this).find(".udesc").val();
+			var utype	= $(this).find(".utype").val();
+			var uvalue	= $(this).find(".uvalue").val();
+			var uunit	= $(this).find(".uunit").val();
+
+			if(uname != "" && utype != "" && uvalue != ""){
+				suser.push({
+						"name": uname,
+						"description": udesc,
+						"type": 	utype,
+						"value": 	uvalue,
+						"unit": 	uunit
+				});
+			}
+		});
+
+		// Loop through measurement user
+		$(label + ".measurement-input .row-user-sample").each(function(){
+			var uname 	= $(this).find(".uname").val();
+			var udesc	= $(this).find(".udesc").val();
+			var utype	= $(this).find(".utype").val();
+			var uvalue	= $(this).find(".uvalue").val();
+			var uunit	= $(this).find(".uunit").val();
+
+			if(uname != "" && utype != "" && uvalue != ""){
+				muser.push({
+						"name": uname,
+						"description": udesc,
+						"type": 	utype,
+						"value": 	uvalue,
+						"unit": 	uunit
+				});
+			}
+		});
+
+		// Loop through data source user
+		$(label + ".data-input .row-user-sample").each(function(){
+			var uname 	= $(this).find(".uname").val();
+			var udesc	= $(this).find(".udesc").val();
+			var utype	= $(this).find(".utype").val();
+			var uvalue	= $(this).find(".uvalue").val();
+			var uunit	= $(this).find(".uunit").val();
+
+			if(uname != "" && utype != "" && uvalue != ""){
+				duser.push({
+						"name": uname,
+						"description": udesc,
+						"type": 	utype,
+						"value": 	uvalue,
+						"unit": 	uunit
+				});
+			}
+		});
 
 		// Build the JSON for the mdate block
 		var mdate = [];
@@ -1100,27 +1169,8 @@ function click_submit(options) {
 		}
 		
 
-		// Loop through all the user
-		$(label + " .row-user-sample").each(function(){
-			var uname = $(this).find(".uname").val();
-			var udesc	= $(this).find(".udesc").val();
-			var utype	= $(this).find(".utype").val();
-			var uvalue	= $(this).find(".uvalue").val();
-			var uunit	= $(this).find(".uunit").val();
-
-			if(uname != "" && utype != "" && uvalue != ""){
-				user.push({
-						"name": uname,
-						"description": udesc,
-						"type": 	utype,
-						"value": 	uvalue,
-						"unit": 	uunit
-				});
-			}
-		});
-
 		// Build the overall JSON
-		if(label == "tab-edit " || label == "tab-edit"){
+		if(options.method == 'update'){
 			var output_json =	{
 				"_id":					edit_id,
 				"_rev":					edit_rev,
@@ -1134,7 +1184,9 @@ function click_submit(options) {
 					"owner": {
 						"name":			$(label + "#sown1").val(),
 						"contact":		$(label + "#sown2").val()
-					}
+					},
+				"user": 				suser
+
 				},
 
 				"measurement": {
@@ -1151,7 +1203,8 @@ function click_submit(options) {
 						"name" :				 $(label + "#mprac1").val(),
 						"contact":			 $(label + "#mprac2").val()
 					},
-					"description":		 $(label + "#mdesc").val()
+					"description":		 $(label + "#mdesc").val(),
+					"user": 				muser
 				},
 		
 				"data_source": {
@@ -1161,16 +1214,14 @@ function click_submit(options) {
 					 "contact":			$(label + "#dinp2").val(),
 					 "date":			$(label + "#dinp3").val()
 				 },
-				 "notes" :				$(label + "#dnotes").val()
+				 "notes" :				$(label + "#dnotes").val(),
+				 "user": 				duser
 				},
 
-				"user": 				user,
 				"specification" : 		"2.02"
 			};
 		}else{
 			var output_json =	{
-				"_id":					edit_id,
-				"_rev":					edit_rev,
 				"type":					"measurement",
 				"grouping":				$(label + "#grp").val(),
 				"sample": {
@@ -1181,7 +1232,8 @@ function click_submit(options) {
 					"owner": {
 						"name":			$(label + "#sown1").val(),
 						"contact":		$(label + "#sown2").val()
-					}
+					},
+					"user": 				suser
 				},
 
 				"measurement": {
@@ -1198,20 +1250,21 @@ function click_submit(options) {
 						"name" :				 $(label + "#mprac1").val(),
 						"contact":			 $(label + "#mprac2").val()
 					},
-					"description":		 $(label + "#mdesc").val()
+					"description":		 $(label + "#mdesc").val(),
+					"user": 				muser
 				},
 		
 				"data_source": {
-				 "reference":			$(label + "#dref").val(),
-				 "input" : {
-					 "name":			$(label + "#dinp1").val(),
-					 "contact":			$(label + "#dinp2").val(),
-					 "date":			$(label + "#dinp3").val()
-				 },
-				 "notes" :				$(label + "#dnotes").val()
+					"reference":			$(label + "#dref").val(),
+					"input" : {
+						 "name":			$(label + "#dinp1").val(),
+						 "contact":			$(label + "#dinp2").val(),
+						 "date":			$(label + "#dinp3").val()
+					},
+					"notes" :				$(label + "#dnotes").val(),
+					"user": 				duser
 				},
 
-				"user": 				user,
 				"specification" : 		"2.02"
 			};
 		}
@@ -1241,10 +1294,10 @@ function click_submit(options) {
 						$( options.dialog ).dialog({
 							modal: true,
 							buttons: {
-								"Index": function() {
+								"Back": function() {
 									$(this).dialog("close");
 									$("#tab-edit #input-form").empty();
-									$("#div-edit").hide();
+									$(".div-edit").hide();
 									edit_id = "";
 									edit_rev = "";
 									$( "#tabs" ).tabs({ active: 0 });
@@ -1257,7 +1310,12 @@ function click_submit(options) {
 						});
 
 						$(options.dialog).empty();
-						$(options.dialog).append('<p>Edited successfully.</p> <p>Chose whether you want to go back to index or keep its contents so you can continue editing a similar entry.</p>');
+						if(options.method == "update"){
+							$(options.dialog).append('<p>Edited successfully.</p> <p>Chose whether you want to go back to search page or keep its contents so you can continue editing a similar entry.</p>');
+						}
+						else{
+							$(options.dialog).append('<p>Create new measurement successfully.</p> <p>Chose whether you want to go back to search page or keep its contents so you can continue editing a similar entry.</p>');
+						}
 	
 						$( options.dialog ).dialog("open" );
 					}
@@ -1279,7 +1337,7 @@ function click_submit(options) {
 /*
 =============================================
 ==============				 ================
-==============	Edit Tab   ================
+==============	Edit tab 	 ================
 ==============				 ================
 =============================================
 */
@@ -1365,6 +1423,24 @@ function FillResultRow(label, doc) {
 	}
 }
 
+function FillUser(label, field , doc){
+	var len = doc.length;
+	for (var i = 0; i < len; i++) {
+		var clone = $(label+".user-input-template").clone(true)
+		.removeClass('user-input-template').addClass('row-user-sample');		
+
+		clone.insertAfter($(label + "."+ field +"-input .user-sample-null")).show();
+
+		// Fill the user block
+		$(label + "."+ field +"-input .row-user-sample:eq(0) .uname").val(doc[i].name);
+		$(label + "."+ field +"-input .row-user-sample:eq(0) .udesc").val(doc[i].description);
+		$(label + "."+ field +"-input .row-user-sample:eq(0) .utype").val(doc[i].type);
+		$(label + "."+ field +"-input .row-user-sample:eq(0) .uvalue").val(doc[i].value);
+		$(label + "."+ field +"-input .row-user-sample:eq(0) .uunit").val(doc[i].unit);
+	};
+	
+}
+
 // Fill the blank
 function FillEditBlank(label, doc){
 	$(label + " #grp").val(doc.grouping);
@@ -1376,6 +1452,7 @@ function FillEditBlank(label, doc){
 	$(label + " #ssrc").val(doc.sample.source);
 	$(label + " #sown1").val(doc.sample.owner.name);
 	$(label + " #sown2").val(doc.sample.owner.contact);
+	FillUser(label, "sample" , doc.sample.user);
 
 	// measurement
 	$(label + " #minst").val(doc.measurement.institution);
@@ -1417,13 +1494,17 @@ function FillEditBlank(label, doc){
 			FillResultRow(label + " .result-row:eq(2) " , doc.measurement.results[i]);
 		};
 	}
-	
+
+	FillUser(label, "measurement" , doc.measurement.user);
+
 	// Data Source
 	$(label + " #dref").val(doc.data_source.reference);
 	$(label + " #dinp1").val(doc.data_source.input.name);
 	$(label + " #dinp2").val(doc.data_source.input.contact);
 	$(label + " #dinp3").val(doc.data_source.input.date);
 	$(label + " #dnotes").val(doc.data_source.notes);
+	FillUser(label, "data" , doc.data_source.user);
+
 }
 
 // Show the assays' infomation
@@ -1440,7 +1521,7 @@ function EditAssay(_id) {
 					edit_id = data._id;
 					edit_rev = data._rev;
 					$("#tab-edit #input-form").empty();
-					$("#div-edit").show();
+					$(".div-edit").show();
 					options = {"label":"#tab-edit ","doc":data};
 					CreateAssayPage(options);
 				}

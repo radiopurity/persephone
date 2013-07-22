@@ -103,32 +103,47 @@
 			<!-- Data tab --> 
 			
 			<div id="tab-submit">
+				<div class="div-submit">
+					<button id="button-clear2" onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>				
+					<button id="button-check"	onclick="javascript:click_check('#tab-submit ');">Check</button>
+					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-submit ');">Clear warnings</button>
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>						
+				</div>
+
 
 				<div id="input-form" class="content"></div>
 				
 				<div id="dialog-submit" title="Entry submitted" style="display:none"></div>
 
-				<div id="div-submit">
+				<div class="div-submit">
 					<button id="button-clear2" onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>				
 					<button id="button-check"	onclick="javascript:click_check('#tab-submit ');">Check</button>
 					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-submit ');">Clear warnings</button>
-					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit'});">Submit</button>						
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>						
 				</div>
 
 			</div>
 								
 			<!-- Edit tab -->
 			<div id="tab-edit">
+				<div class="div-edit" style="display:none">
+					<button id="button-check"	onclick="javascript:click_check('#tab-edit ');">Check</button>
+					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-edit ');">Clear warnings</button>
+					<button id="button-delete" onclick="javascript:click_delete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>				
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Create New</button>						
+					<button id="button-edit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>						
+				</div>
 
 				<div id="input-form" class="content"></div>
 				
 				<div id="dialog-edit" title="Entry submitted" style="display:none"></div>
 
-				<div id="div-edit" style="display:none">
+				<div class="div-edit" style="display:none">
 					<button id="button-check"	onclick="javascript:click_check('#tab-edit ');">Check</button>
 					<button id="button-clear1" onclick="javascript:click_clear_warnings('#tab-edit ');">Clear warnings</button>
 					<button id="button-delete" onclick="javascript:click_delete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>				
-					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit'});">Submit</button>						
+					<button id="button-submit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Create New</button>						
+					<button id="button-edit" onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>						
 				</div>
 
 			</div>
