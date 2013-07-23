@@ -209,7 +209,8 @@ def map_to_formatted_record(map_data, in_record):
                 value= ResultsValue[j].replace("<", "").replace(" ","")
                 if ("(" in ResultsValue[j]):
                     a = ResultsValue[j].index('(')
-                    value = value+","+ResultsValue[j][a+1:].replace(")", "").replace(" ","")
+                    value = ResultsValue[j][:a].replace(" ","").replace("<", "")+","+ ResultsValue[j][a+1:].replace("(", "").replace(")", "").replace(" ","").replace("<", "")
+                    #value = value+","+ResultsValue[j][a+1:].replace(")", "").replace(" ","")
             else:
                 ResultType = "measurement"
                 if ("(" in ResultsValue[j]):
