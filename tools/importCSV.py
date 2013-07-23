@@ -144,8 +144,9 @@ def map():
                 temp = -1
 
             if temp == 17:
-                print ("----\nYou selected this as a result field.\nPlease specify the isotope in II-### or II or String Format\ne.g. U-235 , Th , or U early.\n")
+                print ("----\nYou selected this as a result field.\nPlease specify the isotope in II-### or II or String Format\ne.g. U-235 , Th , or U-early.\n(Isotope may NOT contain spaces.)\n")
                 isotope = modified_input("Isotope : ")
+                isotope = isotope.replace(" ", "")
                 print ("----")
                 temp = "R=" + isotope
 
@@ -208,7 +209,8 @@ def map_to_formatted_record(map_data, in_record):
                 value= ResultsValue[j].replace("<", "").replace(" ","")
                 if ("(" in ResultsValue[j]):
                     a = ResultsValue[j].index('(')
-                    value = value+","+ResultsValue[j][a+1:].replace(")", "").replace(" ","")
+                    value = ResultsValue[j][:a].replace(" ","").replace("<", "")+","+ ResultsValue[j][a+1:].replace("(", "").replace(")", "").replace(" ","").replace("<", "")
+                    #value = value+","+ResultsValue[j][a+1:].replace(")", "").replace(" ","")
             else:
                 ResultType = "measurement"
                 if ("(" in ResultsValue[j]):
