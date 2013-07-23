@@ -100,6 +100,7 @@
 			
 			<tr class="hideable" style="display:none">
 				<td></td>
+				{{if !jQuery.isEmptyObject(sample.user)}}
 				<td class="item">User</td>
 				<td>
 					<table>
@@ -117,6 +118,7 @@
 						{{/each}}
 					</table>
 				</td>
+				{{/if}}
 			</tr>
 	
 		</table>
@@ -249,6 +251,7 @@
 
 			<tr class="hideable" style="display:none">
 				<td></td>
+				{{if !jQuery.isEmptyObject(measurement.user)}}
 				<td class="item">User</td>
 				<td>
 					<table>
@@ -266,6 +269,7 @@
 						{{/each}}
 					</table>
 				</td>
+				{{/if}}
 			</tr>
 		</table>
 		</li>
@@ -299,6 +303,7 @@
 
 			<tr class="hideable" style="display:none">
 				<td></td>
+				{{if !jQuery.isEmptyObject(data_source.user)}}
 				<td class="item">User</td>
 				<td>
 					<table>
@@ -316,6 +321,7 @@
 						{{/each}}
 					</table>
 				</td>
+				{{/if}}
 			</tr>
 		</table>	
 		</li> 
@@ -332,16 +338,16 @@
 		<li class="export-menu">
 			<a>Export</a>
 			<ul>
-				<li><a href="#" class="export-json" >Export JSON</a></li>
-				<li><a href="#" class="export-xml" >Export XML</a></li>
-				<li><a href="#" class="export-csv" >Export CSV</a></li>
+				<li><a class="export-json" >Export JSON</a></li>
+				<li><a class="export-xml" >Export XML</a></li>
+				<li><a class="export-csv" >Export CSV</a></li>
 			</ul>
 		</li>
 		<li class="edit-menu">
 			<a>Edit</a>
 			<ul>
-				<li><a href="#" class="edit-assay">Modify</a></li>
-				<li><a href="#" class="clone-assay">Duplicate</a></li>
+				<li><a class="edit-assay">Modify</a></li>
+				<li><a class="clone-assay">Duplicate</a></li>
 			</ul>
 		</li>
 		</ul>

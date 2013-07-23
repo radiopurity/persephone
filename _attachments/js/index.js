@@ -238,49 +238,71 @@ $(document).ready(function(){
 	$("#button-collapse-all").button({icons:{primary: "ui-icon-folder-collapsed"},text:false});
 	$("#button-download-expanded").button({icons:{primary: "ui-icon-arrowthickstop-1-s"},text:false});
 
-	// // show more button animation
-	// $("#button-show-more").bind("click", function(event){
-	// 	event.stopPropagation();
-	// 	event.preventDefault(); 
-
-	// 	$(".button-more").not("#button-show-more").toggle(100);
-
-	// 	$(".ui-button-icon-primary", this).toggleClass("ui-icon-carat-1-e ui-icon-carat-1-w");
-		 
-	// });
 
 	/* search button configuration */
-	// show more button
+
+	// show more button animation
+	$("#button-show-more").bind("click", function(event){
+		event.stopPropagation();
+		event.preventDefault(); 
+
+		$(".button-more").not("#button-show-more").toggle(100);
+
+		$(".ui-button-icon-primary", this).toggleClass("ui-icon-carat-1-e ui-icon-carat-1-w");
+		 
+	});
+
+	// show more button mouseover animation
 	// timeout
-	var tt;
-	$(".button-more" ).mouseover(function(event){
+/*	var tmore=0;
+	$(".button-more" ).mouseenter(function(){
 
 		$(".button-more").not("#button-show-more").show(100);
 
-		$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-e"},text:false});
+		$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-w"},text:false});
 
-		if(tt){clearTimeout(tt);}
+		if(tmore){clearTimeout(tmore);}
 	});
 
-	$(".button-more" ).mouseout(function(event){
-		tt = setTimeout(
-			function(){
-					$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-w"},text:false});
-					$(".button-more").not("#button-show-more").hide(100);}
+	$(".button-more" ).mouseleave(function(){
+		tmore = setTimeout(
+			$.proxy(function(){
+					$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-e"},text:false});
+					$(".button-more").not("#button-show-more").hide(100);
+				}, this)
 			, 200);
 	});
-
+*/
 	// expand all fucntion
 	$("#button-expand-all").bind("click",function(){
-		$("#materials > div .ui-accordion-content").fadeIn();
+		$("#materials > div").each(function () {
 
+			if(!$(this).children("h3").hasClass("ui-state-active")){
+				$(this).accordion({ active: 0 });
+		
+				$(this).find('.detail-button').fadeToggle();
+		
+				$(this).find('.export-button').fadeToggle();
+		
+				$(this).find('.heading-isotope-name-short').toggle();
+			}
+		})
 	});
 
 	// collapse all fucntion
 	$("#button-collapse-all").bind("click",function(){
+		$("#materials > div").each(function () {
 
-		$("#materials > div .ui-accordion-content").fadeOut();
-
+			if($(this).children("h3").hasClass("ui-state-active")){
+				$(this).accordion({ active: false });
+		
+				$(this).find('.detail-button').fadeToggle();
+		
+				$(this).find('.export-button').fadeToggle();
+		
+				$(this).find('.heading-isotope-name-short').toggle();
+			}
+		})
 	});
 
 
@@ -299,7 +321,7 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".name-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"sample.name<string>\"]","_view":"query-by-name"}
+		options = {"_search":"&sort=[\"name<string>\"]","_view":"query-by-name"}
 		searchResults(val , options);
 	});
 
@@ -308,7 +330,7 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".th-header").css("color", "#e18e94");
-		options = {"_search":"","_view":"query-by-th"}
+		options = {"_search":"&sort=[\"th<number>\"]","_view":"query-by-th"}
 		searchResults(val , options);
 	});
 
@@ -317,7 +339,7 @@ $(document).ready(function(){
 		// change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".u-header").css("color", "#e18e94");
-		options = {"_search":"","_view":"query-by-u"}
+		options = {"_search":"&sort=[\"u<number>\"]","_view":"query-by-u"}
 		searchResults(val , options);
 	});
 
@@ -408,8 +430,6 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-close"},
 		text:false,
 	})
-	$('.delete-button').width(20);
-	$('.delete-button').height(20);
 	$(".delete-button" ).click(function(event){
 		event.stopPropagation(); // this is
 		event.preventDefault(); // the magic
@@ -423,8 +443,6 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-zoomin"},
 		text:false
 	});
-	$('.detail-button').width(20);
-	$('.detail-button').height(20);
 	$(".detail-button" ).unbind();
 	$(".detail-button" ).click(function(event){
 		event.stopPropagation(); // this is
@@ -440,21 +458,19 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-arrowthickstop-1-s"},
 		text:false
 	});
-	$('.export-button').width(20);
-	$('.export-button').height(20);
 
 	// timeout
 	var tt;
 	$(".export-button,.export-option" ).unbind("mouseover");
 	$(".export-button,.export-option" ).unbind("mouseout");
 	
-	$(".export-button , .export-option" ).mouseover(function(event){
+	$(".export-button , .export-option" ).mouseenter(function(event){
 		var parent = $(this).closest('div');
 		parent.find('.export-option').fadeIn();
 		if(tt){clearTimeout(tt);}
 	});
 
-	$(".export-button , .export-option" ).mouseout(function(event){
+	$(".export-button , .export-option" ).mouseleave(function(event){
 		var parent = $(this).closest('div');
 		tt = setTimeout(
 			$.proxy(function() {parent.find('.export-option').fadeOut(); }, this)
@@ -522,9 +538,11 @@ function FillTemplate(doc){
 	if ( doc.type == "measurement" ) {
 		for(var k in doc.measurement.results){
 			var item = doc.measurement.results[k];
+
 			// select Th
 			for (var i = 0; i < Th_priority.length; i++) {
-				if (item.isotope == Th_priority[i] && i < pri_th){
+				if (item.isotope == Th_priority[i] && i < pri_th 
+						&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
 					th = item;
 					pri_th = i;
 				}
@@ -532,7 +550,8 @@ function FillTemplate(doc){
 
 			// select U
 			for (var i = 0; i < U_priority.length; i++) {
-				if (item.isotope == U_priority[i] && i < pri_u){
+				if (item.isotope == U_priority[i] && i < pri_u 
+						&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
 					u = item;
 					pri_u = i;
 				}
@@ -1096,7 +1115,7 @@ function click_submit(options) {
 					result.push({
 						"isotope": risotope,
 						"type": "measurement",
-						"value": [rvalue],
+						"value": [parseFloat(rvalue)],
 						"unit":	runit 
 					});
 				}
@@ -1108,7 +1127,7 @@ function click_submit(options) {
 					result.push({
 						"isotope": risotope,
 						"type": "measurement",
-						"value": [rvalue,rmeaserr],
+						"value": [parseFloat(rvalue),parseFloat(rmeaserr)],
 						"unit":	runit
 					});
 				}
@@ -1121,7 +1140,7 @@ function click_submit(options) {
 					result.push({
 						"isotope":risotope,
 						"type":"measurement",
-						"value":[rvalue,rmeaserrp,rmeaserrm],
+						"value":[parseFloat(rvalue),parseFloat(rmeaserrp),parseFloat(rmeaserrm)],
 						"unit":runit
 					});
 				}
@@ -1132,7 +1151,7 @@ function click_submit(options) {
 					result.push({
 						"isotope":risotope,
 						"type":"limit",
-						"value":[rlimit],
+						"value":[parseFloat(rlimit)],
 						"unit":runit
 					});
 				}
@@ -1143,7 +1162,7 @@ function click_submit(options) {
 					result.push({
 						"isotope":risotope,
 						"type":"limit",
-						"value":[rlimit,rlimitcl],
+						"value":[parseFloat(rlimit),parseFloat(rlimitcl)],
 						"unit":runit
 					});
 				}
@@ -1155,7 +1174,7 @@ function click_submit(options) {
 					result.push({
 						"isotope":risotope,
 						"type":"range",
-						"value":[rrangel,rrangeh],
+						"value":[parseFloat(rrangel),parseFloat(rrangeh)],
 						"unit":runit
 					});
 				}
@@ -1168,13 +1187,55 @@ function click_submit(options) {
 					result.push({
 						"isotope":risotope,
 						"type":"range",
-						"value":[rrangel,rrangeh,rrangecl],
+						"value":[parseFloat(rrangel),parseFloat(rrangeh),parseFloat(rrangecl)],
 						"unit":runit
 					});
 				}
 			}			
 		});
 	
+		// Build the JSON for the sort indices of uranium & thorium
+		// unit convert dict
+		unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 , "nBq/kg":1 , "uBq/kg":1000 , "mBq/kg":1000000}
+
+		var sort_indices = {"th":999999999,"u":999999999}
+		var pri_th=100,pri_u=100;
+		for(var k in result){
+			var item = result[k];
+	
+			// select Th
+			for (var i = 0; i < Th_priority.length; i++) {
+				if (item.isotope == Th_priority[i] && i < pri_th 
+					&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
+
+					if(unit.hasOwnProperty(item.unit)){
+						sort_indices.th = parseFloat(item.value[0] * unit[item.unit]);
+						pri_th = i;
+					}
+
+					else if(sort_indices.th == 999999999){
+						sort_indices.th = 99999999;
+					}
+				}
+			};
+	
+			// select U
+			for (var i = 0; i < U_priority.length; i++) {
+				if (item.isotope == U_priority[i] && i < pri_u 
+					&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
+
+					if(unit.hasOwnProperty(item.unit)){
+						sort_indices.u = parseFloat(item.value[0] * unit[item.unit]);
+						pri_u = i;
+					}
+
+					else if(sort_indices.u == 999999999){
+						sort_indices.u = 99999999;
+					}
+				}
+			};
+		}
+
 		// Build the JSON for the user block
 		var suser=[],muser=[],duser=[];
 
@@ -1186,13 +1247,25 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			suser.push({
+			if(utype == "measurement" || utype == "range" || utype == "limit"){
+				suser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	[parseFloat(uvalue)],
+					"unit": 	uunit
+				});
+			}
+			else{
+				suser.push({
 					"name": uname,
 					"description": udesc,
 					"type": 	utype,
 					"value": 	uvalue,
 					"unit": 	uunit
-			});
+				});
+			}
+			
 		});
 
 		// Loop through measurement user
@@ -1203,13 +1276,24 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			muser.push({
+			if(utype == "measurement" || utype == "range" || utype == "limit"){
+				muser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	[parseFloat(uvalue)],
+					"unit": 	uunit
+				});
+			}
+			else{
+				muser.push({
 					"name": uname,
 					"description": udesc,
 					"type": 	utype,
 					"value": 	uvalue,
 					"unit": 	uunit
-			});
+				});
+			}
 		});
 
 		// Loop through data source user
@@ -1220,13 +1304,24 @@ function click_submit(options) {
 			var uvalue	= $(this).find(".uvalue").val();
 			var uunit	= $(this).find(".uunit").val();
 
-			duser.push({
+			if(utype == "measurement" || utype == "range" || utype == "limit"){
+				duser.push({
+					"name": uname,
+					"description": udesc,
+					"type": 	utype,
+					"value": 	[parseFloat(uvalue)],
+					"unit": 	uunit
+				});
+			}
+			else{
+				duser.push({
 					"name": uname,
 					"description": udesc,
 					"type": 	utype,
 					"value": 	uvalue,
 					"unit": 	uunit
-			});
+				});
+			}
 		});
 
 		// Build the JSON for the mdate block
@@ -1257,6 +1352,8 @@ function click_submit(options) {
 				"user": 				suser
 
 				},
+
+				"sort_indices": 	sort_indices,
 
 				"measurement": {
 					"institution":		 $(label + "#minst").val(),
@@ -1304,6 +1401,8 @@ function click_submit(options) {
 					},
 					"user": 				suser
 				},
+
+				"sort_indices": 	sort_indices,
 
 				"measurement": {
 					"institution":		 $(label + "#minst").val(),

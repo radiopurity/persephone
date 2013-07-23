@@ -138,6 +138,7 @@ div.content-text {
 }
 
 #div-search {
+	height: 40px;
 	width: 600px;
 	margin: 5px 5px 5px 250px;
 }
@@ -171,7 +172,7 @@ div.content-text {
 
 /* for table header */
 .table-header .ui-accordion-header { 
-	background: #dddddd !important;
+	background: #eeeeee !important;
 	font-weight: bold;
 }
 
@@ -235,6 +236,11 @@ div.content-text {
 	padding-bottom:13px;
 }
 
+/* output button */
+.delete-button,.detail-button,.export-button{
+	width:20px !important;
+	height:20px !important;
+}
 /* slide down list*/
 .ui-menu {
 	width: 90px;

@@ -9,5 +9,6 @@
    "README.md",
    ".gitignore",
    ".git",
-   "LICENSE"
+   "LICENSE",
+   "tools"
 ]

@@ -48,27 +48,27 @@ function (doc) {
 				}
 			};
 		}
-
+		tvalue= parseFloat(th.value[0]);
 		 // Convert the unit
 		if(th.unit=="ppt"){
-			emit([1,th.value[0]],doc);
+			emit([1,tvalue],doc);
 		}else
 		if(th.unit=="ppb"){
-			emit([1,th.value[0]*1000],doc);
+			emit([1,tvalue*1000],doc);
 		}else
 		if(th.unit=="ppm"){
-			emit([1,th.value[0]*1000000],doc);
+			emit([1,tvalue*1000000],doc);
 		}else
 		if(th.unit=="nBq/kg"){
-			emit([2,th.value[0]],doc);
+			emit([2,tvalue],doc);
 		}else
 		if(th.unit=="uBq/kg"){
-			emit([2,th.value[0]*1000],doc);
+			emit([2,tvalue*1000],doc);
 		}else
 		if(th.unit=="mBq/kg"){
-			emit([2,th.value[0]*1000000],doc);
+			emit([2,tvalue*1000000],doc);
 		}else{
-			emit([3,th.value[0]],doc);
+			emit([3,tvalue],doc);
 		}
 	}
 };
