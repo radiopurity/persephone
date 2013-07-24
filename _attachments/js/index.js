@@ -513,6 +513,15 @@ function DecorateResult() {
 		window.open(url, '_blank');
 	});
 
+	$(".export-html").unbind("click");
+	$(".export-html").click(function(){
+		var parent = $(this).closest('.accordion');
+		var url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/_design/persephone/_list/exportHTML/assay.xml?_id='+parent.attr('value');
+		
+		window.open(url, '_blank');
+	});
+
 	$(".export-csv").unbind("click");
 	$(".export-csv").click(function(){
 		var parent = $(this).closest('.accordion');
