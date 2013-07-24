@@ -59,7 +59,6 @@ $Description: this part handles query, filter, scroll function for search tab
 Copyright Chris Anderson 2011
 */
 $(document).ready(function(){
-
 	$("#contactForm").couchLogin({
 		loggedIn : function() {
 			// Tabs
@@ -870,31 +869,55 @@ function CreateAssayPage(options){
 		$(label+" #input").validate({
 
 			rules: {
-				grp:			 "required", 
-				sname:		 "required",	
+				grp:			"required", 
+				sname:			"required",	
 				dref:			"required",
-				dinp1:		 "required",
-				dinp2:		 "required",
-				dinp3:		 "required"							
+				dinp1:			"required",
+				dinp2:			"required",
+				dinp3:			{
+									required:true,
+									dateISO:true
+								},
+				mdate1:			{
+									dateISO:true
+								},
+				mdate2a:		{
+									dateISO:true
+								},	
+				mdate2b:		{
+									dateISO:true
+								}		
 			}, 
 
 			messages: {
-				grp:			 "Required", 
-				sname:		 "Required",	
+				grp:			"Required", 
+				sname:			"Required",	
 				dref:			"Required",
-				dinp1:		 "Required",
-				dinp2:		 "Required",
-				dinp3:		 "Required"		
+				dinp1:			"Required",
+				dinp2:			"Required",
+				dinp3:			{
+									required: "Required",
+									dateISO: "Invalide date format"
+								},
+				mdate1:			{
+									dateISO: "Invalide date format"
+								},
+				mdate2a:		{
+									dateISO: "Invalide date format"
+								},	
+				mdate2b:		{
+									dateISO: "Invalide date format"
+								}
 			},
 
 			errorPlacement: function(error, element) {
-				error.appendTo(element.next('.istatus'));
+				element.nextAll('.istatus').empty();
+				error.appendTo(element.nextAll('.istatus'));
 			}			
 
 		});	 
 
 		// Autocomplete functions
-
 		$(label+".risotope").bind( 'focus', function() {
 			$(this).autocomplete({source:isotopes, minLength:0});
 			$(this).autocomplete('search', '');
@@ -1084,7 +1107,7 @@ function click_delete(options) {
 	});
 	$(options.dialog).empty();
 	$(options.dialog).append('<p>Are you sure to delete this measurement?</p>');
-	$( options.dialog ).dialog("open" );
+	$(options.dialog ).dialog("open" );
 }
 
 /*
@@ -1437,6 +1460,11 @@ function click_submit(options) {
 			};
 		}
 
+		// var schema = tv4.getSchema('../schema/v2.01.schema.json');
+		
+		// if(!tv4.validate(output_json, schema)){
+		// 	alert(tv4.error);
+		// }
 
 		db.saveDoc(output_json , {
 				success: function(response, textStatus, jqXHR) {
