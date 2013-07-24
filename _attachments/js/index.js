@@ -304,6 +304,19 @@ $(document).ready(function(){
 		})
 	});
 
+	// download all the expanded result into csv
+	$("#button-download-expanded").bind("click" , function(){
+		var idlist= new Array();;
+		$(".accordion:visible .ui-accordion-header-active").each(function(){
+			var parent = $(this).closest('.accordion');
+			idlist.push('"' + parent.attr('value') + '"');
+		});
+
+		var url = window.location.protocol + '//' + window.location.host 
+				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=['+ idlist + ']';
+
+		window.open(url, '_blank');
+	});
 
 	/* search function */
 	// query-by-group
@@ -504,7 +517,7 @@ function DecorateResult() {
 	$(".export-csv").click(function(){
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?_id='+parent.attr('value');
+				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=["'+parent.attr('value') + '"]';
 		
 		window.open(url, '_blank');
 	});
