@@ -167,10 +167,16 @@ $(document).ready(function(){
 */
 
 $(document).ready(function(){
+
 	/* index intial configuration */
 	// Set the appropriate logo
-	$("#logo").attr("src", "images/" + db.name + ".png");
-	
+
+	if ( db.name.indexOf("rp") >= 0 || db.name.indexOf("mj") >= 0 ) { 
+       $("#logo").attr("src", "images/" + db.name + ".png");
+    } else {
+       $("#logo").attr("src", "images/logo.png");
+    }	
+
 	// Tabs
 	$( "#tabs" ).tabs({
 		disabled: [ 1 , 2]

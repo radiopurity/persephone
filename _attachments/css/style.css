@@ -532,6 +532,10 @@ button.input {
 	height:26px; 
 }
 
+img#logo {
+    max-width:662px;
+}
+
 /* About tab template formatting */
 
 p.about-header {
