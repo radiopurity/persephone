@@ -171,7 +171,7 @@ $(document).ready(function(){
 	/* index intial configuration */
 	// Set the appropriate logo
 
-	if ( db.name.indexOf("rp") >= 0 || db.name.indexOf("mj") >= 0 ) { 
+	if ( db.name == "rp" || db.name == "mj" ) { 
        $("#logo").attr("src", "images/" + db.name + ".png");
     } else {
        $("#logo").attr("src", "images/logo.png");
