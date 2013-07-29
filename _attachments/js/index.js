@@ -3,7 +3,7 @@
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,14 @@
 index.js
 ============
 --------------------------------------------------------------------------
-Name:           index.js
-Purpose:        Main Javascript Funciton for Persephone.
+Name:		   index.js
+Purpose:		Main Javascript Funciton for Persephone.
 
-Author:         James Loach, Zheng Li
-Email:         	james.loach@gmail.com,ronnie.alonso@gmail.com
+Author:		 James Loach, Zheng Li
+Email:		 	james.loach@gmail.com,ronnie.alonso@gmail.com
 
-Created:        19 July 2013
-Copyright:      (c) James Loach 2013
+Created:		19 July 2013
+Copyright:	  (c) James Loach 2013
 --------------------------------------------------------------------------
 */
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
 			setTimeout('$("#contactForm").slideUp("slow")', 2000);
 		}, 
 		loggedOut : function() {
-        	// Tabs
+			// Tabs
 			$( "#tabs" ).tabs({disabled: [ 1 , 2] });
 
 			// set login_flag
@@ -81,7 +81,7 @@ $(document).ready(function(){
 			// disable the edit function
 			$(".edit-menu").addClass("ui-state-disabled");
 
-    	}
+		}
 	});
 
 	$("#contactLink").click(function(){
@@ -414,6 +414,24 @@ function click_search() {
 }; 
 
 /*===== decorate the search result ====*/
+// highlight email and web link
+jQuery.fn.highlight = function () {
+	var expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\(\)\w\.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
+
+	var regex = new RegExp(expression);
+
+	return this.each(function () {
+		$(this).contents().filter(function() {
+			return this.nodeType == 3 && this.nodeValue.match(regex);
+		}).replaceWith(function() {
+			return (this.nodeValue || "").replace(regex, function(match) {
+				return "<a href=\"" + match + "\" target=\"_blank\">" + match + "</a>";
+			});
+		});
+	});
+
+};
+
 ButtonFade = function(){
 			var parent = $(this).closest('div');
 
@@ -549,6 +567,9 @@ function DecorateResult() {
 	/* decorate h3 */
 	$("h3").unbind('click',ButtonFade);
 	$("h3").bind('click', ButtonFade);
+
+	/* highlight links */
+	$(".faded").highlight();
 };
 
 /* fill the JSON into the output_template.html*/
@@ -1704,7 +1725,7 @@ function FillEditBlank(label, doc){
 	$(label + " #mreq2").val(doc.measurement.requestor.contact);
 	
 	$(label + " #mprac1").val(doc.measurement.practitioner.name);
-	$(label + " #mprac2").val(doc.measurement.practitioner.name);
+	$(label + " #mprac2").val(doc.measurement.practitioner.contact);
 
 	$(label + " #mdesc").val(doc.measurement.description);
 
