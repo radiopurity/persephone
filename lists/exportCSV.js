@@ -19,7 +19,7 @@ function(doc, req) {
 
 		csv += "type,grouping,sample-name,sample-description,sample-id,sample-source,sample-owner-name,sample-owner-contact,";
 		csv += "measurement-institution,measurement-technique,measurement-date,measurement-requestor-name,measurement-requestor-contact,measurement-practitioner-name,measurement-practitioner-contact,measurement-description,";
-		csv += "isotope,type,value,unit,";
+		csv += "isotope,type,value1,value2,value3,unit,";
 		csv += "reference,input-name,input-contact,input-date,notes\n";
 
 		while (row = getRow()) {
@@ -50,23 +50,25 @@ function(doc, req) {
 						var result_val="" , tmp_str;
 						for(var i=0 ; i < row.value.measurement.results[item].value.length ;i++)
 						{
-							if(i == row.value.measurement.results[item].value.length - 1 ){
-								result_val+=row.value.measurement.results[item].value[i]
-							}
-							else{
+							// if(i == row.value.measurement.results[item].value.length - 1 ){
+							// 	result_val+=row.value.measurement.results[item].value[i]
+							// }
+							// else{
 								result_val+=row.value.measurement.results[item].value[i]+",";
-							}
+							// }
 						}
+						for (var i = 0; i < 3 - row.value.measurement.results[item].value.length ; i++) {
+							result_val += ","
+						};
 	
 	
 						tmp_str = row.value.measurement.results[item].isotope +"," +
-								row.value.measurement.results[item].type +",\"[" + 
-								result_val+	"]\"," + 
+								row.value.measurement.results[item].type +"," + 
+								result_val+ 
 								row.value.measurement.results[item].unit +",";
 						
 						csv += str1 + tmp_str +str2 + "\n";
 					}
-					csv += "\n";
 				}
 			}
 		}

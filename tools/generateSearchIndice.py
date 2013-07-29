@@ -56,7 +56,10 @@ Arguments:
 	doc : the input measurement JSON
 """
 def addSearchIndice(doc):
-	unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 , "nBq/kg":1 , "uBq/kg":1000 , "mBq/kg":1000000}
+	unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 , 
+			"nBq/kg":1 , "uBq/kg":1000 , "muBq/kg":1000 ,
+			"mBq/kg":1000000 , "Bq/kg":1000000000
+			}
 
 	from sets import Set
 	Th_list = Set(["Th", "Th-232", "232-Th", "Th232", "232Th"])

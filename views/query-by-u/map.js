@@ -18,7 +18,7 @@ Description:
 		   mBq/kg (milli becquerels per kg)
 		   muBq/kg = uBq/kg (micro becquerels per kg) (two different shorthands for the greek letter)
 		   1 Bq/kg = 1000 mBq/kg
-		   1 mBq/kg = 1000 uBq/kg = 1000 muBq/kr
+		   1 mBq/kg = 1000 uBq/kg = 1000 muBq/kg
 		Category Three
 		   Anything else
 
@@ -33,6 +33,16 @@ function (doc) {
 	var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 	var pri_u = 9999;
 	var u = {"unit":"-","value":["-"],"isotope":"-","type":"measurement"}
+
+	var unit = {"ppt":{"category":1 , "coefficient":1} , 
+				"ppb":{"category":1 , "coefficient":1000} ,
+				"ppm":{"category":1 , "coefficient":1000000},
+				"nBq/kg":{"category":2 , "coefficient":1},
+				"uBq/kg":{"category":2 , "coefficient":1000},
+				"muBq/kg":{"category":2 , "coefficient":1000},
+				"mBq/kg":{"category":2 , "coefficient":1000000},
+				"Bq/kg":{"category":2 , "coefficient":1000000000},
+		}
 
 	// go through all the results
 	if(doc.type == "measurement"){
@@ -51,7 +61,21 @@ function (doc) {
 
 		uvalue = parseFloat(u.value[0]);
 		 // Convert the unit
-		if(u.unit=="ppt"){
+		if(unit.hasOwnProperty(u.unit)){
+			var coefficient = unit[u.unit].coefficient
+			var category = unit[u.unit].category
+			emit([category , uvalue * coefficient],doc);
+		}
+		else{
+			if(u.unit != "-"){
+
+				emit([3,uvalue],doc);
+			}
+			else{
+				emit([4,uvalue],doc);
+			}
+		}		 
+/*		if(u.unit=="ppt"){
 			emit([1,uvalue],doc);
 		}else
 		if(u.unit=="ppb"){
@@ -70,6 +94,6 @@ function (doc) {
 			emit([2,uvalue*1000000],doc);
 		}else{
 			emit([3,uvalue],doc);
-		}
+		}*/
 	}
 };

@@ -202,9 +202,8 @@ $(document).ready(function(){
 	*/
 
 	/*==== Submit Page Initialization ====*/
-	options = {"label":"#tab-submit "};
+	options = {"label":"#tab-submit " , "method":"submit"};
 	CreateAssayPage(options);
-
 
 	// Disclaimers
 
@@ -536,7 +535,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
 
-		EditAssay(id);
+		EditAssay(id,"update");
 	});
 
 	$(".clone-assay").unbind("click");
@@ -544,7 +543,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
 
-		EditAssay(id);
+		EditAssay(id,"clone");
 	});
 
 	/* decorate h3 */
@@ -778,7 +777,7 @@ function getSelectedTabIndex() {
 */
 
 /*==== initial configuration ====*/
-// Argument: options = {"doc":fillDoc , "label":pageTab}
+// Argument: options = {"doc":fillDoc , "label":pageTab , "method":"update"}
 function CreateAssayPage(options){
 	label = options.label;
 	// INPUT FORM TEMPLATE	 
@@ -1050,9 +1049,19 @@ function CreateAssayPage(options){
 		$(label+"#button-clear1").button();
 		$(label+"#button-clear2").button();
 		$(label+"#button-check").button();
-		$(label+"#button-submit").button();
 		$(label+"#button-delete").button();
+
+		$(label+"#button-submit").button();
 		$(label+"#button-edit").button();
+
+		if (options.method == "update") {
+			$(label+"#button-submit").button().hide();
+			$(label+"#button-edit").button().show();
+		}
+		else if(options.method == "clone"){
+			$(label+"#button-edit").button().hide();
+			$(label+"#button-submit").button().show();
+		}
 
 		$(label+"input:text:visible:first").focus();
 
@@ -1241,7 +1250,9 @@ function click_submit(options) {
 	
 		// Build the JSON for the sort indices of uranium & thorium
 		// unit convert dict
-		unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 , "nBq/kg":1 , "uBq/kg":1000 , "mBq/kg":1000000}
+		unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 , 
+				"nBq/kg":1 , "uBq/kg":1000 , "muBq/kg":1000 , 
+				"mBq/kg":1000000 , "Bq/kg":1000000000}
 
 		var sort_indices = {"th":999999999,"u":999999999}
 		var pri_th=100,pri_u=100;
@@ -1729,8 +1740,8 @@ function FillEditBlank(label, doc){
 }
 
 // Show the assays' infomation
-function EditAssay(_id) {
-	if (_id != edit_id) {
+function EditAssay(_id,method) {
+	// if (_id != edit_id , ) {
 		url = window.location.protocol + '//' + window.location.host 
 					+ '/' + dbname + '/' + _id;
 		$.ajax({ 
@@ -1743,12 +1754,12 @@ function EditAssay(_id) {
 					edit_rev = data._rev;
 					$("#tab-edit #input-form").empty();
 					$(".div-edit").show();
-					options = {"label":"#tab-edit ","doc":data};
+					options = {"label":"#tab-edit ","doc":data , "method":method};
 					CreateAssayPage(options);
 				}
 			}
 		})
-	};
+	// };
 
 	$( "#tabs" ).tabs({ active: 2 });
 }

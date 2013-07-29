@@ -33,6 +33,15 @@ function (doc) {
 	var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 	var pri_th=9999;
 	var th={"unit":"-","value":["-"],"isotope":"-","type":"measurement"}
+	var unit = {"ppt":{"category":1 , "coefficient":1} , 
+				"ppb":{"category":1 , "coefficient":1000} ,
+				"ppm":{"category":1 , "coefficient":1000000},
+				"nBq/kg":{"category":2 , "coefficient":1},
+				"uBq/kg":{"category":2 , "coefficient":1000},
+				"muBq/kg":{"category":2 , "coefficient":1000},
+				"mBq/kg":{"category":2 , "coefficient":1000000},
+				"Bq/kg":{"category":2 , "coefficient":1000000000},
+		}
 
 	// go through all the results
 	if(doc.type == "measurement"){
@@ -49,8 +58,22 @@ function (doc) {
 			};
 		}
 		tvalue= parseFloat(th.value[0]);
-		 // Convert the unit
-		if(th.unit=="ppt"){
+		// Convert the unit
+		if(unit.hasOwnProperty(th.unit)){
+			var coefficient = unit[th.unit].coefficient
+			var category = unit[th.unit].category
+			emit([category , tvalue * coefficient],doc);
+		}
+		else{
+			if(th.unit != "-"){
+
+				emit([3,tvalue],doc);
+			}
+			else{
+				emit([4,tvalue],doc);
+			}
+		}
+/*		if(th.unit=="ppt"){
 			emit([1,tvalue],doc);
 		}else
 		if(th.unit=="ppb"){
@@ -69,6 +92,6 @@ function (doc) {
 			emit([2,tvalue*1000000],doc);
 		}else{
 			emit([3,tvalue],doc);
-		}
+		}*/
 	}
 };

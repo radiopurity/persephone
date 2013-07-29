@@ -143,8 +143,9 @@ div.content-text {
 	margin: 5px 5px 5px 250px;
 }
 
-#button-search {
-	 font-size:11px;
+#div-search button {
+	height:26px;
+	width:26px;
 }
 
 #box-search {
@@ -406,8 +407,8 @@ Back to top button
 
 /* Submit & Edit Page */
 .div-submit , .div-edit{
-	width: 470px;
-	margin: 5px auto 30px auto;
+	margin: 0px auto;
+	text-align: center;
 }
 
 div.input-row {
