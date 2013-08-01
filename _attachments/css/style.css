@@ -538,7 +538,7 @@ button.input {
 }
 
 /* Settings tab */
-#max-entry{
+#max-entry , #error-email{
 	width:300px;
 }
 /* About tab template formatting */

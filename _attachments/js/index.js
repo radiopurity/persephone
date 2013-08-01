@@ -47,16 +47,13 @@ var types = [
 ];
 
 /* default settings */
-var default_settings = {"_id":"settings","max_entries":20};
-var total_rows=0,bookmark,max_entries,search_url,skip=0,val="all";
+var default_settings = {"_id":"settings","max_entries":20 , "error_email":"errors@radiopurity.org"};
+var total_rows=0,bookmark,search_url,skip=0,val="all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 var u_color = "#212121", th_color="#212121";
 var login_flag = 0;
 
-function RefreshSettings(){
-	max_entries = default_settings.max_entries;
-}
 /*
 $File: login.js
 $Author: Zheng Li
@@ -396,7 +393,7 @@ $(document).ready(function(){
 
 	/* Setting tab settings */
 	// INPUT FORM TEMPLATE	 
-	$.get('templates/default_setting.html', function(tmp) {
+	$.get('templates/default_settings.html', function(tmp) {
 		$.template("setting_template", tmp);	 
 
 		var tt = $.tmpl("setting_template");
@@ -415,7 +412,6 @@ $(document).ready(function(){
 			async: false,
 			success: function(data) {
 				default_settings = data;
-				RefreshSettings();
 			},
 
 		/*	error: function(jqXHR, textStatus, errorThrown){
@@ -424,6 +420,7 @@ $(document).ready(function(){
 		});
 
 		$("#max-entry").val(default_settings.max_entries);
+		$("#error-email").val(default_settings.error_email);
 	});
 
 });
@@ -648,6 +645,7 @@ function FillTemplate(doc){
 		}
 
 		doc.iso = [th , u];
+		doc.error_email = default_settings.error_email;
 		
 		var tt = $.tmpl("output_template", doc);
 		$("#materials").append(tt);
@@ -670,11 +668,11 @@ function searchResults(val,options) {
 	if ( window.location.host.split(".")[1] == "cloudant" ) {			
 		search_url = window.location.protocol + '//' + window.location.host 
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + max_entries + options._search;
+							 + val + '&include_docs=true&limit=' + default_settings.max_entries + options._search;
 	}
 		
 	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ max_entries +'&include_docs=true';
+		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ default_settings.max_entries +'&include_docs=true';
 	}
 
 	$.ajax({ 
@@ -685,8 +683,8 @@ function searchResults(val,options) {
 			total_rows=data.total_rows;
 			$("#status-line").append('Total result: ' + data.total_rows);				
 			if ( data.total_rows > 0 ) {
-				if ( data.total_rows > max_entries ) {
-					n_entries = max_entries;
+				if ( data.total_rows > default_settings.max_entries ) {
+					n_entries = default_settings.max_entries;
 				} else {				 
 					n_entries = data.total_rows;								 
 				};
@@ -747,9 +745,9 @@ function getSelectedTabIndex() {
 			var moreresult = new Boolean(0);
 			var url;
 
-			if(skip+max_entries < total_rows){
+			if(skip + default_settings.max_entries < total_rows){
 				moreresult = new Boolean(1);
-				skip = skip + max_entries;
+				skip = skip + default_settings.max_entries;
 				url = search_url + "&skip=" + skip;
 			}
 
@@ -1841,10 +1839,14 @@ function UpdateSettings(){
 		default_settings.max_entries = parseInt(mentry);
 	}else return;
 
+	var errmail;
+	errmail = $("#error-email").val();
+	if(errmail != ""){
+		default_settings.error_email = errmail;
+	}
+
 	db.saveDoc(default_settings , {
 			success: function(response, textStatus, jqXHR) {
-				RefreshSettings();
-
 				$("#dialog-settings").dialog({
 					modal: true,
 					buttons: {
