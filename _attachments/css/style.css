@@ -410,7 +410,7 @@ Back to top button
 }
 
 /* Submit & Edit Page */
-.div-submit , .div-edit{
+.div-submit , .div-edit , .div-settings{
 	margin: 0px auto;
 	text-align: center;
 }
@@ -537,6 +537,10 @@ button.input {
 	height:26px; 
 }
 
+/* Settings tab */
+#max-entry{
+	width:300px;
+}
 /* About tab template formatting */
 
 p.about-header {
