@@ -415,8 +415,12 @@ function click_search() {
 
 /*===== decorate the search result ====*/
 // highlight email and web link
-jQuery.fn.highlight = function () {
-	var expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\(\)\w\.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
+jQuery.fn.highlight = function (method) {
+	if (method == "email") {
+		var expression = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+	}else{
+		var expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\(\)\w\.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi
+	}
 
 	var regex = new RegExp(expression);
 
@@ -425,7 +429,11 @@ jQuery.fn.highlight = function () {
 			return this.nodeType == 3 && this.nodeValue.match(regex);
 		}).replaceWith(function() {
 			return (this.nodeValue || "").replace(regex, function(match) {
-				return "<a href=\"" + match + "\" target=\"_blank\">" + match + "</a>";
+				if (method == "email") {
+					return '<a href=\"mailto:'+  match + '" target="_blank">' + match + '</a>';
+				}else{
+					return "<a href=\"" + match + "\" target=\"_blank\">" + match + "</a>";
+				}
 			});
 		});
 	});
@@ -569,7 +577,8 @@ function DecorateResult() {
 	$("h3").bind('click', ButtonFade);
 
 	/* highlight links */
-	$(".faded").highlight();
+	$(".faded").highlight("email");
+	$(".faded").highlight("url");
 };
 
 /* fill the JSON into the output_template.html*/

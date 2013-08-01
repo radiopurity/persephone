@@ -171,6 +171,10 @@ div.content-text {
 	color:#aaaaaa;
 }
 
+#meas-info a{
+	color:inherit;
+}
+
 /* for table header */
 .table-header .ui-accordion-header { 
 	background: #eeeeee !important;
