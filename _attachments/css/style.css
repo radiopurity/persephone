@@ -541,6 +541,11 @@ button.input {
 #max-entry , #error-email{
 	width:300px;
 }
+
+img#logo {
+    max-width:662px;
+}
+
 /* About tab template formatting */
 
 p.about-header {

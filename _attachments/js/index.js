@@ -169,11 +169,15 @@ $(document).ready(function(){
 */
 
 $(document).ready(function(){
-	/* initalize settings */
 	/* index intial configuration */
 	// Set the appropriate logo
-	$("#logo").attr("src", "images/" + db.name + ".png");
-	
+
+	if ( db.name == "rp" || db.name == "mj" ) { 
+       $("#logo").attr("src", "images/" + db.name + ".png");
+    } else {
+       $("#logo").attr("src", "images/logo.png");
+    }	
+
 	// Tabs
 	$( "#tabs" ).tabs({
 		disabled: [ 1 , 2 , 3]

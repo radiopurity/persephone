@@ -111,7 +111,7 @@ xcuserdata
 #
 # This file store the important password and username of CouchDB
 
-.couchapprc
+#.couchapprc
 
 ####
 # UNKNOWN: recommended by others, but I can't discover what these files are
