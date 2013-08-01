@@ -77,7 +77,7 @@ $(document).ready(function(){
 		}, 
 		loggedOut : function() {
 			// Tabs
-			$( "#tabs" ).tabs({disabled: [ 1 , 2] });
+			$( "#tabs" ).tabs({disabled: [ 1 , 2 , 3] });
 
 			// set login_flag
 			login_flag = 0;
@@ -176,7 +176,7 @@ $(document).ready(function(){
 	
 	// Tabs
 	$( "#tabs" ).tabs({
-		disabled: [ 1 , 2]
+		disabled: [ 1 , 2 , 3]
 	});
 
 	// Menu bars						
