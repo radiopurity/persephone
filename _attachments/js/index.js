@@ -438,6 +438,7 @@ function click_search() {
 		$("#box-search").focus();		
 		$("#materials").empty(); 
 		$("#status-line").empty();
+	    $(".table-header").hide();
 		total_rows=0;
 		skip=0;
 		return false;
@@ -685,7 +686,7 @@ function searchResults(val,options) {
 		async: false,
 		success: function(data) { 
 			total_rows=data.total_rows;
-			$("#status-line").append('Total result: ' + data.total_rows);				
+			$("#status-line").append(data.total_rows + ' assays returned');				
 			if ( data.total_rows > 0 ) {
 				if ( data.total_rows > default_settings.max_entries ) {
 					n_entries = default_settings.max_entries;

@@ -140,7 +140,7 @@ div.content-text {
 #div-search {
 	height: 40px;
 	width: 600px;
-	margin: 5px 5px 5px 250px;
+	margin: 5px 5px 0px 250px;
 }
 
 #div-search button {
@@ -181,12 +181,21 @@ div.content-text {
 	font-weight: bold;
 }
 
-.header:hover{
+.header-correction {
+   margin-top:2px;
+}
+
+
+.ui-accordion-header {
+    padding:0.33em .5em .4em 2.2em !important;
+}
+
+.header:hover {
 	color:#ecb7b8 !important;
 }
 
 .group-header{
-	margin-left: 18px;
+	margin-left: 0px;
 }
 
 /* for table content*/
@@ -235,10 +244,9 @@ div.content-text {
 }
 
 #status-line {
-	font-size: 14px;
+/*	font-size: 11px;*/
 	text-align:center; 
-	padding-top:7px;
-	padding-bottom:13px;
+	padding-bottom:15px;
 }
 
 /* output button */

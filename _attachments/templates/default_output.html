@@ -1,10 +1,10 @@
 <div class="accordion" value=${_id}>
 
 <h3 style="height:19px">
-	
+
 	<a href="#">
-		<span class="faded-less heading-grouping">${grouping}</span>
-		<span class="heading-name"><b>${sample.name}</b></span>
+		<div class="faded-less heading-grouping header-correction">${grouping}</div>
+		<div class="heading-name header-correction">${sample.name}</div>
 	
 		{{each iso}}
 	
@@ -12,26 +12,26 @@
 	
 				{{if $value.type == "measurement"}}
 				
-					<span class="heading-isotope-name">${$value.isotope} </span>
+					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
 					{{if $value.value.length == 1 }}
-						<span class="faded-less heading-isotope-value">${$value.value[0]} ${$value.unit}</span>					
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} ${$value.unit}</div>					
 					{{/if}}
 					{{if $value.value.length == 2 }}
-						<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
 					{{/if}}		
 					{{if $value.value.length == 3 }}
-						<span class="faded-less heading-isotope-value">${$value.value[0]}() ${$value.unit}</span>					
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
 					{{/if}}	 
 				{{/if}}
 	
 				{{if $value.type == "limit"}}
-					<span class="heading-isotope-name">${$value.isotope} </span>
-					<span class="faded-less heading-isotope-value">&lt ${$value.value[0]} ${$value.unit}</span>		 
+					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
+					<div class="faded-less heading-isotope-value header-correction">&lt ${$value.value[0]} ${$value.unit}</div>		 
 				{{/if}}
 	
 				{{if $value.type == "range"}}
-					<span class="heading-isotope-name">${$value.isotope} </span>
-					<span class="faded-less heading-isotope-value">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</span>						 
+					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
+					<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</div>						 
 				{{/if}}
 	
 			{{/if}}
@@ -39,13 +39,12 @@
 		{{/each}}
 	
 		{{if $(measurement.results).length > 2 }}
-			<span class="heading-isotope-name-short">&hellip;</span> 
+			<div class="heading-isotope-name-short">&hellip;</div> 
 		{{/if}}
-	
+	</a>	 
 		<button class="delete-button" type="button" style="float:right;">&nbsp</button>
 		<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
 		<button class="detail-button" type="button" style="float:right;display:none">&nbsp</button>
-	</a>	 
 
 </h3>
 
