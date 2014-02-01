@@ -1,34 +1,30 @@
 /*
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
 	   http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 /*
-============
-index.js
-============
 --------------------------------------------------------------------------
-Name:		   index.js
-Purpose:		Main Javascript Funciton for Persephone.
-
-Author:		 James Loach, Zheng Li
-Email:		 	james.loach@gmail.com,ronnie.alonso@gmail.com
-
-Created:		19 July 2013
-Copyright:	  (c) James Loach 2013
+index.js
+--------------------------------------------------------------------------
+Name:		index.js
+Purpose:    Main javascript function for Persephone.
+Author:		James Loach, Zheng Li
+Email:		james.loach@gmail.com, ronnie.alonso@gmail.com
 --------------------------------------------------------------------------
 */
 
-/* global variables */
+/* Global variables */
+
 var dbname = window.location.pathname.split("/")[1];
 var appName = window.location.pathname.split("/")[3];
 var db = $.couch.db(dbname);
@@ -38,55 +34,51 @@ var isotopes = ["Ac-224", "Ac-226", "Ac-227", "Ac-228", "Ac-229", "Ac", "Ag-103"
 
 var methods = ["Ge", "ICP-MS", "NAA", "Alpha"];
 
-var units = ["pct", "ppm", "ppb", "ppt", "ppq", "mBq/kg", "uBq/kg", "nBq/kg", "n/a"];
-
-var types = [
-	"Meas.", "Meas. (error)", "Meas. (asym. error)", 
-	"Limit", "Limit (c.l.)", 
-	"Range", "Range (c.l.)"
+var units = [
+    "pct", "ppm", "ppb", "ppt", "ppq",
+    "mBq/kg", "uBq/kg", "nBq/kg",
+    "n/a"
 ];
 
-/* default settings */
-var default_settings = {"_id":"settings","max_entries":20 , "error_email":"errors@radiopurity.org"};
-var total_rows=0,bookmark,search_url,skip=0,val="all";
+var types = [
+    "Meas.", "Meas. (error)", "Meas. (asym. error)",
+    "Limit", "Limit (c.l.)",
+    "Range", "Range (c.l.)"
+];
+
+/* Default settings */
+
+var default_settings = {
+    "_id":"settings",
+    "max_entries":20 ,
+    "error_email":"errors@radiopurity.org"
+};
+
+var total_rows = 0, bookmark, search_url, skip = 0, val = "all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
 var u_color = "#212121", th_color="#212121";
 var login_flag = 0;
 
-/*
-$File: login.js
-$Author: Zheng Li
-$Description: this part handles query, filter, scroll function for search tab
+/* The following taken from Chris Anderson index.js */
 
-Copyright Chris Anderson 2011
-*/
 $(document).ready(function(){
 	$("#contactForm").couchLogin({
 		loggedIn : function() {
-			// Tabs
 			$( "#tabs" ).tabs({disabled: [] });
-
-			// set login_flag
 			login_flag = 1;
 			// enable the edit function
 			$(".edit-menu").removeClass("ui-state-disabled");
-
 			// close the login tab
 			setTimeout('$("#contactForm").slideUp("slow")', 2000);
 		}, 
 		loggedOut : function() {
-			// Tabs
-			$( "#tabs" ).tabs({disabled: [ 1 , 2 , 3] });
-
-			// set login_flag
+			$( "#tabs" ).tabs({disabled: [1 , 2 , 3] });
 			login_flag = 0;
 			// disable the edit function
 			$(".edit-menu").addClass("ui-state-disabled");
-
 		}
 	});
-
 	$("#contactLink").click(function(){
 		if ($("#contactForm").is(":hidden")){
 			$("#contactForm").slideDown("slow");
@@ -95,14 +87,11 @@ $(document).ready(function(){
 			$("#contactForm").slideUp("slow");
 		}
 	});
-	
 });
 
-// CouchDB login
 (function($) {
 	$.fn.couchLogin = function(opts) {
 		loginForm = '<fieldset id="login-field"> <label for="name">Name</label> <input id="login-name" type="text" /> <label for="password">Password</label> <input id="login-password" type="password" /> <input id="login-button" value="Login" type="submit" name="submit"/> </fieldset>';
-
 
 		var elem = $(this);
 		opts = opts || {};
@@ -119,21 +108,14 @@ $(document).ready(function(){
 					success : function(r) {
 						var userCtx = r.userCtx;
 						if (userCtx.name) {
-
 							$("#contactForm").empty();
-
 							elem.append(loggedIn(r));
-
 							if (opts.loggedIn) {opts.loggedIn()}
-						}else{
-
+						} else {
 							$("#contactForm").empty();
-							
 							elem.append(loginForm);
-	
 							if (opts.loggedOut) {opts.loggedOut()}
 						}
-
 					},
 					error : function(){
 						$("#login-field").append("<p>Name or password is incorrect!</p>");
@@ -160,18 +142,11 @@ $(document).ready(function(){
 })(jQuery);
 
 
-/*
-=============================================
-==============				 ================
-==============	Search Tab   ================
-==============				 ================
-=============================================
-*/
+/* Search tabs */
 
 $(document).ready(function(){
-	/* index intial configuration */
-	// Set the appropriate logo
 
+	// Logo
 	if ( db.name == "rp" || db.name == "mj" ) { 
        $("#logo").attr("src", "images/" + db.name + ".png");
     } else {
@@ -190,30 +165,10 @@ $(document).ready(function(){
 	// Plug-in to style placeholder in old Browsers
 	$( "input, textarea" ).placehold( "something-temporary" );
 
-	/*
-	// Search box auto-complete [CURRENTLY DISABLED]
-	var availableTags = ["all"];
-
-	$.ajax({
-	url: '/mj_assays/_design/test/_view/index',
-	dataType: 'json',
-	async: false,
-	success: function(data) {
-		$.each(data.rows, function() {
-		availableTags.push("\"" + this.key + "\"");
-		});				 
-		}			
-	});
-	$( '#box-search' ).autocomplete({
-	source: availableTags
-	});					 
-	*/
-
-	/*==== Submit Page Initialization ====*/
+	/* Submit tab initialization */
+                  
 	options = {"label":"#tab-submit " , "method":"submit"};
 	CreateAssayPage(options);
-
-	// Disclaimers
 
 	$('div#disclaimer').hide();
 	 
@@ -231,29 +186,40 @@ $(document).ready(function(){
 		e.preventDefault();		
 	});
 
-	// DISPLAY TEMPLATE
+	// Display template
 	$.get('templates/default_output.html', function(tmp) {							 
 		$.template("output_template", tmp);
 	});
 
+	// Search button initialization
+	$("#button-search").button({
+        icons:{primary: "ui-icon-search"},
+        text:false
+    });
+	$("#button-show-more").button({
+        icons:{primary: "ui-icon-carat-1-e"},
+        text:false
+    });
+	$("#button-expand-all").button({
+        icons:{primary: "ui-icon-circle-zoomin"},
+        text:"test"
+    });
+	$("#button-collapse-all").button({
+        icons:{primary: "ui-icon-cicle-zoomout"},
+        text:false
+    });
+	$("#button-download-expanded").button({
+        icons:{primary: "ui-icon-arrowthick-1-s"},
+        text:false
+    });
 
-	// search button initialization
-	$("#button-search").button({icons:{primary: "ui-icon-search"},text:false});
-	$("#button-show-more").button({icons:{primary: "ui-icon-carat-1-e"},text:false});
-	$("#button-expand-all").button({icons:{primary: "ui-icon-folder-open"},text:false});
-	$("#button-collapse-all").button({icons:{primary: "ui-icon-folder-collapsed"},text:false});
-	$("#button-download-expanded").button({icons:{primary: "ui-icon-arrowthickstop-1-s"},text:false});
+	/* Search button configuration */
 
-
-	/* search button configuration */
-
-	// show more button animation
+	// Show more button animation
 	$("#button-show-more").bind("click", function(event){
 		event.stopPropagation();
-		event.preventDefault(); 
-
+		event.preventDefault();
 		$(".button-more").not("#button-show-more").toggle(100);
-
 		$(".ui-button-icon-primary", this).toggleClass("ui-icon-carat-1-e ui-icon-carat-1-w");
 		 
 	});
@@ -279,90 +245,96 @@ $(document).ready(function(){
 			, 200);
 	});
 */
-	// expand all fucntion
+                  
+	// Expand all fucntion
 	$("#button-expand-all").bind("click",function(){
 		$("#materials > div").each(function () {
-
 			if(!$(this).children("h3").hasClass("ui-state-active")){
 				$(this).accordion({ active: 0 });
-		
 				$(this).find('.detail-button').fadeToggle();
-		
 				$(this).find('.export-button').fadeToggle();
-		
 				$(this).find('.heading-isotope-name-short').toggle();
 			}
 		})
 	});
 
-	// collapse all fucntion
+	// Collapse all fucntion
 	$("#button-collapse-all").bind("click",function(){
 		$("#materials > div").each(function () {
-
 			if($(this).children("h3").hasClass("ui-state-active")){
 				$(this).accordion({ active: false });
-		
 				$(this).find('.detail-button').fadeToggle();
-		
 				$(this).find('.export-button').fadeToggle();
-		
 				$(this).find('.heading-isotope-name-short').toggle();
 			}
 		})
 	});
 
-	// download all the expanded result into csv
+	// Download all the expanded result into csv
 	$("#button-download-expanded").bind("click" , function(){
 		var idlist= new Array();;
 		$(".accordion:visible .ui-accordion-header-active").each(function(){
 			var parent = $(this).closest('.accordion');
 			idlist.push('"' + parent.attr('value') + '"');
 		});
-
 		var url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=['+ idlist + ']';
-
+				+ '/' + dbname
+                + '/_design/persephone/_list/exportCSV/assay.csv?idlist=['
+                + idlist + ']';
 		window.open(url, '_blank');
 	});
 
-	/* search function */
-	// query-by-group
+	/* Search functions */
+                  
+	// Query-by-group
 	$(".group-header").click(function() {
-		// change color of selected value
+		// Change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".group-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"grouping<string>\"]","_view":"query-by-group"}
+		options = {
+            "_search":"&sort=[\"grouping<string>\"]",
+            "_view":"query-by-group"
+        }
 		searchResults(val , options);
 	});
 
-	// query-by-name
+	// Query-by-name
 	$(".name-header").click(function() {
-		// change color of selected value
+		// Change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".name-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"name<string>\"]","_view":"query-by-name"}
+		options = {
+            "_search":"&sort=[\"name<string>\"]",
+            "_view":"query-by-name"
+        }
 		searchResults(val , options);
 	});
 
-	// sort-by-Th
+	// Sort-by-Th
 	$(".th-header").click(function() {
-		// change color of selected value
+		// Change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".th-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"th<number>\"]","_view":"query-by-th"}
+		options = {
+            "_search":"&sort=[\"th<number>\"]",
+            "_view":"query-by-th"
+        }
 		searchResults(val , options);
 	});
 
-	// sort-by-U
+	// Sort-by-U
 	$(".u-header").click(function() {
-		// change color of selected value
+		// Change color of selected value
 		$(".header").css("color" , "#212121");
 		$(".u-header").css("color", "#e18e94");
-		options = {"_search":"&sort=[\"u<number>\"]","_view":"query-by-u"}
+		options = {
+            "_search":"&sort=[\"u<number>\"]",
+            "_view":"query-by-u"
+        }
 		searchResults(val , options);
 	});
 
-	// decorate table-header
+	// Decorate table-header
 	$(".table-header").accordion({ 
 			header: "h3", 
 			icons: false,
@@ -372,11 +344,11 @@ $(document).ready(function(){
 		});
 	$(".table-header").hide();
 
-	// hide #back-top first
+	// Hide #back-top first
 	$("#back-top").hide();
 	$("#spinner").hide();
 	
-	// fade in #back-top
+	// Fade in #back-top
 	$(function () {
 		$(window).scroll(function () {
 			if ($(this).scrollTop() > 100) {
@@ -385,8 +357,7 @@ $(document).ready(function(){
 				$('#back-top').fadeOut();
 			}
 		});
-
-		// scroll body to 0px on click
+		// Scroll body to 0px on click
 		$('#back-top a').click(function () {
 			$('body,html').animate({
 				scrollTop: 0
@@ -396,7 +367,8 @@ $(document).ready(function(){
 	});
 
 	/* Setting tab settings */
-	// INPUT FORM TEMPLATE	 
+
+    // Input form template
 	$.get('templates/default_settings.html', function(tmp) {
 		$.template("setting_template", tmp);	 
 
@@ -430,7 +402,8 @@ $(document).ready(function(){
 });
 
 
-/*==== click and search for result ====*/
+/* Click and search for result */
+
 function click_search() {
 	var entry = $("#box-search").val();
 	val = entry;
@@ -439,12 +412,12 @@ function click_search() {
 		$("#materials").empty(); 
 		$("#status-line").empty();
 	    $(".table-header").hide();
-		total_rows=0;
-		skip=0;
+		total_rows = 0;
+		skip = 0;
 		return false;
 	}		
 
-	// change color of selected value
+	// Change color of selected value
 	$(".header").css("color" , "#212121");
 	$(".group-header").css("color", "#e18e94");
 	
@@ -454,8 +427,9 @@ function click_search() {
 	return false;
 }; 
 
-/*===== decorate the search result ====*/
-// highlight email and web link
+/* Decorate the search result */
+
+// Highlight email and web link
 jQuery.fn.highlight = function (method) {
 	if (method == "email") {
 		var expression = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
@@ -472,7 +446,7 @@ jQuery.fn.highlight = function (method) {
 			return (this.nodeValue || "").replace(regex, function(match) {
 				if (method == "email") {
 					return '<a href=\"mailto:'+  match + '" target="_blank">' + match + '</a>';
-				}else{
+				} else {
 					return "<a href=\"" + match + "\" target=\"_blank\">" + match + "</a>";
 				}
 			});
@@ -482,14 +456,11 @@ jQuery.fn.highlight = function (method) {
 };
 
 ButtonFade = function(){
-			var parent = $(this).closest('div');
-
-			parent.find('.detail-button').fadeToggle();
-
-			parent.find('.export-button').fadeToggle();
-
-			parent.find('.heading-isotope-name-short').toggle();
-		};
+    var parent = $(this).closest('div');
+    parent.find('.detail-button').fadeToggle();
+    parent.find('.export-button').fadeToggle();
+    parent.find('.heading-isotope-name-short').toggle();
+};
 
 function DecorateResult() {
 	$("#materials > div").accordion({ 
@@ -502,8 +473,6 @@ function DecorateResult() {
 		} 
 	});
 	$( "#materials" ).sortable({axis: "y",handle: "h3"});
-
-	/* delete button */
 	$(".delete-button").button({
 		icons:{primary:"ui-icon-close"},
 		text:false,
@@ -515,8 +484,6 @@ function DecorateResult() {
 		var head = parent.prev('h3');
 		parent.add(head).hide(function(){$(this).remove();});
 	});
-
-	/* detail button */
 	$(".detail-button").button({
 		icons:{primary:"ui-icon-zoomin"},
 		text:false
@@ -530,14 +497,12 @@ function DecorateResult() {
 		$(".ui-button-icon-primary", this)
 			.toggleClass("ui-icon-zoomin ui-icon-zoomout");	
 	});
-
-	/* export button */
 	$(".export-button").button({
-		icons:{primary:"ui-icon-arrowthickstop-1-s"},
+		icons:{primary:"ui-icon-arrowthick-1-s"},
 		text:false
 	});
 
-	// timeout
+	// Timeout
 	var tt;
 	$(".export-button,.export-option" ).unbind("mouseover");
 	$(".export-button,.export-option" ).unbind("mouseout");
@@ -556,9 +521,9 @@ function DecorateResult() {
 	});
 
 	$(".export-option" ).menu();
-	if(!login_flag){
-		// disable the edit function
-		$(".edit-menu").addClass("ui-state-disabled");
+    if (!login_flag){
+        // disable the edit function
+        $(".edit-menu").addClass("ui-state-disabled");
 	}
 	
 
