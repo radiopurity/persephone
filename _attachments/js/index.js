@@ -497,26 +497,8 @@ function DecorateResult() {
 			.toggleClass("ui-icon-zoomin ui-icon-zoomout");	
 	});
 	$(".export-button").button({
-		icons:{primary:"ui-icon-arrowthick-1-s"},
+		icons:{primary:"ui-icon-wrench"},
 		text:false
-	});
-
-	// Timeout
-	var tt;
-	$(".export-button,.export-option" ).unbind("mouseover");
-	$(".export-button,.export-option" ).unbind("mouseout");
-	
-	$(".export-button , .export-option" ).mouseenter(function(event){
-		var parent = $(this).closest('div');
-		parent.find('.export-option').fadeIn();
-		if(tt){clearTimeout(tt);}
-	});
-
-	$(".export-button , .export-option" ).mouseleave(function(event){
-		var parent = $(this).closest('div');
-		tt = setTimeout(
-			$.proxy(function() {parent.find('.export-option').fadeOut(); }, this)
-			, 100)
 	});
 
 	$(".export-option" ).menu();
@@ -524,7 +506,35 @@ function DecorateResult() {
         // disable the edit function
         $(".edit-menu").addClass("ui-state-disabled");
 	}
+    
+    /* Assay contextual/tool menu */
+    
+	var tt = false; // timer
+
+	$(".export-button,.export-option" ).unbind("mouseout");
 	
+	$(".export-button").click(function(event){
+        event.stopPropagation(); // prevent triggering of accordian
+        event.preventDefault();
+		var options = $(this).closest('div').find('.export-option');
+        if ( options.is(':visible') ) {
+            options.fadeOut(100);
+        } else {
+            options.fadeIn(100);
+        };
+		if (tt) { clearTimeout(tt); }
+	});
+
+	$(".export-button,.export-option" ).mouseover(function(event){
+        if (tt) { clearTimeout(tt); }
+ 	});
+    
+	$(".export-option" ).mouseleave(function(event){
+		var parent = $(this).closest('div');
+        tt = setTimeout($.proxy(function() {
+                                parent.find('.export-option').fadeOut(100);
+                                }, this), 500)
+	});
 
 	$(".export-json").unbind("click");
 	$(".export-json").click(function(event){
@@ -537,44 +547,46 @@ function DecorateResult() {
 	$(".export-xml").unbind("click");
 	$(".export-xml").click(function(){
 		var parent = $(this).closest('.accordion');
-		var url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
-		
+		var url = window.location.protocol + '//'
+                + window.location.host + '/'
+                + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='
+                + parent.attr('value');
 		window.open(url, '_blank');
 	});
 
 	$(".export-html").unbind("click");
 	$(".export-html").click(function(){
 		var parent = $(this).closest('.accordion');
-		var url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportHTML/assay.xml?_id='+parent.attr('value');
-		
+		var url = window.location.protocol + '//'
+                + window.location.host + '/'
+                + dbname+'/_design/persephone/_list/exportHTML/assay.xml?_id='
+                + parent.attr('value');
 		window.open(url, '_blank');
 	});
 
 	$(".export-csv").unbind("click");
 	$(".export-csv").click(function(){
 		var parent = $(this).closest('.accordion');
-		var url = window.location.protocol + '//' + window.location.host 
-				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=["'+parent.attr('value') + '"]';
-		
+		var url = window.location.protocol + '//'
+                + window.location.host + '/'
+                + dbname
+                + '/_design/persephone/_list/exportCSV/assay.csv?idlist=["'
+                + parent.attr('value') + '"]';
 		window.open(url, '_blank');
 	});
 
 	$(".edit-assay").unbind("click");
-	$(".edit-assay").bind("click" , function(){
+	$(".edit-assay").bind("click", function(){
 		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
-
-		EditAssay(id,"update");
+		EditAssay(id, "update");
 	});
 
 	$(".clone-assay").unbind("click");
-	$(".clone-assay").bind("click" , function(){
+	$(".clone-assay").bind("click", function(){
 		var parent = $(this).closest('.accordion');
 		var id = parent.attr('value');
-
-		EditAssay(id,"clone");
+		EditAssay(id, "clone");
 	});
 
 	/* decorate h3 */
@@ -650,7 +662,7 @@ function searchResults(val,options) {
 		async: false,
 		success: function(data) { 
 			total_rows=data.total_rows;
-			$("#status-line").append(data.total_rows + ' assays returned');				
+			$("#status-line").append(data.total_rows + ' assays');				
 			if ( data.total_rows > 0 ) {
 				if ( data.total_rows > default_settings.max_entries ) {
 					n_entries = default_settings.max_entries;

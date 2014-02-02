@@ -239,6 +239,7 @@ div.content-text {
 .delete-button,.detail-button,.export-button{
 	width:20px !important;
 	height:20px !important;
+    margin-left:3px;
 }
 /* slide down list*/
 .ui-menu {
