@@ -42,7 +42,7 @@ body {
 }
 
 #contactForm input[type=submit] {
-    height:26px;
+    height:28px;
 }
 
 #welcome {
@@ -125,21 +125,29 @@ div.content-text {
 
 #div-search {
 	height: 40px;
-	width: 600px;
-	margin: 5px 5px 0px 250px;
+	width: 700px;
+	margin: 5px 5px 0px 260px;
 }
 
 #div-search button {
-	height:26px;
-	width:26px;
+	height:28px;
+    margin: 0px 0px 0px 3px
+}
+
+#button-search {
+	width:28px;
+}
+
+#button-show-more {
+	width:28px;
 }
 
 #box-search {
 	padding: 0px 0px 0px 8px;
-	margin: 0px 3px 0px 0px;
-	width:	401px;
-	height: 24px;
-	line-height: 22px; 
+	margin: 0px 0px 0px 0px;
+	width:	380px;
+	height: 26px;
+	line-height: 24px;
 	/* this line-height being an even number solves
 		 a nasty problem that in Chrome (not FF, Safari)
 		 the input box text does not align properly
@@ -529,7 +537,7 @@ textarea.input-textarea {
 }
 
 button.input {
-	height:26px; 
+	height:26px;
 }
 
 /* Settings tab */

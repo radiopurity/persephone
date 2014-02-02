@@ -50,7 +50,8 @@ var types = [
 
 var default_settings = {
     "_id":"settings",
-    "max_entries":20 ,
+    "max_entries":20,
+    
     "error_email":"errors@radiopurity.org"
 };
 
@@ -186,33 +187,30 @@ $(document).ready(function(){
 	});
 
 	// Display template
-	$.get('templates/default_output.html', function(tmp) {							 
+	$.get('templates/default_output.html', function(tmp) {
 		$.template("output_template", tmp);
 	});
 
 	// Search button initialization
+
 	$("#button-search").button({
         icons:{primary: "ui-icon-search"},
         text:false
     });
+
 	$("#button-show-more").button({
         icons:{primary: "ui-icon-carat-1-e"},
         text:false
     });
+
 	$("#button-expand-all").button({
         icons:{primary: "ui-icon-circle-zoomin"},
-        text:"test"
-    });
-	$("#button-collapse-all").button({
-        icons:{primary: "ui-icon-cicle-zoomout"},
-        text:false
-    });
-	$("#button-download-expanded").button({
-        icons:{primary: "ui-icon-arrowthick-1-s"},
         text:false
     });
 
-	/* Search button configuration */
+	$("#button-show-all").button();
+
+	$("#button-download-expanded").button();
 
 	// Show more button animation
 	$("#button-show-more").bind("click", function(event){
@@ -244,35 +242,36 @@ $(document).ready(function(){
 			, 200);
 	});
 */
-                  
-	// Expand all fucntion
-	$("#button-expand-all").bind("click",function(){
-		$("#materials > div").each(function () {
-			if(!$(this).children("h3").hasClass("ui-state-active")){
-				$(this).accordion({ active: 0 });
-				$(this).find('.detail-button').fadeToggle();
-				$(this).find('.export-button').fadeToggle();
-				$(this).find('.heading-isotope-name-short').toggle();
-			}
-		})
-	});
 
 	// Collapse all fucntion
-	$("#button-collapse-all").bind("click",function(){
-		$("#materials > div").each(function () {
-			if($(this).children("h3").hasClass("ui-state-active")){
-				$(this).accordion({ active: false });
-				$(this).find('.detail-button').fadeToggle();
-				$(this).find('.export-button').fadeToggle();
-				$(this).find('.heading-isotope-name-short').toggle();
-			}
-		})
-	});
+	//$("#button-collapse-all").bind("click",function(){
+	//	$("#materials > div").each(function () {
+	//		if($(this).children("h3").hasClass("ui-state-active")){
+	//			$(this).accordion({ active: false });
+	//			//$(this).find('.detail-button').fadeToggle();
+	//			//$(this).find('.export-button').fadeToggle();
+	//			//$(this).find('.heading-isotope-name-short').toggle();
+	//		}
+	//	})
+	//});
 
+	// Collapse all fucntion
+	$("#button-show-all").bind("click",function(){
+        var entry = $("#box-search").val();
+        var old_max = default_settings.max_entries
+        default_settings.max_entries = 100;
+        options = {"_search":"&sort=[\"grouping<string>\"]","_view":"query-by-group"}
+        searchResults(entry, options);
+        default_settings.max_entries = old_max;
+	});
+    
+  default_settings.max_entries
+    
 	// Download all the expanded result into csv
 	$("#button-download-expanded").bind("click" , function(){
 		var idlist= new Array();;
-		$(".accordion:visible .ui-accordion-header-active").each(function(){
+		//$(".accordion:visible .ui-accordion-header-active").each(function(){
+		$(".accordion:visible").each(function(){
 			var parent = $(this).closest('.accordion');
 			idlist.push('"' + parent.attr('value') + '"');
 		});
@@ -483,10 +482,7 @@ function DecorateResult() {
 		var head = parent.prev('h3');
 		parent.add(head).hide(function(){$(this).remove();});
 	});
-	$(".detail-button").button({
-		icons:{primary:"ui-icon-zoomin"},
-		text:false
-	});
+
 	$(".detail-button" ).unbind();
 	$(".detail-button" ).click(function(event){
 		event.stopPropagation(); // this is
@@ -508,6 +504,11 @@ function DecorateResult() {
 	}
     
     /* Assay contextual/tool menu */
+
+	$(".detail-button").button({
+        icons:{primary:"ui-icon-zoomin"},
+        text:false
+    });
     
 	var tt = false; // timer
 
@@ -635,7 +636,7 @@ function FillTemplate(doc){
 
 
 /*==== search for result ====*/
-function searchResults(val,options) {
+function searchResults(val, options) {
 	// clear the page
 	$("#materials").empty();
 	$("#status-line").empty();
