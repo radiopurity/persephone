@@ -81,10 +81,12 @@ $(document).ready(function(){
 
 (function($) {
 	$.fn.couchLogin = function(opts) {
-		loginForm = '<input id="login-name" class="ui-widget-content" type="text" placeholder="User ID"/>'
-                  + ' <input id="login-password" class="ui-widget-content" type="password" placeholder="Password"/>'
-                  + ' <input id="login-button" value="Login" type="submit" name="submit"/>'
-               ;
+		loginForm = '<input id="login-name" class="ui-widget-content" '
+            +   'type="text" placeholder="User ID"/>'
+            + ' <input id="login-password" class="ui-widget-content" '
+            +   'type="password" placeholder="Password"/>'
+            + ' <input id="login-button" value="Login" '
+            +   'type="submit" name="submit"/>';
  
 		var elem = $(this);
 		opts = opts || {};
@@ -94,7 +96,8 @@ $(document).ready(function(){
 			, uri_name = encodeURIComponent(r.userCtx.name)
 			, span = $('<span id="welcome">Currently logged in as '
                    + r.userCtx.name
-                   +'<br><br><input id="logout-button" value="Logout" type="submit"/></span>');
+                   + '<br><br><input id="logout-button" value="Logout" '
+                   + 'type="submit"/></span>');
         return span;
 		}
 	
@@ -124,12 +127,7 @@ $(document).ready(function(){
 			$.couch.login({name:name, password:pass, success:initWidget});
 		};
 
-
 		initWidget();
-
-		//elem.delegate("a[href=#logout]", "click", function() {
-		//	$.couch.logout({success : initWidget});
-        //});
 
         elem.delegate("#logout-button", "click", function() {
             $.couch.logout({success : initWidget});
