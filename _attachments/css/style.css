@@ -381,15 +381,15 @@ Back to top button
 
 /* arrow icon (span tag) */
 #back-top span {
-	width: 50px;
-	height: 50px;
+	width: 27px;
+	height: 27px;
 	display: block;
 	margin-bottom: 7px;
 	background: #ddd url(../images/up-arrow.png) no-repeat center center;
 	/* rounded corners */
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	/* background color transition */
 	-webkit-transition: 1s;
 	-moz-transition: 1s;
