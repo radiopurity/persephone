@@ -13,62 +13,66 @@ body {
 	font-size: 11px; 
 }
 
-
 /*Login Ribbon*/
-#contactFormContainer
-{
-	position: fixed;
-	top: 0em;
-	right: 0em;
+
+#contactFormContainer {
+	top: 5px;
+	right: 5px;
 	z-index: 999999;
 }
-#contactForm
-{
+
+#contactForm {
 	height:150px;
-	width:100px;
-	background-color: #ffffff;
-	display:none;
+	width:300px;
+    text-align:right;
+    margin-left:auto;
+    margin-right:auto;
 }
-#contactForm fieldset
-{
+
+#contactForm fieldset {
+	width:80px;
 	padding:5px;
 	border:none;
-}      
-#contactForm label
-{
+    display:inline-block;
+}
+
+#contactForm label {
 	display:block;
 	padding:2px;
-	color:#e18e94;
+	color:#aaaaaa;
 }
-#contactForm input[type=text],input[type=password]
-{
+
+#contactForm input[type=text], input[type=password] {
 	display:block;
-	border:solid 1px #cccccc;
 	width:100%;
 	margin-bottom:10px;
-	height:20px;
-} 
-#contactForm input[type=submit]
-{
-	background-color:#ffffff;
-	border:solid 1px #ecb7b8;
-	color:#e18e94;
-	padding:5px;
-}                
-#contactLink{
+	height:22px;
+    padding-left:5px;
+    font-size:9pt;
+}
+
+#contactForm input[type=submit] {
+    height:26px;
+}
+
+#contactLink {
 	height:99px;
 	width:100px;
 	background-image:url('../images/ribbon.gif');
 	display:block;
 	cursor:pointer;
 }
-#welcome{
-	color:#e18e94;
+
+#welcome {
+	color:#aaaaaa;
 	display:block;
 	text-align: center;
 	width:100%;
 }
 
+#login-button {
+    width:80px;
+}
 
 /*.ui-accordion-header-active {
 	background:#ecb7b8 !important; // light pink for active

@@ -69,8 +69,6 @@ $(document).ready(function(){
 			login_flag = 1;
 			// enable the edit function
 			$(".edit-menu").removeClass("ui-state-disabled");
-			// close the login tab
-			setTimeout('$("#contactForm").slideUp("slow")', 2000);
 		}, 
 		loggedOut : function() {
 			$( "#tabs" ).tabs({disabled: [1 , 2 , 3] });
@@ -79,19 +77,19 @@ $(document).ready(function(){
 			$(".edit-menu").addClass("ui-state-disabled");
 		}
 	});
-	$("#contactLink").click(function(){
-		if ($("#contactForm").is(":hidden")){
-			$("#contactForm").slideDown("slow");
-		}
-		else{
-			$("#contactForm").slideUp("slow");
-		}
-	});
 });
 
 (function($) {
 	$.fn.couchLogin = function(opts) {
-		loginForm = '<fieldset id="login-field"> <label for="name">Name</label> <input id="login-name" type="text" /> <label for="password">Password</label> <input id="login-password" type="password" /> <input id="login-button" value="Login" type="submit" name="submit"/> </fieldset>';
+		loginForm = '<fieldset>'
+                  + ' <input id="login-name" class="ui-widget-content" type="text" placeholder="User ID"/>'
+                  + '</fieldset>'
+                  + '<fieldset>'
+                  + ' <input id="login-password" class="ui-widget-content" type="password" placeholder="Password"/>'
+                  + '</fieldset>'
+                  + '<fieldset>'
+                  + ' <input id="login-button" value="Login" type="submit" name="submit"/>'
+                  + '</fieldset>';
 
 		var elem = $(this);
 		opts = opts || {};
@@ -99,8 +97,10 @@ $(document).ready(function(){
 		function loggedIn(r) {
 			var auth_db = encodeURIComponent(r.info.authentication_db)
 			, uri_name = encodeURIComponent(r.userCtx.name)
-			, span = $('<span id="welcome"><br><br><br>Welcome, '+ r.userCtx.name +'<br><br><a href="#logout">Logout?</a></span>');
-			return span;
+			, span = $('<span id="welcome">Currently logged in as '
+                   + r.userCtx.name
+                   +'<br><br><input id="logout-button" value="Logout" type="submit"/></span>');
+        return span;
 		}
 	
 		function initWidget() {
@@ -110,15 +110,17 @@ $(document).ready(function(){
 						if (userCtx.name) {
 							$("#contactForm").empty();
 							elem.append(loggedIn(r));
+                            $("#logout-button").button()
 							if (opts.loggedIn) {opts.loggedIn()}
 						} else {
 							$("#contactForm").empty();
 							elem.append(loginForm);
+                            $("#login-button").button()
 							if (opts.loggedOut) {opts.loggedOut()}
 						}
 					},
 					error : function(){
-						$("#login-field").append("<p>Name or password is incorrect!</p>");
+//						$("#login-field").append("<p>Name or password is incorrect!</p>");
 					}
 				});
 			};
@@ -130,10 +132,14 @@ $(document).ready(function(){
 
 		initWidget();
 
-		elem.delegate("a[href=#logout]", "click", function() {
-			$.couch.logout({success : initWidget});
-		});
+		//elem.delegate("a[href=#logout]", "click", function() {
+		//	$.couch.logout({success : initWidget});
+        //});
 
+        elem.delegate("#logout-button", "click", function() {
+            $.couch.logout({success : initWidget});
+        });
+ 
 		elem.delegate("#login-button", "click", function() {
 			doLogin($('#login-name').val() , $('#login-password').val());
 			return false;
