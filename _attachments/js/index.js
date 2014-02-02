@@ -81,16 +81,11 @@ $(document).ready(function(){
 
 (function($) {
 	$.fn.couchLogin = function(opts) {
-		loginForm = '<fieldset>'
-                  + ' <input id="login-name" class="ui-widget-content" type="text" placeholder="User ID"/>'
-                  + '</fieldset>'
-                  + '<fieldset>'
+		loginForm = '<input id="login-name" class="ui-widget-content" type="text" placeholder="User ID"/>'
                   + ' <input id="login-password" class="ui-widget-content" type="password" placeholder="Password"/>'
-                  + '</fieldset>'
-                  + '<fieldset>'
                   + ' <input id="login-button" value="Login" type="submit" name="submit"/>'
-                  + '</fieldset>';
-
+               ;
+ 
 		var elem = $(this);
 		opts = opts || {};
 

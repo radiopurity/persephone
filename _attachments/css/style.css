@@ -13,54 +13,36 @@ body {
 	font-size: 11px; 
 }
 
-/*Login Ribbon*/
+/* Login tab */
 
 #contactFormContainer {
-	top: 5px;
-	right: 5px;
 	z-index: 999999;
-}
-
-#contactForm {
-	height:150px;
-	width:300px;
-    text-align:right;
     margin-left:auto;
     margin-right:auto;
 }
 
-#contactForm fieldset {
-	width:80px;
-	padding:5px;
-	border:none;
-    display:inline-block;
+#contactForm {
+	height:30px;
+	width:305px;
+    text-align:center;
+    margin:0px auto 50px auto;
 }
 
 #contactForm label {
 	display:block;
-	padding:2px;
 	color:#aaaaaa;
 }
 
 #contactForm input[type=text], input[type=password] {
-	display:block;
-	width:100%;
-	margin-bottom:10px;
+	width:80px;
 	height:22px;
     padding-left:5px;
+    margin-right:5px;
     font-size:9pt;
 }
 
 #contactForm input[type=submit] {
     height:26px;
-}
-
-#contactLink {
-	height:99px;
-	width:100px;
-	background-image:url('../images/ribbon.gif');
-	display:block;
-	cursor:pointer;
 }
 
 #welcome {
