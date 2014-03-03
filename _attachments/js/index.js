@@ -47,7 +47,7 @@ var types = [
 ];
 
 /* default settings */
-var default_settings = {"_id":"settings","max_entries":20 , "error_email":"errors@radiopurity.org"};
+var default_settings = {"_id":"settings","max_entries":40 , "error_email":"errors@radiopurity.org"};
 var total_rows=0,bookmark,search_url,skip=0,val="all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
@@ -566,7 +566,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/'+parent.attr('value');
-		window.open(url, '_blank');
+		SaveToDisk(url, parent.attr('value')+'.json');
 	});
 
 	$(".export-xml").unbind("click");
@@ -574,8 +574,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
-		
-		window.open(url, '_blank');
+		SaveToDisk(url, parent.attr('value')+'.xml');
 	});
 
 	$(".export-html").unbind("click");
@@ -583,8 +582,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/_design/persephone/_list/exportHTML/assay.xml?_id='+parent.attr('value');
-		
-		window.open(url, '_blank');
+		SaveToDisk(url, parent.attr('value')+'.html');
 	});
 
 	$(".export-csv").unbind("click");
@@ -592,8 +590,7 @@ function DecorateResult() {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host 
 				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=["'+parent.attr('value') + '"]';
-		
-		window.open(url, '_blank');
+		SaveToDisk(url, parent.attr('value')+'.csv');
 	});
 
 	$(".edit-assay").unbind("click");
@@ -1873,4 +1870,27 @@ function UpdateSettings(){
 				$("#dialog-settings").dialog("open" );
 			}
 	});
+}
+
+function SaveToDisk(fileURL, fileName) {
+    // for non-IE
+    if (!window.ActiveXObject) {
+        var save = document.createElement('a');
+        save.href = fileURL;
+        save.target = '_blank';
+        save.download = fileName || 'unknown';
+
+        var event = document.createEvent('Event');
+        event.initEvent('click', true, true);
+        save.dispatchEvent(event);
+        (window.URL || window.webkitURL).revokeObjectURL(save.href);
+    }
+
+    // for IE
+    else if ( !! window.ActiveXObject && document.execCommand)     {
+        var _window = window.open(fileURL, '_blank');
+        _window.document.close();
+        _window.document.execCommand('SaveAs', true, fileName || fileURL)
+        _window.close();
+    }
 }
