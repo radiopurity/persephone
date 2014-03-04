@@ -1,1 +1,13 @@
-{}
+{
+  "env" : {
+    "default" : {
+      "db" : "http://localhost:5984/rp"
+    },
+    "local" : {
+      "db" : "http://admin:admin@localhost:5984/rp"
+    },
+    "cloudant" : {
+      "db" : "https://sweeney1130:12345678@sweeney1130.cloudant.com/rp"
+    }
+  }
+}
