@@ -46,105 +46,21 @@ var types = [
     "Range", "Range (c.l.)"
 ];
 
-/* Default settings */
-
 var default_settings = {
     "_id":"settings",
     "max_entries":20,
-    
     "error_email":"errors@radiopurity.org"
 };
 
 var total_rows = 0, bookmark, search_url, skip = 0, val = "all";
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
-var u_color = "#212121", th_color="#212121";
+var u_color = "#212121", th_color = "#212121";
 var login_flag = 0;
 
-/* The following taken from Chris Anderson index.js */
+// ------------------------------ Document ready ------------------------------
 
-$(document).ready(function(){
-	$("#contactForm").couchLogin({
-		loggedIn : function() {
-			$( "#tabs" ).tabs({disabled: [] });
-			login_flag = 1;
-			// enable the edit function
-			$(".edit-menu").removeClass("ui-state-disabled");
-		}, 
-		loggedOut : function() {
-			$( "#tabs" ).tabs({disabled: [1 , 2 , 3] });
-			login_flag = 0;
-			// disable the edit function
-			$(".edit-menu").addClass("ui-state-disabled");
-		}
-	});
-});
-
-(function($) {
-	$.fn.couchLogin = function(opts) {
-		loginForm = '<input id="login-name" class="ui-widget-content" '
-            +   'type="text" placeholder="User ID"/>'
-            + ' <input id="login-password" class="ui-widget-content" '
-            +   'type="password" placeholder="Password"/>'
-            + ' <input id="login-button" value="Login" '
-            +   'type="submit" name="submit"/>';
- 
-		var elem = $(this);
-		opts = opts || {};
-
-		function loggedIn(r) {
-			var auth_db = encodeURIComponent(r.info.authentication_db)
-			, uri_name = encodeURIComponent(r.userCtx.name)
-			, span = $('<span id="welcome">Currently logged in as '
-                   + r.userCtx.name
-                   + '<br><br><input id="logout-button" value="Logout" '
-                   + 'type="submit"/></span>');
-        return span;
-		}
-	
-		function initWidget() {
-				$.couch.session({
-					success : function(r) {
-						var userCtx = r.userCtx;
-						if (userCtx.name) {
-							$("#contactForm").empty();
-							elem.append(loggedIn(r));
-                            $("#logout-button").button()
-							if (opts.loggedIn) {opts.loggedIn()}
-						} else {
-							$("#contactForm").empty();
-							elem.append(loginForm);
-                            $("#login-button").button()
-							if (opts.loggedOut) {opts.loggedOut()}
-						}
-					},
-					error : function(){
-//						$("#login-field").append("<p>Name or password is incorrect!</p>");
-					}
-				});
-			};
-	
-		function doLogin(name, pass) {
-			$.couch.login({name:name, password:pass, success:initWidget});
-		};
-
-		initWidget();
-
-        elem.delegate("#logout-button", "click", function() {
-            $.couch.logout({success : initWidget});
-        });
- 
-		elem.delegate("#login-button", "click", function() {
-			doLogin($('#login-name').val() , $('#login-password').val());
-			return false;
-		});
-	}
-})(jQuery);
-
-
-/* Search tabs */
-
-$(document).ready(function(){
+$(document).ready(function() {
 
 	// Logo
 	if ( db.name == "rp" || db.name == "mj" ) { 
@@ -154,16 +70,16 @@ $(document).ready(function(){
     }	
 
 	// Tabs
-	$( "#tabs" ).tabs({
+	$("#tabs").tabs({
 		disabled: [ 1 , 2 , 3]
 	});
 
 	// Menu bars						
 	$( "input:submit", ".menu-bar" ).button();
-	$( ".menu-bar" ).click(function() { return false; });						 
+	$( ".menu-bar" ).click(function() { return false; });
 
-	// Plug-in to style placeholder in old Browsers
-	$( "input, textarea" ).placehold( "something-temporary" );
+	// Plug-in to style placeholder in old browsers
+	$( "input, textarea" ).placehold("something-temporary");
 
 	/* Submit tab initialization */
                   
@@ -399,13 +315,23 @@ $(document).ready(function(){
 
 });
 
+// ------------------------------ Search --------------------------------------
 
-/* Click and search for result */
+// Enter search box
+function enter_box(event) {
+	if (event.keyCode == 13) {
+		click_search();
+		event.returnValue = false; // for IE
+		if (event.preventDefault()) event.preventDefault();
+	}
+	return false;
+}
 
+// Click search
 function click_search() {
 	var entry = $("#box-search").val();
 	val = entry;
-	if ( entry == "" || entry == "e.g. all") {
+	if (entry == "" || entry == "e.g. all") {
 		$("#box-search").focus();		
 		$("#materials").empty(); 
 		$("#status-line").empty();
@@ -425,7 +351,61 @@ function click_search() {
 	return false;
 }; 
 
-/* Decorate the search result */
+// Perform search
+function searchResults(val, options) {
+	// clear the page
+	$("#materials").empty();
+	$("#status-line").empty();
+	// show table header
+	$(".table-header").show();
+    
+	var n_entries;
+	skip=0;
+	total_rows=0;
+    
+	if ( window.location.host.split(".")[1] == "cloudant" ) {
+		search_url = window.location.protocol + '//' + window.location.host
+        + '/' + dbname + '/_design/persephone/_search/assays?q='
+        + val + '&include_docs=true&limit=' + default_settings.max_entries + options._search;
+	}
+    
+	if ( val == "all" || val == "All" ) {
+		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ default_settings.max_entries +'&include_docs=true';
+	}
+    
+	$.ajax({
+    url: search_url,
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+        total_rows=data.total_rows;
+        $("#status-line").append(data.total_rows + ' assays');
+        if ( data.total_rows > 0 ) {
+            if ( data.total_rows > default_settings.max_entries ) {
+                n_entries = default_settings.max_entries;
+            } else {
+                n_entries = data.total_rows;
+            };
+            
+            if (data.bookmark){
+                bookmark = data.bookmark;
+            }
+            
+            for ( j = 0; j < n_entries; j++ ) {
+                var doc = data.rows[j].doc;
+                
+                FillTemplate(doc);
+            }
+            
+            DecorateResult();
+            
+            $('#materials').infiniScroll('pollLevel');
+        }
+    }
+	})
+};
+
+// ------------------------------ Results display -----------------------------
 
 // Highlight email and web link
 jQuery.fn.highlight = function (method) {
@@ -599,7 +579,6 @@ function DecorateResult() {
 	$(".faded").highlight("url");
 };
 
-/* fill the JSON into the output_template.html*/
 function FillTemplate(doc){
 	var th={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"},u={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"}
 	var pri_th=100,pri_u=100;
@@ -634,89 +613,16 @@ function FillTemplate(doc){
 	}
 }
 
-
-/*==== search for result ====*/
-function searchResults(val, options) {
-	// clear the page
-	$("#materials").empty();
-	$("#status-line").empty();
-	// show table header
-	$(".table-header").show();
-
-	var n_entries;
-	skip=0;
-	total_rows=0;
-
-	if ( window.location.host.split(".")[1] == "cloudant" ) {			
-		search_url = window.location.protocol + '//' + window.location.host 
-							 + '/' + dbname + '/_design/persephone/_search/assays?q='		 
-							 + val + '&include_docs=true&limit=' + default_settings.max_entries + options._search;
-	}
-		
-	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ default_settings.max_entries +'&include_docs=true';
-	}
-
-	$.ajax({ 
-		url: search_url,
-		dataType: 'json',
-		async: false,
-		success: function(data) { 
-			total_rows=data.total_rows;
-			$("#status-line").append(data.total_rows + ' assays');				
-			if ( data.total_rows > 0 ) {
-				if ( data.total_rows > default_settings.max_entries ) {
-					n_entries = default_settings.max_entries;
-				} else {				 
-					n_entries = data.total_rows;								 
-				};
-
-				if (data.bookmark){
-					bookmark = data.bookmark;
-				}
-
-				for ( j = 0; j < n_entries; j++ ) {	
-					var doc = data.rows[j].doc;
-
-					FillTemplate(doc);
-				}
-
-				DecorateResult();
-				
-				$('#materials').infiniScroll('pollLevel');
-			}
-		}
-	})
-};
-
-/*==== enter box ====*/
-function enter_box(event) {		
-	
-	if (event.keyCode == 13) {
-			
-		//$( "#box-search" ).autocomplete("close");
-		click_search();
-		event.returnValue = false; // for IE
-		if (event.preventDefault()) event.preventDefault(); 
-	 
-	}
-
-	return false;		 
-}	
-
-/*==== email_link ====*/
 function email_link(user, dom, linkText) {
-	return document.write( "<a href=" + "mail" + "to:" + user + "@" + dom
-	 + ">" + linkText + "<\/a>" );
+	return document.write("<a href=" + "mail" + "to:" + user + "@" + dom
+	 + ">" + linkText + "<\/a>");
 }
 
-
-/* Check which tab is active */
 function getSelectedTabIndex() { 
 	return $("#tabs").tabs('option', 'selected');
 }
 
-/*==== infinity scroll ====*/
+// infiniScroll plugin - credit?
 (function( $ ){
 	var _checkLevel = function() { 
 
@@ -815,17 +721,91 @@ function getSelectedTabIndex() {
 
 })( jQuery );
 
+// ------------------------------ Login tab ------------------------------
 
-/*
-=============================================
-==============				 ================
-==============	Submit Tab   ================
-==============				 ================
-=============================================
-*/
+// Code adapted from from Chris Anderson
 
-/*==== initial configuration ====*/
-// Argument: options = {"doc":fillDoc , "label":pageTab , "method":"update"}
+$(document).ready(function(){
+	$("#contactForm").couchLogin({
+    loggedIn: function() {
+        $( "#tabs" ).tabs({disabled: []});
+        login_flag = 1;
+        $(".edit-menu").removeClass("ui-state-disabled"); // enable edit
+    },
+    loggedOut: function() {
+        $( "#tabs" ).tabs({disabled: [1, 2, 3]});
+        login_flag = 0;
+        $(".edit-menu").addClass("ui-state-disabled"); // disable edit
+    }
+	});
+});
+
+(function($) {
+	$.fn.couchLogin = function(opts) {
+        
+		loginForm = '<input id="login-name" class="ui-widget-content" '
+        +   'type="text" placeholder="User ID"/>'
+        + ' <input id="login-password" class="ui-widget-content" '
+        +   'type="password" placeholder="Password"/>'
+        + ' <input id="login-button" value="Login" '
+        +   'type="submit" name="submit"/>';
+		var elem = $(this);
+		opts = opts || {};
+        
+		function loggedIn(r) {
+			var auth_db = encodeURIComponent(r.info.authentication_db)
+			, uri_name = encodeURIComponent(r.userCtx.name)
+			, span = $('<span id="welcome">Currently logged in as '
+                       + r.userCtx.name
+                       + '<br><br><input id="logout-button" value="Logout" '
+                       + 'type="submit"/></span>');
+            return span;
+		}
+        
+		function initWidget() {
+            $.couch.session({
+                success : function(r) {
+                    var userCtx = r.userCtx;
+                    if (userCtx.name) {
+                        $("#contactForm").empty();
+                        elem.append(loggedIn(r));
+                        $("#logout-button").button()
+                        if (opts.loggedIn) {opts.loggedIn()}
+                    } else {
+                        $("#contactForm").empty();
+                        elem.append(loginForm);
+                        $("#login-button").button()
+                        if (opts.loggedOut) {opts.loggedOut()}
+                    }
+                },
+                error : function(){
+                    // FIXME
+                }
+            });
+        };
+        
+		function doLogin(name, pass) {
+			$.couch.login({name:name, password:pass, success:initWidget});
+		};
+        
+		initWidget();
+        
+        elem.delegate("#logout-button", "click", function() {
+            $.couch.logout({success : initWidget});
+        });
+        
+		elem.delegate("#login-button", "click", function() {
+			doLogin($('#login-name').val() , $('#login-password').val());
+			return false;
+		});
+        
+	}
+})(jQuery);
+
+// ------------------------------ Submit tab ----------------------------------
+
+// Initial configuration
+// options = {"doc":fillDoc , "label":pageTab , "method":"update"}
 function CreateAssayPage(options){
 	label = options.label;
 	// INPUT FORM TEMPLATE	 
@@ -1121,7 +1101,6 @@ function CreateAssayPage(options){
 
 }
 
-// ____________________________________________________________________________________
 function click_clear_all(label) {
 
 	$(':input', label+' #input')
@@ -1134,14 +1113,12 @@ function click_clear_all(label) {
 
 }
 
-// ____________________________________________________________________________________
 function click_clear_warnings(label) {
 
 	$(label+" #input").validate().resetForm()
 
 }
 
-// ____________________________________________________________________________________
 function click_check(label) {
 
 	$(label+" #input").validate().form() 
@@ -1167,10 +1144,8 @@ function db_delete(){
 	);
 }
 
-/*
-Delete Assays
-options = {"label":"tab-submit" , "dialog":"#dialog-submit"}
-*/
+// Delete Assays
+// options = {"label":"tab-submit" , "dialog":"#dialog-submit"}
 function click_delete(options) {
 	$( options.dialog ).dialog({
 			modal: true,
@@ -1189,10 +1164,8 @@ function click_delete(options) {
 	$(options.dialog ).dialog("open" );
 }
 
-/*
-Submit Assays
-options = {"label":"tab-submit" , "dialog":"#dialog-submit " , "method":"update"}
-*/
+// Submit Assays
+// options = {"label":"tab-submit", "dialog":"#dialog-submit ", "method":"update"}
 function click_submit(options) {
 	label = options.label;
 
@@ -1610,14 +1583,8 @@ function click_submit(options) {
 
 }
 
+// ------------------------------ Edit tab ------------------------------------
 
-/*
-=============================================
-==============				 ================
-==============	Edit tab 	 ================
-==============				 ================
-=============================================
-*/
 // Fill the result row blank
 function FillResultRow(label, doc) {
 	$(label+".risotope").val(doc.isotope);
@@ -1812,8 +1779,9 @@ function EditAssay(_id,method) {
 	$( "#tabs" ).tabs({ active: 2 });
 }
 
-/* Settings tab */
-// upload the new settings
+// ------------------------------ Settings tab --------------------------------
+
+// Upload the new settings
 function UpdateSettings(){
 	var mentry;
 	mentry = $("#max-entry").val();
