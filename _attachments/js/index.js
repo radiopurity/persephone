@@ -181,7 +181,7 @@ $(document).ready(function() {
         default_settings.max_entries = old_max;
 	});
     
-  default_settings.max_entries
+    default_settings.max_entries
     
 	// Download all the expanded result into csv
 	$("#button-download-expanded").bind("click" , function(){
