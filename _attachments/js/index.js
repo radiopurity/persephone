@@ -454,19 +454,43 @@ function DecorateResult() {
 		icons:{primary:"ui-icon-wrench"},
 		text:false
 	});
+    
+    
 	// timeout
-	var tt;
-	$(".export-button,.export-option" ).unbind("mouseover").unbind("mouseout").mouseenter(function(event){
-		var parent = $(this).closest('div');
-		parent.find('.export-option').fadeIn();
-		if(tt){clearTimeout(tt);}
-	}).mouseleave(function(event){
-		var parent = $(this).closest('div');
-		tt = setTimeout($.proxy(function() {
-								parent.find('.export-option').fadeOut(100);
-								}, this), 500)
-	});
+	//var tt;
+	//$(".export-button,.export-option" ).unbind("mouseover").unbind("mouseout").mouseenter(function(event){
+	//	var parent = $(this).closest('div');
+	//	parent.find('.export-option').fadeIn();
+	//	if(tt){clearTimeout(tt);}
+	//}).mouseleave(function(event){
+	//	var parent = $(this).closest('div');
+	//	tt = setTimeout($.proxy(function() {
+	//							parent.find('.export-option').fadeOut(100);
+	//							}, this), 500)
+	//});
 
+    
+	var tt = false; // timer
+    
+	$(".export-button,.export-option" ).unbind("mouseout");
+    
+	$(".export-button").click(function(event){
+                              event.stopPropagation(); // prevent triggering of accordian
+                              event.preventDefault();
+                              var options = $(this).closest('div').find('.export-option');
+                              if ( options.is(':visible') ) {
+                              options.fadeOut(100);
+                              } else {
+                              options.fadeIn(100);
+                              };
+                              if (tt) { clearTimeout(tt); }
+                              });
+    
+	$(".export-button,.export-option" ).mouseover(function(event){
+                                                  if (tt) { clearTimeout(tt); }
+                                                  });
+    
+    
 	$(".export-option" ).menu();
 	if(!login_flag){
 		// disable the edit function
