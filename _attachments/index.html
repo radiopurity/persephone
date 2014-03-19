@@ -28,9 +28,9 @@
 
         <meta http-equiv="Content-Type"
             content="text/html; charset=iso-8859-1" />
-        
+
         <title>Persephone</title>
-        
+
         <link rel="shortcut icon" href="images/favicon.ico" >
         <link rel="bookmark" href="images/favicon.ico" >
         <link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css"
@@ -43,7 +43,7 @@
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js">
             </script>
         <!-- jQuery template loading -->
-        <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>                 
+        <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="js/jquery.placehold-0.3.min.js">
             </script>
         <script type="text/javascript" src="js/jquery.tablesorter.min.js">
@@ -56,12 +56,12 @@
         <script type="text/javascript" src="js/additional-methods.min.js">
             </script>
 
-        <link rel="stylesheet" type="text/css" href="css/style.css"/> 
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
     </head>
 
     <body>
-         
+
         <div id="container">
 
         <div id="header">
@@ -74,7 +74,7 @@
 
             <ul>
                 <li><a href="#tab-search">Search</a></li>
-                <li><a href="#tab-submit">Submit</a></li> 
+                <li><a href="#tab-submit">Submit</a></li>
                 <li><a href="#tab-edit">Edit</a></li>
                 <li><a href="#tab-settings">Settings</a></li>
                 <li><a href="#tab-about">About</a></li>
@@ -84,7 +84,7 @@
             <!-- Search tab -->
 
             <div id="tab-search">
-                
+
                 <div id="div-search">
                     <input id="box-search" placeholder="e.g. all"
                         onkeydown="javascript:enter_box(event);"
@@ -100,24 +100,24 @@
                 </div>
 
                 <div id="status-line" class="faded"></div>
-                
+
                 <div class="table-header" style="display:none">
                     <h3 style="height:19px">
-                        <div class="heading-grouping group-header header 
+                        <div class="heading-grouping group-header header
                             header-correction">Grouping</div>
-                        <div class="heading-name name-header header 
+                        <div class="heading-name name-header header
                             header-correction"><b>Name</b></div>
-                        <div class="heading-isotope-name 
+                        <div class="heading-isotope-name
                             header-correction">Isotope</div>
-                        <div class="heading-isotope-value th-header header 
+                        <div class="heading-isotope-value th-header header
                             header-correction">Amount</div>
-                        <div class="heading-isotope-name 
+                        <div class="heading-isotope-name
                             header-correction">Isotope</div>
                         <div class="heading-isotope-value u-header header
                             header-correction">Amount</div>
                     </h3>
                 </div>
-                
+
                 <div id="materials" class="content"></div>
 
                 <!-- the 'loading_elem' -->
@@ -131,11 +131,11 @@
                 </div>
 
             </div>
-            
-            <!-- Data tab --> 
-            
+
+            <!-- Data tab -->
+
             <div id="tab-submit">
-                
+
                 <div class="div-submit">
                     <button id="button-clear2"
                         onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>
@@ -148,9 +148,9 @@
                 </div>
 
                 <div id="input-form" class="content"></div>
-                
+
                 <div id="dialog-submit" title="Entry submitted" style="display:none"></div>
-                
+
                 <div class="div-submit">
                     <button id="button-clear2"
                         onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>
@@ -161,13 +161,13 @@
                     <button id="button-submit"
                         onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
                 </div>
-                
+
             </div>
-                                
+
             <!-- Edit tab -->
 
             <div id="tab-edit">
-                
+
                 <div class="div-edit" style="display:none">
                     <button id="button-check"
                         onclick="javascript:click_check('#tab-edit ');">Check</button>
@@ -180,12 +180,12 @@
                     <button id="button-edit"
                         onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
                 </div>
-                
+
                 <div id="input-form" class="content"></div>
-                
+
                 <div id="dialog-edit" title="Entry submitted"
                     style="display:none"></div>
-                
+
                 <div class="div-edit" style="display:none">
                     <button id="button-check"
                         onclick="javascript:click_check('#tab-edit ');">Check</button>
@@ -204,7 +204,7 @@
             <!-- Settings tab -->
 
             <div id="tab-settings">
-                <div id="input-form" class="content"></div> 
+                <div id="input-form" class="content"></div>
                 <div id="dialog-settings" title="Entry submitted" style="display:none"></div>
                 <div class="div-settings">
                     <button id="button-settings"
@@ -215,8 +215,8 @@
             <!-- About tab -->
 
             <div id="tab-about">
-                
-                <div id="about" class="content-text">           
+
+                <div id="about" class="content-text">
                     <div id="about-col1">
                         <p class="about-header dark-pink"><b>Search</b></p>
                         <div class="about-section">
@@ -232,8 +232,8 @@
                             <p>You can specify a different search field:</p>
                             <ul><b>
                                 <li> experiment:majorana</li>
-                                <li> technique:(gamma OR naa)</li> 
-                                <li> &nbsp;&nbsp;&nbsp;AND name:plastic</li>                                            
+                                <li> technique:(gamma OR naa)</li>
+                                <li> &nbsp;&nbsp;&nbsp;AND name:plastic</li>
                             </ul></b>
                             <p>These are the supported fields:</p>
                             <ul><b>
@@ -250,11 +250,11 @@
                                 <li>isotope</li>
                             </b></ul>
                             <p>To view all assays enter <b>all</b>.</p>
-                        </div>  
+                        </div>
                    </div>
-                    
+
                    <div id="about-col2">
-                       
+
                         <p class="about-header dark-pink"><b>Display</b></p>
 
                         <div class="about-section">
@@ -278,9 +278,9 @@
                             </ul>
                             <p>You can drag entries into a different order to help you compare them.</p>
                         </div>
-                        
+
                         <p class="about-header dark-pink"><b>About</b></p>
-                        
+
                         <div class="about-section">
                             <p>
                                 <a href="https://github.com/nepahwin/persephone">Persephone</a>
@@ -317,7 +317,7 @@
                                 </script>.
                             </p>
                         </div>
-                        
+
                     </div>
 
                 </div>
