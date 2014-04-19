@@ -66,6 +66,60 @@
 				<td class="item">Description</td>
 				<td>${sample.description}</td>
 			</tr>
+
+			{{if sample.id != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">ID</td>
+					<td>${sample.id}</td>
+				</tr>
+			{{/if}}
+
+			{{if sample.source != ""}}
+				<tr>
+					<td></td>
+					<td class="item">Source</td>
+					<td>${sample.source}</td>
+				</tr>
+			{{/if}}
+
+			{{if sample.owner.name != "" || sample.owner.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Owner</td>
+					<td>
+					${sample.owner.name}
+					{{if sample.owner.contact != ""}}
+						<span class="faded">${sample.owner.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
+
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				{{if !jQuery.isEmptyObject(sample.user)}}
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each sample.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
+
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+				{{/if}}
+			</tr>
+
 		</table>
 		</li>
 
@@ -73,6 +127,7 @@
 
 		<li>
 		<table class="measurement-details">
+
 			<tr>
 				<td class="category">Measurement</td>
 				<td class="item">Results</td>
@@ -129,6 +184,144 @@
 				</td>
 			</tr>
 
+			{{if measurement.institution != ""}}
+				<tr class="hideable" style="display:none">
+					<td class="category"></td>
+					<td class="item">Institution</td>
+					<td>${measurement.institution}</td>
+				</tr>
+			{{/if}}
+
+			{{if measurement.technique != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Technique</td>
+					<td>${measurement.technique}</td>
+				</tr>
+			{{/if}}
+
+			{{if !jQuery.isEmptyObject(measurement.date) }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Date</td>
+					<td>
+						{{if measurement.date.length == 1 }}
+							${measurement.date[0]}
+						{{else}}
+							${measurement.date[0]} <span class="faded">to</span> ${measurement.date[1]}
+						{{/if}}
+					</td>
+				</tr>
+			{{/if}}
+
+			{{if measurement.requestor.name != "" || measurement.requestor.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Requestor</td>
+					<td>
+					${measurement.requestor.name}
+					{{if measurement.requestor.contact != ""}}
+						<span class="faded">${measurement.requestor.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
+
+			{{if measurement.practitioner.name != "" || measurement.practitioner.contact != "" }}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Practitioner</td>
+					<td>
+					${measurement.practitioner.name}
+					{{if measurement.practitioner.contact != ""}}
+						<span class="faded">${measurement.practitioner.contact}</span>
+					{{/if}}
+					</td>
+				</tr>
+			{{/if}}
+
+			{{if measurement.description != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Description</td>
+					<td class="m_description"><span class="faded">${measurement.description}</span></td>
+				</tr>
+			{{/if}}
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				{{if !jQuery.isEmptyObject(measurement.user)}}
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each measurement.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
+
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+				{{/if}}
+			</tr>
+		</table>
+		</li>
+
+	<!-- Data source / entry -->
+
+		<li>
+		<table class="data-details">
+
+			<tr class="hideable" style="display:none">
+				<td class="category">Data</td>
+				<td class="item">Reference</td>
+				<td><span class="faded">${data_source.reference}</span></td>
+			</tr>
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				<td class="item">Data entry</td>
+				<td>
+					<span class="faded"> ${data_source.input.name} ${data_source.input.contact} on ${data_source.input.date} spec v${specification}</span>
+				</td>
+			</tr>
+
+			{{if data_source.notes != ""}}
+				<tr class="hideable" style="display:none">
+					<td></td>
+					<td class="item">Notes</td>
+					<td>${data_source.notes}</td>
+				</tr>
+			{{/if}}
+
+			<tr class="hideable" style="display:none">
+				<td></td>
+				{{if !jQuery.isEmptyObject(data_source.user)}}
+				<td class="item">User</td>
+				<td>
+					<table>
+						{{each data_source.user}}
+						<tr>
+							<td>
+								<span>${$value.name}</span>
+
+								<span class="faded">${$value.description}</span>
+								<span class="faded">${$value.type}</span>
+								<span class="faded">${$value.value}</span>
+								<span class="faded">${$value.unit}</span>
+							</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+				{{/if}}
+			</tr>
 		</table>
 		</li>
 

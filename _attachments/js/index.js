@@ -311,11 +311,11 @@ function searchResults(val,options) {
 	if ( window.location.host.split(".")[1] == "cloudant" ) {
 		search_url = window.location.protocol + '//' + window.location.host
 							 + '/' + dbname + '/_design/persephone/_search/assays?q='
-							 + val + '&include_docs=true&limit=' + default_settings.max_entries + options._search;
+							 + val + '&limit=' + default_settings.max_entries + options._search;
 	}
 
 	if ( val == "all" || val == "All" ) {
-		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ default_settings.max_entries +'&include_docs=true';
+		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view +'?limit='+ default_settings.max_entries;
 	}
 
 	$.ajax({
@@ -338,7 +338,7 @@ function searchResults(val,options) {
 
 				var doc;
 				for ( j = 0; j < n_entries; j++ ) {
-					doc = data.rows[j].doc;
+					doc = data.rows[j].value;
 					FillTemplate(doc, material);
 				}
 				DecorateResult();
@@ -613,7 +613,7 @@ function getSelectedTabIndex() {
 							var i, doc, material = $("#materials");
 
 							for ( i in data.rows ) {
-								doc = data.rows[i].doc;
+								doc = data.rows[i].value;
 								FillTemplate(doc, material);
 							}
 							DecorateResult();
