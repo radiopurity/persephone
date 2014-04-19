@@ -10,5 +10,6 @@
    ".gitignore",
    ".git",
    "LICENSE",
-   "tools"
+   "tools",
+   ".couchapprc"
 ]

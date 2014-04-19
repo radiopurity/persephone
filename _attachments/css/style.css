@@ -13,62 +13,48 @@ body {
 	font-size: 11px; 
 }
 
+/* Login tab */
 
-/*Login Ribbon*/
-#contactFormContainer
-{
-	position: fixed;
-	top: 0em;
-	right: 0em;
+#contactFormContainer {
 	z-index: 999999;
+    margin-left:auto;
+    margin-right:auto;
 }
-#contactForm
-{
-	height:150px;
-	width:100px;
-	background-color: #ffffff;
-	display:none;
+
+#contactForm {
+	height:30px;
+	width:305px;
+    text-align:center;
+    margin:0px auto 50px auto;
 }
-#contactForm fieldset
-{
-	padding:5px;
-	border:none;
-}      
-#contactForm label
-{
+
+#contactForm label {
 	display:block;
-	padding:2px;
-	color:#e18e94;
+	color:#aaaaaa;
 }
-#contactForm input[type=text],input[type=password]
-{
-	display:block;
-	border:solid 1px #cccccc;
-	width:100%;
-	margin-bottom:10px;
-	height:20px;
-} 
-#contactForm input[type=submit]
-{
-	background-color:#ffffff;
-	border:solid 1px #ecb7b8;
-	color:#e18e94;
-	padding:5px;
-}                
-#contactLink{
-	height:99px;
-	width:100px;
-	background-image:url('../images/ribbon.gif');
-	display:block;
-	cursor:pointer;
+
+#contactForm input[type=text], input[type=password] {
+	width:80px;
+	height:22px;
+    padding-left:5px;
+    margin-right:5px;
+    font-size:9pt;
 }
-#welcome{
-	color:#e18e94;
+
+#contactForm input[type=submit] {
+    height:28px;
+}
+
+#welcome {
+	color:#aaaaaa;
 	display:block;
 	text-align: center;
 	width:100%;
 }
 
+#login-button {
+    width:80px;
+}
 
 /*.ui-accordion-header-active {
 	background:#ecb7b8 !important; // light pink for active
@@ -139,21 +125,29 @@ div.content-text {
 
 #div-search {
 	height: 40px;
-	width: 600px;
-	margin: 5px 5px 5px 250px;
+	width: 700px;
+	margin: 5px 5px 0px 260px;
 }
 
 #div-search button {
-	height:26px;
-	width:26px;
+	height:28px;
+    margin: 0px 0px 0px 3px
+}
+
+#button-search {
+	width:28px;
+}
+
+#button-show-more {
+	width:28px;
 }
 
 #box-search {
 	padding: 0px 0px 0px 8px;
-	margin: 0px 3px 0px 0px;
-	width:	401px;
-	height: 24px;
-	line-height: 22px; 
+	margin: 0px 0px 0px 0px;
+	width:	380px;
+	height: 26px;
+	line-height: 24px;
 	/* this line-height being an even number solves
 		 a nasty problem that in Chrome (not FF, Safari)
 		 the input box text does not align properly
@@ -181,12 +175,21 @@ div.content-text {
 	font-weight: bold;
 }
 
-.header:hover{
+.header-correction {
+   margin-top:2px;
+}
+
+
+.ui-accordion-header {
+    padding:0.33em .5em .4em 2.2em !important;
+}
+
+.header:hover {
 	color:#ecb7b8 !important;
 }
 
 .group-header{
-	margin-left: 18px;
+	margin-left: 0px;
 }
 
 /* for table content*/
@@ -235,16 +238,16 @@ div.content-text {
 }
 
 #status-line {
-	font-size: 14px;
+/*	font-size: 11px;*/
 	text-align:center; 
-	padding-top:7px;
-	padding-bottom:13px;
+	padding-bottom:15px;
 }
 
 /* output button */
 .delete-button,.detail-button,.export-button{
 	width:20px !important;
 	height:20px !important;
+    margin-left:3px;
 }
 /* slide down list*/
 .ui-menu {
@@ -387,15 +390,15 @@ Back to top button
 
 /* arrow icon (span tag) */
 #back-top span {
-	width: 50px;
-	height: 50px;
+	width: 27px;
+	height: 27px;
 	display: block;
 	margin-bottom: 7px;
 	background: #ddd url(../images/up-arrow.png) no-repeat center center;
 	/* rounded corners */
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 	/* background color transition */
 	-webkit-transition: 1s;
 	-moz-transition: 1s;
@@ -534,7 +537,7 @@ textarea.input-textarea {
 }
 
 button.input {
-	height:26px; 
+	height:26px;
 }
 
 /* Settings tab */
@@ -545,8 +548,6 @@ button.input {
 img#logo {
     max-width:662px;
 }
-
-/* About tab template formatting */
 
 p.about-header {
 	font-family: 'Oleo Script', cursive; 
@@ -583,7 +584,5 @@ div#about {
 	margin-left:auto;
 	margin-right:auto;
 }
-
-
 
 
