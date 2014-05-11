@@ -1,10 +1,10 @@
 {
-	"analyzer": {
-      "name": "perfield",
-      "default": "classic",
-      "fields": {
-      		"name":"whitespace"
-      }
+    "analyzer": {
+        "name": "perfield",
+        "default": "classic",
+        "fields": {
+            "name":"whitespace"
+        }
     },
-	"index": "function (doc) { index(\"default\", doc.sample.name); if (doc.sample.name) { index(\"name\", doc.sample.name, { \"store\": \"yes\" }); } if (doc.grouping) { index(\"grouping\", doc.grouping, { \"store\": \"yes\" }); } if (doc.sample.description) { index(\"description\", doc.sample.description, { \"store\": \"yes\" }); } if (doc.measurement.results.length > 0) { for (var i = 0; i < doc.measurement.results.length; i++) { index(\"isotope\", doc.measurement.results[i].isotope, {\"store\": \"yes\"}); index(\"type\", doc.measurement.results[i].type,{\"store\":\"yes\"}); index(\"value\", doc.measurement.results[i].type,{\"store\":\"value\"}); index(\"unit\", doc.measurement.results[i].type,{\"store\":\"unit\"});}}}"
+    "index": "function(doc){ index(\"default\", doc.sample.name); if(doc.sample.name){ index(\"name\",doc.sample.name,{\"store\":\"yes\"}); } if(doc.grouping){ index(\"grouping\",doc.grouping,{\"store\":\"yes\"}); } if(doc.sample.description){ index(\"description\",doc.sample.description,{\"store\":\"yes\"}); } if(doc.measurement.results.length>0){ for(var i=0;i<doc.measurement.results.length;i++){ if(doc.measurement.results[i].isotope.indexOf(\"Th\")>-1||doc.measurement.results[i].isotope.indexOf(\"U\")>-1){ var value = doc.measurement.results[i]; if (value.unit != \"ng/cm2\" && value.unit != \"pg/cm2\"){ if (value.type == \"measurement\"){ if (value.value.length ==1){ s=value.value[0]+\" \"+value.unit; } else if (value.value.length == 2){ s=value.value[0]+\"() \"+value.unit; } else if (value.value.length == 3){ s=value.value[0]+\"() \"+value.unit; } } else if (value.type == \"limit\"){ s=value.value[0]+\" \"+value.unit; } else if (value.type == \"range\"){ s=value.value[0]+\" - \"+value.value[1]+\" \"+value.unit; } } index(\"isotope\",value.isotope,{\"store\":\"yes\"}); index(\"value\",s,{\"store\":\"yes\"}); } } } }"
 }
