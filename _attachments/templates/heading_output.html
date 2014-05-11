@@ -1,0 +1,18 @@
+<div class="accordion" value=${id}>
+<h3 style="height:19px">
+	<a href="#">
+		<div class="faded-less heading-grouping header-correction">${grouping}</div>
+		<div class="heading-name header-correction">${name}</div>
+		{{each iso}}	
+			<div class="heading-isotope-name header-correction">${$value.isotope}</div>
+			<div class="faded-less heading-isotope-value header-correction">${$value.value}</div>
+		{{/each}}
+		{{if $(isotope).length > 2 }}
+			<div class="heading-isotope-name-short">&hellip;</div>
+		{{/if}}
+	</a>
+	<button class="delete-button" type="button" style="float:right;">&nbsp</button>
+	<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
+	<button class="detail-button" type="button" style="float:right;display:none">&nbsp</button>
+</h3>
+</div>

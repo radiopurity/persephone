@@ -86,6 +86,11 @@ $(document).ready(function() {
 		$.template("output_template", tmp);
 	});
 
+	// Heading template
+	$.get('templates/heading_output.html', function(tmp){
+		$.template("heading_output", tmp);
+	});
+
 	// Search button initialization
 
 	$("#button-search").button({
@@ -310,7 +315,7 @@ function searchResults(val,options) {
 
 	if ( window.location.host.split(".")[1] == "cloudant" ) {
 		search_url = window.location.protocol + '//' + window.location.host
-							 + '/' + dbname + '/_design/persephone/_search/assays?q='
+							 + '/' + dbname + '/_design/persephone/_search/heading?q='
 							 + val + '&limit=' + default_settings.max_entries + options._search;
 	}
 
@@ -338,11 +343,12 @@ function searchResults(val,options) {
 
 				var doc;
 				for ( j = 0; j < n_entries; j++ ) {
-					doc = data.rows[j].value;
-					FillTemplate(doc, material);
+					doc = data.rows[j].fields;
+					doc["id"] = data.rows[j].id; 
+					FillHeading(doc, material);
 				}
-				DecorateResult();
 
+				DecorateResult();
 				material.infiniScroll('pollLevel');
 			}
 		}
@@ -566,6 +572,45 @@ function FillTemplate(doc, material){
 	}
 }
 
+/* fill the JSON into the heading_template.html*/
+function FillHeading(doc, material){
+	var pri_th=100,pri_u=100;
+	var thi = -1,ui = -1;
+	for(var k=0; k < doc.isotope.length; k++){
+		var item = doc.isotope[k];
+
+		// select Th
+		for (var i = 0; i < Th_priority.length; i++) {
+			if (item == Th_priority[i] && i < pri_th){
+				thi = k;
+				pri_th = i;
+			}
+		};
+
+		// select U
+		for (var i = 0; i < U_priority.length; i++) {
+			if (item == U_priority[i] && i < pri_u){
+				ui = k;
+				pri_u = i;
+			}
+		};
+	}
+	if (thi != -1){
+		th = {"isotope":doc.isotope[thi], "value":doc.value[thi]};
+	}else{
+		th = {"isotope":"", "value":""};
+	}
+	if (ui != -1){
+		u = {"isotope":doc.isotope[ui], "value":doc.value[ui]};
+	}else{
+		u = {"isotope":"", "value":""};
+	}
+	doc.iso = [th , u];
+	doc.error_email = default_settings.error_email;
+
+	var tt = $.tmpl("heading_output", doc);
+	material.append(tt);
+}
 /*==== email_link ====*/
 function email_link(user, dom, linkText) {
 	return document.write("<a href=" + "mail" + "to:" + user + "@" + dom
