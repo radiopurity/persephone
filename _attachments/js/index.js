@@ -343,8 +343,12 @@ function searchResults(val,options) {
 
 				var doc;
 				for ( j = 0; j < n_entries; j++ ) {
-					doc = data.rows[j].fields;
-					doc["id"] = data.rows[j].id; 
+					if(val != "all" && val != "All"){
+						doc = data.rows[j].fields;
+						doc["id"] = data.rows[j].id; 
+					}else{
+						doc = data.rows[j].value;
+					}
 					FillHeading(doc, material);
 				}
 
@@ -659,8 +663,12 @@ function getSelectedTabIndex() {
 							var i, doc, material = $("#materials");
 
 							for ( i in data.rows ) {
-								doc = data.rows[i].fields;
-								doc["id"] = data.rows[i].id;
+								if(val != "all" && val != "All"){
+									doc = data.rows[j].fields;
+									doc["id"] = data.rows[j].id; 
+								}else{
+									doc = data.rows[j].value;
+								}
 								FillHeading(doc, material);
 							}
 							DecorateResult();
