@@ -1,54 +1,3 @@
-<div class="accordion" value=${_id}>
-
-<h3 style="height:19px">
-
-	<a href="#">
-		<div class="faded-less heading-grouping header-correction">${grouping}</div>
-		<div class="heading-name header-correction">${sample.name}</div>
-	
-		{{each iso}}
-	
-			{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
-	
-				{{if $value.type == "measurement"}}
-				
-					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-					{{if $value.value.length == 1 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} ${$value.unit}</div>					
-					{{/if}}
-					{{if $value.value.length == 2 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
-					{{/if}}		
-					{{if $value.value.length == 3 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
-					{{/if}}	 
-				{{/if}}
-	
-				{{if $value.type == "limit"}}
-					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-					<div class="faded-less heading-isotope-value header-correction">&lt ${$value.value[0]} ${$value.unit}</div>		 
-				{{/if}}
-	
-				{{if $value.type == "range"}}
-					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-					<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</div>						 
-				{{/if}}
-	
-			{{/if}}
-	
-		{{/each}}
-	
-		{{if $(measurement.results).length > 2 }}
-			<div class="heading-isotope-name-short">&hellip;</div> 
-		{{/if}}
-	</a>	 
-		<button class="delete-button" type="button" style="float:right;">&nbsp</button>
-		<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
-		<button class="detail-button" type="button" style="float:right;display:none">&nbsp</button>
-
-</h3>
-
-
 <div>
 	<span id="meas-info">
 		<ul>
@@ -355,7 +304,5 @@
 		</li>
 		</ul>
 	</span>
-
-</div>
 
 </div>

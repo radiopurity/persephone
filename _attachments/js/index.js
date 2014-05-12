@@ -82,8 +82,8 @@ $(document).ready(function() {
 	});
 
 	// Display template
-	$.get('templates/default_output.html', function(tmp) {
-		$.template("output_template", tmp);
+	$.get('templates/details_output.html', function(tmp) {
+		$.template("details_output", tmp);
 	});
 
 	// Heading template
@@ -444,13 +444,31 @@ function DecorateResult() {
 	});
 
 	/* detail button */
-	$(".detail-button").button({
+	var detail_button = $(".detail-button");
+	detail_button.button({
 		icons:{primary:"ui-icon-zoomin"},
 		text:false
 	}).unbind().click(function(event){
+		var parent = $(this).closest('div');
+		if ( $(this).hasClass("none-preloading")) {
+			 $(this).removeClass("none-preloading");
+			var url = window.location.protocol + '//' + window.location.host
+				+ '/' + dbname+'/'+ $(this).attr('value');
+			$.ajax({
+				url: url,
+				dataType: 'json',
+				async: false,
+				success: function(data) {
+					FillDetail(data, parent.find('.accordion-details'));
+				},
+
+				error: function(jqXHR, textStatus, errorThrown){
+					alert('Error'+textStatus+':'+errorThrown);
+				}
+			});
+		};
 		event.stopPropagation(); // this is
 		event.preventDefault(); // the magic
-		var parent = $(this).closest('div');
 		parent.find('.hideable').fadeToggle();
 		$(".ui-button-icon-primary", this)
 			.toggleClass("ui-icon-zoomin ui-icon-zoomout");
@@ -537,39 +555,11 @@ function DecorateResult() {
 	$(".faded").highlight("email").highlight("url");
 };
 
-/* fill the JSON into the output_template.html*/
-function FillTemplate(doc, material){
-	var th={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"},u={ "isotope":"-", "type":"measurement","value":["-"],"unit":"-"}
-	var pri_th=100,pri_u=100;
-	if ( doc.type == "measurement" ) {
-		for(var k in doc.measurement.results){
-			var item = doc.measurement.results[k];
-
-			// select Th
-			for (var i = 0; i < Th_priority.length; i++) {
-				if (item.isotope == Th_priority[i] && i < pri_th
-						&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
-					th = item;
-					pri_th = i;
-				}
-			};
-
-			// select U
-			for (var i = 0; i < U_priority.length; i++) {
-				if (item.isotope == U_priority[i] && i < pri_u
-						&& item.unit != "ng/cm2" && item.unit != "pg/cm2"){
-					u = item;
-					pri_u = i;
-				}
-			};
-		}
-
-		doc.iso = [th , u];
-		doc.error_email = default_settings.error_email;
-
-		var tt = $.tmpl("output_template", doc);
-		material.append(tt);
-	}
+/* fill the JSON into the details_output.html*/
+function FillDetail(doc, material){
+	doc.error_email = default_settings.error_email;
+	var tt = $.tmpl("details_output", doc);
+	material.html(tt);
 }
 
 /* fill the JSON into the heading_template.html*/
