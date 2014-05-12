@@ -576,34 +576,45 @@ function FillTemplate(doc, material){
 function FillHeading(doc, material){
 	var pri_th=100,pri_u=100;
 	var thi = -1,ui = -1;
-	for(var k=0; k < doc.isotope.length; k++){
-		var item = doc.isotope[k];
-
-		// select Th
-		for (var i = 0; i < Th_priority.length; i++) {
-			if (item == Th_priority[i] && i < pri_th){
-				thi = k;
-				pri_th = i;
+	doc.results=[];
+	if (typeof(doc.isotope) != "undefined"){
+		for(var k in doc.isotope){
+			doc.results.push({"isotope":doc.isotope[k], "result1":doc.result1[k],
+				"result2":doc.result2[k],"type":doc.type[k], "unit":doc.unit[k]});
+			var item = doc.isotope[k];
+			if (item.indexOf("Th") > -1){
+				// select Th
+				for (var i = 0; i < Th_priority.length; i++) {
+					if (item == Th_priority[i] && i < pri_th){
+						thi = k;
+						pri_th = i;
+					}
+				}
 			}
-		};
-
-		// select U
-		for (var i = 0; i < U_priority.length; i++) {
-			if (item == U_priority[i] && i < pri_u){
-				ui = k;
-				pri_u = i;
+			if (item.indexOf("U") > -1){
+				// select U
+				for (var i = 0; i < U_priority.length; i++) {
+					if (item == U_priority[i] && i < pri_u){
+						ui = k;
+						pri_u = i;
+					}
+				}
 			}
-		};
+		}
+	}else{
+		doc.isotope = [];
 	}
 	if (thi != -1){
-		th = {"isotope":doc.isotope[thi], "value":doc.value[thi]};
+		th = {"isotope":doc.isotope[thi], "result1":doc.result1[thi],
+				"result2":doc.result2[thi],"type":doc.type[thi], "unit":doc.unit[thi]};
 	}else{
-		th = {"isotope":"", "value":""};
+		th = {"isotope":"", "result1":"","result2":"","unit":"","type":""};
 	}
 	if (ui != -1){
-		u = {"isotope":doc.isotope[ui], "value":doc.value[ui]};
+		u = {"isotope":doc.isotope[ui], "result1":doc.result1[ui],
+				"result2":doc.result2[ui],"type":doc.type[ui], "unit":doc.unit[ui]};
 	}else{
-		u = {"isotope":"", "value":""};
+		u = {"isotope":"", "result1":"","result2":"","unit":"","type":""};
 	}
 	doc.iso = [th , u];
 	doc.error_email = default_settings.error_email;
@@ -658,8 +669,9 @@ function getSelectedTabIndex() {
 							var i, doc, material = $("#materials");
 
 							for ( i in data.rows ) {
-								doc = data.rows[i].value;
-								FillTemplate(doc, material);
+								doc = data.rows[i].fields;
+								doc["id"] = data.rows[i].id;
+								FillHeading(doc, material);
 							}
 							DecorateResult();
 							methods.pollLevel();
