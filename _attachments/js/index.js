@@ -576,7 +576,7 @@ function FillHeading(doc, material){
 			doc.results.push({"isotope":doc.isotope[k], "result1":doc.result1[k],
 				"result2":doc.result2[k],"type":doc.type[k], "unit":doc.unit[k]});
 			var item = doc.isotope[k];
-			if (item.indexOf("Th") > -1){
+			if (item.indexOf("Th") > -1 && doc.unit[k] != "ng/cm2" && doc.unit[k] != "pg/cm2"){
 				// select Th
 				for (var i = 0; i < Th_priority.length; i++) {
 					if (item == Th_priority[i] && i < pri_th){
@@ -585,7 +585,7 @@ function FillHeading(doc, material){
 					}
 				}
 			}
-			if (item.indexOf("U") > -1){
+			if (item.indexOf("U") > -1 && doc.unit[k] != "ng/cm2" && doc.unit[k] != "pg/cm2"){
 				// select U
 				for (var i = 0; i < U_priority.length; i++) {
 					if (item == U_priority[i] && i < pri_u){
