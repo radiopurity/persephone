@@ -664,10 +664,10 @@ function getSelectedTabIndex() {
 
 							for ( i in data.rows ) {
 								if(val != "all" && val != "All"){
-									doc = data.rows[j].fields;
-									doc["id"] = data.rows[j].id; 
+									doc = data.rows[i].fields;
+									doc["id"] = data.rows[i].id; 
 								}else{
-									doc = data.rows[j].value;
+									doc = data.rows[i].value;
 								}
 								FillHeading(doc, material);
 							}
