@@ -1,111 +1,102 @@
 <div class="accordion" value=${id}>
-<h3 style="height:19px">
-	<a href="#">
-		<div class="faded-less heading-grouping header-correction">${grouping}</div>
-		<div class="heading-name header-correction">${name}</div>
-		{{each iso}}
-			{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
-				<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-				<div class="faded-less heading-isotope-value header-correction">${$value.result1} ${$value.unit}</div>
+	<h3 style="height:19px">
+		<a href="#">
+			<div class="faded-less heading-grouping header-correction">${grouping}</div>
+			<div class="heading-name header-correction">${name}</div>
+			{{each iso}}
+				{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
+					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
+					<div class="faded-less heading-isotope-value header-correction">${$value.result1} 	${$value.unit}</div>
+				{{/if}}
+			{{/each}}
+			{{if $(isotope).length > 2 }}
+				<div class="heading-isotope-name-short">&hellip;</div>
 			{{/if}}
-		{{/each}}
-		{{if $(isotope).length > 2 }}
-			<div class="heading-isotope-name-short">&hellip;</div>
-		{{/if}}
-	</a>
-	<button class="delete-button" type="button" style="float:right;">&nbsp</button>
-	<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
-	<button class="detail-button none-preloading" value=${id} type="button" style="float:right;display:none">&nbsp</button>
-</h3>
+		</a>
+		<button class="delete-button" type="button" style="float:right;">&nbsp</button>
+		<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
+		<button class="detail-button none-preloading" value=${id} type="button" style="float:right;display:none">&nbsp</button>
+	</h3>
 
-<div class="accordion-details">
-	<span id="meas-info">
+	<div class="accordion-details">
+		<span id="meas-info">
 		<ul>
 			<li class="sample-name">
-
-	<ul>
-
-	<!-- sample -->
-
-		<li>
-		<table class="sample-details">
-
-			<tr>
-				<td class="category">Sample</td>
-				<td class="item">Description</td>
-				<td>${description}</td>
-			</tr>
-		</table>
-		</li>
-
-	<!-- Measurement -->
-
-		<li>
-		<table class="measurement-details">
-			<tr>
-				<td class="category">Measurement</td>
-				<td class="item">Results</td>
-				<td>
-					<table>
-						{{each results}}
-							<tr>
-								<td class="result-isotope">${$value.isotope}</td>
-									<!-- Assay JSON ver.2.01 -->
-									{{if $value.type == "measurement"}}
-										<td class="result-symbol">&nbsp</td>
-										<td class="result-number">${$value.result1}</td>
-										<td class="result-number">${$value.result2}</td>
-									{{/if}}
-									{{if $value.type == "limit"}}
-										<td class="result-symbol">&lt</td>
-										<td class="result-number">${$value.result1}</td>
-										<td class="result-number">${$value.result2}</td>
-									{{/if}}
-									{{if $value.type == "range"}}
-										<td class="result-symbol"></td>
-										<td class="result-number">${$value.result1}</td>
-										<td class="result-number">${$value.result2}</td>
-									{{/if}}
-								<td class="result-unit">${$value.unit}</td>
-							</tr>
-						{{/each}}
+			<ul>
+			<!-- sample -->
+				<li>
+					<table class="sample-details">
+					<tr>
+						<td class="category">Sample</td>
+						<td class="item">Description</td>
+						<td>${description}</td>
+					</tr>
 					</table>
-				</td>
-			</tr>
-		</table>
-		</li>
-
-	</ul>
-
+				</li>
+			<!-- Measurement -->
+				<li>
+					<table class="measurement-details">
+					<tr>
+						<td class="category">Measurement</td>
+						<td class="item">Results</td>
+						<td>
+							<table>
+								{{each results}}
+									{{if $value.type != ""}}
+									<tr>
+										<td class="result-isotope">${$value.isotope}</td>
+										<!-- Assay JSON ver.2.01 -->
+										{{if $value.type == "measurement"}}
+											<td class="result-symbol">&nbsp</td>
+											<td class="result-number">${$value.result1}</td>
+											<td class="result-number">${$value.result2}</td>
+										{{/if}}
+										{{if $value.type == "limit"}}
+											<td class="result-symbol">&lt</td>
+											<td class="result-number">${$value.result1}</td>
+											<td class="result-number">${$value.result2}</td>
+										{{/if}}
+										{{if $value.type == "range"}}
+											<td class="result-symbol"></td>
+											<td class="result-number">${$value.result1}</td>
+											<td class="result-number">${$value.result2}</td>
+										{{/if}}
+										<td class="result-unit">${$value.unit}</td>
+									</tr>
+									{{/if}}
+								{{/each}}
+							</table>
+						</td>
+					</tr>
+					</table>
+				</li>
+			</ul>
 			</li>
-
 		</ul>
-	</span>
-
-	<span id="export-menu">
-		<ul class="export-option" style="display:none">
-		<li class="error-menu">
-			<a class="report-error" target="_blank" href="mailto:${error_email}?subject=Report Error at _id:${_id}" >Report error</a>
-		</li>
-		<li class="export-menu">
-			<a>Export</a>
-			<ul>
-				<li><a class="export-json" >Export JSON</a></li>
-				<li><a class="export-csv" >Export CSV</a></li>
-				<li><a class="export-xml" >Export XML</a></li>
-				<li><a class="export-html" >Export HTML</a></li>
+		</span>
+	
+		<span id="export-menu">
+			<ul class="export-option" style="display:none">
+			<li class="error-menu">
+				<a class="report-error" target="_blank" href="mailto:${error_email}?subject=Report 	Error at _id:${_id}" >Report error</a>
+			</li>
+			<li class="export-menu">
+				<a>Export</a>
+				<ul>
+					<li><a class="export-json" >Export JSON</a></li>
+					<li><a class="export-csv" >Export CSV</a></li>
+					<li><a class="export-xml" >Export XML</a></li>
+					<li><a class="export-html" >Export HTML</a></li>
+				</ul>
+			</li>
+			<li class="edit-menu">
+				<a>Edit</a>
+				<ul>
+					<li><a class="edit-assay">Update</a></li>
+					<li><a class="clone-assay">Clone</a></li>
+				</ul>
+			</li>
 			</ul>
-		</li>
-		<li class="edit-menu">
-			<a>Edit</a>
-			<ul>
-				<li><a class="edit-assay">Update</a></li>
-				<li><a class="clone-assay">Clone</a></li>
-			</ul>
-		</li>
-		</ul>
-	</span>
-
-</div>
-
+		</span>
+	</div>
 </div>
