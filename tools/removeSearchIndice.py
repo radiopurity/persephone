@@ -43,6 +43,8 @@ def modifySchemaType(doc):
     """ Remove the _rev entry to avoid CouchDB 409 error """
     if(doc.has_key("_rev")):
         del doc["_rev"]
+    if(doc.has_key("_id")):
+        del doc["_id"]
 
     return doc
 
