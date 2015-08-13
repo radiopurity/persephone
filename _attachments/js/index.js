@@ -131,11 +131,12 @@ function click_search() {
 	}
 
 	// Change color of selected value
-	$(".header").css("color" , "#212121");
-	$(".group-header").css("color", "#e18e94");
+	//$(".header").css("color" , "#212121");
+	//$(".group-header").css("color", "#e18e94");
+    // Default search is by grouping
 	options = {"_search":"&sort=[\"grouping<string>\"]","_view":"query-by-group"}
-	searchResults(entry , options);
-	return false;
+	searchResults(entry, options);
+    return false;
 };
 
 // ------------------------------ Results display -----------------------------
@@ -308,14 +309,14 @@ function DecorateResult () {
 };
 
 /* fill the JSON into the details_output.html*/
-function FillDetail(doc, material){
+function FillDetail (doc, material) {
 	doc.error_email = default_settings.error_email;
 	var tt = $.tmpl("details_output", doc);
 	material.html(tt);
 }
 
 /* fill the JSON into the heading_template.html*/
-function FillHeading(doc, material){
+function FillHeading (doc, material) {
 	var pri_th=100,pri_u=100;
 	var thi = -1,ui = -1;
 	doc.results=[];
@@ -365,12 +366,12 @@ function FillHeading(doc, material){
 	material.append(tt);
 }
 /*==== email_link ====*/
-function email_link(user, dom, linkText) {
+function email_link (user, dom, linkText) {
 	return document.write("<a href=" + "mail" + "to:" + user + "@" + dom
 	 + ">" + linkText + "<\/a>");
 }
 
-function getSelectedTabIndex() {
+function getSelectedTabIndex () {
 	return $("#tabs").tabs('option', 'selected');
 }
 
@@ -481,7 +482,7 @@ function getSelectedTabIndex() {
 
 // Code adapted from from Chris Anderson
 
-$(document).ready(function(){
+$(document).ready(function () {
 	$("#contactForm").couchLogin({
     loggedIn: function() {
         $( "#tabs" ).tabs({disabled: []});
@@ -562,7 +563,7 @@ $(document).ready(function(){
 
 // Initial configuration
 // options = {"doc":fillDoc , "label":pageTab , "method":"update"}
-function CreateAssayPage(options){
+function CreateAssayPage (options) {
 	label = options.label;
 	// INPUT FORM TEMPLATE
 	$.get('templates/default_input.html', function(tmp) {
@@ -857,7 +858,7 @@ function CreateAssayPage(options){
 
 }
 
-function click_clear_all(label) {
+function click_clear_all (label) {
 
 	$(':input', label+' #input')
 	.not(':button, :submit, :reset, :hidden')
@@ -869,13 +870,13 @@ function click_clear_all(label) {
 
 }
 
-function click_clear_warnings(label) {
+function click_clear_warnings (label) {
 
 	$(label+" #input").validate().resetForm()
 
 }
 
-function click_check(label) {
+function click_check (label) {
 
 	$(label+" #input").validate().form()
 
@@ -1600,7 +1601,6 @@ function SaveToDisk(fileURL, fileName) {
     }
 }
 
-
 // ------------------------------ Document ready ------------------------------
 $(document).ready(function () {
 
@@ -1712,52 +1712,52 @@ $(document).ready(function () {
 	/* Search functions */
 
 	// Query-by-group
-	$(".group-header").click(function () {
-		// Change color of selected value
-		$(".header").css("color", "#212121");
-		$(".group-header").css("color", "#e18e94");
-		options = {
-            "_search": "&sort=[\"grouping<string>\"]",
-            "_view": "query-by-group"
-        };
-		searchResults(val, options);
-	});
+//	$(".group-header").click(function () {
+//		// Change color of selected value
+//		$(".header").css("color", "#212121");
+//		$(".group-header").css("color", "#e18e94");
+//		options = {
+//            "_search": "&sort=[\"grouping<string>\"]",
+//            "_view": "query-by-group"
+//        };
+//		searchResults(val, options);
+//	});
 
 	// Query-by-name
-	$(".name-header").click(function () {
-		// Change color of selected value
-		$(".header").css("color", "#212121");
-		$(".name-header").css("color", "#e18e94");
-		options = {
-            "_search": "&sort=[\"name<string>\"]",
-            "_view": "query-by-name"
-        };
-		searchResults(val, options);
-	});
+//	$(".name-header").click(function () {
+//		// Change color of selected value
+//		$(".header").css("color", "#212121");
+//		$(".name-header").css("color", "#e18e94");
+//		options = {
+//            "_search": "&sort=[\"name<string>\"]",
+//            "_view": "query-by-name"
+//        };
+//		searchResults(val, options);
+//	});
 
 	// Sort-by-Th
-	$(".th-header").click(function () {
-		// Change color of selected value
-		$(".header").css("color", "#212121");
-		$(".th-header").css("color", "#e18e94");
-		options = {
-            "_search": "&sort=[\"th<number>\"]",
-            "_view": "query-by-th"
-        };
-		searchResults(val, options);
-	});
+//	$(".th-header").click(function () {
+//		// Change color of selected value
+//		$(".header").css("color", "#212121");
+//		$(".th-header").css("color", "#e18e94");
+//		options = {
+//            "_search": "&sort=[\"th<number>\"]",
+//            "_view": "query-by-th"
+//        };
+//		searchResults(val, options);
+//	});
 
 	// Sort-by-U
-	$(".u-header").click(function () {
-		// Change color of selected value
-		$(".header").css("color", "#212121");
-		$(".u-header").css("color", "#e18e94");
-		options = {
-            "_search": "&sort=[\"u<number>\"]",
-            "_view": "query-by-u"
-        };
-		searchResults(val, options);
-	});
+//	$(".u-header").click(function () {
+//		// Change color of selected value
+//		$(".header").css("color", "#212121");
+//		$(".u-header").css("color", "#e18e94");
+//		options = {
+//            "_search": "&sort=[\"u<number>\"]",
+//            "_view": "query-by-u"
+//        };
+//		searchResults(val, options);
+//	});
 
 	// Decorate table-header
 	$(".table-header").accordion({
