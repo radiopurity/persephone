@@ -16,22 +16,29 @@ limitations under the License.
 --------------------------------------------------------------------------
 index.js
 --------------------------------------------------------------------------
-Name:		index.js
-Purpose:    Main javascript function for Persephone.
+Name:		  index.js
+Purpose:  Main javascript function for Persephone.
 Author:		James Loach, Zheng Li
 Email:		james.loach@gmail.com, ronnie.alonso@gmail.com
 --------------------------------------------------------------------------
 */
 
 /* Global variables */
+var db_name = window.location.pathname.split("/")[1];
+var sub_name = window.location.pathname.split("/")[2];
+var db = $.couch.db(db_name);
+var prefix = db_name
+if (sub_name != '') {
+	prefix = prefix + '/' + sub_name
+}
 
-var dbname = window.location.pathname.split("/")[1];
-var appName = window.location.pathname.split("/")[3];
-var db = $.couch.db(dbname);
 var edit_id, edit_rev;
 
-/* default settings */
-var default_settings = {"_id": "settings", "max_entries": 40, "error_email": "errors@radiopurity.org"};
+var default_settings = {
+	 "_id": "settings",
+	 "max_entries": 40,
+	 "error_email": "errors@radiopurity.org"
+};
 var total_rows = 0, search_url, skip = 0, val = "all", bookmark;
 var Th_priority = ["Th", "Th-232", "232-Th", "Th232", "232Th"];
 var U_priority = ["U", "U-238", "238-U", "U238", "238U"];
@@ -62,12 +69,18 @@ function searchResults(val, options) {
 
 	if (window.location.host.split(".")[1] == "cloudant") {
 		search_url = window.location.protocol + '//' + window.location.host
-							 + '/' + dbname + '/_design/persephone/_search/heading?q='
-							 + val + '&limit=' + default_settings.max_entries + options._search;
+							 + '/' + db_name + '/_design/persephone/_search/heading?q='
+							 + val + '&limit=' + default_settings.max_entries
+							 + options._search;
+	} else if (window.location.host.split(".")[1] == "snolab") {
+		search_url = window.location.protocol + '//' + window.location.host
+							 + prefix + '/_design/persephone/_search/heading?q='
+							 + val + '&limit=' + default_settings.max_entries
+							 + options._search;
 	}
 
 	if (val === "all" || val === "All") {
-		search_url = '/' + dbname + '/_design/persephone/_view/'+ options._view + '?limit=' + default_settings.max_entries;
+		search_url = '/' + db_name + '/_design/persephone/_view/'+ options._view + '?limit=' + default_settings.max_entries;
 	}
 
 	$.ajax({
@@ -206,7 +219,7 @@ function DecorateResult () {
 		if ( $(this).hasClass("none-preloading")) {
 			 $(this).removeClass("none-preloading");
 			var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname+'/'+ $(this).attr('value');
+				+ '/' + db_name+'/'+ $(this).attr('value');
 			$.ajax({
 				url: url,
 				dataType: 'json',
@@ -264,28 +277,28 @@ function DecorateResult () {
 	$(".export-json").unbind("click").click(function (event) {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname+'/'+parent.attr('value');
+				+ '/' + db_name+'/'+parent.attr('value');
 		SaveToDisk(url, parent.attr('value')+'.json');
 	});
 
 	$(".export-xml").unbind("click").click(function () {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
+				+ '/' + db_name+'/_design/persephone/_list/exportXML/assay.xml?_id='+parent.attr('value');
 		SaveToDisk(url, parent.attr('value')+'.xml');
 	});
 
 	$(".export-html").unbind("click").click(function () {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname+'/_design/persephone/_list/exportHTML/assay.xml?_id='+parent.attr('value');
+				+ '/' + db_name+'/_design/persephone/_list/exportHTML/assay.xml?_id='+parent.attr('value');
 		SaveToDisk(url, parent.attr('value')+'.html');
 	});
 
 	$(".export-csv").unbind("click").click(function () {
 		var parent = $(this).closest('.accordion');
 		var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname+'/_design/persephone/_list/exportCSV/assay.csv?idlist=["'+parent.attr('value') + '"]';
+				+ '/' + db_name+'/_design/persephone/_list/exportCSV/assay.csv?idlist=["'+parent.attr('value') + '"]';
 		SaveToDisk(url, parent.attr('value')+'.csv');
 	});
 
@@ -414,7 +427,7 @@ function getSelectedTabIndex () {
 							for ( i in data.rows ) {
 								if(val != "all" && val != "All"){
 									doc = data.rows[i].fields;
-									doc["id"] = data.rows[i].id; 
+									doc["id"] = data.rows[i].id;
 								}else{
 									doc = data.rows[i].value;
 								}
@@ -1515,7 +1528,7 @@ function FillEditBlank(label, doc){
 function EditAssay(_id,method) {
 	// if (_id != edit_id , ) {
 		url = window.location.protocol + '//' + window.location.host
-					+ '/' + dbname + '/' + _id;
+					+ '/' + db_name + '/' + _id;
 		$.ajax({
 			url: url,
 			dataType: 'json',
@@ -1703,7 +1716,7 @@ $(document).ready(function () {
 			idlist.push('"' + parent.attr('value') + '"');
 		});
 		var url = window.location.protocol + '//' + window.location.host
-				+ '/' + dbname
+				+ '/' + db_name
                 + '/_design/persephone/_list/exportCSV/assay.csv?idlist=['
                 + idlist + ']';
 		window.open(url, '_blank');
@@ -1808,7 +1821,7 @@ $(document).ready(function () {
 		$("#tab-settings #button-settings").button();
 
 		$.ajax({
-			url: '/' + dbname + '/settings',
+			url: '/' + db_name + '/settings',
 			dataType: 'json',
 			async: false,
 			success: function(data) {
@@ -1822,5 +1835,3 @@ $(document).ready(function () {
 	});
 
 });
-
-
