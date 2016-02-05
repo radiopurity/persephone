@@ -49,6 +49,7 @@
         <script type="text/javascript" src="js/jquery.tablesorter.min.js">
             </script>
         <!-- jQuery index -->
+        <script type="text/javascript" src="js/supplementary.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <!-- jQuery input validation -->
         <script type="text/javascript" src="js/jquery.validate.min.js">
@@ -105,15 +106,15 @@
                     <h3 style="height:19px">
                         <div class="heading-grouping group-header
                             header-correction">Grouping</div>
-                        <div class="heading-name name-header 
+                        <div class="heading-name name-header
                             header-correction"><b>Name</b></div>
                         <div class="heading-isotope-name
                             header-correction">Isotope</div>
-                        <div class="heading-isotope-value th-header 
+                        <div class="heading-isotope-value th-header
                             header-correction">Amount</div>
                         <div class="heading-isotope-name
                             header-correction">Isotope</div>
-                        <div class="heading-isotope-value u-header 
+                        <div class="heading-isotope-value u-header
                             header-correction">Amount</div>
                     </h3>
                 </div>
@@ -138,13 +139,13 @@
 
                 <div class="div-submit">
                     <button id="button-clear2"
-                        onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>
+                        onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
                     <button id="button-check"
-                        onclick="javascript:click_check('#tab-submit ');">Check</button>
+                        onclick="javascript:clickCheck('#tab-submit ');">Check</button>
                     <button id="button-clear1"
-                        onclick="javascript:click_clear_warnings('#tab-submit ');">Clear warnings</button>
+                        onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
                     <button id="button-submit"
-                        onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
                 </div>
 
                 <div id="input-form" class="content"></div>
@@ -153,13 +154,13 @@
 
                 <div class="div-submit">
                     <button id="button-clear2"
-                        onclick="javascript:click_clear_all('#tab-submit ');">Clear form</button>
+                        onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
                     <button id="button-check"
-                        onclick="javascript:click_check('#tab-submit ');">Check</button>
+                        onclick="javascript:clickCheck('#tab-submit ');">Check</button>
                     <button id="button-clear1"
-                        onclick="javascript:click_clear_warnings('#tab-submit ');">Clear warnings</button>
+                        onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
                     <button id="button-submit"
-                        onclick="javascript:click_submit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
                 </div>
 
             </div>
@@ -170,15 +171,15 @@
 
                 <div class="div-edit" style="display:none">
                     <button id="button-check"
-                        onclick="javascript:click_check('#tab-edit ');">Check</button>
+                        onclick="javascript:clickCheck('#tab-edit ');">Check</button>
                     <button id="button-clear1"
-                        onclick="javascript:click_clear_warnings('#tab-edit ');">Clear warnings</button>
+                        onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
                     <button id="button-delete"
-                        onclick="javascript:click_delete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
+                        onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
                     <button id="button-submit"
-                        onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
                     <button id="button-edit"
-                        onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
                 </div>
 
                 <div id="input-form" class="content"></div>
@@ -188,15 +189,15 @@
 
                 <div class="div-edit" style="display:none">
                     <button id="button-check"
-                        onclick="javascript:click_check('#tab-edit ');">Check</button>
+                        onclick="javascript:clickCheck('#tab-edit ');">Check</button>
                     <button id="button-clear1"
-                        onclick="javascript:click_clear_warnings('#tab-edit ');">Clear warnings</button>
+                        onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
                     <button id="button-delete"
-                        onclick="javascript:click_delete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
+                        onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
                     <button id="button-submit"
-                        onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
                     <button id="button-edit"
-                        onclick="javascript:click_submit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
+                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
                 </div>
 
             </div>
@@ -208,7 +209,7 @@
                 <div id="dialog-settings" title="Entry submitted" style="display:none"></div>
                 <div class="div-settings">
                     <button id="button-settings"
-                        onclick="javascript:UpdateSettings()">Update</button>
+                        onclick="javascript:updateSettings()">Update</button>
                 </div>
             </div>
 
@@ -313,7 +314,7 @@
                                 contribute your data, or use the software in
                                 your experiment or institution then please
                                 <script type="text/javascript">
-                                    email_link("info","radiopurity.org","contact us");
+                                    emailLink("info","radiopurity.org","contact us");
                                 </script>.
                             </p>
                         </div>
@@ -370,4 +371,3 @@
     </body>
 
 </html>
-
