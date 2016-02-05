@@ -26,11 +26,12 @@ Email:    james.loach@gmail.com, ronnie.alonso@gmail.com
 var host = window.location.host.split('.')[1];
 var dbName = window.location.pathname.split('/')[1];
 var subName = window.location.pathname.split('/')[2];
+var httpType = window.location.href.split(':')[0];
 
 var db = $.couch.db(dbName);
 // allow for database being located one step in from the main URL
 // TODO: remove hard-coded references to database location
-var urlPrefix = 'https://' + window.location.host;
+var urlPrefix = httpType + '://' + window.location.host;
 var prefix = dbName;
 if (subName.substring(0, 1) !== '_') {
   prefix = prefix + '/' + subName;
