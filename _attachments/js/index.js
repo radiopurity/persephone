@@ -45,7 +45,8 @@ var editRev;
 var defaultSettings = {
   _id: 'settings',
   max_entries: 40,
-  error_email: 'errors@radiopurity.org'
+  error_email: 'errors@radiopurity.org',
+  use_lucene: 0
 };
 var totalRows = 0, searchURL, skip = 0, val = 'all', bookmark;
 var thPriority = ['Th', 'Th-232', '232-Th', 'Th232', '232Th'];
@@ -73,18 +74,27 @@ function searchResults(val, options) {
   skip = 0;
   totalRows = 0;
 
-  if (host === 'cloudant' || host === 'snolab') {
+  use_lucene = false
+
+  if (defaultSettings.use_lucene == 1) {
+    use_lucene = true;
+  }
+
+  if (use_lucene) {
+    searchURL = window.location.protocol + '//' + window.location.host +
+    '/' + prefix + '/_fti/_design/persephone/search?q=' +
+    val + '&limit=' + defaultSettings.max_entries;
+  } else {
     searchURL = window.location.protocol + '//' + window.location.host +
     '/' + prefix + '/_design/persephone/_search/heading?q=' +
-    val + '&limit=' + defaultSettings.max_entries +
-    options._search;
-    console.log(searchURL)
+    val + '&limit=' + defaultSettings.max_entries;// +
+    //options._search;
     // TODO: max_entries shouldn't come from default settings
   }
 
   if (val.toLowerCase() === 'all') {
-    searchURL = '/' + prefix + '/_design/persephone/_view/' +
-    options._view + '?limit=' + defaultSettings.max_entries;
+    searchURL = '/' + prefix + '/_design/persephone/_view/query-by-group' +
+    '?limit=' + defaultSettings.max_entries;
     // TODO: max_entries shouldn't come from default settings
   }
 
@@ -95,12 +105,47 @@ function searchResults(val, options) {
     success: function (data) {
       totalRows = data.total_rows;
       $('#status-line').append('Total result: ' + data.total_rows);
+      // Data returned from Cloudant seach is in a different, abbreviated
+      // format to that returned from couchdb_lucene
+      // To minimally disturb the code introduce a function to convert
+      // couchdb_lucene format into same structure as returned by Cloudant
+      // In long term should do this properly in views
+      //
+      // Cloudant format:
+      //
+      //   description: "Blah"
+      //   error_email: "errors@radiopurity.org"
+      //   grouping: "EXO (2008)"
+      //   id: "7d00e79621f1812d410c31c228bf60ce"
+      //   iso: [Object, Object] (2)
+      //   isotope: ["", "U", "Th", "K"] (4)
+      //   name: "Copper wire, McMaster-Carr"
+      //   result1: ["", 16, 29, 60] (4)
+      //   result2: ["", "(1)", "(2)", "(95%)"] (4)
+      //   results: [Object, Object, Object, Object] (4)
+      //   type: ["", "measurement", "measurement", "limit"] (4)
+      //   unit: ["", "ppt", "ppt", "ppb"]
+      //
+      // if (use_lucene) {
+      //   for (j = 0; j < data.total_rows; j++) {
+      //     doc_in = data.rows[j].doc
+      //     var doc_out
+      //     doc_out = {
+      //       description: doc_in.sample.description
+      //       error_email: doc_in.sample.description
+      //       grouping: doc_in.sample.description
+      //       id: doc_in.sample.description
+      //     }
+      //     console.log(j, doc_out)
+      //   }
+      // }
       if (data.total_rows > 0) {
         if (data.total_rows > defaultSettings.max_entries) {
           nEntries = defaultSettings.max_entries;
         } else {
           nEntries = data.total_rows;
         }
+        // Bookmark for infinite scrolling
         if (data.bookmark) {
           bookmark = data.bookmark;
         }
@@ -150,9 +195,10 @@ function click_search() {
   //$(".header").css("color" , "#212121");
   //$(".group-header").css("color", "#e18e94");
   // Default search is by grouping
-  options = {
-    _search: "&sort=[\"grouping<string>\"]","_view":"query-by-group"
-  };
+  //options = {
+//    _search: "&sort=[\"grouping<string>\"]","_view":"query-by-group"
+//  };
+  var options = {}
   searchResults(entry, options);
   return false;
 };
@@ -221,19 +267,6 @@ function decorateResult () {
     icons:{primary:'ui-icon-wrench'},
     text:false
   });
-
-  // timeout
-  //var tt;
-  //$('.export-button,.export-option' ).unbind('mouseover').unbind('mouseout').mouseenter(function(event){
-  //      var parent = $(this).closest('div');
-  //      parent.find('.export-option').fadeIn();
-  //      if(tt){clearTimeout(tt);}
-  //}).mouseleave(function(event){
-  //      var parent = $(this).closest('div');
-  //      tt = setTimeout($.proxy(function() {
-  //             parent.find('.export-option').fadeOut(100);
-  //         }, this), 500)
-  //});
 
   $('.export-button').unbind('click').click(function(event){
     event.stopPropagation(); // prevent triggering of accordian
@@ -318,8 +351,16 @@ function fillHeading(doc, material) {
   doc.results = [];
   if (typeof(doc.isotope) != 'undefined') {
     for (var k in doc.isotope) {
+      console.log('here0');
+      console.log(doc)
+      console.log(doc.isotope[k]);
+      console.log(doc.result1[k]);
+      console.log(doc.result2[k]);
+      console.log(doc.type[k]);
+      console.log(doc.unit[k]);
       doc.results.push({isotope: doc.isotope[k], result1: doc.result1[k],
         result2: doc.result2[k], type: doc.type[k], unit: doc.unit[k]});
+      console.log('here1')
       var item = doc.isotope[k];
       if (item.indexOf('Th') > -1 && doc.unit[k] != 'ng/cm2' &&
           doc.unit[k] != 'pg/cm2') {
@@ -1235,6 +1276,7 @@ function editAssay(_id,method) {
 /** Comment. */
 // Upload the new settings
 function updateSettings() {
+
   var mentry;
   mentry = $('#max-entry').val();
   if ($.isNumeric(mentry)) {
@@ -1245,6 +1287,12 @@ function updateSettings() {
   errmail = $('#error-email').val();
   if (errmail != '') {
     defaultSettings.error_email = errmail;
+  }
+
+  var useLucene;
+  useLucene = $('#lucene').val();
+  if (useLucene != '') {
+    defaultSettings.use_lucene = parseInt(useLucene);
   }
 
   db.saveDoc(defaultSettings, {
@@ -1508,5 +1556,6 @@ $(document).ready(function() {
     });
     $('#max-entry').val(defaultSettings.max_entries);
     $('#error-email').val(defaultSettings.error_email);
+    $('#lucene').val(defaultSettings.use_lucene);
   });
 });
