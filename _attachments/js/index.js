@@ -78,6 +78,7 @@ function searchResults(val, options) {
     '/' + prefix + '/_design/persephone/_search/heading?q=' +
     val + '&limit=' + defaultSettings.max_entries +
     options._search;
+    console.log(searchURL)
     // TODO: max_entries shouldn't come from default settings
   }
 
