@@ -30,7 +30,7 @@ var httpType = window.location.href.split(':')[0];
 
 var db = $.couch.db(dbName);
 // allow for database being located one step in from the main URL
-// TODO: remove hard-coded references to database location
+// TODO: remove all hard-coded references to database location
 var urlPrefix = httpType + '://' + window.location.host;
 var prefix = dbName;
 if (subName.substring(0, 1) !== '_') {
@@ -74,28 +74,21 @@ function searchResults(val, options) {
   skip = 0;
   totalRows = 0;
 
-  use_lucene = false
+  useLucene = false
+  searchAddress = '_search/heading'
 
   if (defaultSettings.use_lucene == 1) {
-    use_lucene = true;
+    useLucene = true;
+    searchAddress = 'search';
   }
 
-  if (use_lucene) {
-    searchURL = window.location.protocol + '//' + window.location.host +
-    '/' + prefix + '/_fti/_design/persephone/search?q=' +
-    val + '&limit=' + defaultSettings.max_entries;
-  } else {
-    searchURL = window.location.protocol + '//' + window.location.host +
-    '/' + prefix + '/_design/persephone/_search/heading?q=' +
-    val + '&limit=' + defaultSettings.max_entries;// +
-    //options._search;
-    // TODO: max_entries shouldn't come from default settings
-  }
+  searchURL = window.location.protocol + '//' + window.location.host +
+    '/' + prefix + '/_fti/_design/persephone/' + searchAddress + '?q=' +
+     val + '&limit=' + defaultSettings.max_entries;
 
   if (val.toLowerCase() === 'all') {
     searchURL = '/' + prefix + '/_design/persephone/_view/query-by-group' +
     '?limit=' + defaultSettings.max_entries;
-    // TODO: max_entries shouldn't come from default settings
   }
 
   $.ajax({
@@ -105,40 +98,6 @@ function searchResults(val, options) {
     success: function (data) {
       totalRows = data.total_rows;
       $('#status-line').append('Total result: ' + data.total_rows);
-      // Data returned from Cloudant seach is in a different, abbreviated
-      // format to that returned from couchdb_lucene
-      // To minimally disturb the code introduce a function to convert
-      // couchdb_lucene format into same structure as returned by Cloudant
-      // In long term should do this properly in views
-      //
-      // Cloudant format:
-      //
-      //   description: "Blah"
-      //   error_email: "errors@radiopurity.org"
-      //   grouping: "EXO (2008)"
-      //   id: "7d00e79621f1812d410c31c228bf60ce"
-      //   iso: [Object, Object] (2)
-      //   isotope: ["", "U", "Th", "K"] (4)
-      //   name: "Copper wire, McMaster-Carr"
-      //   result1: ["", 16, 29, 60] (4)
-      //   result2: ["", "(1)", "(2)", "(95%)"] (4)
-      //   results: [Object, Object, Object, Object] (4)
-      //   type: ["", "measurement", "measurement", "limit"] (4)
-      //   unit: ["", "ppt", "ppt", "ppb"]
-      //
-      // if (use_lucene) {
-      //   for (j = 0; j < data.total_rows; j++) {
-      //     doc_in = data.rows[j].doc
-      //     var doc_out
-      //     doc_out = {
-      //       description: doc_in.sample.description
-      //       error_email: doc_in.sample.description
-      //       grouping: doc_in.sample.description
-      //       id: doc_in.sample.description
-      //     }
-      //     console.log(j, doc_out)
-      //   }
-      // }
       if (data.total_rows > 0) {
         if (data.total_rows > defaultSettings.max_entries) {
           nEntries = defaultSettings.max_entries;
@@ -351,16 +310,8 @@ function fillHeading(doc, material) {
   doc.results = [];
   if (typeof(doc.isotope) != 'undefined') {
     for (var k in doc.isotope) {
-      console.log('here0');
-      console.log(doc)
-      console.log(doc.isotope[k]);
-      console.log(doc.result1[k]);
-      console.log(doc.result2[k]);
-      console.log(doc.type[k]);
-      console.log(doc.unit[k]);
       doc.results.push({isotope: doc.isotope[k], result1: doc.result1[k],
         result2: doc.result2[k], type: doc.type[k], unit: doc.unit[k]});
-      console.log('here1')
       var item = doc.isotope[k];
       if (item.indexOf('Th') > -1 && doc.unit[k] != 'ng/cm2' &&
           doc.unit[k] != 'pg/cm2') {
