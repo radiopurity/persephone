@@ -205,7 +205,8 @@ function decorateResult () {
     var parent = $(this).closest('div');
     if ($(this).hasClass('none-preloading')) {
       $(this).removeClass('none-preloading');
-      var url = urlPrefix + '/' + prefix +'/'+ $(this).attr('value');
+      var url = window.location.protocol + '//' + window.location.host +
+                '/' + prefix +'/'+ $(this).attr('value');
       $.ajax({
         url: url,
         dataType: 'json',
@@ -248,13 +249,15 @@ function decorateResult () {
 
   $('.export-json').unbind('click').click(function (event) {
     var parent = $(this).closest('.accordion');
-    var url = urlPrefix + '/' + prefix + '/' + parent.attr('value');
+    var url = window.location.protocol + '//' + window.location.host +
+              '/' + prefix + '/' + parent.attr('value');
     saveToDisk(url, parent.attr('value')+'.json');
   });
 
   $('.export-xml').unbind('click').click(function () {
     var parent = $(this).closest('.accordion');
-    var url = urlPrefix + '/' + prefix +
+    var url = window.location.protocol + '//' + window.location.host +
+              '/' + prefix +
               '/_design/persephone/_list/exportXML/assay.xml?_id=' +
               parent.attr('value');
     saveToDisk(url, parent.attr('value')+'.xml');
@@ -262,7 +265,8 @@ function decorateResult () {
 
   $('.export-html').unbind('click').click(function () {
       var parent = $(this).closest('.accordion');
-      var url = urlPrefix + '/' + prefix +
+      var url = window.location.protocol + '//' + window.location.host +
+                '/' + prefix +
                 '/_design/persephone/_list/exportHTML/assay.xml?_id=' +
                 parent.attr('value');
       saveToDisk(url, parent.attr('value')+'.html');
@@ -270,7 +274,8 @@ function decorateResult () {
 
   $('.export-csv').unbind('click').click(function () {
       var parent = $(this).closest('.accordion');
-      var url = urlPrefix + '/' + prefix +
+      var url = window.location.protocol + '//' + window.location.host +
+                '/' + prefix +
                 "/_design/persephone/_list/exportCSV/assay.csv?idlist=" +
                 parent.attr('value') + ']';
       saveToDisk(url, parent.attr('value')+'.csv');
@@ -1201,7 +1206,8 @@ function FillEditBlank(label, doc) {
 /** Comment. */
 // Show the assays' infomation
 function editAssay(_id,method) {
-  url = urlPrefix + '/' + prefix + '/' + _id;
+  url = window.location.protocol + '//' + window.location.host +
+        '/' + prefix + '/' + _id;
   $.ajax({
     url: url,
     dataType: 'json',
@@ -1391,7 +1397,8 @@ $(document).ready(function() {
       var parent = $(this).closest('.accordion');
       idlist.push('"' + parent.attr('value') + '"');
     });
-    var url = urlPrefix + '/' + prefix
+    var url = window.location.protocol + '//' + window.location.host
+            + '/' + prefix
             + '/_design/persephone/_list/exportCSV/assay.csv?idlist=['
             + idlist + ']';
     window.open(url, '_blank');
