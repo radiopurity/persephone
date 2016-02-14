@@ -35,9 +35,9 @@ jQuery.fn.highlight = function(method) {
       var moreresult = new Boolean(0);
       var url;
 
-      if(skip + defaultSettings.max_entries < totalRows){
+      if(skip + localSettings.max_entries < totalRows){
         moreresult = new Boolean(1);
-        skip = skip + defaultSettings.max_entries;
+        skip = skip + localSettings.max_entries;
         url = searchURL + "&skip=" + skip;
       }
       if(val != "all" && val != "All"){
