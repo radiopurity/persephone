@@ -630,21 +630,24 @@ function createAssayPage(options) {
 
 }
 
-/** Comment. */
+/** Clear submit/edit form. */
 function clickClearAll(label) {
   $(':input', label + ' #input').not(':button, :submit, :reset, :hidden').val(
     '').removeAttr('checked').removeAttr('selected');
   $(label + ' #input').validate().resetForm()
+  $("div.ui-tooltip").remove();
 }
 
-/** Comment. */
+/** Clear warnings from submit/edit form. */
 function clickClearWarnings(label) {
   $(label + ' #input').validate().resetForm()
+  $("div.ui-tooltip").remove();
 }
 
-/** Comment. */
+/** Check submit/edit form. */
 function clickCheck(label) {
   $(label + ' #input').validate().form()
+  $("div.ui-tooltip").remove();
 }
 
 /** Comment. */
@@ -1011,6 +1014,7 @@ function clickSubmit(options) {
 
     db.saveDoc(output_json, {
       success: function(response, textStatus, jqXHR) {
+        $("div.ui-tooltip").remove();
         if (options.dialog == "#dialog-submit") {
           $( options.dialog ).dialog({
             modal: true,
@@ -1202,6 +1206,7 @@ function FillEditBlank(label, doc) {
     fillUser(label, 'data', doc.data_source.user);
   }
 }
+
 /** Show the assays' infomation */
 function editAssay(_id, method) {
   url = window.location.protocol + '//' + window.location.host +
@@ -1308,6 +1313,12 @@ $(document).ready(function() {
   // Tabs
   $('#tabs').tabs({
     disabled: [1, 2, 3]
+  });
+
+  $('#tabs').tabs({
+    select: function(event, ui){
+      $("div.ui-tooltip").remove();
+    }
   });
 
   // Menu bars
