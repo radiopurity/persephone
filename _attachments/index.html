@@ -18,356 +18,336 @@
 
 <html>
 
-    <head>
+  <head>
 
-        <noscript>
-            For full functionality JavaScript needs to be enabled. Here are
-            <a href="http://www.enable-javascript.com/" target="_blank">
-            instructions on how to enable JavaScript in your web browser</a>.
-        </noscript>
+    <noscript>
+      For full functionality JavaScript needs to be enabled. Here are
+      <a href="http://www.enable-javascript.com/" target="_blank">
+      instructions on how to enable JavaScript in your web browser</a>.
+    </noscript>
 
-        <meta http-equiv="Content-Type"
-            content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Type"
+        content="text/html; charset=iso-8859-1" />
 
-        <title>Persephone</title>
+    <title>Persephone</title>
 
-        <link rel="shortcut icon" href="images/favicon.ico" >
-        <link rel="bookmark" href="images/favicon.ico" >
-        <link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css"
-            rel="stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" >
+    <link rel="bookmark" href="images/favicon.ico" >
+    <link type="text/css" href="css/gray/jquery-ui-1.9.2.custom.css"
+      rel="stylesheet" />
 
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-        <!-- jQuery Couch App -->
-        <script type="text/javascript" src="js/jquery.couch.js"></script>
-        <!-- jQuery UI -->
-        <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js">
-            </script>
-        <!-- jQuery template loading -->
-        <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
-        <script type="text/javascript" src="js/jquery.placehold-0.3.min.js">
-            </script>
-        <script type="text/javascript" src="js/jquery.tablesorter.min.js">
-            </script>
-        <!-- jQuery index -->
-        <script type="text/javascript" src="js/supplementary.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <!-- jQuery input validation -->
-        <script type="text/javascript" src="js/jquery.validate.min.js">
-            </script>
-        <script type="text/javascript" src="js/additional-methods.min.js">
-            </script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <!-- jQuery Couch App -->
+    <script type="text/javascript" src="js/jquery.couch.js"></script>
+    <!-- jQuery UI -->
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js">
+      </script>
+    <!-- jQuery template loading -->
+    <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="js/jquery.placehold-0.3.min.js">
+      </script>
+    <script type="text/javascript" src="js/jquery.tablesorter.min.js">
+      </script>
+    <!-- jQuery index -->
+    <script type="text/javascript" src="js/supplementary.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <!-- jQuery input validation -->
+    <script type="text/javascript" src="js/jquery.validate.min.js">
+      </script>
+    <script type="text/javascript" src="js/additional-methods.min.js">
+      </script>
 
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
-    </head>
+  </head>
 
-    <body>
+  <body>
 
-        <div id="container">
+    <div id="container">
+    <div id="header"><img id="logo"></img></div>
 
-        <div id="header">
-            <img id="logo"></img>
+    <div id="tabs"> <!-- Tabs -->
+
+      <ul>
+        <li><a href="#tab-search">Search</a></li>
+        <li><a href="#tab-submit">Submit</a></li>
+        <li><a href="#tab-edit">Edit</a></li>
+        <li><a href="#tab-settings">Settings</a></li>
+        <li><a href="#tab-about">About</a></li>
+        <li><a href="#tab-login">Login</a></li>
+      </ul>
+
+      <div id="tab-search"> <!-- Search tab -->
+
+        <div id="div-search">
+          <input id="box-search" onkeydown="javascript:enter_box(event);"
+              class="ui-widget ui-widget-content ui-corner-all"/>
+          <button id="button-search"
+              onclick="javascript:click_search();">Search</button>
+          <button class="button-more" id="button-show-more">More</button>
+          <button class="button-more" id="button-download-expanded"
+              style="display:none">Download all</button>
         </div>
 
-        <div id="tabs">
+        <div id="status-line" class="faded"></div>
 
-            <!-- Tabs -->
+        <div class="table-header" style="display:none">
+          <h3 style="height:19px">
+            <div class="heading-grouping group-header
+                header-correction">Grouping</div>
+            <div class="heading-name name-header
+                header-correction"><b>Name</b></div>
+            <div class="heading-isotope-name
+                header-correction">Isotope</div>
+            <div class="heading-isotope-value th-header
+                header-correction">Amount</div>
+            <div class="heading-isotope-name
+                header-correction">Isotope</div>
+            <div class="heading-isotope-value u-header
+                header-correction">Amount</div>
+          </h3>
+        </div>
 
-            <ul>
-                <li><a href="#tab-search">Search</a></li>
-                <li><a href="#tab-submit">Submit</a></li>
-                <li><a href="#tab-edit">Edit</a></li>
-                <li><a href="#tab-settings">Settings</a></li>
-                <li><a href="#tab-about">About</a></li>
-                <li><a href="#tab-login">Login</a></li>
-            </ul>
+        <div id="materials" class="content"></div>
 
-            <!-- Search tab -->
+        <!-- Loading spinner -->
+        <div id="spinner" class='hideable'>
+            <img alt="Spinner" src="./images/loading.gif" />
+        </div>
 
-            <div id="tab-search">
+        <!-- Back-to-the-top icon -->
+        <div id="back-top"> <a href="#top"><span></span></a> </div>
 
-                <div id="div-search">
-                    <input id="box-search" placeholder="e.g. all"
-                        onkeydown="javascript:enter_box(event);"
-                        class="ui-widget ui-widget-content ui-corner-all"/>
-                    <button id="button-search"
-                        onclick="javascript:click_search();">Search</button>
-                    <button class="button-more"
-                        id="button-show-more">More</button>
-                    <!-- <button class="button-more" id="button-show-all"
-                        style="display:none">Show all</button>-->
-                    <button class="button-more" id="button-download-expanded"
-                        style="display:none">Download all</button>
-                </div>
+      </div>
 
-                <div id="status-line" class="faded"></div>
 
-                <div class="table-header" style="display:none">
-                    <h3 style="height:19px">
-                        <div class="heading-grouping group-header
-                            header-correction">Grouping</div>
-                        <div class="heading-name name-header
-                            header-correction"><b>Name</b></div>
-                        <div class="heading-isotope-name
-                            header-correction">Isotope</div>
-                        <div class="heading-isotope-value th-header
-                            header-correction">Amount</div>
-                        <div class="heading-isotope-name
-                            header-correction">Isotope</div>
-                        <div class="heading-isotope-value u-header
-                            header-correction">Amount</div>
-                    </h3>
-                </div>
 
-                <div id="materials" class="content"></div>
+      <div id="tab-submit"> <!-- Data tab -->
 
-                <!-- the 'loading_elem' -->
-                <div id="spinner" class='hideable'>
-                    <img alt="Spinner" src="./images/loading.gif" />
-                </div>
+        <div class="div-submit">
+          <button id="button-clear2"
+            onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
+          <button id="button-check"
+            onclick="javascript:clickCheck('#tab-submit ');">Check</button>
+          <button id="button-clear1"
+            onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
+          <button id="button-submit"
+            onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
+        </div>
 
-                <!-- the 'back to top' icon -->
-                <div id="back-top">
-                    <a href="#top"><span></span></a>
-                </div>
+        <div id="input-form" class="content"></div>
+
+        <div id="dialog-submit" title="Entry submitted" style="display:none"></div>
+
+        <div class="div-submit">
+          <button id="button-clear2"
+            onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
+          <button id="button-check"
+            onclick="javascript:clickCheck('#tab-submit ');">Check</button>
+          <button id="button-clear1"
+            onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
+          <button id="button-submit"
+            onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
+        </div>
+
+      </div>
+
+
+
+      <div id="tab-edit"> <!-- Edit tab -->
+
+        <div class="div-edit" style="display:none">
+          <button id="button-check"
+            onclick="javascript:clickCheck('#tab-edit ');">Check</button>
+          <button id="button-clear1"
+            onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
+          <button id="button-delete"
+            onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
+          <button id="button-submit"
+            onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
+          <button id="button-edit"
+            onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
+        </div>
+
+        <div id="input-form" class="content"></div>
+
+        <div id="dialog-edit" title="Entry submitted" style="display:none"></div>
+
+        <div class="div-edit" style="display:none">
+          <button id="button-check"
+            onclick="javascript:clickCheck('#tab-edit ');">Check</button>
+          <button id="button-clear1"
+            onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
+          <button id="button-delete"
+            onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
+          <button id="button-submit"
+            onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
+          <button id="button-edit"
+            onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
+        </div>
+
+      </div>
+
+      <div id="tab-settings"> <!-- Settings tab -->
+        <div id="input-form" class="content"></div>
+        <div id="dialog-settings" title="Entry submitted" style="display:none"></div>
+        <div class="div-settings">
+          <button id="button-settings"
+              onclick="javascript:updateSettings()">Update</button>
+        </div>
+      </div>
+
+      <div id="tab-about"> <!-- About tab -->
+
+        <div id="about" class="content-text">
+          <div id="about-col1">
+            <p class="about-header dark-pink"><b>Search</b></p>
+            <div class="about-section">
+              <p>Default search on sample name:</p>
+              <ul><b>
+                <li> "ofhc copper"</li>
+                <li> copper AND ofhc</li>
+                <li> copper OR lead</li>
+                <li> coppe?</li>
+                <li> cop*</li>
+              </ul></b>
+              <p>Searches are case-insensitive and OR by default.</p>
+              <p>You can specify a different search field:</p>
+              <ul><b>
+                <li> experiment:majorana</li>
+                <li> technique:(gamma OR naa)</li>
+                <li> &nbsp;&nbsp;&nbsp;AND name:plastic</li>
+              </ul></b>
+              <p>These are the supported fields:</p>
+              <ul><b>
+                <li>grouping/experiment</li>
+                <li>name</li>
+                <li>description</li>
+                <li>id</li>
+                <li>source</li>
+                <li>owner</li>
+                <li>institution</li>
+                <li>technique</li>
+                <li>requestor</li>
+                <li>practititoner</li>
+                <li>isotope</li>
+              </b></ul>
+              <p>To view all assays enter <b>all</b>.</p>
+            </div>
+          </div>
+
+          <div id="about-col2">
+
+            <p class="about-header dark-pink"><b>Display</b></p>
+
+            <div class="about-section">
+              <p>After searching you can click on entries for more detailed information.</p>
+              <ul>
+                <li>
+                  <img src="images/about_expand.gif"
+                      style="vertical-align:middle">
+                      to see even more detail,
+                </li>
+                <li>
+                  <img src="images/about_wrench.gif"
+                      style="vertical-align:middle">
+                      to download the assay or report an error,
+                </li>
+                <li>
+                  <img src="images/about_close.gif"
+                      style="vertical-align:middle">
+                      to hide the entry from the display.
+                </li>
+              </ul>
+              <p>You can drag entries into a different order to help you compare them.</p>
+            </div>
+
+            <p class="about-header dark-pink"><b>About</b></p>
+
+            <div class="about-section">
+                <p>
+                    <a href="https://github.com/nepahwin/persephone">Persephone</a>
+                    is a software package for storing measurements of material radiopurity.
+                    It was originally created by James Loach at LBNL.
+                <p>
+                <p>
+                    Contributors: Matthew Bruemmer, Jodi Cooley,
+                    Adam Cox, James Loach, Zheng Li, Khang Nguyen,
+                    Alan Poon, Benjamin Wise.
+                </p>
+                <p>
+                    Supporting institutions and collaborations:
+                    Karlsruhe Institute of Technology (KIT),
+                    Lawrence Berkeley National Laboratory (LBNL),
+                    LBNL Low Background Facility (LBF),
+                    Southern Methodist University (SMU),
+                    Shanghai Jiao Tong University (SJTU).
+                </p>
+                <p>
+                    This work was supported by the National Science
+                    Foundation under Grant Number 1242640 and the
+                    Assays and Acquisition of Radiopure Materials
+                    (AARM) collaboration. This website is generously
+                    hosted by <a style="text-decoration: none"
+                    href="https://cloudant.com/">Cloudant</a>.
+                </p>
+                <p>
+                    If you want to help develop this code,
+                    contribute your data, or use the software in
+                    your experiment or institution then please
+                    <script type="text/javascript">
+                        emailLink("info","radiopurity.org","contact us");
+                    </script>.
+                </p>
+              </div>
 
             </div>
 
-            <!-- Data tab -->
-
-            <div id="tab-submit">
-
-                <div class="div-submit">
-                    <button id="button-clear2"
-                        onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
-                    <button id="button-check"
-                        onclick="javascript:clickCheck('#tab-submit ');">Check</button>
-                    <button id="button-clear1"
-                        onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
-                    <button id="button-submit"
-                        onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
-                </div>
-
-                <div id="input-form" class="content"></div>
-
-                <div id="dialog-submit" title="Entry submitted" style="display:none"></div>
-
-                <div class="div-submit">
-                    <button id="button-clear2"
-                        onclick="javascript:clickClearAll('#tab-submit ');">Clear form</button>
-                    <button id="button-check"
-                        onclick="javascript:clickCheck('#tab-submit ');">Check</button>
-                    <button id="button-clear1"
-                        onclick="javascript:clickClearWarnings('#tab-submit ');">Clear warnings</button>
-                    <button id="button-submit"
-                        onclick="javascript:clickSubmit({'label':'#tab-submit ','dialog':'#dialog-submit','method':'submit'});">Submit</button>
-                </div>
-
-            </div>
-
-            <!-- Edit tab -->
-
-            <div id="tab-edit">
-
-                <div class="div-edit" style="display:none">
-                    <button id="button-check"
-                        onclick="javascript:clickCheck('#tab-edit ');">Check</button>
-                    <button id="button-clear1"
-                        onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
-                    <button id="button-delete"
-                        onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
-                    <button id="button-submit"
-                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
-                    <button id="button-edit"
-                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
-                </div>
-
-                <div id="input-form" class="content"></div>
-
-                <div id="dialog-edit" title="Entry submitted"
-                    style="display:none"></div>
-
-                <div class="div-edit" style="display:none">
-                    <button id="button-check"
-                        onclick="javascript:clickCheck('#tab-edit ');">Check</button>
-                    <button id="button-clear1"
-                        onclick="javascript:clickClearWarnings('#tab-edit ');">Clear warnings</button>
-                    <button id="button-delete"
-                        onclick="javascript:clickDelete({'label':'#tab-edit ','dialog':'#dialog-edit'});">Delete</button>
-                    <button id="button-submit"
-                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'submit'});">Clone</button>
-                    <button id="button-edit"
-                        onclick="javascript:clickSubmit({'label':'#tab-edit ','dialog':'#dialog-edit' , 'method':'update'});">Update</button>
-                </div>
-
-            </div>
-
-            <!-- Settings tab -->
-
-            <div id="tab-settings">
-                <div id="input-form" class="content"></div>
-                <div id="dialog-settings" title="Entry submitted" style="display:none"></div>
-                <div class="div-settings">
-                    <button id="button-settings"
-                        onclick="javascript:updateSettings()">Update</button>
-                </div>
-            </div>
-
-            <!-- About tab -->
-
-            <div id="tab-about">
-
-                <div id="about" class="content-text">
-                    <div id="about-col1">
-                        <p class="about-header dark-pink"><b>Search</b></p>
-                        <div class="about-section">
-                            <p>Default search on sample name:</p>
-                            <ul><b>
-                                <li> "ofhc copper"</li>
-                                <li> copper AND ofhc</li>
-                                <li> copper OR lead</li>
-                                <li> coppe?</li>
-                                <li> cop*</li>
-                            </ul></b>
-                            <p>Searches are case-insensitive and OR by default.</p>
-                            <p>You can specify a different search field:</p>
-                            <ul><b>
-                                <li> experiment:majorana</li>
-                                <li> technique:(gamma OR naa)</li>
-                                <li> &nbsp;&nbsp;&nbsp;AND name:plastic</li>
-                            </ul></b>
-                            <p>These are the supported fields:</p>
-                            <ul><b>
-                                <li>grouping/experiment</li>
-                                <li>name</li>
-                                <li>description</li>
-                                <li>id</li>
-                                <li>source</li>
-                                <li>owner</li>
-                                <li>institution</li>
-                                <li>technique</li>
-                                <li>requestor</li>
-                                <li>practititoner</li>
-                                <li>isotope</li>
-                            </b></ul>
-                            <p>To view all assays enter <b>all</b>.</p>
-                        </div>
-                   </div>
-
-                   <div id="about-col2">
-
-                        <p class="about-header dark-pink"><b>Display</b></p>
-
-                        <div class="about-section">
-                            <p>After searching you can click on entries for more detailed information.</p>
-                            <ul>
-                                <li>
-                                    <img src="images/about_expand.gif"
-                                        style="vertical-align:middle">
-                                        to see even more detail,
-                                </li>
-                                <li>
-                                    <img src="images/about_wrench.gif"
-                                        style="vertical-align:middle">
-                                        to download the assay or report an error,
-                                </li>
-                                <li>
-                                    <img src="images/about_close.gif"
-                                        style="vertical-align:middle">
-                                        to hide the entry from the display.
-                                </li>
-                            </ul>
-                            <p>You can drag entries into a different order to help you compare them.</p>
-                        </div>
-
-                        <p class="about-header dark-pink"><b>About</b></p>
-
-                        <div class="about-section">
-                            <p>
-                                <a href="https://github.com/nepahwin/persephone">Persephone</a>
-                                is a software package for storing measurements of material radiopurity.
-                                It was originally created by James Loach at LBNL.
-                            <p>
-                            <p>
-                                Contributors: Matthew Bruemmer, Jodi Cooley,
-                                Adam Cox, James Loach, Zheng Li, Khang Nguyen,
-                                Alan Poon, Benjamin Wise.
-                            </p>
-                            <p>
-                                Supporting institutions and collaborations:
-                                Karlsruhe Institute of Technology (KIT),
-                                Lawrence Berkeley National Laboratory (LBNL),
-                                LBNL Low Background Facility (LBF),
-                                Southern Methodist University (SMU),
-                                Shanghai Jiao Tong University (SJTU).
-                            </p>
-                            <p>
-                                This work was supported by the National Science
-                                Foundation under Grant Number 1242640 and the
-                                Assays and Acquisition of Radiopure Materials
-                                (AARM) collaboration. This website is generously
-                                hosted by <a style="text-decoration: none"
-                                href="https://cloudant.com/">Cloudant</a>.
-                            </p>
-                            <p>
-                                If you want to help develop this code,
-                                contribute your data, or use the software in
-                                your experiment or institution then please
-                                <script type="text/javascript">
-                                    emailLink("info","radiopurity.org","contact us");
-                                </script>.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Login tab -->
-
-            <div id="tab-login">
-                <p style="text-align:center">Administrator login</p>
-                <div id="contactFormContainer">
-                    <div id="contactForm"></div>
-                </div>
-            </div>
+          </div>
 
         </div>
 
-        </div> <!-- tabs -->
-
-        <div id="tagline" class="faded">
-            <a style="text-decoration: none" class="faded"
-                href="https://github.com/nepahwin/persephone">Persephone</a>
-            &middot; <span id="disclaimers" style="text-decoration: none"
-                class="faded" href="#">Display disclaimers</span><br>
-            Supported by AARM, KIT, LBNL, SMU &amp; SJTU<br>
-            Generously hosted by
-            <a style="text-decoration: none" class="faded"
-                href="https://cloudant.com/">Cloudant</a>
+        <div id="tab-login"> <!-- Login tab -->
+          <p style="text-align:center">Administrator login</p>
+          <div id="contactFormContainer">
+              <div id="contactForm"></div>
+          </div>
         </div>
 
-        <div id="disclaimer" class="faded">
-            <p>
-                General disclaimer: The data contained within this database is
-                not endorsed or certified by the creators of the database, the
-                individuals who entered the data or the supporting institutions.
-                There is no 'warranty' of any sort.</p>
-            <p>
-                NSF disclaimer: Any opinions, findings, and conclusions or
-                recommendations expressed in this material are those of the
-                author(s) and do not necessarily reflect the views of the
-                National Science Foundation.</p>
-            <p>
-                LBNL disclaimer: <a class="faded"
-                href="http://www.lbl.gov/Disclaimers.html">General disclaimer</a>
-            </p>
-        </div>
+      </div>
 
-        </div> <!-- container -->
+      </div> <!-- tabs -->
 
-    </body>
+      <div id="tagline" class="faded">
+          <a style="text-decoration: none" class="faded"
+              href="https://github.com/nepahwin/persephone">Persephone</a>
+          &middot; <span id="disclaimers" style="text-decoration: none"
+              class="faded" href="#">Display disclaimers</span><br>
+          Supported by AARM, KIT, LBNL, SMU &amp; SJTU<br>
+          Generously hosted by
+          <a style="text-decoration: none" class="faded"
+              href="https://cloudant.com/">Cloudant</a>
+      </div>
+
+      <div id="disclaimer" class="faded">
+          <p>
+              General disclaimer: The data contained within this database is
+              not endorsed or certified by the creators of the database, the
+              individuals who entered the data or the supporting institutions.
+              There is no 'warranty' of any sort.</p>
+          <p>
+              NSF disclaimer: Any opinions, findings, and conclusions or
+              recommendations expressed in this material are those of the
+              author(s) and do not necessarily reflect the views of the
+              National Science Foundation.</p>
+          <p>
+              LBNL disclaimer: <a class="faded"
+              href="http://www.lbl.gov/Disclaimers.html">General disclaimer</a>
+          </p>
+      </div>
+
+      </div> <!-- container -->
+
+  </body>
 
 </html>
