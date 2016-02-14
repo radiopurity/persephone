@@ -23,14 +23,16 @@ Email:    james.loach@gmail.com, ronnie.alonso@gmail.com
 --------------------------------------------------------------------------
 */
 
-var host = window.location.host.split('.')[1];
-var dbName = window.location.pathname.split('/')[1];
-var subName = window.location.pathname.split('/')[2];
-var httpType = window.location.href.split(':')[0];
+var httpType = window.location.href.split(':')[0]; // e.g. https, http
+var dbName = window.location.pathname.split('/')[1]; // e.g. rp, rp
+var subName = window.location.pathname.split('/')[2]; // e.g. rp, _design
 
-var db = $.couch.db(dbName);
-// allow for database being located one step in from the main URL
-// TODO: remove all hard-coded references to database location
+// Allow for database being located one step in from the main URL
+// We check for the location of _design to infer whether or not this is true
+//   urlPrefix is the location of the couchdb installation
+//     e.g. https://radiopurity.snolab.ca/rp
+//   prefix is the bit between the hostname and _design
+//     e.g. rp/rp
 var urlPrefix = httpType + '://' + window.location.host;
 var prefix = dbName;
 if (subName.substring(0, 1) !== '_') {
@@ -39,10 +41,12 @@ if (subName.substring(0, 1) !== '_') {
 }
 $.couch.urlPrefix = urlPrefix;
 
+var db = $.couch.db(dbName);
+
 var editID;
 var editRev;
 
-var defaultSettings = {
+var localSettings = {
   _id: 'settings',
   max_entries: 40,
   error_email: 'errors@radiopurity.org',
@@ -74,21 +78,20 @@ function searchResults(val, options) {
   skip = 0;
   totalRows = 0;
 
-  useLucene = false
-  searchAddress = '_search/heading'
+  useLucene = false;
+  searchAddress = '_search/heading';
 
-  if (defaultSettings.use_lucene == 1) {
+  if (localSettings.use_lucene == 1) {
     useLucene = true;
     searchAddress = 'search';
   }
 
-  searchURL = window.location.protocol + '//' + window.location.host +
-    '/' + prefix + '/_fti/_design/persephone/' + searchAddress + '?q=' +
-     val + '&limit=' + defaultSettings.max_entries;
+  searchURL = urlPrefix + '/_fti/local/' + dbName + '/_design/persephone/' +
+    searchAddress + '?q=' + val + '&limit=' + localSettings.max_entries;
 
   if (val.toLowerCase() === 'all') {
     searchURL = '/' + prefix + '/_design/persephone/_view/query-by-group' +
-    '?limit=' + defaultSettings.max_entries;
+    '?limit=' + localSettings.max_entries;
   }
 
   $.ajax({
@@ -99,8 +102,8 @@ function searchResults(val, options) {
       totalRows = data.total_rows;
       $('#status-line').append('Total result: ' + data.total_rows);
       if (data.total_rows > 0) {
-        if (data.total_rows > defaultSettings.max_entries) {
-          nEntries = defaultSettings.max_entries;
+        if (data.total_rows > localSettings.max_entries) {
+          nEntries = localSettings.max_entries;
         } else {
           nEntries = data.total_rows;
         }
@@ -296,7 +299,7 @@ function decorateResult () {
 
 /** Fill the JSON into the details_output.html. */
 function fillDetail(doc, material) {
-  doc.error_email = defaultSettings.error_email;
+  doc.error_email = localSettings.error_email;
   var tt = $.tmpl('details_output', doc);
   material.html(tt);
 }
@@ -348,7 +351,7 @@ function fillHeading(doc, material) {
     u = {isotope:'', 'result1':'','result2':'','unit':'',type:''};
   }
   doc.iso = [th , u];
-  doc.error_email = defaultSettings.error_email;
+  doc.error_email = localSettings.error_email;
 
   var tt = $.tmpl('heading_output', doc);
   material.append(tt);
@@ -1231,22 +1234,22 @@ function updateSettings() {
   var mentry;
   mentry = $('#max-entry').val();
   if ($.isNumeric(mentry)) {
-    defaultSettings.max_entries = parseInt(mentry);
+    localSettings.max_entries = parseInt(mentry);
   } else return;
 
   var errmail;
   errmail = $('#error-email').val();
   if (errmail != '') {
-    defaultSettings.error_email = errmail;
+    localSettings.error_email = errmail;
   }
 
   var useLucene;
   useLucene = $('#lucene').val();
   if (useLucene != '') {
-    defaultSettings.use_lucene = parseInt(useLucene);
+    localSettings.use_lucene = parseInt(useLucene);
   }
 
-  db.saveDoc(defaultSettings, {
+  db.saveDoc(localSettings, {
     success: function(response, textStatus, jqXHR) {
       $('#dialog-settings').dialog({
         modal: true,
@@ -1379,11 +1382,11 @@ $(document).ready(function() {
   // Collapse all fucntion
   $('#button-show-all').bind('click', function() {
     var entry = $('#box-search').val();
-    var old_max = defaultSettings.max_entries;
-    defaultSettings.max_entries = 100;
+    var old_max = localSettings.max_entries;
+    localSettings.max_entries = 100;
     options = {'_search': '&sort=[\'grouping<string>\']', '_view': 'query-by-group'};
     searchResults(entry, options);
-    defaultSettings.max_entries = old_max;
+    localSettings.max_entries = old_max;
   });
 
   // Download all the expanded result into csv
@@ -1502,11 +1505,11 @@ $(document).ready(function() {
       dataType: 'json',
       async: false,
       success: function(data) {
-        defaultSettings = data;
+        localSettings = data;
       }
     });
-    $('#max-entry').val(defaultSettings.max_entries);
-    $('#error-email').val(defaultSettings.error_email);
-    $('#lucene').val(defaultSettings.use_lucene);
+    $('#max-entry').val(localSettings.max_entries);
+    $('#error-email').val(localSettings.error_email);
+    $('#lucene').val(localSettings.use_lucene);
   });
 });
