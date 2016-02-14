@@ -24,6 +24,11 @@ jQuery.fn.highlight = function(method) {
 
 };
 
+/** Comment. */
+function getSelectedTabIndex() {
+  return $("#tabs").tabs('option', 'selected');
+}
+
 /** infiniScroll plugin - credit? */
 (function( $ ){
   var _checkLevel = function() {

@@ -152,14 +152,6 @@ function click_search() {
     skip = 0;
     return false;
   }
-
-  // Change color of selected value
-  //$(".header").css("color" , "#212121");
-  //$(".group-header").css("color", "#e18e94");
-  // Default search is by grouping
-  //options = {
-//    _search: "&sort=[\"grouping<string>\"]","_view":"query-by-group"
-//  };
   var options = {}
   searchResults(entry, options);
   return false;
@@ -173,8 +165,9 @@ buttonFade = function () {
   parent.find('.heading-isotope-name-short').toggle();
 };
 
-/** Comment. */
+/** Decorate the results of the search. */
 function decorateResult () {
+
   $('#materials > div').accordion( {
     header: 'h3',
     navigation: true,
@@ -184,7 +177,9 @@ function decorateResult () {
       $(event.target).accordion('activate', false);
     }
   });
+
   $('#materials').sortable({axis: 'y', handle: 'h3'});
+
   $('.delete-button').button({
     icons: {primary:'ui-icon-close'},
     text: false,
@@ -196,9 +191,7 @@ function decorateResult () {
     parent.add(head).hide(function() {$(this).remove();});
   });
 
-  /* detail button */
-  var detail_button = $('.detail-button');
-  detail_button.button({
+  $('.detail-button').button({
     icons:{primary:'ui-icon-zoomin'},
     text:false
   }).unbind().click(function(event) {
@@ -206,7 +199,7 @@ function decorateResult () {
     if ($(this).hasClass('none-preloading')) {
       $(this).removeClass('none-preloading');
       var url = window.location.protocol + '//' + window.location.host +
-                '/' + prefix +'/'+ $(this).attr('value');
+                '/' + prefix + '/' + $(this).attr('value');
       $.ajax({
         url: url,
         dataType: 'json',
@@ -215,7 +208,7 @@ function decorateResult () {
           fillDetail(data, parent.find('.accordion-details #meas-info'));
         },
         error: function(jqXHR, textStatus, errorThrown){
-          alert('Error'+textStatus+':'+errorThrown);
+          alert('Error' + textStatus + ':'+errorThrown);
         }
       });
     }
@@ -225,6 +218,7 @@ function decorateResult () {
     $('.ui-button-icon-primary', this)
       .toggleClass('ui-icon-zoomin ui-icon-zoomout');
   });
+
   $('.export-button').button({
     icons:{primary:'ui-icon-wrench'},
     text:false
@@ -242,6 +236,7 @@ function decorateResult () {
   });
 
   $('.export-option').menu();
+
   if(!loginFlag){
     // disable the edit function
     $('.edit-menu').addClass('ui-state-disabled');
@@ -295,6 +290,7 @@ function decorateResult () {
 
   $('h3').unbind('click',buttonFade).bind('click', buttonFade);
   $('.faded').highlight('email').highlight('url');
+
 };
 
 /** Fill the JSON into the details_output.html. */
@@ -362,28 +358,6 @@ function emailLink(user, dom, linkText) {
   return document.write("<a href=" + "mail" + "to:" + user + "@" + dom
    + ">" + linkText + "<\/a>");
 }
-
-/** Comment. */
-function getSelectedTabIndex() {
-  return $("#tabs").tabs('option', 'selected');
-}
-
-/** Comment. */
-// Code adapted from from Chris Anderson
-$(document).ready(function() {
-  $("#contactForm").couchLogin({
-    loggedIn: function() {
-      $("#tabs").tabs({disabled: []});
-      loginFlag = 1;
-      $(".edit-menu").removeClass("ui-state-disabled"); // enable edit
-    },
-    loggedOut: function() {
-      $("#tabs").tabs({disabled: [1, 2, 3]});
-      loginFlag = 0;
-      $(".edit-menu").addClass("ui-state-disabled"); // disable edit
-    }
-  });
-});
 
 // Initial configuration
 // options = {"doc":fillDoc , "label":pageTab , "method":"update"}
@@ -1402,6 +1376,20 @@ $(document).ready(function() {
             + '/_design/persephone/_list/exportCSV/assay.csv?idlist=['
             + idlist + ']';
     window.open(url, '_blank');
+  });
+
+  // User login
+  $("#contactForm").couchLogin({
+    loggedIn: function() {
+      $("#tabs").tabs({disabled: []});
+      loginFlag = 1;
+      $(".edit-menu").removeClass("ui-state-disabled"); // enable edit
+    },
+    loggedOut: function() {
+      $("#tabs").tabs({disabled: [1, 2, 3]});
+      loginFlag = 0;
+      $(".edit-menu").addClass("ui-state-disabled"); // disable edit
+    }
   });
 
         /* Search functions */
