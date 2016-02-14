@@ -1,28 +1,22 @@
-<form id="input-settings">
-
-	<!-- SAMPLE -->
-
-	<table class="input">
-		<tr class="input">
-			<td class="input-grouping-wide"><b>Max entry</b></td>
-			<td>
-				<input id="max-entry" name="max-entry" title="Set the maximum result in search tab." class="input-box ui-widget-content"/>
-				<span class="istatus"></span>
-			</td>
-		</tr>
-		<tr class="input">
-			<td class="input-grouping-wide"><b>Error reporting email</b></td>
-			<td>
-				<input id="error-email" name="error-email" title="Set the error reporting email address." class="input-box ui-widget-content"/>
-				<span class="istatus"></span>
-			</td>
-		</tr>
+<form id="input-settings" name="input-settings">
+  <table class="input">
     <tr class="input">
-			<td class="input-grouping-wide"><b>Use couchdb-lucene</b></td>
-			<td>
-				<input id="lucene" name="lucene" title="Use couchdb-lucene." class="input-box ui-widget-content"/>
-				<span class="istatus"></span>
-			</td>
-		</tr>
-	</table>
+      <td class="input-grouping-wide"><b>Max results [10-100]</b></td>
+      <td><input class="input-box ui-widget-content" id="max-entry" name=
+      "max-entry">
+      <span class="istatus"></span></td>
+    </tr>
+    <tr class="input">
+      <td class="input-grouping-wide"><b>Error reporting email</b></td>
+      <td><input class="input-box ui-widget-content" id="error-email" name=
+      "error-email">
+      <span class="istatus"></span></td>
+    </tr>
+    <tr class="input">
+      <td class="input-grouping-wide"><b>Use couchdb-lucene [0/1]</b></td>
+      <td><input class="input-box ui-widget-content" id="lucene" name=
+      "lucene">
+      <span class="istatus"></span></td>
+    </tr>
+  </table>
 </form>

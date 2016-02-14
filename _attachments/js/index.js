@@ -1179,69 +1179,69 @@ function FillEditBlank(label, doc) {
 
 /** Comment. */
 // Show the assays' infomation
-function editAssay(_id,method) {
+function editAssay(_id, method) {
   url = window.location.protocol + '//' + window.location.host +
-        '/' + prefix + '/' + _id;
+    '/' + prefix + '/' + _id;
   $.ajax({
     url: url,
     dataType: 'json',
     async: false,
     success: function(data) {
-      if(data._id){
+      if (data._id) {
         editID = data._id;
         editRev = data._rev;
         $('#tab-edit #input-form').empty();
         $('.div-edit').show();
-        options = {'label':'#tab-edit ','doc':data , 'method':method};
+        options = {
+          'label': '#tab-edit ',
+          'doc': data,
+          'method': method
+        };
         createAssayPage(options);
       }
     }
   })
-
-  $( '#tabs' ).tabs({ active: 2 });
+  $('#tabs').tabs({
+    active: 2
+  });
 }
 
-/** Comment. */
-// Upload the new settings
+/** Upload new settings */
 function updateSettings() {
-
-  var mentry;
-  mentry = $('#max-entry').val();
-  if ($.isNumeric(mentry)) {
-    localSettings.max_entries = parseInt(mentry);
+  // Validate number of entries
+  var maxEntries = $('#max-entry').val();
+  if ($.isNumeric(maxEntries) && maxEntries >= 10 && maxEntries <= 100) {
+    localSettings.max_entries = parseInt(maxEntries);
   } else return;
-
-  var errmail;
-  errmail = $('#error-email').val();
-  if (errmail != '') {
-    localSettings.error_email = errmail;
-  }
-
-  var useLucene;
-  useLucene = $('#lucene').val();
-  if (useLucene != '') {
+  // Validate error email address
+  var errorEmail = $('#error-email').val();
+  if (errorEmail !== '') {
+    localSettings.error_email = errorEmail;
+  } else return;
+  // Validate use Lucene flag
+  var useLucene = $('#lucene').val();
+  if ($.isNumeric(useLucene) && useLucene > -1 && useLucene < 2) {
     localSettings.use_lucene = parseInt(useLucene);
-  }
-
+  } else return;
+  // Save settings
   db.saveDoc(localSettings, {
     success: function(response, textStatus, jqXHR) {
       $('#dialog-settings').dialog({
         modal: true,
         buttons: {
-          'Back': function() {
+          'Okay': function() {
             $(this).dialog('close');
-            $('#tabs').tabs({ active: 0 });
           }
         }
       });
       $('#dialog-settings').empty();
-      $('#dialog-settings').append('<p>Update successfully.</p>');
+      $('#dialog-settings').append('<p>Update successful.</p>');
       $('#dialog-settings').dialog('open');
     },
-    error: function(jqXHR, textStatus, errorThrown){
+    error: function(jqXHR, textStatus, errorThrown) {
       $('#dialog-settings').empty();
       $('#dialog-settings').append('<p>Error' + textStatus + ':' +
-                                                errorThrown + '</p>');
+        errorThrown + '</p>');
       $('#dialog-settings').dialog('open');
     }
   });
@@ -1392,56 +1392,6 @@ $(document).ready(function() {
     }
   });
 
-        /* Search functions */
-
-        // Query-by-group
-//      $(".group-header").click(function () {
-//              // Change color of selected value
-//              $(".header").css("color", "#212121");
-//              $(".group-header").css("color", "#e18e94");
-//              options = {
-//            "_search": "&sort=[\"grouping<string>\"]",
-//            "_view": "query-by-group"
-//        };
-//              searchResults(val, options);
-//      });
-
-        // Query-by-name
-//      $(".name-header").click(function () {
-//              // Change color of selected value
-//              $(".header").css("color", "#212121");
-//              $(".name-header").css("color", "#e18e94");
-//              options = {
-//            "_search": "&sort=[\"name<string>\"]",
-//            "_view": "query-by-name"
-//        };
-//              searchResults(val, options);
-//      });
-
-        // Sort-by-Th
-//      $(".th-header").click(function () {
-//              // Change color of selected value
-//              $(".header").css("color", "#212121");
-//              $(".th-header").css("color", "#e18e94");
-//              options = {
-//            "_search": "&sort=[\"th<number>\"]",
-//            "_view": "query-by-th"
-//        };
-//              searchResults(val, options);
-//      });
-
-        // Sort-by-U
-//      $(".u-header").click(function () {
-//              // Change color of selected value
-//              $(".header").css("color", "#212121");
-//              $(".u-header").css("color", "#e18e94");
-//              options = {
-//            "_search": "&sort=[\"u<number>\"]",
-//            "_view": "query-by-u"
-//        };
-//              searchResults(val, options);
-//      });
-
   // Decorate table-header
   $('.table-header').accordion({
     header: 'h3',
@@ -1474,14 +1424,13 @@ $(document).ready(function() {
     });
   });
 
-  // Input form template
+  // Settings template
   $.get('templates/default_settings.html', function(tmp) {
     $.template('setting_template', tmp);
 
     var tt = $.tmpl('setting_template');
     $('#tab-settings #input-form').append(tt);
 
-    // Tooltip positions
     $('#tab-settings').children().tooltip({
       position: {my: 'left+15 center', at: 'right center'}
     });
