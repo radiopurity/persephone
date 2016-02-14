@@ -309,11 +309,16 @@ function fillHeading(doc, material) {
   doc.results = [];
   if (typeof(doc.isotope) != 'undefined') {
     for (var k in doc.isotope) {
-      doc.results.push({isotope: doc.isotope[k], result1: doc.result1[k],
-        result2: doc.result2[k], type: doc.type[k], unit: doc.unit[k]});
+      doc.results.push({
+        isotope: doc.isotope[k],
+        result1: doc.result1[k],
+        result2: doc.result2[k],
+        type: doc.type[k],
+        unit: doc.unit[k]
+      });
       var item = doc.isotope[k];
-      if (item.indexOf('Th') > -1 && doc.unit[k] != 'ng/cm2' &&
-          doc.unit[k] != 'pg/cm2') {
+      if (item.indexOf('Th') > -1 && doc.unit[k] != 'ng/cm2' && doc.unit[k] !=
+        'pg/cm2') {
         for (var i = 0; i < thPriority.length; i++) {
           if (item == thPriority[i] && i < pri_th) {
             thi = k;
@@ -321,10 +326,10 @@ function fillHeading(doc, material) {
           }
         }
       }
-      if (item.indexOf('U') > -1 && doc.unit[k] != 'ng/cm2' &&
-          doc.unit[k] != 'pg/cm2') {
+      if (item.indexOf('U') > -1 && doc.unit[k] != 'ng/cm2' && doc.unit[k] !=
+        'pg/cm2') {
         for (var i = 0; i < uPriority.length; i++) {
-          if (item == uPriority[i] && i < pri_u){
+          if (item == uPriority[i] && i < pri_u) {
             ui = k;
             pri_u = i;
           }
@@ -335,20 +340,41 @@ function fillHeading(doc, material) {
     doc.isotope = [];
   }
   if (thi != -1) {
-    th = {isotope:doc.isotope[thi], 'result1':doc.result1[thi],
-          'result2':doc.result2[thi],type:doc.type[thi], 'unit':doc.unit[thi]};
+    th = {
+      isotope: doc.isotope[thi],
+      'result1': doc.result1[thi],
+      'result2': doc.result2[thi],
+      type: doc.type[thi],
+      'unit': doc.unit[thi]
+    };
   } else {
-    th = {isotope:'', 'result1':'','result2':'','unit':'',type:''};
+    th = {
+      isotope: '',
+      'result1': '',
+      'result2': '',
+      'unit': '',
+      type: ''
+    };
   }
   if (ui != -1) {
-    u = {isotope:doc.isotope[ui], 'result1':doc.result1[ui],
-        'result2':doc.result2[ui],type:doc.type[ui], 'unit':doc.unit[ui]};
+    u = {
+      isotope: doc.isotope[ui],
+      'result1': doc.result1[ui],
+      'result2': doc.result2[ui],
+      type: doc.type[ui],
+      'unit': doc.unit[ui]
+    };
   } else {
-    u = {isotope:'', 'result1':'','result2':'','unit':'',type:''};
+    u = {
+      isotope: '',
+      'result1': '',
+      'result2': '',
+      'unit': '',
+      type: ''
+    };
   }
-  doc.iso = [th , u];
+  doc.iso = [th, u];
   doc.error_email = localSettings.error_email;
-
   var tt = $.tmpl('heading_output', doc);
   material.append(tt);
 }
@@ -606,11 +632,8 @@ function createAssayPage(options) {
 
 /** Comment. */
 function clickClearAll(label) {
-  $(':input', label + ' #input')
-  .not(':button, :submit, :reset, :hidden')
-  .val('')
-  .removeAttr('checked')
-  .removeAttr('selected');
+  $(':input', label + ' #input').not(':button, :submit, :reset, :hidden').val(
+    '').removeAttr('checked').removeAttr('selected');
   $(label + ' #input').validate().resetForm()
 }
 
@@ -621,7 +644,7 @@ function clickClearWarnings(label) {
 
 /** Comment. */
 function clickCheck(label) {
-    $(label + ' #input').validate().form()
+  $(label + ' #input').validate().form()
 }
 
 /** Comment. */
@@ -1102,23 +1125,27 @@ function fillResultRow(label, doc) {
 }
 
 /** Comment. */
-function fillUser(label, field , doc){
+function fillUser(label, field, doc) {
   var len = doc.length;
   for (var i = 0; i < len; i++) {
-    var clone = $(label+".user-input-template").clone(true)
-    .removeClass('user-input-template').addClass('row-user-sample');
-    clone.insertAfter($(label + "."+ field +"-input .user-sample-null")).show();
+    var clone = $(label + ".user-input-template").clone(true).removeClass(
+      'user-input-template').addClass('row-user-sample');
+    clone.insertAfter($(label + "." + field + "-input .user-sample-null")).show();
     // Fill the user block
-    $(label + "."+ field +"-input .row-user-sample:eq(0) .uname").val(doc[i].name);
-    $(label + "."+ field +"-input .row-user-sample:eq(0) .udesc").val(doc[i].description);
-    $(label + "."+ field +"-input .row-user-sample:eq(0) .utype").val(doc[i].type);
-    $(label + "."+ field +"-input .row-user-sample:eq(0) .uvalue").val(doc[i].value);
-    $(label + "."+ field +"-input .row-user-sample:eq(0) .uunit").val(doc[i].unit);
-  };
+    $(label + "." + field + "-input .row-user-sample:eq(0) .uname").val(doc[i]
+      .name);
+    $(label + "." + field + "-input .row-user-sample:eq(0) .udesc").val(doc[i]
+      .description);
+    $(label + "." + field + "-input .row-user-sample:eq(0) .utype").val(doc[i]
+      .type);
+    $(label + "." + field + "-input .row-user-sample:eq(0) .uvalue").val(doc[
+      i].value);
+    $(label + "." + field + "-input .row-user-sample:eq(0) .uunit").val(doc[i]
+      .unit);
+  }
 }
 
-/** Comment. */
-// Fill the blank
+/** Fill the blank */
 function FillEditBlank(label, doc) {
   $(label + ' #grp').val(doc.grouping);
   // sample
@@ -1128,8 +1155,9 @@ function FillEditBlank(label, doc) {
   $(label + ' #ssrc').val(doc.sample.source);
   $(label + ' #sown1').val(doc.sample.owner.name);
   $(label + ' #sown2').val(doc.sample.owner.contact);
-  if(!jQuery.isEmptyObject(doc.sample.user))
-    {fillUser(label, 'sample' , doc.sample.user);}
+  if (!jQuery.isEmptyObject(doc.sample.user)) {
+    fillUser(label, 'sample', doc.sample.user);
+  }
   // measurement
   $(label + ' #minst').val(doc.measurement.institution);
   $(label + ' #mtech').val(doc.measurement.technique);
@@ -1147,38 +1175,34 @@ function FillEditBlank(label, doc) {
   $(label + ' #mprac1').val(doc.measurement.practitioner.name);
   $(label + ' #mprac2').val(doc.measurement.practitioner.contact);
   $(label + ' #mdesc').val(doc.measurement.description);
-
   // display results
   var len = doc.measurement.results.length;
-
   if (len >= 1) {
     // First result-row
-    fillResultRow(label + ' .result-row:eq(1) ' , doc.measurement.results[0]);
+    fillResultRow(label + ' .result-row:eq(1) ', doc.measurement.results[0]);
     // Add enough entry
     for (var i = 1; i < len; i++) {
-      var clone = $(label + ' .input-template').clone(true).removeClass('input-template').addClass('result-row');
+      var clone = $(label + ' .input-template').clone(true).removeClass(
+        'input-template').addClass('result-row');
       // insert after the first result-row
       clone.insertAfter($(label + ' .result-row:eq(1)')).show();
-      fillResultRow(label + ' .result-row:eq(2) ' , doc.measurement.results[i]);
+      fillResultRow(label + ' .result-row:eq(2) ', doc.measurement.results[i]);
     };
   }
-
-  if(!jQuery.isEmptyObject(doc.measurement.user))
-    {fillUser(label, 'measurement' , doc.measurement.user);}
-
+  if (!jQuery.isEmptyObject(doc.measurement.user)) {
+    fillUser(label, 'measurement', doc.measurement.user);
+  }
   // Data Source
   $(label + ' #dref').val(doc.data_source.reference);
   $(label + ' #dinp1').val(doc.data_source.input.name);
   $(label + ' #dinp2').val(doc.data_source.input.contact);
   $(label + ' #dinp3').val(doc.data_source.input.date);
   $(label + ' #dnotes').val(doc.data_source.notes);
-  if(!jQuery.isEmptyObject(doc.data_source.user))
-    {fillUser(label, 'data' , doc.data_source.user);}
-
+  if (!jQuery.isEmptyObject(doc.data_source.user)) {
+    fillUser(label, 'data', doc.data_source.user);
+  }
 }
-
-/** Comment. */
-// Show the assays' infomation
+/** Show the assays' infomation */
 function editAssay(_id, method) {
   url = window.location.protocol + '//' + window.location.host +
     '/' + prefix + '/' + _id;
