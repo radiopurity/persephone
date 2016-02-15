@@ -80,13 +80,15 @@ function searchResults(val, options) {
 
   useLucene = false;
   searchAddress = '_search/heading';
+  ftiPrefix = '/';
 
   if (localSettings.use_lucene == 1) {
     useLucene = true;
     searchAddress = 'search';
+    ftiPrefix = '/_fti/local/'
   }
 
-  searchURL = urlPrefix + '/_fti/local/' + dbName + '/_design/persephone/' +
+  searchURL = urlPrefix + ftiPrefix + dbName + '/_design/persephone/' +
     searchAddress + '?q=' + val + '&limit=' + localSettings.max_entries;
 
   if (val.toLowerCase() === 'all') {
