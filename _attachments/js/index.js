@@ -1325,10 +1325,10 @@ function saveToDisk(fileURL, fileName) {
 $(document).ready(function() {
 
   // Logo
-  if (db.name === 'rp' || db.name === 'mj') {
-    $('#logo').attr('src', 'images/' + db.name + '.png');
+  if (db.name === 'rp') {
+    $('#logo').attr('src', 'images/' + db.name + '.svg');
   } else {
-    $('#logo').attr('src', 'images/logo.png');
+    $('#logo').attr('src', 'images/logo.svg');
   }
 
   // Tabs
