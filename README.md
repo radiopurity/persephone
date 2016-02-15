@@ -1,37 +1,57 @@
 
-About
------
+# About
 
-Persephone is a database system for storing material radio-purity data.
-It is based on a system developed by James Loach at LBNL.
+Persephone is a software package for storing measurements of material radiopurity. It was originally created by James Loach at LBNL.
 
-Main contributors to the code:
+Contributors: [James Loach](james.loach@gmail.com), Jodi Cooley, Adam Cox, Zheng Li, Khang Nguyen, Alan Poon, Benjamin Wise.
 
-   James Loach (james.loach@gmail.com)
-   Adam Cox (gadamc@gmail.com)
-   Khang Nguyen (photonfactor@gmail.com)
-   Zheng Li (ronnie.alonso@gmail.com)
-   Ben Wise (bwise@mail.smu.edu)
+Supporting institutions and collaborations: AARM (Assay and Acquisition of Radiopure Materials), Karlsruhe Institute of Technology (KIT), Lawrence Berkeley National Laboratory (LBNL), Shanghai Jiao Tong University (SJTU), Southern Methodist University (SMU).
 
-Installation
-------------
+This work was partially supported by the National Science Foundation under Grant Number 1242640.
 
-Persephone is a couchapp (http://couchapp.org/).
+If you want to help develop this code, contribute your data to the community database, or use the software in your experiment or institution then please [contact us](james.loach@gmail.com).
 
-For installation you will need to have couchapp installed and have access to a couchdb.
+# Usage
 
-This is how to install on a local version of couchdb:
+## Search
 
-  - clone the application into a directory 'persephone'
-  - create a couchdb called `[NAME]`
-  - send persephone to `[NAME]` using the couchapp tool:
+Example searches:
 
-         couchapp push persephone http://127.0.0.1:5984/[NAME]
+* "ofhc copper"
+* copper AND ofhc
+* copper OR lead
+* coppe?
+* cop*
+* name:copper
+* grouping:EXO
 
-  - if sucessful you'll receive a URL to your application
+Searches are case-insensitive and OR by default.
 
-Community database
-------------------
+To view all assays enter 'all'.
 
-Available at http://www.radiopurity.org
+# Installation
 
+## Overview
+
+Persephone is a [couchapp](http://couchapp.org/). To install you will need couchapp and access to a [couchdb](http://couchdb.apache.org). For search functionality you will also need [couchdb-lucene](https://github.com/rnewson/couchdb-lucene).
+
+## Basic installation
+
+This is how to install on a local version of the app:
+
+  1. Clone Persephone into a directory `persephone`
+  2. Create a couchdb `[DB]` and set the permissions appropriately. Create an admin user with username `[UN]` and password `[PW]`.
+  3. From the `persephone` directory send the app to the database using the couchapp tool:
+  ```
+    couchapp push persephone http://[UN]:[PW]@127.0.0.1:5984/[NAME]
+  ```  
+  4. If successful you will receive a URL to your app.
+  5. Search functionality will only be available if couchdb-lucene is installed and running.
+
+## Installation via replication
+
+An alternative way to install the app is to replicate it from an existing installation.
+
+# Community database
+
+The community-wide installation is available at [www.radiopurity.org](http://www.radiopurity.org).
