@@ -785,45 +785,6 @@ function clickSubmit(options) {
       }
     });
 
-    // Build the JSON for the sort indices of uranium & thorium
-    // unit convert dict
-    unit = {"ppt":1 , "ppb":1000 , "ppm":1000000 ,
-            "nBq/kg":1 , "uBq/kg":1000 , "muBq/kg":1000 ,
-            "mBq/kg":1000000 , "Bq/kg":1000000000};
-
-    var sort_indices = {th:999999999, u:999999999};
-    var pri_th = 100;
-    var pri_u = 100;
-    for (var k in result) {
-      var item = result[k];
-
-      // select Th
-      for (var i = 0; i < thPriority.length; i++) {
-        if (item.isotope == thPriority[i] && i < pri_th
-          && item.unit != "ng/cm2" && item.unit != "pg/cm2") {
-          if(unit.hasOwnProperty(item.unit)){
-            sort_indices.th = parseFloat(item.value[0] * unit[item.unit]);
-            pri_th = i;
-          } else if(sort_indices.th == 999999999){
-            sort_indices.th = 99999999;
-          }
-        }
-      };
-
-      // select U
-      for (var i = 0; i < uPriority.length; i++) {
-        if (item.isotope == uPriority[i] && i < pri_u
-          && item.unit != "ng/cm2" && item.unit != "pg/cm2") {
-          if (unit.hasOwnProperty(item.unit)) {
-            sort_indices.u = parseFloat(item.value[0] * unit[item.unit]);
-            pri_u = i;
-          } else if (sort_indices.u == 999999999) {
-            sort_indices.u = 99999999;
-          }
-        }
-      };
-    }
-
     // Build the JSON for the user block
     var suser = [];
     var muser = [];
@@ -938,7 +899,6 @@ function clickSubmit(options) {
           },
           user: suser
         },
-        sort_indices: sort_indices,
         measurement: {
           institution: $(label + '#minst').val(),
           technique: $(label + '#mtech').val(),
@@ -983,7 +943,6 @@ function clickSubmit(options) {
           },
           user:suser
         },
-        sort_indices:sort_indices,
         measurement: {
           institution: $(label + '#minst').val(),
           technique: $(label + '#mtech').val(),
