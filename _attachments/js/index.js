@@ -385,11 +385,12 @@ function emailLink(user, dom, linkText) {
    + ">" + linkText + "<\/a>");
 }
 
-// Initial configuration
-// options = {"doc":fillDoc , "label":pageTab , "method":"update"}
+/**
+ * Populate an input form
+ *   options = {"doc":fillDoc , "label":pageTab , "method":"update"}
+ */
 function createAssayPage(options) {
   label = options.label;
-  // INPUT FORM TEMPLATE
   $.get('templates/default_input.html', function(tmp) {
 
     $.template('input_template', tmp);
@@ -687,8 +688,7 @@ function clickDelete(options) {
   $(options.dialog).dialog('open' );
 }
 
-/** Comment. */
-// Submit Assays
+/** Submit Assays. */
 // options = {"label":"tab-submit", "dialog":"#dialog-submit ", "method":"update"}
 function clickSubmit(options) {
   label = options.label;
@@ -918,6 +918,7 @@ function clickSubmit(options) {
     }
 
     // Build the overall JSON
+
     if (options.method === 'update') {
       var output_json = {
         _id: editID,
@@ -927,7 +928,7 @@ function clickSubmit(options) {
         sample: {
           name: $(label + '#sname').val(),
           description: $(label + '#sdesc').val(),
-          id: (label + '#sid').val(),
+          id: $(label + '#sid').val(),
           source: $(label + '#ssrc').val(),
           owner: {
             name: $(label + '#sown1').val(),
@@ -1016,12 +1017,13 @@ function clickSubmit(options) {
       success: function(response, textStatus, jqXHR) {
         $("div.ui-tooltip").remove();
         if (options.dialog == "#dialog-submit") {
-          $( options.dialog ).dialog({
+          $(options.dialog).dialog({
             modal: true,
             buttons: {
               "Clear": function() {
                 $(this).dialog("close");
                 clickClearAll(label);
+                $("#tabs").tabs({active: 0});
               },
               "Keep": function() {
                 $(this).dialog("close");
@@ -1029,29 +1031,37 @@ function clickSubmit(options) {
             }
           });
           $(options.dialog).empty();
-          $(options.dialog).append('<p>Submitted successfully.</p> <p>Chose whether you want to clear the form or keep its contents so you can create a similar entry.</p>');
+          $(options.dialog).append('<p>Submitted successfully.</p> <p>Clear the form or keep the data to make a similar entry?</p>');
           $(options.dialog).dialog("open" );
         } else if (options.dialog == "#dialog-edit") {
-          $( options.dialog ).dialog({
+          $(options.dialog).dialog({
             modal: true,
             buttons: {
-              "Back": function() {
+              "Okay": function() {
                 $(this).dialog("close");
                 $("#tab-edit #input-form").empty();
                 $(".div-edit").hide();
                 editID = "";
                 editRev = "";
-                $( "#tabs" ).tabs({ active: 0 });
-              },
-              "Keep": function() {
-                editRev =response.rev;
-                $(this).dialog("close");
+                $("#tabs").tabs({active: 0});
               }
+              // "Back": function() {
+              //   $(this).dialog("close");
+              //   $("#tab-edit #input-form").empty();
+              //   $(".div-edit").hide();
+              //   editID = "";
+              //   editRev = "";
+              //   $("#tabs").tabs({active: 0});
+              // },
+              // "Keep": function() {
+              //   editRev =response.rev;
+              //   $(this).dialog("close");
+              // }
             }
           });
           $(options.dialog).empty();
           if (options.method == "update") {
-            $(options.dialog).append('<p>Edited successfully.</p> <p>Chose whether you want to go back to search page or keep its contents so you can continue editing a similar entry.</p>');
+            $(options.dialog).append('<p>Assay updated successfully.</p>');
           } else {
             $(options.dialog).append('<p>Create new measurement successfully.</p> <p>Chose whether you want to go back to search page or keep its contents so you can continue editing a similar entry.</p>');
           }
@@ -1207,32 +1217,44 @@ function FillEditBlank(label, doc) {
   }
 }
 
-/** Show the assays' infomation */
+/**
+ * Edit/clone an assay
+ *   _id      the ID of the document
+ *   method   indicates whether it should be edited or cloned
+ */
 function editAssay(_id, method) {
-  url = window.location.protocol + '//' + window.location.host +
-    '/' + prefix + '/' + _id;
+  url = urlPrefix + '/' + prefix + '/' + _id;
   $.ajax({
     url: url,
     dataType: 'json',
     async: false,
     success: function(data) {
       if (data._id) {
+        // Store document identifiers in global variables
         editID = data._id;
         editRev = data._rev;
-        $('#tab-edit #input-form').empty();
-        $('.div-edit').show();
+        var tabChoice = '#tab-edit ';
+        var tabNumber = 2;
+        var divChoice = '.div-edit ';
+        if (method === 'clone') {
+          tabChoice = '#tab-submit '
+          tabNumber = 1;
+          divChoice = '.div-submit '
+        }
+        $(tabChoice + ' #input-form').empty();
+        $(divChoice).show();
         options = {
-          'label': '#tab-edit ',
+          'label': tabChoice,
           'doc': data,
           'method': method
         };
         createAssayPage(options);
+        $('#tabs').tabs({
+          active: tabNumber
+        });
       }
     }
   })
-  $('#tabs').tabs({
-    active: 2
-  });
 }
 
 /** Upload new settings */
@@ -1329,7 +1351,6 @@ $(document).ready(function() {
   $('input, textarea').placehold('something-temporary');
 
   /* Submit tab initialization */
-
   var options = {'label': '#tab-submit ', 'method': 'submit'};
   createAssayPage(options);
 
