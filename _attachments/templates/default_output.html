@@ -5,43 +5,43 @@
 	<a href="#">
 		<div class="faded-less heading-grouping header-correction">${grouping}</div>
 		<div class="heading-name header-correction">${sample.name}</div>
-	
+
 		{{each iso}}
-	
+
 			{{if $value.unit != "ng/cm2" && $value.unit != "pg/cm2" }}
-	
+
 				{{if $value.type == "measurement"}}
-				
+
 					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
 					{{if $value.value.length == 1 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} ${$value.unit}</div>					
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} ${$value.unit}</div>
 					{{/if}}
 					{{if $value.value.length == 2 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
-					{{/if}}		
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>
+					{{/if}}
 					{{if $value.value.length == 3 }}
-						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>					
-					{{/if}}	 
+						<div class="faded-less heading-isotope-value header-correction">${$value.value[0]}() ${$value.unit}</div>
+					{{/if}}
 				{{/if}}
-	
+
 				{{if $value.type == "limit"}}
 					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-					<div class="faded-less heading-isotope-value header-correction">&lt ${$value.value[0]} ${$value.unit}</div>		 
+					<div class="faded-less heading-isotope-value header-correction">&lt ${$value.value[0]} ${$value.unit}</div>
 				{{/if}}
-	
+
 				{{if $value.type == "range"}}
 					<div class="heading-isotope-name header-correction">${$value.isotope} </div>
-					<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</div>						 
+					<div class="faded-less heading-isotope-value header-correction">${$value.value[0]} - ${$value.value[1]} ${$value.unit}</div>
 				{{/if}}
-	
+
 			{{/if}}
-	
+
 		{{/each}}
-	
+
 		{{if $(measurement.results).length > 2 }}
-			<div class="heading-isotope-name-short">&hellip;</div> 
+			<div class="heading-isotope-name-short">&hellip;</div>
 		{{/if}}
-	</a>	 
+	</a>
 		<button class="delete-button" type="button" style="float:right;">&nbsp</button>
 		<button class="export-button" type="button" style="float:right;display:none">&nbsp</button>
 		<button class="detail-button" type="button" style="float:right;display:none">&nbsp</button>
@@ -52,21 +52,21 @@
 <div>
 	<span id="meas-info">
 		<ul>
-			<li class="sample-name"> 
+			<li class="sample-name">
 
 	<ul>
 
 	<!-- sample -->
 
-		<li>		
+		<li>
 		<table class="sample-details">
-		 
+
 			<tr>
 				<td class="category">Sample</td>
 				<td class="item">Description</td>
 				<td>${sample.description}</td>
 			</tr>
-	
+
 			{{if sample.id != ""}}
 				<tr class="hideable" style="display:none">
 					<td></td>
@@ -74,7 +74,7 @@
 					<td>${sample.id}</td>
 				</tr>
 			{{/if}}
-	
+
 			{{if sample.source != ""}}
 				<tr>
 					<td></td>
@@ -82,21 +82,21 @@
 					<td>${sample.source}</td>
 				</tr>
 			{{/if}}
-	
+
 			{{if sample.owner.name != "" || sample.owner.contact != "" }}
 				<tr class="hideable" style="display:none">
 					<td></td>
 					<td class="item">Owner</td>
 					<td>
 					${sample.owner.name}
-					{{if sample.owner.contact != ""}}				
+					{{if sample.owner.contact != ""}}
 						<span class="faded">${sample.owner.contact}</span>
 					{{/if}}
 					</td>
 				</tr>
 			{{/if}}
 
-			
+
 			<tr class="hideable" style="display:none">
 				<td></td>
 				{{if !jQuery.isEmptyObject(sample.user)}}
@@ -107,7 +107,7 @@
 						<tr>
 							<td>
 								<span>${$value.name}</span>
-				
+
 								<span class="faded">${$value.description}</span>
 								<span class="faded">${$value.type}</span>
 								<span class="faded">${$value.value}</span>
@@ -119,7 +119,7 @@
 				</td>
 				{{/if}}
 			</tr>
-	
+
 		</table>
 		</li>
 
@@ -130,7 +130,7 @@
 
 			<tr>
 				<td class="category">Measurement</td>
-				<td class="item">Results</td>			
+				<td class="item">Results</td>
 				<td>
 					<table>
 						{{each measurement.results}}
@@ -141,42 +141,42 @@
 										<td class="result-symbol">&nbsp</td>
 										{{if $value.value.length == 1 }}
 											<td class="result-number">${$value.value[0]}</td>
-											<td class="result-number"></td>														 
-										{{/if}}
-										{{if $value.value.length == 2 }}
-											<td class="result-number">${$value.value[0]}</td>					 
-											<td class="result-number">(${$value.value[1]})</td>	
-										{{/if}}		
-										{{if $value.value.length == 3 }}
-											<td class="result-number">${$value.value[0]}</td>				 
-											<td class="result-number">(+${$value.value[1]}-${$value.value[2]})</td> 
-										{{/if}}	 
-									{{/if}}								
-						
-									{{if $value.type == "limit"}}
-										<td class="result-symbol">&lt</td>
-										{{if $value.value.length == 1 }}
-											<td class="result-number">${$value.value[0]}</td>			 
 											<td class="result-number"></td>
 										{{/if}}
 										{{if $value.value.length == 2 }}
-											<td class="result-number">${$value.value[0]}</td>					 
+											<td class="result-number">${$value.value[0]}</td>
+											<td class="result-number">(${$value.value[1]})</td>
+										{{/if}}
+										{{if $value.value.length == 3 }}
+											<td class="result-number">${$value.value[0]}</td>
+											<td class="result-number">(+${$value.value[1]}-${$value.value[2]})</td>
+										{{/if}}
+									{{/if}}
+
+									{{if $value.type == "limit"}}
+										<td class="result-symbol">&lt</td>
+										{{if $value.value.length == 1 }}
+											<td class="result-number">${$value.value[0]}</td>
+											<td class="result-number"></td>
+										{{/if}}
+										{{if $value.value.length == 2 }}
+											<td class="result-number">${$value.value[0]}</td>
 											<td class="result-number">(${$value.value[1]}%)</td>
-										{{/if}}			 
-									{{/if}}		 
-						
+										{{/if}}
+									{{/if}}
+
 									{{if $value.type == "range"}}
 										<td class="result-symbol"></td>
 										{{if $value.value.length == 2 }}
 											<td class="result-number">${$value.value[0]}-${$value.value[1]}</td>
-											<td class="result-number"></td>														 
+											<td class="result-number"></td>
 										{{/if}}
 										{{if $value.value.length == 3 }}
-											<td class="result-number">${$value.value[0]}-${$value.value[1]}</td>					 
-											<td class="result-number">(${$value.value[2]}%)</td>	
-										{{/if}}	 
-									{{/if}}		 
-									
+											<td class="result-number">${$value.value[0]}-${$value.value[1]}</td>
+											<td class="result-number">(${$value.value[2]}%)</td>
+										{{/if}}
+									{{/if}}
+
 								<td class="result-unit">${$value.unit}</td>
 							</tr>
 						{{/each}}
@@ -190,17 +190,17 @@
 					<td class="item">Institution</td>
 					<td>${measurement.institution}</td>
 				</tr>
-			{{/if}}	
+			{{/if}}
 
-			{{if measurement.technique != ""}}	
+			{{if measurement.technique != ""}}
 				<tr class="hideable" style="display:none">
 					<td></td>
 					<td class="item">Technique</td>
 					<td>${measurement.technique}</td>
 				</tr>
-			{{/if}}					
- 
-			{{if !jQuery.isEmptyObject(measurement.date) }}	
+			{{/if}}
+
+			{{if !jQuery.isEmptyObject(measurement.date) }}
 				<tr class="hideable" style="display:none">
 					<td></td>
 					<td class="item">Date</td>
@@ -212,7 +212,7 @@
 						{{/if}}
 					</td>
 				</tr>
-			{{/if}} 
+			{{/if}}
 
 			{{if measurement.requestor.name != "" || measurement.requestor.contact != "" }}
 				<tr class="hideable" style="display:none">
@@ -240,7 +240,7 @@
 				</tr>
 			{{/if}}
 
-			{{if measurement.description != ""}} 
+			{{if measurement.description != ""}}
 				<tr class="hideable" style="display:none">
 					<td></td>
 					<td class="item">Description</td>
@@ -258,7 +258,7 @@
 						<tr>
 							<td>
 								<span>${$value.name}</span>
-				
+
 								<span class="faded">${$value.description}</span>
 								<span class="faded">${$value.type}</span>
 								<span class="faded">${$value.value}</span>
@@ -288,10 +288,10 @@
 				<td></td>
 				<td class="item">Data entry</td>
 				<td>
-					<span class="faded"> ${data_source.input.name} ${data_source.input.contact} on ${data_source.input.date} spec v${specification}</span>				 
+					<span class="faded"> ${data_source.input.name} ${data_source.input.contact} on ${data_source.input.date} spec v${specification}</span>
 				</td>
 			</tr>
-			
+
 			{{if data_source.notes != ""}}
 				<tr class="hideable" style="display:none">
 					<td></td>
@@ -310,7 +310,7 @@
 						<tr>
 							<td>
 								<span>${$value.name}</span>
-				
+
 								<span class="faded">${$value.description}</span>
 								<span class="faded">${$value.type}</span>
 								<span class="faded">${$value.value}</span>
@@ -322,20 +322,20 @@
 				</td>
 				{{/if}}
 			</tr>
-		</table>	
-		</li> 
+		</table>
+		</li>
 
-	</ul>	 
-				 
+	</ul>
+
 			</li>
-		
+
 		</ul>
 	</span>
 
 	<span id="export-menu">
 		<ul class="export-option" style="display:none">
-		<li class="error-menu"> 
-			<a class="report-error" target="_blank" href="mailto:${error_email}?subject=Report Error at _id:${_id}" >Report error</a>
+		<li class="error-menu">
+			<a class="report-error" target="_blank" href="mailto:${error_email}?subject=Report error in ${sample.name}" >Report error</a>
 		</li>
 		<li class="export-menu">
 			<a>Export</a>
