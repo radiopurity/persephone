@@ -50,7 +50,7 @@ var localSettings = {
   _id: 'settings',
   max_entries: 40,
   error_email: 'errors@radiopurity.org',
-  use_lucene: 0
+  use_lucene: 1
 };
 var totalRows = 0, searchURL, skip = 0, val = 'all', bookmark;
 var thPriority = ['Th', 'Th-232', '232-Th', 'Th232', '232Th'];
