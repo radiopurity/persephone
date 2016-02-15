@@ -102,7 +102,7 @@ function searchResults(val, options) {
     async: false,
     success: function (data) {
       totalRows = data.total_rows;
-      $('#status-line').append('Total result: ' + data.total_rows);
+      $('#status-line').append('Total results: ' + data.total_rows);
       if (data.total_rows > 0) {
         if (data.total_rows > localSettings.max_entries) {
           nEntries = localSettings.max_entries;
