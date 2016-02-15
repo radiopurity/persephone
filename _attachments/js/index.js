@@ -1322,7 +1322,6 @@ function saveToDisk(fileURL, fileName) {
   }
 }
 
-/** Comment. */
 $(document).ready(function() {
 
   // Logo
@@ -1505,4 +1504,7 @@ $(document).ready(function() {
     $('#error-email').val(localSettings.error_email);
     $('#lucene').val(localSettings.use_lucene);
   });
+
+  $("#box-search").focus();
+
 });
