@@ -76,6 +76,9 @@ var types = [
   'Limit', 'Limit (c.l.)',
   'Range', 'Range (c.l.)'
 ];
+var utypes = [
+  'string', 'number'
+];
 
 /** Search. */
 function searchResults(val, options) {
@@ -535,6 +538,15 @@ function createAssayPage(options) {
 
     $(label + ".runit").bind('focus', function() {
       $(this).autocomplete({source:units, minLength:0,
+        change: function (event, ui) {
+        if (!ui.item) { $(this).val(''); $(this).focus() }
+        }
+      });
+      $(this).autocomplete('search', '');
+    });
+
+    $(label + ".utype").bind('focus', function() {
+      $(this).autocomplete({source:utypes, minLength:0,
         change: function (event, ui) {
         if (!ui.item) { $(this).val(''); $(this).focus() }
         }
