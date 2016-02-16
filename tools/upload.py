@@ -9,7 +9,7 @@ import os
 import json
 
 
-# Location of couchdb server
+# Location of couchdb server (with un, pw if required)
 couchdb_location = 'http://admin:admin@localhost:5984/'
 
 # Name of database (must exist)
