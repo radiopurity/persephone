@@ -10,6 +10,23 @@
 
   "definitions": {
 
+   "units": {
+     "enum": [
+       "pct", "g/g",
+       "ppm", "ppb", "ppt", "ppq",
+       "Bq", "Bq/kg",   "Bq/unit",  "Bq/m",  "Bq/cm",  "Bq/m2",  "Bq/cm2",
+       "mBq", "mBq/kg", "mBq/unit", "mBq/m", "mBq/cm", "mBq/m2", "mBq/cm2",
+       "uBq", "uBq/kg", "uBq/unit", "uBq/m", "uBq/cm", "uBq/m2", "uBq/cm2",
+       "nBq", "nBq/kg", "nBq/unit", "nBq/m", "nBq/cm", "nBq/m2", "nBq/cm2",
+       "pBq", "pBq/kg", "pBq/unit", "pBq/m", "pBq/cm", "pBq/m2", "pBq/cm2",
+       "g",   "g/kg",   "g/unit",   "g/m",   "g/cm",   "g/m2",   "g/cm2",
+       "mg",  "mg/kg",  "mg/unit",  "mg/m",  "mg/cm",  "mg/m2",  "mg/cm2",
+       "ug",  "ug/kg",  "ug/unit",  "ug/m",  "ug/cm",  "ug/m2",  "ug/cm2",
+       "ng",  "ng/kg",  "ng/unit",  "ng/m",  "ng/cm",  "ng/m2",  "ng/cm2",
+       "pg",  "pg/kg",  "pg/unit",  "pg/m",  "pg/cm",  "pg/m2",  "pg/cm2"
+     ]
+   },
+
     "contact": {
       "type": "object",
       "properties": {
@@ -23,11 +40,7 @@
       "properties": {
         "type":    { "enum": ["measurement"] },
         "isotope": { "type": "string" },
-        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
-                              "ppq", "Bq/kg", "mBq/kg",
-                              "uBq/kg", "\u00B5Bq/kg",
-                              "nBq/kg", "mBq", "muBq/m",
-                              "ng/cm", "pg/cm2", "ea"] },
+        "unit":    { "$ref": "#/definitions/units" },
         "value": {
 				  "type": "array",
 				  "minItems": 1, "maxItems": 3,
@@ -44,11 +57,7 @@
       "properties": {
         "type":    { "enum": ["range"] },
         "isotope": { "type": "string" },
-        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
-                              "ppq", "Bq/kg", "mBq/kg",
-                              "uBq/kg", "\u00B5Bq/kg",
-                              "nBq/kg", "mBq", "muBq/m",
-                              "ng/cm", "pg/cm2", "ea"] },
+        "unit":    { "$ref": "#/definitions/units" },
         "value": {
 				  "type": "array",
 				  "minItems": 1, "maxItems": 3,
@@ -65,11 +74,7 @@
       "properties": {
         "type":    { "enum": ["limit"] },
         "isotope": { "type": "string" },
-        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
-                              "ppq", "Bq/kg", "mBq/kg",
-                              "uBq/kg", "\u00B5Bq/kg",
-                              "nBq/kg", "mBq", "muBq/m",
-                              "ng/cm", "pg/cm2", "ea"] },
+        "unit":    { "$ref": "#/definitions/units" },
         "value": {
           "type": "array",
           "minItems": 1, "maxItems": 2,
@@ -121,8 +126,13 @@
 					"items": {
             "anyOf" : [
               { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+              { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{1}" },
+              { "type": "string", "pattern": "[0-9]{4}-[1-2]{1}-[0-9]{2}" },
+              { "type": "string", "pattern": "[0-9]{4}-[1-2]{1}-[0-9]{1}" },
               { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}" },
-              { "type": "string", "pattern": "[0-9]{4}" }
+              { "type": "string", "pattern": "[0-9]{4}-[0-9]{1}" },
+              { "type": "string", "pattern": "[0-9]{4}" },
+              { "type": "string", "pattern": "^$" }
             ]
 				  }
 				},
@@ -161,7 +171,15 @@
           "properties": {
             "date":    {
               "type": "string",
-              "pattern":"[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              "anyOf" : [
+                { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+                { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{1}" },
+                { "type": "string", "pattern": "[0-9]{4}-[1-2]{1}-[0-9]{2}" },
+                { "type": "string", "pattern": "[0-9]{4}-[1-2]{1}-[0-9]{1}" },
+                { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}" },
+                { "type": "string", "pattern": "[0-9]{4}-[0-9]{1}" },
+                { "type": "string", "pattern": "[0-9]{4}" }
+              ]
 						},
             "name":    { "type": "string" },
             "contact": { "type": "string" }
