@@ -25,9 +25,8 @@ couch = couchdb.Server(couchdb_location)
 db = couch[database_name]
 
 # Prepare output directory
-# if os.path.exists(output_folder):
-#     shutil.rmtree(output_folder)
-os.makedirs(output_folder)
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
 # Iterate through all the documents in the database
 counter = 0
@@ -40,7 +39,7 @@ for id in db:
     # Process the assay if it looks like a real one
     if 'type' in assay:
         if assay['type'] == 'measurement':
-            file_name = '%s/assay_%d.json' % (output_folder, counter)
+            file_name = '%s/assay_%05d.json' % (output_folder, counter)
             fout = open(file_name, 'w')
             fout.write(json.dumps(assay, indent=2))
             fout.close()
