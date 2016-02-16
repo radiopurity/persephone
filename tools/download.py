@@ -25,8 +25,8 @@ couch = couchdb.Server(couchdb_location)
 db = couch[database_name]
 
 # Prepare output directory
-if os.path.exists(output_folder):
-    shutil.rmtree(output_folder)
+# if os.path.exists(output_folder):
+#     shutil.rmtree(output_folder)
 os.makedirs(output_folder)
 
 # Iterate through all the documents in the database
