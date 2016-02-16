@@ -1,0 +1,182 @@
+{
+
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "description": "MADF 3.0",
+
+  "id": "/",
+
+  "type": "object",
+
+  "definitions": {
+
+    "contact": {
+      "type": "object",
+      "properties": {
+        "name":    { "type": "string" },
+        "contact": { "type": "string" }
+      }
+    },
+
+    "result_measurement": {
+      "type": "object",
+      "properties": {
+        "type":    { "enum": ["measurement"] },
+        "isotope": { "type": "string" },
+        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
+                              "ppq", "Bq/kg", "mBq/kg",
+                              "uBq/kg", "\u00B5Bq/kg",
+                              "nBq/kg", "mBq", "muBq/m",
+                              "ng/cm", "pg/cm2", "ea"] },
+        "value": {
+				  "type": "array",
+				  "minItems": 1, "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["type", "isotope", "unit", "value"]
+    },
+
+    "result_range": {
+      "type": "object",
+      "properties": {
+        "type":    { "enum": ["range"] },
+        "isotope": { "type": "string" },
+        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
+                              "ppq", "Bq/kg", "mBq/kg",
+                              "uBq/kg", "\u00B5Bq/kg",
+                              "nBq/kg", "mBq", "muBq/m",
+                              "ng/cm", "pg/cm2", "ea"] },
+        "value": {
+				  "type": "array",
+				  "minItems": 1, "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["type", "isotope", "unit", "value"]
+    },
+
+    "result_limit": {
+      "type": "object",
+      "properties": {
+        "type":    { "enum": ["limit"] },
+        "isotope": { "type": "string" },
+        "unit":    { "enum": ["pct", "ppm", "ppb", "ppt",
+                              "ppq", "Bq/kg", "mBq/kg",
+                              "uBq/kg", "\u00B5Bq/kg",
+                              "nBq/kg", "mBq", "muBq/m",
+                              "ng/cm", "pg/cm2", "ea"] },
+        "value": {
+          "type": "array",
+          "minItems": 1, "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["type", "isotope", "unit", "value"]
+    },
+
+    "user": {
+  		"type": "object",
+      "properties": {
+        "name":        { "type": "string" },
+        "description": { "type": "string" },
+        "type":        { "type": "string" },
+        "value":       {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" }
+          ]
+        },
+        "unit":        { "type": "string" }
+      },
+      "required": ["name", "type"]
+    }
+
+  },
+
+  "properties": {
+
+    "specification": { "type": "string" },
+
+    "grouping":      { "type": "string" },
+
+    "type":          { "type": "string" },
+
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "requestor":    { "$ref": "#/definitions/contact" },
+        "practitioner": { "$ref": "#/definitions/contact" },
+        "technique":    { "type": "string" },
+        "institution":  { "type": "string" },
+        "date": {
+					"type": "array",
+					"minItems": 0, "maxItems": 2,
+					"items": {
+            "anyOf" : [
+              { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+              { "type": "string", "pattern": "[0-9]{4}-[0-9]{2}" },
+              { "type": "string", "pattern": "[0-9]{4}" }
+            ]
+				  }
+				},
+        "results": {
+					"type": "array",
+					"items": {
+            "oneOf" : [
+              { "$ref": "#/definitions/result_measurement" },
+              { "$ref": "#/definitions/result_range" },
+              { "$ref": "#/definitions/result_limit" }
+            ]
+          }
+				},
+        "user": { "$ref": "#/definitions/user" }
+			}
+    },
+
+    "sample": {
+      "type": "object",
+      "properties": {
+        "name":        { "type": "string" },
+        "description": { "type": "string" },
+        "id":          { "type": "string" },
+        "source":      { "type": "string" },
+        "owner":       { "$ref": "#/definitions/contact" },
+        "user":        { "$ref": "#/definitions/user" }
+      },
+      "required": ["name", "description"]
+    },
+
+    "data_source": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object",
+          "properties": {
+            "date":    {
+              "type": "string",
+              "pattern":"[0-9]{4}-[0-9]{2}-[0-9]{2}"
+						},
+            "name":    { "type": "string" },
+            "contact": { "type": "string" }
+          },
+          "required": ["name", "contact", "date"]
+        },
+        "reference": { "type": "string" },
+        "notes":     { "type": "string" },
+        "user":      { "$ref": "#/definitions/user" }
+      }
+    }
+
+  },
+
+  "required": ["grouping", "specification", "type",
+               "sample", "data_source", "measurement"]
+
+}
