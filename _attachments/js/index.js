@@ -49,7 +49,7 @@ var editRev;
 var localSettings = {
   _id: 'settings',
   max_entries: 40,
-  error_email: 'errors@radiopurity.org',
+  error_email: 'errors@example.com',
   use_lucene: 1
 };
 var totalRows = 0, searchURL, skip = 0, val = 'all', bookmark;
@@ -1073,7 +1073,7 @@ function clickSubmit(options) {
 function fillResultRow(label, doc) {
   $(label+".risotope").val(doc.isotope);
   $(label+".runit").val(doc.unit);
-  if (doc.type === "measurement"){
+  if (doc.type === "measurement") {
     if(doc.value.length === 1){
       $(label + ".rtype").val(types[0]);
       $(label + ".rmeas").val(doc.value[0]);
@@ -1494,6 +1494,21 @@ $(document).ready(function() {
     $('#lucene').val(localSettings.use_lucene);
   });
 
-  $("#box-search").focus();
 
+
+});
+
+
+$(window).bind("load", function() {
+  // Check to see if a search argument has been passed to the app
+  locationString = window.location.href;
+  if (locationString.indexOf("?") > -1) {
+    queryString = locationString.split(/\?(.+)?/)[1];
+    searchString = decodeURI(queryString);
+    $("#box-search").val(searchString);
+    click_search();
+    $("#box-search").focus();
+  } else {
+    $("#box-search").focus();
+  }
 });

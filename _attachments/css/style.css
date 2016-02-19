@@ -5,7 +5,7 @@ html {
 
 body {
   font-family: "Verdana","Arial","sans-serif";
-  margin: 25px;
+  margin: 30px;
   padding-bottom: 40px;
   font-size: 11px;
 }
@@ -608,14 +608,14 @@ button.input {
 }
 
 img#logo {
-  width: 38%;
+  width: 400px;
 }
 
 p.about-header {
   font-family: 'Oleo Script',cursive;
   text-align: center;
   font-size: 22px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 img.about-image {
