@@ -12,18 +12,41 @@
 
    "units": {
      "enum": [
+
        "pct", "g/g",
+
        "ppm", "ppb", "ppt", "ppq",
-       "Bq", "Bq/kg",   "Bq/unit",  "Bq/m",  "Bq/cm",  "Bq/m2",  "Bq/cm2",
-       "mBq", "mBq/kg", "mBq/unit", "mBq/m", "mBq/cm", "mBq/m2", "mBq/cm2",
-       "uBq", "uBq/kg", "uBq/unit", "uBq/m", "uBq/cm", "uBq/m2", "uBq/cm2",
-       "nBq", "nBq/kg", "nBq/unit", "nBq/m", "nBq/cm", "nBq/m2", "nBq/cm2",
-       "pBq", "pBq/kg", "pBq/unit", "pBq/m", "pBq/cm", "pBq/m2", "pBq/cm2",
-       "g",   "g/kg",   "g/unit",   "g/m",   "g/cm",   "g/m2",   "g/cm2",
-       "mg",  "mg/kg",  "mg/unit",  "mg/m",  "mg/cm",  "mg/m2",  "mg/cm2",
-       "ug",  "ug/kg",  "ug/unit",  "ug/m",  "ug/cm",  "ug/m2",  "ug/cm2",
-       "ng",  "ng/kg",  "ng/unit",  "ng/m",  "ng/cm",  "ng/m2",  "ng/cm2",
-       "pg",  "pg/kg",  "pg/unit",  "pg/m",  "pg/cm",  "pg/m2",  "pg/cm2"
+
+       "Bq",    "Bq/kg",  "Bq/unit",  
+       "Bq/m",  "Bq/cm",  "Bq/m2",  "Bq/cm2",  "Bq/m3",  "Bq/cm3",
+
+       "mBq",   "mBq/kg", "mBq/unit", 
+       "mBq/m", "mBq/cm", "mBq/m2", "mBq/cm2", "mBq/m3", "mBq/cm3",
+
+       "uBq",   "uBq/kg", "uBq/unit", 
+       "uBq/m", "uBq/cm", "uBq/m2", "uBq/cm2", "uBq/m3", "uBq/cm3",
+
+       "nBq",   "nBq/kg", "nBq/unit", 
+       "nBq/m", "nBq/cm", "nBq/m2", "nBq/cm2", "nBq/m3", "nBq/cm3",
+
+       "pBq",   "pBq/kg", "pBq/unit", 
+       "pBq/m", "pBq/cm", "pBq/m2", "pBq/cm2", "pBq/m3", "pBq/cm3",
+
+       "g",     "g/kg",   "g/unit",   
+       "g/m",   "g/cm",   "g/m2",   "g/cm2",   "g/m3",   "g/cm3",
+
+       "mg",    "mg/kg",  "mg/unit",  
+       "mg/m",  "mg/cm",  "mg/m2",   "mg/cm2", "mg/m3",  "mg/cm3",
+
+       "ug",    "ug/kg",  "ug/unit",  
+       "ug/m",  "ug/cm",  "ug/m2",   "ug/cm2", "ug/m3",  "ug/cm3",
+
+       "ng",    "ng/kg",  "ng/unit",  
+       "ng/m",  "ng/cm",  "ng/m2",   "ng/cm2", "ng/m3",  "ng/cm3",
+
+       "pg",    "pg/kg",  "pg/unit",  
+       "pg/m",  "pg/cm",  "pg/m2",   "pg/cm2", "pg/m3",  "pg/cm3"
+
      ]
    },
 
