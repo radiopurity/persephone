@@ -6,7 +6,7 @@ Validates a .json files using the schema
 import json
 import jsonschema
 
-assay_file   = "download/assay_34.json"
+assay_file   = "download/assay_00002.json"
 schema_file  = "../_attachments/schema/v3.00.schema.json"
 
 assay = open(assay_file).read()

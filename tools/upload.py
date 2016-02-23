@@ -11,10 +11,10 @@ import jsonschema
 
 
 # Location of couchdb server (with un, pw if required)
-couchdb_location = 'http://admin:admin@localhost:5984/'
+couchdb_location = 'http://admin:admin@127.0.0.1:5984'
 
 # Name of database (must exist)
-database_name = 'test'
+#database_name = 'rp'
 
 # Directory where the JSON files to upload are stored
 source_dir = './download'
@@ -56,6 +56,7 @@ for f in files_to_upload:
         try:
             # Check for validity and upload if successful
             jsonschema.validate(assay, schema)
+            assay['specification'] = '3.00'
             db.save(assay)
             shutil.move(file_name, uploaded_dir)
         except jsonschema.ValidationError as e:

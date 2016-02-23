@@ -10,10 +10,10 @@ import json
 
 
 # Location of couchdb server (with un, pw if required)
-couchdb_location = 'http://admin:admin@localhost:5984/'
+couchdb_location = 'http://admin:admin@127.0.0.1:5984'
 
 # Name of database (must exist)
-database_name = 'test'
+database_name = 'rp'
 
 # Connect to couchdb
 couch = couchdb.Server(couchdb_location)
@@ -28,4 +28,5 @@ for id in db:
     # Process the assay if it looks like a real one
     if 'type' in assay:
         if assay['type'] == 'measurement':
+            print('pruning ' + id)
             db.delete(assay)
