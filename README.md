@@ -52,6 +52,14 @@ This is how to install on a local version of the app:
 
 An alternative way to install the app is to replicate it from an existing installation.
 
+# Tools
+
+Data can be viewed and input via the user interface but it's also easy (and sometimes more inconvenient) to do these things from the command line. For example, if your raw measurements were in an Excel file, you could: export them to a .csv file, convert this file into JSON documents using a python script and then upload the documents using the python `couchdb` package.
+
+A set of processing tools are provided in the `tools` directory for uploading data (`upload.py`), downloading data (`download.py`) and cleaning all measurements from an existing database (`prune.py`).
+
+When uploading assays it's important to check JSON documents against the data specification (the schema in `_attachments/schema/v3.00.schema.json`). A way this can be done is illustrated in `upload.py`.
+
 # Community database
 
 The community-wide installation is available at [www.radiopurity.org](http://www.radiopurity.org).
