@@ -1,0 +1,149 @@
+Table 3. (metals) #001 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &     <0.17     &          
+Table 3. (metals) #002 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &     0.011 +- 0.005     &     0.017 +- 0.003    
+Table 3. (metals) #003 &  Copper, electroformed, stock sample                       &     GD-MS      &     <2.2       &     <50       &     <70   
+Table 3. (metals) #004 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &     <0.029          &                 <0.008              
+Table 3. (metals) #005 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &                 <0.029          &                 <0.009            
+Table 3. (metals) #006 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &                     <0.029          &                 <0.008            
+Table 3. (metals) #007 &  Copper, electroformed, stock sample                       &     ICP-MS     &                  &                     <0.030          &                 <0.009            
+Table 3. (metals) #008 &  Copper, electroformed, machined part, guide clip          &     ICP-MS     &          &       0.330 +- 0.022           &         0.123 +- 0.005             
+Table 3. (metals) #009 &  Copper, electroformed, machined part, guide clip          &     ICP-MS     &          &        0.112 +- 0.009           &         0.078 +- 0.002            
+Table 3. (metals) #010 &  Copper, electroformed, machined part, guide clip          &     ICP-MS     &          &          0.170 +- 0.008           &         0.087 +- 0.002           
+Table 3. (metals) #011 &  Copper, electroformed, machined part, spring clip         &     ICP-MS     &          &      0.215 +- 0.009           &         0.130 +- 0.010             
+Table 3. (metals) #012 &  Copper, electroformed, machined part, hex bolt            &     ICP-MS     &          &             0.118 +- 0.011           &         0.035 +- 0.004         
+Table 3. (metals) #013 &  Copper, electroformed, machined part, hex bolt            &     ICP-MS     &       &         0.119 +- 0.014           &         0.041 +- 0.003            
+Table 3. (metals) #014 &  Copper, electroformed, machined part, hex bolt            &     ICP-MS     &          &             0.148 +- 0.021           &         0.051 +- 0.002     
+Table 3. (metals) #015 &  Copper, C10100, cake stock, (source for #016 and #017)    &     ICP-MS     &          &        0.46 +- 0.06             &         0.21 +- 0.06               
+Table 3. (metals) #016 &  Copper, C10100, 2.5" plate stock, exterior sample         &     ICP-MS     &                         &   0.27 +- 0.05     &     0.10 +- 0.02       
+Table 3. (metals) #017 &  Copper, C10100, 2.5" plate stock, interior sample         &     ICP-MS     &                         &   0.27 +- 0.05     &     0.12 +- 0.02    
+Table 3. (metals) #018 &  Copper, C10100, 1" plate stock, saw cut (same stock #019) &     ICP-MS     &          &             10.2 +- 1.0              &         6.62 +- 0.58               
+Table 3. (metals) #019 &  Copper, C10100, 1" plate stock, machined surfaces         &     ICP-MS     &          &      1.88 +- 0.45             &         3.11 +- 0.39             
+Table 3. (metals) #020 &  Copper, C10100, 1" x 2" bar stock, machined surfaces      &     ICP-MS     &          &            2.12 +- 0.39             &         2.25 +- 0.15      
+Table 3. (metals) #021 &  Copper, C10100, 1" plate stock                            &     ICP-MS     &          &         <0.029                  &         0.013 +- 0.002       
+Table 3. (metals) #022 &  Copper, C10100, 2.5" plate stock                          &     ICP-MS     &          &       <0.030                  &         0.017 +- 0.003        
+Table 3. (metals) #023 &  Copper, C10100, 2.5" plate stock                          &     ICP-MS     &          &     0.049 +- 0.010     &        0.061 +- 0.006              
+Table 3. (metals) #024 &  Copper, C10100, 0.5" plate stock                          &     ICP-MS     &          &             <0.030                  &         0.009 +- 0.001        
+Table 3. (metals) #025 &  Copper wire, California Fine Wire                         &     ICP-MS     &     <25000     &     <87     &     <40    
+Table 3. (metals) #026 &  Lead, smelted from virgin ore, Sullivan Metals            &     Ge       &     <60     &     <100     &     <30    
+Table 3. (metals) #027 &  Lead, UW                                                  &     Ge       &     <190     &     <200     &     <500    
+Table 3. (metals) #028 &  Lead, UW                                                  &     Ge       &     <160     &     <170     &     <400    
+Table 3. (metals) #029 &  Lead, smelted from virgin ore, Sullivan Metals            &     Ge       &     <160     &     <173     &     <241    
+Table 3. (metals) #030 &  Lead, smelted from virgin ore, Sullivan Metals            &     GD-MS     &     4 +- 2     &     <10     &     <10    
+Table 3. (metals) #031 &  Lead, UW                                                  &     GD-MS     &     23 +- 11     &     <8     &     <10    
+Table 3. (metals) #032 &  Lead, UW                                                  &     GD-MS     &     <0.4     &     <8     &     <9    
+Table 3. (metals) #033 &  Lead, archeological ingot, UChicago                       &     GD-MS     &     <0.3     &     <9     &     <9    
+Table 3. (metals) #034 &  Lead, archeological sample prepared by Mifer Brick        &     GD-MS     &     <0.2     &     <8     &     <10    
+Table 3. (metals) #035 &  Lead, average from brick samples                          &     ICP-MS     &          &     1.3 +- 1.3     &     2.9 +- 2.0    
+Table 3. (metals) #036 &  Tin, sample of unknown origin                             &     Ge       &     800 +- 450     &     <760     &     <137    
+Table 3. (metals) #037 &  Tin, sample of unknown origin                             &     ICP-MS     &     <108     &     940 +- 50     &     1190 +- 170    
+Table 3. (metals) #038 &  Tin, sample supplied by Canberra                          &     ICP-MS   &     <108     &     760 +- 70     &     1150 +- 350    
+Table 3. (metals) #039 &  6-way SS conflat intersection, MDC Vac. Prod., LLC        &     Ge       &     <840     &     3200 +- 1000     &     <400    
+Table 3. (metals) #040 &  TIG-Ce welding rods                                       &     Ge       &  (1.60 +- 0.14)x10^{5}    &  (1.68 +- 0.31)x10^{7}     &     <72000    
+Table 3. (metals) #041 &  TIG-Zr welding rods                                       &     Ge       &     5500 +- 4600   &  (1.08 +- 0.05)x10^{5}      &     19300 +- 1600    
+Table 3. (metals) #042 &  Chromium, stock used for vapor depositions                &     ICP-MS     &     <7000     &     <20000     &     <5000    
+Table 3. (metals) #043 &  Gold, sputtering target                                   &     ICP-MS     &     <270     &          &     570 +- 130    
+Table 3. (metals) #044 &  Gold (4N8), sputtered at LBNL                             &     ICP-MS     &     47000 +- 1000     &     1980 +- 370     &     2000 +- 300    
+Table 3. (metals) #045 &  Aluminum, sputtered, sample film provided by ORTEC        &     ICP-MS   &  (1.42 +- 0.51)x10^{7}      &     2000 +- 250     &     5730 +- 300    
+Table 3. (metals) #046 &  Aluminum, sputtered, sample film provided by ORTEC        &     ICP-MS     &     (1.10 +- 0.01)x10^{5}     &     2210 +- 460     &     4390 +- 340    
+Table 3. (metals) #047 &  Germanium, sputtered, sample film provided by ORTEC       &     ICP-MS     &     <430     &     207 +- 38     &     843 +- 62    
+Table 3. (metals) #048 &  Germanium, sputtered, sample film provided by ORTEC       &     ICP-MS     &     <215     &     349 +- 80     &     1340 +- 120    
+Table 3. (metals) #049 &  Amorphous germanium, sputtered at LBNL                    &     ICP-MS     &     4800 +- 230      &     2370 +- 690     &     1680 +- 350    
+Table 3. (metals) #050 &  Chromium, sputtered at LBNL                               &     ICP-MS     &     <1900      &     5240 +- 1290     &     5030 +- 700    
+Table 3. (metals) #051 &  Titanium film, sputtered at LBNL                          &     ICP-MS     &           &     <400     &     <100    
+Table 3. (plastics) #052 &  Teflon, TE-6742                                         &     NAA     &     0.15 +- 0.02   &     0.025 +- 0.002  &     <0.4    
+Table 3. (plastics) #053 &  Peek, Victrex                                           &     NAA     &     180 +- 110     &     <400            &     <5100    
+Table 3. (plastics) #054 &  Vespel, Dupont rod, ThyssenKrupp Materials              &     NAA     &     350 +- 300     &     <2.9            &     <84.4    
+Table 3. (plastics) #055 &  Vespel, Dupont rod, Professional Plastics Inc.          &     NAA     &     191 +- 31      &     <49             &     <45    
+Table 3. (plastics) #056 &  Vespel, Dupont plate, Professional Plastics Inc.        &     NAA     &     <200           &     <42             &     <930    
+Table 3. (plastics) #057 &  Parylene N, dimer, Para Tech Coating Inc.               &     NAA     &                    &     <50             &     <30    
+Table 3. (plastics) #058 &  Parylene, Speciality Coating Systems Inc.               &     NAA     &     5800 +- 1300   &      <850           &      <1700    
+Table 3. (plastics) #059 &  Parylene C, dimer, Speciality Coating Systems Inc.      &     ICP-MS  &     2110 +- 15     &     390 +- 30       &     6230 +- 110    
+Table 3. (plastics) #060 &  Parylene C, dimer pre cleaned, Speciality Coating Systems Inc. &     ICP-MS  &     <108           &     37 +- 3         &     4230 +- 60    
+Table 3. (plastics) #061 &  Parylene C, infusion rod bump, Speciality Coating Systems Inc. &     ICP-MS  &     <320           &     250 +- 60       &     46 +- 20    
+Table 3. (plastics) #062 &  Parylene C, inlet, Speciality Coating Systems Inc.      &     ICP-MS  &     <430           &     140 +- 30       &     83 +- 24    
+Table 3. (plastics) #063 &  Parylene C, table, Speciality Coating Systems Inc.      &     ICP-MS  &     923 +- 86      &     530 +- 30       &     250 +- 60    
+Table 3. (plastics) #064 &  HDPE, 5% boron, Plasti-Shield, King Plastic             &     Ge      &     <8000          &     <8000           &     <3000    
+Table 3. (plastics) #065 &  HDPE, Densetec, Polymer Industries                      &     Ge      &     1400 +- 200    &     3000 +- 200     &     1600 +- 100   
+Table 3. (plastics) #066 &  PTFE, 0.5" tubing, Cole-Palmer                          &     ICP-MS  &                    &     1.5 +- 1.8      &     <3.1    
+Table 3. (plastics) #067 &  Kalrez, Dupont, o-ring material                         &     NAA     &                    &     4700 +- 200     &     <4100    
+Table 3. (plastics) #068 &  Kalrez, Dupont, o-ring material                         &     ICP-MS  &                    &     1785 +- 890     &     754 +- 57    
+Table 3. (plastics) #069 &  FEP, shrink tubing, ACCU-GLASS                          &     NAA     &     <19            &     <34             &     <100    
+Table 3. (plastics) #070 &  FEP, shrink tubing, NEWARK                              &     NAA     &     20.6 +- 2.3    &     <12             &     8.0 +- 3.4    
+Table 3. (plastics) #071 &  FEP, tubing                                             &     NAA     &                    &     <45             &     <150    
+Table 3. (plastics) #072 &  PTFE, 0.002-in sheet                                    &     NAA     &                    &     <5.1            &     <7.6    
+Table 3. (cables and parts) #073 &  FEP, Dupont NP20, outer jacket, Axon            &     NAA     &     <1100     &     <28     &     <170    
+Table 3. (cables and parts) #074 &  FEP, Dupont NP20, inner dielectric, Axon        &     NAA     &     <3700     &     <27     &     <140    
+Table 3. (cables and parts) #075 &  Axon Picocoax, Model PCX46P10EP, 0.12 g/m       &     Ge     &     22400 +- 6400     &     14000 +- 2000     &     <28000    
+Table 3. (cables and parts) #076 &  Axon Picocoax, same as #075                     &     ICP-MS     &          &     <2x10^{6}     &     <8x10^{5}    
+Table 3. (cables and parts) #077 &  Copper wire, bare AWG34, MWS Wire Industries             &     ICP-MS     &     <320     &     33.2 +- 8.9     &     26.6 +- 10.1    
+Table 3. (cables and parts) #078 &  Copper wire, bare AWG40, MWS Wire Industries             &     ICP-MS     &     <270     &     38.9 +- 8.4     &     14.1 +- 12.5    
+Table 3. (cables and parts) #079 &  Mini-coax cable, Cooner Wire Inc.                        &     ICP-MS     &       &   <2x10^{6}     &     <8x10^{5}      
+Table 3. (cables and parts) #080 &  Mini-coax cable, Cooner Wire Inc.                        &     Ge     &     11600 +- 5000     &     <4000     &     <21000    
+Table 3. (cables and parts) #081 &  Handmade parylene coated Cu wire                         &     ICP-MS     &       &   815 +- 81     &     330 +- 33    
+Table 3. (cables and parts) #082 &  Cable, Axon Picocoax, same as #075                       &     Ge     &     21000 +- 2000     &     <8000     &     3000 +- 1000    
+Table 3. (cables and parts) #083 &  Cable, Axon Picocoax, same as #075                       &     ICP-MS     &          &     566 +- 57     &     3100 +- 310    
+Table 3. (cables and parts) #084 &  Cable, Axon Picocoax, 3 g/m, custom HV cable             &     ICP-MS     &          &     470 +- 110     &     5900 +- 300    
+Table 3. (cables and parts) #085 &  Cable, Axon Picocoax, 0.4 g/m custom LV cable            &     ICP-MS     &          &     220 +- 71     &     940 +- 37    
+Table 3. (cables and parts) #086 &  Cable, Axon Picocoax, 3 g/m, custom HV cable             &     ICP-MS     &          &     0.54 +- 0.05     &     11.7 +- 1.2       
+Table 3. (cables and parts) #087 &  Cable, Axon Picocoax, 0.4 g/m custom LV cable            &     Ge     &     <400     &     <700     &     <200    
+Table 3. (cables and parts) #088 &  Signal cable, picocoax, Axon, final                      &     Ge          &     <2000     &     <1000     &     <800    
+Table 3. (electronics, small parts) #089 &  Silver epoxy, part 1, TRA-DUCT 2902, Tra-Con, Inc.            &    ICP-MS     &     <200     &     330 +- 4     &     64 +- 4    
+Table 3. (electronics, small parts) #090 &  Silver epoxy, part 2, TRA-DUCT 2902, Tra-Con, Inc.            &   ICP-MS     &     <200     &     578 +- 24     &     349 +- 12    
+Table 3. (electronics, small parts) #091 &  Silver epoxy, part 1, TRA-DUCT 2902, Tra-Con, Inc.            &   ICP-MS     &     107 +- 4     &     26.4 +- 4.4     &     20 +- 3    
+Table 3. (electronics, small parts) #092 &  Silver epoxy, part 2, TRA-DUCT 2902, Tra-Con, Inc.            &   ICP-MS     &     518 +- 10     &     56.7 +- 7     &     67 +- 8    
+Table 3. (electronics, small parts) #093 &  Silver epoxy, TRA-DUCT 2902, Tra-Con, Inc.                    &     Ge     &     <30000     &     <70000     &     <10000    
+Table 3. (electronics, small parts) #094 &  Silver epoxy packs, TRA-DUCT 2902, Tra-Con, Inc.              &   Ge     &     84000 +- 8000     &     <8000     &     <4000    
+Table 3. (electronics, small parts) #095 &  Silver epoxy, TRA-DUCT 2902, Tra-Con, Inc.                    &   Ge     &      <3000      &     <5000     &     20000 +- 3000    
+Table 3. (electronics, small parts) #096 &  Silver epoxy, hard, TRA-DUCT 2902, Tra-Con, Inc.              &     ICP-MS     &     556 +- 11     &     56.7 +- 7     &     67 +- 8    
+Table 3. (electronics, small parts) #097 &  Silver epoxy, TRA-DUCT 2902, Tra-Con, Inc.                    &     ICP-MS     &     <70     &     79 +- 4     &     11 +- 1    
+Table 3. (electronics, small parts) #098 &  Silver epoxy, Emerson-Cumings                                 &     Ge     &     <2000     &     <3000     &     <1000    
+Table 3. (electronics, small parts) #099 &  Solder, SnAg, NCD (SNO)                                       &   GD-MS    &   <73   &  <70    &  <200 
+Table 3. (electronics, small parts) #100 &  Sodler, Indium Corp                                           &   GD-MS    &   <120          &  <100   &  <300 
+Table 3. (electronics, small parts) #101 &  Abietic acid, tech grade, Sigma Aldrich                       &     ICP-MS     &     <108     &     <90     &     93 +- 16    
+Table 3. (electronics, small parts) #102 &  Abietic acid, tech grade, Sigma Aldrich                       &     NAA     &     <28     &     <28     &     <60    
+Table 3. (electronics, small parts) #103 &  Soap solution, Micro-90                                       &     Ge     &     42000 +- 2000     &     <1500     &     <600    
+Table 3. (electronics, small parts) #104 &  Soap solution, Liquinox Alconox Inc.                          &     Ge     &     1x10^{7}     &     <10000     &     <2000    
+Table 3. (electronics, small parts) #105 &  Fused silica, Corning 7980 ArF                                &     Ge     &     <90000        &     <70000     &     <40000    
+Table 3. (electronics, small parts) #106 &  Fused silica, Corning 7980 KrF                                &     ICP-MS     &          &     187 +- 26  &   309 +- 69 
+Table 3. (electronics, small parts) #107 &  Fused silica, Corning 7980 KrF                                &     ICP-MS     &          &     74 +- 23  &   99 +- 12 
+Table 3. (electronics, small parts) #108 &  Fused silica, Corning 7980 std. polish                        &     ICP-MS     &        &  97 +- 41     &     54 +- 20 
+Table 3. (electronics, small parts) #109 &  Fused silica, Corning 8650 ArF                                &     ICP-MS     &          &     118 +- 25     &     525 +- 134 
+Table 3. (electronics, small parts) #110 &  Fused silica, Corning 7980 prototype wafer, uncleaned         &     ICP-MS     &          &     11 +- 5     &     160 +- 20 
+Table 3. (electronics, small parts) #111 &  Fused silica, Corning 7980 prototype wafer, cleaned           &     ICP-MS     &          &     <10     &     100 +- 10 
+Table 3. (electronics, small parts) #112 &  Al-Si bonding wire, California Fine Wire                      &     ICP-MS     &     3280 +- 27     &     91000 +- 2000     &     8700 +- 400    
+Table 3. (electronics, small parts) #113 &  Pins, without Beryllium/Copper Contacts                       &     ICP-MS     &     29000 +- 530     &     1500 +- 400     &     310 +- 70    
+Table 3. (electronics, small parts) #114 &  Pins, with Beryllium/Copper Contacts                          &     ICP-MS     &     30000 +- 510     &     9900 +- 300     &     64000 +- 100    
+Table 3. (electronics, small parts) #115 &  Vespel, in-house machined housing                             &     NAA        &     <935     &     310 +- 140     &     <190    
+Table 3. (electronics, small parts) #116 &  Connector, in-house machined female connector, full body assay       &     ICP-MS     &          &     96.2 +- 1.7     &     43.4 +- 0.7    
+Table 3. (electronics, small parts) #117 &  Connector, in-house machined male connector, full body assay         &     ICP-MS     &          &     7.1 +- 0.5     &     10.5 +- 0.9    
+Table 3. (electronics, small parts) #118 &  Sapphire C-Plane, 0.35 mm thick, Marketech Intern. Inc.              &     NAA        &     <376     &     <21     &     <300    
+Table 3. (electronics, small parts) #119 &  JFET dies, MX-17A, MOKTEK                                            &     ICP-MS     &          &     <1900     &     <140    
+Table 3. (electronics, small parts) #120 &  Circuit board, LMFE1, LMFE prototype without JFET                    &     ICP-MS     &      386 +- 12     &     130 +- 10     &     430 +- 43    
+Table 3. (electronics, small parts) #121 &  Circuit board, LMFE2a, full board, internal ID 1B0109                &     ICP-MS     &     <215     &     2120 +- 60     &     850 +- 30    
+Table 3. (electronics, small parts) #122 &  Circuit board, LMFE2b, full board, internal ID 1B0110                &     ICP-MS     &     <215     &     1610 +- 30     &     850 +- 30    
+Table 3. (miscellaneous) #123 &  Precision Urethane Drive Roller, 70a durometer              &     Ge         &     <500000     &     <175000     &     <65000    
+Table 3. (miscellaneous) #124 &  Wipes, KIMTECH PURE W4, Kimberly-Clark Prof.                &     Ge         &     44800 +- 12800     &     (1.00 +- 0.15)x10^{6}     &     <56000    
+Table 3. (miscellaneous) #125 &  Charcoal, 102022, finer size grain, Blücher                 &     ICP-MS     &     20400 +- 170     &     369 +- 30     &     1870 +- 70    
+Table 3. (miscellaneous) #126 &  Charcoal, 101135 Saratoga, 0.47 mm, Blücher                 &     ICP-MS     &     11300 +- 46     &     181 +- 18     &     385 +- 16    
+Table 3. (miscellaneous) #127 &  Charcoal, 101135 Saratoga, 0.47 mm, Blücher                 &     Ge         &     10000 +- 3400     &     5180 +- 246     &     5870 +- 960      
+Table 3. (miscellaneous) #128 &  Charcoal, UHP granules, Carbo-Act Int.                      &     ICP-MS     &     2880 +- 12     &     458 +- 48     &     647 +- 48    
+Table 3. (miscellaneous) #129 &  Charcoal, sample from MPI, Heidelberg                       &     ICP-MS     &     117 +- 2     &     135 +- 20     &     606 +- 9                   
+Table 3. (miscellaneous) #130 &  Charcoal, K48, Silcarbon                                    &     ICP-MS     &     (1.17 +- 0.01)x10^{7}     &     4070 +- 150     &     3990 +- 80      
+Table 3. (miscellaneous) #131 &  Charcoal, Calgon Carbon                                     &     Ge         &     (6.40 +- 0.14)x10^{5}     &     (2.610 +- 0.079)x10^{5}     &     83000 +- 2700    
+Table 3. (miscellaneous) #132 &  Charcoal, sourced from Canberra                             &     Ge         &     (1.50 +- 0.08)x10^{5}     &     (1.545 +- 0.055)x10^{5}     &     18800 +- 1700      
+Table 3. (miscellaneous) #133 &  Epoxy, Hysol 0151 resin, McMaster-Carr                      &     ICP-MS     &     <86     &     130 +- 10     &     17 +- 5      
+Table 3. (miscellaneous) #134 &  Epoxy, Hysol 0151 hardener, McMaster-Carr                   &     ICP-MS     &     <215     &     140 +- 20     &     39 +- 7      
+Table 3. (miscellaneous) #135 &  Epoxy, Hysol 1C, resin, McMaster-Carr                       &     ICP-MS     &     6200 +- 200     &     3190 +- 290     &     86300 +- 1100      
+Table 3. (miscellaneous) #136 &  Epoxy, Hysol 1C, hardener, McMaster-Carr                    &     ICP-MS     &     26670 +- 260     &     79200 +- 800     &     1560 +- 1000      
+Table 3. (miscellaneous) #137 &  Epoxy, Torr Seal, base A, McMaster-Carr                     &     ICP-MS     &     <7530     &     2350 +- 480     &     10300 +- 2000      
+Table 3. (miscellaneous) #138 &  Epoxy, Torr Seal, hardener B, McMaster-Carr                 &     ICP-MS     &     35400 +- 250     &     45200 +- 700     &     148000 +- 2000      
+Table 3. (miscellaneous) #139 &  Silicone rubber, P-4, Silicones Inc.                        &     Ge         &     <2000     &     <3000     &     <6000      
+Table 3. (miscellaneous) #140 &  2-propanol, A461-500, Fischer Scientific                    &     ICP-MS     &     <10     &     <0.1     &     <0.1      
+Table 3. (miscellaneous) #141 &  Mix colored beads, 100780, Accu-Glass Prod. Inc.            &     ICP-MS     &     (2.63 +- 0.01)x10^{7}     &     39500 +- 2000     &     453000 +- 6300      
+Table 3. (miscellaneous) #142 &  White beads, 100780, Accu-Glass Products Inc.               &     ICP-MS     &     (2.82 +- 0.01)x10^{7}     &     40200 +- 1900     &     713000 +- 12000      
+Table 3. (miscellaneous) #143 &  Green beads, 100780, Accu-Glass Products Inc.               &     ICP-MS     &     (3.05 +- 0.01)x10^{7}     &     (2.23 +- 0.08)x10^{5}     &     386000 +- 8000       
+Table 3. (miscellaneous) #144 &  Black beads, leachate, 100780, Accu-Glass Products Inc.     &     ICP-MS     &     1890 +- 10     &     57.2 +- 2.2     &     43 +- 2      
+Table 3. (miscellaneous) #145 &  Blue beads, leachate, 100780, Accu-Glass Products Inc.      &     ICP-MS     &     7850 +- 41     &     150 +- 3     &     259 +- 4      
+Table 3. (miscellaneous) #146 &  Brown beads, leachate, 100780, Accu-Glass Products Inc.     &     ICP-MS     &     2030 +- 9     &     64.7 +- 3     &     46.5 +- 1.7    
+Table 3. (miscellaneous) #147 &  Green beads, leachate, 100780, Accu-Glass Products Inc.     &     ICP-MS     &     3820 +- 20     &     261 +- 4     &     195 +- 5    
+Table 3. (miscellaneous) #148 &  Grey beads, leachate, 100780, Accu-Glass Products Inc.      &     ICP-MS     &     2120 +- 16     &     281 +- 6     &     199 +- 3    
+Table 3. (miscellaneous) #149 &  White beads, leachate, 100780, Accu-Glass Products Inc.     &     ICP-MS     &     2460 +- 12     &     67 +- 2     &     59 +- 1   
