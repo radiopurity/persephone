@@ -3,13 +3,13 @@
 
 Persephone is a software package for storing measurements of material radiopurity. It was originally created by James Loach at LBNL.
 
-Contributors: [James Loach](james.loach@gmail.com), Jodi Cooley, Adam Cox, Zheng Li, Khang Nguyen, Alan Poon, Benjamin Wise.
+Contributors: <a href="mailto:james.loach@gmail.com">James Loach</a>, Jodi Cooley, Adam Cox, Zheng Li, Khang Nguyen, Alan Poon, Benjamin Wise.
 
 Supporting institutions and collaborations: AARM (Assay and Acquisition of Radiopure Materials), Karlsruhe Institute of Technology (KIT), Lawrence Berkeley National Laboratory (LBNL), Shanghai Jiao Tong University (SJTU), Southern Methodist University (SMU).
 
 This work was partially supported by the National Science Foundation under Grant Number 1242640.
 
-If you want to help develop this code, contribute your data to the community database, or use the software in your experiment or institution then please [contact us](james.loach@gmail.com).
+If you want to help develop this code, contribute your data to the community database, or use the software in your experiment or institution then please <a href="mailto:james.loach@gmail.com">contact us</a>.
 
 # Usage
 
